@@ -1129,7 +1129,7 @@ pre .javascript .function {
   display: inline-block;
   vertical-align: top;
   line-height: 36px;
-  font-size: 50px;
+  font-size: 45px;
   font-weight: normal;
   font-family: 'Lobster Two', 'Lato', "PingFang SC", "Microsoft YaHei", sans-serif;
 }
@@ -1826,7 +1826,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #fff;
+  background: #fbc2e5;
 }
 .links-of-blogroll {
   font-size: 13px;
@@ -2673,4 +2673,7 @@ embed {
   height: 0px;
   border-radius: 50%;
   background: #000;
+}
+.posts-expand {
+  padding-top: 0px;
 }

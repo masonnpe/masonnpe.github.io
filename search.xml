@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[单例模式]]></title>
+    <url>%2F2018%2F10%2F08%2F%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%2F%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F%2F</url>
+    <content type="text"><![CDATA[饿汉1234567891011public class Singleton &#123; private Singleton() &#123; &#125; private static Singleton instance = new Singleton(); public static Singleton getInstance() &#123; return instance; &#125;&#125; 懒汉123456789101112131415161718public class Singleton &#123; private Singleton() &#123; &#125; private static volatile Singleton instance; public static Singleton getInstance() &#123; if (instance == null) &#123; synchronized (Singleton.class) &#123; if (instance == null) &#123; instance = new Singleton(); &#125; &#125; &#125; return instance; &#125;&#125; singleton=new Singleton();分三步：1. 分配内存空间 2. 初始化对象 3. 将singleton指向分配的内存地址。使用volatile禁止指令重排 静态内部类12345678910111213public class Singleton &#123; private Singleton() &#123; &#125; private static class SingletonHolder &#123; private static final Singleton INSTANCE = new Singleton(); &#125; public static Singleton getInstance() &#123; return SingletonHolder.INSTANCE; &#125;&#125; 枚举123public enum Singleton &#123; INSTANCE;&#125;]]></content>
+      <categories>
+        <category>设计模式</category>
+      </categories>
+      <tags>
+        <tag>设计模式</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[查找算法]]></title>
     <url>%2F2018%2F10%2F07%2F%E7%AE%97%E6%B3%95%2F%E6%9F%A5%E6%89%BE%2F</url>
     <content type="text"><![CDATA[二分查找1234567891011121314151617181920212223242526public class BinarySearch &#123; private static int search(int[] arr, int p, int q, int target) &#123; if (p &lt; q) &#123; int mid = (p + q) / 2; if (arr[mid] &gt; target) &#123; return search(arr, p, mid - 1, target); &#125; else if (arr[mid] == target) &#123; return mid; &#125; else &#123; return search(arr, mid + 1, q, target); &#125; &#125; return -1; &#125; public static void main(String[] args) &#123; int[] arr = &#123;1, 2, 3, 4, 5, 6, 7, 8, 9, 11, 13, 15, 17, 19&#125;; int index = search(arr, 0,arr.length-1,13); if (index != -1) &#123; System.out.println("下标" + index + "值为" + arr[index]); &#125; else &#123; System.err.println("不存在"); &#125; &#125;&#125; 12345678910111213141516171819202122232425262728public class BinarySearch &#123; private static int search(int[] arr, int target) &#123; int p = 0; int q = arr.length - 1; while (p &lt; q) &#123; int mid = (p + q) / 2; if (arr[mid] &gt; target) &#123; q = mid - 1; &#125; else if (arr[mid] == target) &#123; return mid; &#125; else &#123; p = mid + 1; &#125; &#125; return -1; &#125; public static void main(String[] args) &#123; int[] arr = &#123;1, 2, 3, 4, 5, 6, 7, 8, 9, 11, 13, 15, 17, 19&#125;; int index = search(arr, 13); if (index != -1) &#123; System.out.println("下标" + index + "值为" + arr[index]); &#125; else &#123; System.err.println("不存在"); &#125; &#125;&#125;]]></content>
@@ -8,7 +19,7 @@
         <category>算法</category>
       </categories>
       <tags>
-        <tag>查找</tag>
+        <tag>查找算法</tag>
       </tags>
   </entry>
   <entry>
@@ -19,7 +30,7 @@
         <category>算法</category>
       </categories>
       <tags>
-        <tag>排序</tag>
+        <tag>排序算法</tag>
       </tags>
   </entry>
 </search>
