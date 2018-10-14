@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://masonnpe.github.io/"/>
-  <updated>2018-10-08T13:20:58.356Z</updated>
+  <updated>2018-10-14T06:51:22.418Z</updated>
   <id>https://masonnpe.github.io/</id>
   
   <author>
@@ -15,6 +15,47 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Hadoop入门</title>
+    <link href="https://masonnpe.github.io/2018/10/14/%E5%A4%A7%E6%95%B0%E6%8D%AE/Hadoop%E5%85%A5%E9%97%A8/"/>
+    <id>https://masonnpe.github.io/2018/10/14/大数据/Hadoop入门/</id>
+    <published>2018-10-14T06:49:33.638Z</published>
+    <updated>2018-10-14T06:51:22.418Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="Hadoop优势"><a href="#Hadoop优势" class="headerlink" title="Hadoop优势"></a>Hadoop优势</h2><ul><li><p>高可靠性：因为Hadoop假设计算元素和存储会出现故障，因为它维护多个工作数据副本，在出现故障时可以对失败的节点重新分布处理</p></li><li><p>高扩展性：在集群间分配任务数据，可方便的扩展数以千计的节点</p></li><li><p>高效性：在MapReduce的思想下，Hadoop是并行工作的，以加快任务处理速度</p></li><li><p>高容错性：自动保存多份副本数据，并且能够自动将失败的任务重新分配</p></li></ul><h2 id="Hadoop组成"><a href="#Hadoop组成" class="headerlink" title="Hadoop组成"></a>Hadoop组成</h2><ul><li><p>Hadoop HDFS：一个高可靠、高吞吐量的分布式文件系统</p></li><li><p>Hadoop MapReduce：一个分布式的离线并行计算框架</p></li><li><p>Hadoop YARN：作业调度与集群资源管理的框架</p></li><li><p>Hadoop Common：支持其他模块的工具模块</p></li></ul><a id="more"></a><h2 id="HDFS架构概述"><a href="#HDFS架构概述" class="headerlink" title="HDFS架构概述"></a>HDFS架构概述</h2><ul><li><p>NameNode：存储文件的元数据，如文件名，文件目录结构，文件属性（生成时间、副本数、文件权限），以及每个文件的块列表和块所在的DataNode等</p></li><li><p>DataNode：在本地文件系统存储文件块数据，以及块数据的校验和</p></li><li><p>Secondary NameNode：用来监控HDFS状态的辅助后台程序，每隔一段时间获取HDFS元数据的快照</p></li></ul><h2 id="YARN架构概述"><a href="#YARN架构概述" class="headerlink" title="YARN架构概述"></a>YARN架构概述</h2><ul><li><p>ResourceManager：管理所有资源分类；处理客户端请求、启动/监控ApplicationMaster、监控NodeManager、资源分配与调度</p></li><li><p>NodeManager：管理每个节点资源；单个节点上的资源管理、处理来自ResourceManager的命令、处理来自ApplicationMaster的命令</p></li><li><p>ApplicationMaster：管理每个任务资源；数据切分、为应用程序申请资源，并分配给内部任务、任务监控与容错</p></li><li><p>Container：对任务运行环境的抽象，封装了CPU、内存等多维资源以及环境变量、启动命令等任务运行相关的信息</p></li></ul><h2 id="MapReduce架构概述"><a href="#MapReduce架构概述" class="headerlink" title="MapReduce架构概述"></a>MapReduce架构概述</h2><p>MapReduce将计算过程分为两个阶段：Map和Reduce，分而治之思想</p><ul><li><p>Map阶段并行处理输入数据</p></li><li><p>Reduce阶段对Map结果进行汇总</p></li></ul><h2 id="安装Hadoop"><a href="#安装Hadoop" class="headerlink" title="安装Hadoop"></a>安装Hadoop</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">cd /opt</span><br><span class="line">mkdir software</span><br><span class="line">mkdir module</span><br><span class="line">tar -zxf hadoop-2.7.2.tar.gz -C /opt/module/</span><br><span class="line">echo $JAVA_HOME # 获得jdk路径</span><br><span class="line">vi /opt/module/hadoop-2.7.2/etc/hadoop/hadoop-env.sh修改export JAVA_HOME</span><br><span class="line">pwd获得hadoop安装路径/opt/module/hadoop-2.7.2</span><br><span class="line"> vi /etc/profile  shitf+g到最下面 o修改</span><br></pre></td></tr></table></figure><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">export HADOOP_HOME=/opt/module/hadoop-2.7.2</span><br><span class="line">export PATH=$PATH:$HADOOP_HOME/bin</span><br><span class="line">export PATH=$PATH:$HADOOP_HOME/sbin</span><br></pre></td></tr></table></figure><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">source /etc/profile</span><br></pre></td></tr></table></figure><h2 id="本地文件运行Hadoop-案例"><a href="#本地文件运行Hadoop-案例" class="headerlink" title="本地文件运行Hadoop 案例"></a>本地文件运行Hadoop 案例</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">mkdir input</span><br><span class="line">cp etc/hadoop/*.xml input</span><br><span class="line">bin/hadoop jar share/hadoop/mapreduce/hadoop-mapreduce-examples-2.7.2.jar grep input output &apos;dfs[a-z.]+&apos;</span><br><span class="line">cat output/*</span><br></pre></td></tr></table></figure><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">mkdir wcinput</span><br><span class="line">cd wcinput</span><br><span class="line">touch wc.input</span><br><span class="line">vi wc.input</span><br><span class="line">hadoop jar share/hadoop/mapreduce/hadoop-mapreduce-examples-2.7.2.jar wordcount wcinput wcoutput</span><br><span class="line">cat wcoutput/part-r-00000</span><br></pre></td></tr></table></figure><h2 id="启动HDFS并运行MapReduce-程序"><a href="#启动HDFS并运行MapReduce-程序" class="headerlink" title="启动HDFS并运行MapReduce 程序"></a>启动HDFS并运行MapReduce 程序</h2><p>core-site.xml</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;property&gt;</span><br><span class="line">&lt;name&gt;fs.defaultFS&lt;/name&gt;</span><br><span class="line">    &lt;value&gt;hdfs://192.168.10.51:9000&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br><span class="line">&lt;property&gt;</span><br><span class="line">&lt;name&gt;hadoop.tmp.dir&lt;/name&gt;</span><br><span class="line">&lt;value&gt;/opt/module/hadoop-2.7.2/data/tmp&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br></pre></td></tr></table></figure><p>hdfs-site.xml</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;property&gt;</span><br><span class="line">&lt;name&gt;dfs.replication&lt;/name&gt;</span><br><span class="line">&lt;value&gt;1&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br></pre></td></tr></table></figure><p>启动集群</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">bin/hdfs namenode -format</span><br><span class="line">sbin/hadoop-daemon.sh start namenode</span><br><span class="line">sbin/hadoop-daemon.sh start datanode</span><br></pre></td></tr></table></figure><p>访问 <a href="http://192.168.10.51:50070/dfshealth.html#tab-overview" target="_blank" rel="noopener">http://192.168.10.51:50070/dfshealth.html#tab-overview</a></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">bin/hdfs dfs -mkdir -p /user/root/input</span><br><span class="line">bin/hdfs dfs -put wcinput/wc.input  /user/root/input/</span><br><span class="line">bin/hadoop jar share/hadoop/mapreduce/hadoop-mapreduce-examples-2.7.2.jar wordcount /user/root/input/ /user/root/output</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;Hadoop优势&quot;&gt;&lt;a href=&quot;#Hadoop优势&quot; class=&quot;headerlink&quot; title=&quot;Hadoop优势&quot;&gt;&lt;/a&gt;Hadoop优势&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;高可靠性：因为Hadoop假设计算元素和存储会出现故障，因为它维护多个工作数据副本，在出现故障时可以对失败的节点重新分布处理&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;高扩展性：在集群间分配任务数据，可方便的扩展数以千计的节点&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;高效性：在MapReduce的思想下，Hadoop是并行工作的，以加快任务处理速度&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;高容错性：自动保存多份副本数据，并且能够自动将失败的任务重新分配&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;Hadoop组成&quot;&gt;&lt;a href=&quot;#Hadoop组成&quot; class=&quot;headerlink&quot; title=&quot;Hadoop组成&quot;&gt;&lt;/a&gt;Hadoop组成&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;Hadoop HDFS：一个高可靠、高吞吐量的分布式文件系统&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Hadoop MapReduce：一个分布式的离线并行计算框架&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Hadoop YARN：作业调度与集群资源管理的框架&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Hadoop Common：支持其他模块的工具模块&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+    
+    </summary>
+    
+      <category term="大数据" scheme="https://masonnpe.github.io/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE/"/>
+    
+    
+      <category term="Hadoop" scheme="https://masonnpe.github.io/tags/Hadoop/"/>
+    
+  </entry>
   
   <entry>
     <title>单例模式</title>
