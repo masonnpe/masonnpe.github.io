@@ -1,47 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title><![CDATA[Hadoop入门]]></title>
-    <url>%2F2018%2F10%2F14%2F%E5%A4%A7%E6%95%B0%E6%8D%AE%2FHadoop%E5%85%A5%E9%97%A8%2F</url>
-    <content type="text"><![CDATA[Hadoop优势 高可靠性：因为Hadoop假设计算元素和存储会出现故障，因为它维护多个工作数据副本，在出现故障时可以对失败的节点重新分布处理 高扩展性：在集群间分配任务数据，可方便的扩展数以千计的节点 高效性：在MapReduce的思想下，Hadoop是并行工作的，以加快任务处理速度 高容错性：自动保存多份副本数据，并且能够自动将失败的任务重新分配 Hadoop组成 Hadoop HDFS：一个高可靠、高吞吐量的分布式文件系统 Hadoop MapReduce：一个分布式的离线并行计算框架 Hadoop YARN：作业调度与集群资源管理的框架 Hadoop Common：支持其他模块的工具模块 HDFS架构概述 NameNode：存储文件的元数据，如文件名，文件目录结构，文件属性（生成时间、副本数、文件权限），以及每个文件的块列表和块所在的DataNode等 DataNode：在本地文件系统存储文件块数据，以及块数据的校验和 Secondary NameNode：用来监控HDFS状态的辅助后台程序，每隔一段时间获取HDFS元数据的快照 YARN架构概述 ResourceManager：管理所有资源分类；处理客户端请求、启动/监控ApplicationMaster、监控NodeManager、资源分配与调度 NodeManager：管理每个节点资源；单个节点上的资源管理、处理来自ResourceManager的命令、处理来自ApplicationMaster的命令 ApplicationMaster：管理每个任务资源；数据切分、为应用程序申请资源，并分配给内部任务、任务监控与容错 Container：对任务运行环境的抽象，封装了CPU、内存等多维资源以及环境变量、启动命令等任务运行相关的信息 MapReduce架构概述MapReduce将计算过程分为两个阶段：Map和Reduce，分而治之思想 Map阶段并行处理输入数据 Reduce阶段对Map结果进行汇总 安装Hadoop12345678cd /optmkdir softwaremkdir moduletar -zxf hadoop-2.7.2.tar.gz -C /opt/module/echo $JAVA_HOME # 获得jdk路径vi /opt/module/hadoop-2.7.2/etc/hadoop/hadoop-env.sh修改export JAVA_HOMEpwd获得hadoop安装路径/opt/module/hadoop-2.7.2 vi /etc/profile shitf+g到最下面 o修改 123export HADOOP_HOME=/opt/module/hadoop-2.7.2export PATH=$PATH:$HADOOP_HOME/binexport PATH=$PATH:$HADOOP_HOME/sbin 1source /etc/profile 本地文件运行Hadoop 案例1234mkdir inputcp etc/hadoop/*.xml inputbin/hadoop jar share/hadoop/mapreduce/hadoop-mapreduce-examples-2.7.2.jar grep input output &apos;dfs[a-z.]+&apos;cat output/* 123456mkdir wcinputcd wcinputtouch wc.inputvi wc.inputhadoop jar share/hadoop/mapreduce/hadoop-mapreduce-examples-2.7.2.jar wordcount wcinput wcoutputcat wcoutput/part-r-00000 启动HDFS并运行MapReduce 程序core-site.xml 12345678&lt;property&gt; &lt;name&gt;fs.defaultFS&lt;/name&gt; &lt;value&gt;hdfs://192.168.10.51:9000&lt;/value&gt;&lt;/property&gt;&lt;property&gt; &lt;name&gt;hadoop.tmp.dir&lt;/name&gt; &lt;value&gt;/opt/module/hadoop-2.7.2/data/tmp&lt;/value&gt;&lt;/property&gt; hdfs-site.xml 1234&lt;property&gt; &lt;name&gt;dfs.replication&lt;/name&gt; &lt;value&gt;1&lt;/value&gt; &lt;/property&gt; 启动集群 123bin/hdfs namenode -formatsbin/hadoop-daemon.sh start namenodesbin/hadoop-daemon.sh start datanode 访问 http://192.168.10.51:50070/dfshealth.html#tab-overview 123bin/hdfs dfs -mkdir -p /user/root/inputbin/hdfs dfs -put wcinput/wc.input /user/root/input/bin/hadoop jar share/hadoop/mapreduce/hadoop-mapreduce-examples-2.7.2.jar wordcount /user/root/input/ /user/root/output]]></content>
+    <title><![CDATA[BASE理论]]></title>
+    <url>%2F2018%2F10%2F22%2F%E5%88%86%E5%B8%83%E5%BC%8F%2FBASE%E7%90%86%E8%AE%BA%2F</url>
+    <content type="text"><![CDATA[BASE理论是对CAP理论中一致性和可用性权衡的结果，如果无法做到强一致性，那就要采取合适的方法使系统达到最终一致性。传统的数据库系统要求强一致性(ACID)，BASE理论强调通过牺牲强一致性来达到可用性。在实际业务场景中，要结合业务对一致性的要求，将ACID和BASE结合起来使用。 基本可用(BasicallyAvailable)分布式系统在出现故障的时候，保证核心功能可用，允许损失部分可用性。 软状态(SoftState)允许系统中的数据存在中间状态，即系统不同节点的数据副本之间进行同步的过程存在时间延迟 最终一致性(EventuallyConsistent)系统中所有的数据副本，在经过一段时间的同步后，最终能达到一致的状态。]]></content>
       <categories>
-        <category>大数据</category>
+        <category>分布式</category>
       </categories>
       <tags>
-        <tag>Hadoop</tag>
+        <tag>BASE</tag>
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[单例模式]]></title>
-    <url>%2F2018%2F10%2F08%2F%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%2F%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F%2F</url>
-    <content type="text"><![CDATA[饿汉1234567891011public class Singleton &#123; private Singleton() &#123; &#125; private static Singleton instance = new Singleton(); public static Singleton getInstance() &#123; return instance; &#125;&#125; 懒汉123456789101112131415161718public class Singleton &#123; private Singleton() &#123; &#125; private static volatile Singleton instance; public static Singleton getInstance() &#123; if (instance == null) &#123; synchronized (Singleton.class) &#123; if (instance == null) &#123; instance = new Singleton(); &#125; &#125; &#125; return instance; &#125;&#125; singleton=new Singleton();分三步：1. 分配内存空间 2. 初始化对象 3. 将singleton指向分配的内存地址。使用volatile禁止指令重排 静态内部类12345678910111213public class Singleton &#123; private Singleton() &#123; &#125; private static class SingletonHolder &#123; private static final Singleton INSTANCE = new Singleton(); &#125; public static Singleton getInstance() &#123; return SingletonHolder.INSTANCE; &#125;&#125; 枚举123public enum Singleton &#123; INSTANCE;&#125;]]></content>
+    <title><![CDATA[CAP理论]]></title>
+    <url>%2F2018%2F10%2F22%2F%E5%88%86%E5%B8%83%E5%BC%8F%2FCAP%E7%90%86%E8%AE%BA%2F</url>
+    <content type="text"><![CDATA[分布式系统不可能同时满足一致性(Consistency)、可用性(Availability)、分区容忍性(Partition Tolerance)，最多只能同时满足其中两项，这就是CAP理论。在分布式系统中分区容忍性必不可少，所以CAP理论实际上是要在可用性和一致性之间做取舍。 一致性多个数据副本能保持一致，系统在执行数据更新操作之后能够从一致性状态转移到另一个一致性状态。如果系统的一个数据更新成功之后，所有用户都能够读取到最新的值，系统就被认为具有强一致性。 可用性分布式系统在面对各种异常时都可以提供正常服务，对于用户的每一个操作、请求总是能够在有限的时间内返回结果。 分区容忍性分布式系统在遇到任何网络分区故障的时候，仍然能对外提供一致性和可用性的服务，除非是整个网络环境都发生了故障。网络分区指分布式系统中的节点被划分为多个区域，每个区域内部可以通信，但是区域之间无法通信。]]></content>
       <categories>
-        <category>设计模式</category>
+        <category>分布式</category>
       </categories>
       <tags>
-        <tag>设计模式</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[查找算法]]></title>
-    <url>%2F2018%2F10%2F07%2F%E7%AE%97%E6%B3%95%2F%E6%9F%A5%E6%89%BE%2F</url>
-    <content type="text"><![CDATA[二分查找1234567891011121314151617181920212223242526public class BinarySearch &#123; private static int search(int[] arr, int p, int q, int target) &#123; if (p &lt; q) &#123; int mid = (p + q) / 2; if (arr[mid] &gt; target) &#123; return search(arr, p, mid - 1, target); &#125; else if (arr[mid] == target) &#123; return mid; &#125; else &#123; return search(arr, mid + 1, q, target); &#125; &#125; return -1; &#125; public static void main(String[] args) &#123; int[] arr = &#123;1, 2, 3, 4, 5, 6, 7, 8, 9, 11, 13, 15, 17, 19&#125;; int index = search(arr, 0,arr.length-1,13); if (index != -1) &#123; System.out.println("下标" + index + "值为" + arr[index]); &#125; else &#123; System.err.println("不存在"); &#125; &#125;&#125; 12345678910111213141516171819202122232425262728public class BinarySearch &#123; private static int search(int[] arr, int target) &#123; int p = 0; int q = arr.length - 1; while (p &lt; q) &#123; int mid = (p + q) / 2; if (arr[mid] &gt; target) &#123; q = mid - 1; &#125; else if (arr[mid] == target) &#123; return mid; &#125; else &#123; p = mid + 1; &#125; &#125; return -1; &#125; public static void main(String[] args) &#123; int[] arr = &#123;1, 2, 3, 4, 5, 6, 7, 8, 9, 11, 13, 15, 17, 19&#125;; int index = search(arr, 13); if (index != -1) &#123; System.out.println("下标" + index + "值为" + arr[index]); &#125; else &#123; System.err.println("不存在"); &#125; &#125;&#125;]]></content>
-      <categories>
-        <category>算法</category>
-      </categories>
-      <tags>
-        <tag>查找算法</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[排序算法]]></title>
-    <url>%2F2018%2F10%2F07%2F%E7%AE%97%E6%B3%95%2F%E6%8E%92%E5%BA%8F%2F</url>
-    <content type="text"><![CDATA[冒泡排序12345678910111213141516171819202122232425public class BubbleSort &#123; private static void sort(int[] arr) &#123; for (int i = 0; i &lt; arr.length; i++) &#123; boolean swapFlag = true; for (int j = 0; j &lt; arr.length - 1; j++) &#123; if (arr[j] &gt; arr[j + 1]) &#123; int temp = arr[j]; arr[j] = arr[j + 1]; arr[j + 1] = temp; swapFlag = false; &#125; &#125; if (swapFlag) &#123; break; &#125; &#125; &#125; public static void main(String[] args) &#123; int[] arr = &#123;1, 6, 3, 6, 8, 2, 7, 9, 8, 4&#125;; sort(arr); System.out.println(Arrays.toString(arr)); &#125;&#125; 选择排序123456789101112131415161718192021222324public class SelectionSort &#123; private static void sort(int[] arr) &#123; for (int i = 0; i &lt; arr.length - 1; i++) &#123; int minIndex = i; for (int j = i + 1; j &lt; arr.length; j++) &#123; if (arr[j] &lt; arr[minIndex]) &#123; minIndex = j; &#125; &#125; if (minIndex != i) &#123; int temp = arr[i]; arr[i] = arr[minIndex]; arr[minIndex] = temp; &#125; &#125; &#125; public static void main(String[] args) &#123; int[] arr = &#123;1, 6, 3, 6, 8, 2, 7, 9, 8, 4&#125;; sort(arr); System.out.println(Arrays.toString(arr)); &#125;&#125; 插入排序12345678910111213141516171819public class InsertSort &#123; private static void sort(int[] arr) &#123; for (int i = 1; i &lt; arr.length; i++) &#123; int last = arr[i]; int j; for (j = i; j &gt; 0 &amp;&amp; last &lt; arr[j - 1]; j--) &#123; arr[j] = arr[j - 1]; &#125; arr[j] = last; &#125; &#125; public static void main(String[] args) &#123; int[] arr = &#123;1, 6, 3, 6, 8, 2, 7, 9, 8, 4&#125;; sort(arr); System.out.println(Arrays.toString(arr)); &#125;&#125; 12345678910111213141516171819202122public class InsertSort &#123; private static void sort(int[] arr) &#123; int i = 1; while (i &lt; arr.length) &#123; int last = arr[i]; int j = i; while (j &gt; 0 &amp;&amp; last &lt; arr[j - 1]) &#123; arr[j] = arr[j - 1]; j--; &#125; arr[j] = last; i++; &#125; &#125; public static void main(String[] args) &#123; int[] arr = &#123;1, 6, 3, 6, 8, 2, 7, 9, 8, 4&#125;; sort(arr); System.out.println(Arrays.toString(arr)); &#125;&#125; 归并排序1234567891011121314151617181920212223242526272829303132333435363738394041public class MergeSort &#123; private static void sort(int[] arr, int left, int right, int[] temp) &#123; if (left &lt; right) &#123; int mid = (left + right) / 2; sort(arr, left, mid, temp);// 左子序列排序 sort(arr, mid + 1, right, temp);// 右子序列排序 merge(arr, left, mid, right, temp);// 合并左右子序列 &#125; &#125; private static void merge(int[] arr, int left, int mid, int right, int[] temp) &#123; int i = left;// 左子序列指针 int j = mid + 1;// 右子序列指针 int k = 0;// temp指针 while (i &lt;= mid &amp;&amp; j &lt;= right) &#123; if (arr[i] &lt;= arr[j]) &#123; temp[k++] = arr[i++]; &#125; if (arr[i] &gt; arr[j]) &#123; temp[k++] = arr[j++]; &#125; &#125; while (i &lt;= mid) &#123; temp[k++] = arr[i++]; &#125; while (j &lt;= right) &#123; temp[k++] = arr[j++]; &#125; k = 0; while (left &lt;= right) &#123; arr[left++] = temp[k++]; &#125; &#125; public static void main(String[] args) &#123; int[] arr = &#123;1, 6, 3, 6, 8, 2, 7, 9, 8, 4&#125;; sort(arr, 0, arr.length - 1, new int[arr.length]); System.out.println(Arrays.toString(arr)); &#125;&#125;]]></content>
-      <categories>
-        <category>算法</category>
-      </categories>
-      <tags>
-        <tag>排序算法</tag>
+        <tag>CAP</tag>
       </tags>
   </entry>
 </search>
