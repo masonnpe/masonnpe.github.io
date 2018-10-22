@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://masonnpe.github.io/"/>
-  <updated>2018-10-22T15:31:04.162Z</updated>
+  <updated>2018-10-22T15:57:43.868Z</updated>
   <id>https://masonnpe.github.io/</id>
   
   <author>
@@ -15,6 +15,132 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>数据库锁</title>
+    <link href="https://masonnpe.github.io/2018/10/22/%E6%95%B0%E6%8D%AE%E5%BA%93/%E6%95%B0%E6%8D%AE%E5%BA%93%E9%94%81/"/>
+    <id>https://masonnpe.github.io/2018/10/22/数据库/数据库锁/</id>
+    <published>2018-10-22T15:49:53.298Z</published>
+    <updated>2018-10-22T15:57:43.868Z</updated>
+    
+    <content type="html"><![CDATA[<table><thead><tr><th></th><th>共享锁(S)</th><th>排他锁(X)</th><th>意向共享锁(IS)</th><th>意向排他锁(IX)</th></tr></thead><tbody><tr><td><strong>共享锁</strong></td><td>兼容</td><td>冲突</td><td>兼容</td><td>冲突</td></tr><tr><td><strong>排他锁</strong></td><td>冲突</td><td>冲突</td><td>冲突</td><td>冲突</td></tr><tr><td><strong>意向共享锁</strong></td><td>兼容</td><td>冲突</td><td>兼容</td><td>兼容</td></tr><tr><td><strong>意向排他锁</strong></td><td>冲突</td><td>冲突</td><td>兼容</td><td>兼容</td></tr></tbody></table><a id="more"></a>]]></content>
+    
+    <summary type="html">
+    
+      &lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;&lt;/th&gt;
+&lt;th&gt;共享锁(S)&lt;/th&gt;
+&lt;th&gt;排他锁(X)&lt;/th&gt;
+&lt;th&gt;意向共享锁(IS)&lt;/th&gt;
+&lt;th&gt;意向排他锁(IX)&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;共享锁&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;兼容&lt;/td&gt;
+&lt;td&gt;冲突&lt;/td&gt;
+&lt;td&gt;兼容&lt;/td&gt;
+&lt;td&gt;冲突&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;排他锁&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;冲突&lt;/td&gt;
+&lt;td&gt;冲突&lt;/td&gt;
+&lt;td&gt;冲突&lt;/td&gt;
+&lt;td&gt;冲突&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;意向共享锁&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;兼容&lt;/td&gt;
+&lt;td&gt;冲突&lt;/td&gt;
+&lt;td&gt;兼容&lt;/td&gt;
+&lt;td&gt;兼容&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;意向排他锁&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;冲突&lt;/td&gt;
+&lt;td&gt;冲突&lt;/td&gt;
+&lt;td&gt;兼容&lt;/td&gt;
+&lt;td&gt;兼容&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+    
+    </summary>
+    
+      <category term="数据库" scheme="https://masonnpe.github.io/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
+    
+    
+      <category term="Lock" scheme="https://masonnpe.github.io/tags/Lock/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>数据库引擎</title>
+    <link href="https://masonnpe.github.io/2018/10/22/%E6%95%B0%E6%8D%AE%E5%BA%93/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%BC%95%E6%93%8E/"/>
+    <id>https://masonnpe.github.io/2018/10/22/数据库/数据库引擎/</id>
+    <published>2018-10-22T15:42:35.973Z</published>
+    <updated>2018-10-22T15:57:39.520Z</updated>
+    
+    <content type="html"><![CDATA[<table><thead><tr><th></th><th>Innodb</th><th>Myisam</th></tr></thead><tbody><tr><td>存储文件</td><td>.frm表定义文件 ibd数据文件</td><td>.frm表定义文件 .myd数据文件 .myi索引文件</td></tr><tr><td>锁</td><td>表锁、行锁</td><td>表锁</td></tr><tr><td>事务</td><td>ACID</td><td>不支持</td></tr><tr><td>CURD</td><td>读、写</td><td>读多</td></tr><tr><td>count</td><td>扫表</td><td>专门存储的地方</td></tr><tr><td>索引结构</td><td>B+Tree</td><td>B+Tree</td></tr></tbody></table><a id="more"></a>]]></content>
+    
+    <summary type="html">
+    
+      &lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;&lt;/th&gt;
+&lt;th&gt;Innodb&lt;/th&gt;
+&lt;th&gt;Myisam&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;存储文件&lt;/td&gt;
+&lt;td&gt;.frm表定义文件 ibd数据文件&lt;/td&gt;
+&lt;td&gt;.frm表定义文件 .myd数据文件 .myi索引文件&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;锁&lt;/td&gt;
+&lt;td&gt;表锁、行锁&lt;/td&gt;
+&lt;td&gt;表锁&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;事务&lt;/td&gt;
+&lt;td&gt;ACID&lt;/td&gt;
+&lt;td&gt;不支持&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;CURD&lt;/td&gt;
+&lt;td&gt;读、写&lt;/td&gt;
+&lt;td&gt;读多&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;count&lt;/td&gt;
+&lt;td&gt;扫表&lt;/td&gt;
+&lt;td&gt;专门存储的地方&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;索引结构&lt;/td&gt;
+&lt;td&gt;B+Tree&lt;/td&gt;
+&lt;td&gt;B+Tree&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+    
+    </summary>
+    
+      <category term="数据库" scheme="https://masonnpe.github.io/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
+    
+    
+      <category term="Innodb" scheme="https://masonnpe.github.io/tags/Innodb/"/>
+    
+      <category term="Myisam" scheme="https://masonnpe.github.io/tags/Myisam/"/>
+    
+  </entry>
   
   <entry>
     <title>BASE理论</title>
