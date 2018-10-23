@@ -1,6 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[Docker简介]]></title>
+    <url>%2F2018%2F10%2F23%2FDocker%2FDocker%E7%AE%80%E4%BB%8B%2F</url>
+    <content type="text"><![CDATA[Docker是一种虚拟化技术解决开发环境和生产环境环境一致的问题，通过Docker可以将程序运行的环境也纳入到版本控制中，解决一些项目交付时的麻烦。 底层技术支持Namespaces：通过Linux的Namespaces对不同的容器实现了隔离，包括进程、网络等信息。通过挂载点映射和宿主机的目录。 ControlGroups：隔离宿主机器上的物理资源，例如CPU、内存、磁盘I/O和网络带宽。 UnionFileSystems：container和image的分层。 image可以使用docker images ls命令查看本机的image 文件和metadata的集合 分层，每层都可以添加、改变、删除文件 image本身是只读的 获取方式 可以通过Dockerfile构建自己的image，使用docker build获取image 1234FROM ubuntu:15.04COPY . /appRUN make /appCMD python /app/app.py docker pull rabbitmq:management拉取image container可以使用docker container ls命令查看本机的container 通过image创建 类比面向对象：image是类，container是实例 负责运行 docker run -it xxx 可以进container里面进行一些操作]]></content>
+      <categories>
+        <category>Docker</category>
+      </categories>
+      <tags>
+        <tag>Docker</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[CentOS环境下安装Docker]]></title>
+    <url>%2F2018%2F10%2F23%2FDocker%2FCentOS%E7%8E%AF%E5%A2%83%E4%B8%8B%E5%AE%89%E8%A3%85Docker%2F</url>
+    <content type="text"><![CDATA[官方安装文档 123456789101112131415yum remove docker \ docker-client \ docker-client-latest \ docker-common \ docker-latest \ docker-latest-logrotate \ docker-logrotate \ docker-selinux \ docker-engine-selinux \ docker-engineyum install -y yum-utils device-mapper-persistent-data lvm2yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repoyum install -y docker-cesystemctl start dockerdocker version 也可以使用阿里的镜像，将第二步指令替换成： 1yum-config-manager --add-repo http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo]]></content>
+      <categories>
+        <category>Docker</category>
+      </categories>
+      <tags>
+        <tag>Docker</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[数据库锁]]></title>
     <url>%2F2018%2F10%2F22%2F%E6%95%B0%E6%8D%AE%E5%BA%93%2F%E6%95%B0%E6%8D%AE%E5%BA%93%E9%94%81%2F</url>
     <content type="text"><![CDATA[共享锁(S) 排他锁(X) 意向共享锁(IS) 意向排他锁(IX) 共享锁 兼容 冲突 兼容 冲突 排他锁 冲突 冲突 冲突 冲突 意向共享锁 兼容 冲突 兼容 兼容 意向排他锁 冲突 冲突 兼容 兼容]]></content>

@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://masonnpe.github.io/"/>
-  <updated>2018-10-22T15:57:43.868Z</updated>
+  <updated>2018-10-23T15:30:16.977Z</updated>
   <id>https://masonnpe.github.io/</id>
   
   <author>
@@ -15,6 +15,55 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Docker简介</title>
+    <link href="https://masonnpe.github.io/2018/10/23/Docker/Docker%E7%AE%80%E4%BB%8B/"/>
+    <id>https://masonnpe.github.io/2018/10/23/Docker/Docker简介/</id>
+    <published>2018-10-23T14:03:17.976Z</published>
+    <updated>2018-10-23T15:30:16.977Z</updated>
+    
+    <content type="html"><![CDATA[<p>Docker是一种虚拟化技术解决开发环境和生产环境环境一致的问题，通过Docker可以将程序运行的环境也纳入到版本控制中，解决一些项目交付时的麻烦。</p><p><img src="http://pgmrhouhm.bkt.clouddn.com/docker%E6%9E%B6%E6%9E%84.jpg" alt="docker架构"></p><h2 id="底层技术支持"><a href="#底层技术支持" class="headerlink" title="底层技术支持"></a>底层技术支持</h2><p>Namespaces：通过Linux的Namespaces对不同的容器实现了隔离，包括进程、网络等信息。通过挂载点映射和宿主机的目录。</p><p>ControlGroups：隔离宿主机器上的物理资源，例如CPU、内存、磁盘I/O和网络带宽。</p><p>UnionFileSystems：container和image的分层。</p><a id="more"></a><h2 id="image"><a href="#image" class="headerlink" title="image"></a>image</h2><p>可以使用<code>docker images ls</code>命令查看本机的image</p><ul><li><p>文件和metadata的集合</p></li><li><p>分层，每层都可以添加、改变、删除文件</p></li><li><p>image本身是只读的</p></li></ul><p><strong>获取方式</strong></p><ul><li>可以通过Dockerfile构建自己的image，使用<code>docker build</code>获取image</li></ul><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">FROM ubuntu:15.04</span><br><span class="line">COPY . /app</span><br><span class="line">RUN make /app</span><br><span class="line">CMD python /app/app.py</span><br></pre></td></tr></table></figure><ul><li><code>docker pull rabbitmq:management</code>拉取image</li></ul><h2 id="container"><a href="#container" class="headerlink" title="container"></a>container</h2><p>可以使用<code>docker container ls</code>命令查看本机的container </p><ul><li>通过image创建</li><li>类比面向对象：image是类，container是实例</li><li>负责运行</li></ul><p><code>docker run -it xxx</code> 可以进container里面进行一些操作</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;Docker是一种虚拟化技术解决开发环境和生产环境环境一致的问题，通过Docker可以将程序运行的环境也纳入到版本控制中，解决一些项目交付时的麻烦。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://pgmrhouhm.bkt.clouddn.com/docker%E6%9E%B6%E6%9E%84.jpg&quot; alt=&quot;docker架构&quot;&gt;&lt;/p&gt;
+&lt;h2 id=&quot;底层技术支持&quot;&gt;&lt;a href=&quot;#底层技术支持&quot; class=&quot;headerlink&quot; title=&quot;底层技术支持&quot;&gt;&lt;/a&gt;底层技术支持&lt;/h2&gt;&lt;p&gt;Namespaces：通过Linux的Namespaces对不同的容器实现了隔离，包括进程、网络等信息。通过挂载点映射和宿主机的目录。&lt;/p&gt;
+&lt;p&gt;ControlGroups：隔离宿主机器上的物理资源，例如CPU、内存、磁盘I/O和网络带宽。&lt;/p&gt;
+&lt;p&gt;UnionFileSystems：container和image的分层。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="Docker" scheme="https://masonnpe.github.io/categories/Docker/"/>
+    
+    
+      <category term="Docker" scheme="https://masonnpe.github.io/tags/Docker/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>CentOS环境下安装Docker</title>
+    <link href="https://masonnpe.github.io/2018/10/23/Docker/CentOS%E7%8E%AF%E5%A2%83%E4%B8%8B%E5%AE%89%E8%A3%85Docker/"/>
+    <id>https://masonnpe.github.io/2018/10/23/Docker/CentOS环境下安装Docker/</id>
+    <published>2018-10-23T13:25:01.305Z</published>
+    <updated>2018-10-23T14:00:00.540Z</updated>
+    
+    <content type="html"><![CDATA[<p><a href="https://docs.docker.com/install/linux/docker-ce/centos/" target="_blank" rel="noopener">官方安装文档</a></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">yum remove docker \</span><br><span class="line">           docker-client \</span><br><span class="line">           docker-client-latest \</span><br><span class="line">           docker-common \</span><br><span class="line">           docker-latest \</span><br><span class="line">           docker-latest-logrotate \</span><br><span class="line">           docker-logrotate \</span><br><span class="line">           docker-selinux \</span><br><span class="line">           docker-engine-selinux \</span><br><span class="line">           docker-engine</span><br><span class="line">yum install -y yum-utils device-mapper-persistent-data lvm2</span><br><span class="line">yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo</span><br><span class="line">yum install -y docker-ce</span><br><span class="line">systemctl start docker</span><br><span class="line">docker version</span><br></pre></td></tr></table></figure><a id="more"></a><p>也可以使用阿里的镜像，将第二步指令替换成：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum-config-manager --add-repo http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;a href=&quot;https://docs.docker.com/install/linux/docker-ce/centos/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;官方安装文档&lt;/a&gt;&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;yum remove docker \&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;           docker-client \&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;           docker-client-latest \&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;           docker-common \&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;           docker-latest \&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;           docker-latest-logrotate \&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;           docker-logrotate \&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;           docker-selinux \&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;           docker-engine-selinux \&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;           docker-engine&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;yum install -y yum-utils device-mapper-persistent-data lvm2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;yum install -y docker-ce&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;systemctl start docker&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;docker version&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+    
+    </summary>
+    
+      <category term="Docker" scheme="https://masonnpe.github.io/categories/Docker/"/>
+    
+    
+      <category term="Docker" scheme="https://masonnpe.github.io/tags/Docker/"/>
+    
+  </entry>
   
   <entry>
     <title>数据库锁</title>
