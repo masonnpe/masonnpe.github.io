@@ -1,6 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[TCP协议]]></title>
+    <url>%2F2018%2F10%2F24%2F%E5%88%86%E5%B8%83%E5%BC%8F%2FTCP%E5%8D%8F%E8%AE%AE%2F</url>
+    <content type="text"><![CDATA[TCP通信原理对于TCP通信来说，每个Socket的内核中都有一个发送缓冲区和一个接收缓冲区，TCP的全双工的工作模式及TCP的滑动窗口就是依赖于这两个独立的缓冲区和缓冲区填充状态。 接收缓冲区把数据缓存到内核，若应用进程一直没有调用Socket的read方法进行读取，那么该数据会一直被缓存在接收缓冲区内，不管进程是否读取Socket，对发送端发来的数据都会经过内核接收并缓存到Socket的内核接受缓冲区。 TCP报文段首部格式 序号seq：用于对字节流进行编号，例如序号为 101，表示第一个字节的编号为 101，如果携带的数据长度为 100 字节，那么下一个报文段的序号应为 201。 确认号ack：期望收到的下一个报文段的序号。例如 B 正确收到 A 发送来的一个报文段，序号为 501，携带的数据长度为 200 字节，因此 B 期望下一个报文段的序号为 701，B 发送给 A 的确认报文段中确认号就为 701。 数据偏移：指的是数据部分距离报文段起始处的偏移量，实际上指的是首部的长度。 确认ACK：当 ACK=1 时确认号字段有效，否则无效。TCP 规定在连接建立后所有传送的报文段都必须把 ACK 置 1。 同步SYN：在连接建立时用来同步序号。当 SYN=1，ACK=0 时表示这是一个连接请求报文段。若对方同意建立连接，则响应报文中 SYN=1，ACK=1。 终止FIN：用来释放一个连接，当 FIN=1 时，表示此报文段的发送方的数据已发送完毕，并要求释放连接。 窗口：窗口值作为接收方让发送方设置其发送窗口的依据。之所以要有这个限制，是因为接收方的数据缓存空间是有限的。 三次握手 第一次握手：Client 向 Server 发送连接请求报文SYN=1，随机产生一个值seq= x给Server，Client 进入SYN_SENT状态，等待Server确认。 第二次握手：Server 收到连接请求报文，由标志位SYN=1知道Client请求建立连接,Server 向Client 发送连接确认报文SYN=1，ACK=1，seq为 x+1，同时随机产生一个值seq= y,Server进入SYN_RCVD状态 第三次握手：Client 收到 Server 的连接确认报文后,检查ACK是否为1，ack是否为x+1,如果正确则还要向 Server 发出确认，ack为 y+1,将标志位ACK置为1。Server检查ack是否为y+1,ACK是否为1，如果正确则连接建立成功，Client和Server进入ESTABLISHED状态，完成三次握手，开始传输数据。 SYN攻击时一种典型的DDOS攻击，就是Client在短时间内伪造大量不存在的IP地址，并向Server不断地发送SYN包，Server回复确认包，并等待Client的确认，由于源地址是不存在的，因此，Server需要不断重发直至超时，这些伪造的SYN包将产时间占用未连接队列，导致正常的SYN请求因为队列满而被丢弃，从而引起网络堵塞甚至系统瘫痪。 三次握手的原因第三次握手是为了防止失效的连接请求到达服务器，让服务器错误打开连接。客户端发送的连接请求如果在网络中延迟，那么就会隔很长一段时间才能收到服务器端发回的连接确认。客户端等待一个超时重传时间之后，就会重新请求连接。但是这个滞留的连接请求最后还是会到达服务器，如果不进行三次握手，那么服务器就会打开两个连接。如果有第三次握手，客户端会忽略服务器之后发送的对滞留连接请求的连接确认，不进行第三次握手，因此就不会再次打开连接。 四次挥手 第一次挥手：Client 发送连接释放报文，FIN=1，用来关闭Client到Server的数据传送，Client进入FIN_WAIT_1状态。 第二次挥手：Server 收到FIN后之后发出确认，此时 TCP 属于半关闭状态，Server 能向 Client 发送数据但是 Client 不能向 Server 发送数据。发送一个ACK给Client，ack为u+1后进入CLOSE_WAIT状态。 第三次挥手：当Server 不再需要连接时，发送连接释放报文，FIN=1用来关闭Server到Client的数据传送，Server进入LAST_ACK状态 第四次挥手：Client 收到后FIN后进入 TIME-WAIT 状态，发出确认，等待 2 MSL（最大报文存活时间）后释放连接。Server 收到 Client 的确认后进入CLOSED状态 四次挥手的原因客户端发送了 FIN 连接释放报文之后，服务器收到了这个报文，就进入了 CLOSE-WAIT 状态。这个状态是为了让服务器端发送还未传送完毕的数据，传送完毕之后，服务器会发送 FIN 连接释放报文。 TIME_WAIT客户端接收到服务器端的 FIN 报文后进入此状态，此时并不是直接进入 CLOSED 状态，还需要等待一个时间计时器设置的时间 2MSL。这么做有两个理由 确保最后一个确认报文能够到达。如果Server 没收到Client 发送来的确认报文，那么就会重新发送连接释放请求报文，Client 等待一段时间就是为了处理这种情况的发生。 等待一段时间是为了让本连接持续时间内所产生的所有报文都从网络中消失，使得下一个新的连接不会出现旧的连接请求报文。 滑动窗口窗口是缓存的一部分，用来暂时存放字节流。发送方和接收方各有一个窗口，接收方通过 TCP 报文段中的窗口字段告诉发送方自己的窗口大小，发送方根据这个值和其它信息设置自己的窗口大小。 发送窗口内的字节都允许被发送，接收窗口内的字节都允许被接收。如果发送窗口左部的字节已经发送并且收到了确认，那么就将发送窗口向右滑动一定距离，直到左部第一个字节不是已发送并且已确认的状态；接收窗口的滑动类似，接收窗口左部字节已经发送确认并交付主机，就向右滑动接收窗口。 接收窗口只会对窗口内最后一个按序到达的字节进行确认，例如接收窗口已经收到的字节为 {31, 34, 35}，其中 {31} 按序到达，而 {34, 35} 就不是，因此只对字节 31 进行确认。发送方得到一个字节的确认之后，就知道这个字节之前的所有字节都已经被接收。 超时重发当发送者向接收者发包后，如果过了一段时间(超时时间)依然没有收到消息，就当做本次包丢失，需要重新补发。并且如果一次性发了三个包，只要最后一个包确认收到之后就默认前面两个也收到了。]]></content>
+      <categories>
+        <category>分布式</category>
+      </categories>
+      <tags>
+        <tag>TCP</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Dockerfile语法]]></title>
+    <url>%2F2018%2F10%2F24%2FDocker%2FDockerfile%E8%AF%AD%E6%B3%95%2F</url>
+    <content type="text"><![CDATA[12345678910111213FROM scratch # 制作baseimageFROM centos # 使用baseimageLABEL version="1.0" # 定义metadataRUN set -ex; # 执行命令并创建新的imagelayerWORKDIR demo # 创建目录并进入，默认根目录/testADD hello / # 将本地文件添加到里面ADD test.tar.gz / # 添加到根目录并解压COPY docker-entrypoint.sh /usr/local/bin/ # 添加文件，但不能解压ENV GOSU_VERSION 1.7 # 设置常量 使用$GOSU_VERSION引用常量VOLUME /var/lib/mysql # 存储EXPOSE 3306 33060 # 网络CMD ["mysqld"] # 设置容器启动后默认执行的命令和参数ENTRYPOINT ["docker-entrypoint.sh"] # 设置容器启动时运行的命令 docker-library里有官方收录的Dockerfile，可以作为参考 12docker build -t imagename path # 构建imagedocker run imagename # 运行]]></content>
+      <categories>
+        <category>Docker</category>
+      </categories>
+      <tags>
+        <tag>Docker</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[Docker简介]]></title>
     <url>%2F2018%2F10%2F23%2FDocker%2FDocker%E7%AE%80%E4%BB%8B%2F</url>
     <content type="text"><![CDATA[Docker是一种虚拟化技术解决开发环境和生产环境环境一致的问题，通过Docker可以将程序运行的环境也纳入到版本控制中，解决一些项目交付时的麻烦。 底层技术支持Namespaces：通过Linux的Namespaces对不同的容器实现了隔离，包括进程、网络等信息。通过挂载点映射和宿主机的目录。 ControlGroups：隔离宿主机器上的物理资源，例如CPU、内存、磁盘I/O和网络带宽。 UnionFileSystems：container和image的分层。 image可以使用docker images ls命令查看本机的image 文件和metadata的集合 分层，每层都可以添加、改变、删除文件 image本身是只读的 获取方式 可以通过Dockerfile构建自己的image，使用docker build获取image 1234FROM ubuntu:15.04COPY . /appRUN make /appCMD python /app/app.py docker pull rabbitmq:management拉取image container可以使用docker container ls命令查看本机的container 通过image创建 类比面向对象：image是类，container是实例 负责运行 docker run -it xxx 可以进container里面进行一些操作]]></content>

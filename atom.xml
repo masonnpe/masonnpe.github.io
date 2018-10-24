@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://masonnpe.github.io/"/>
-  <updated>2018-10-23T15:30:16.977Z</updated>
+  <updated>2018-10-24T15:33:23.675Z</updated>
   <id>https://masonnpe.github.io/</id>
   
   <author>
@@ -15,6 +15,53 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>TCP协议</title>
+    <link href="https://masonnpe.github.io/2018/10/24/%E5%88%86%E5%B8%83%E5%BC%8F/TCP%E5%8D%8F%E8%AE%AE/"/>
+    <id>https://masonnpe.github.io/2018/10/24/分布式/TCP协议/</id>
+    <published>2018-10-24T15:32:28.983Z</published>
+    <updated>2018-10-24T15:33:23.675Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="TCP通信原理"><a href="#TCP通信原理" class="headerlink" title="TCP通信原理"></a>TCP通信原理</h2><p>对于TCP通信来说，每个Socket的内核中都有一个发送缓冲区和一个接收缓冲区，TCP的全双工的工作模式及TCP的滑动窗口就是依赖于这两个独立的缓冲区和缓冲区填充状态。 </p><p>接收缓冲区把数据缓存到内核，若应用进程一直没有调用Socket的read方法进行读取，那么该数据会一直被缓存在接收缓冲区内，不管进程是否读取Socket，对发送端发来的数据都会经过内核接收并缓存到Socket的内核接受缓冲区。</p><a id="more"></a><h2 id="TCP报文段首部格式"><a href="#TCP报文段首部格式" class="headerlink" title="TCP报文段首部格式"></a>TCP报文段首部格式</h2><p><img src="http://pgmrhouhm.bkt.clouddn.com/%E9%A6%96%E9%83%A8%E6%A0%BC%E5%BC%8F.png" alt="首部格式"></p><p><strong>序号seq</strong>：用于对字节流进行编号，例如序号为 101，表示第一个字节的编号为 101，如果携带的数据长度为 100 字节，那么下一个报文段的序号应为 201。</p><p><strong>确认号ack</strong>：期望收到的下一个报文段的序号。例如 B 正确收到 A 发送来的一个报文段，序号为 501，携带的数据长度为 200 字节，因此 B 期望下一个报文段的序号为 701，B 发送给 A 的确认报文段中确认号就为 701。</p><p><strong>数据偏移</strong>：指的是数据部分距离报文段起始处的偏移量，实际上指的是首部的长度。</p><p><strong>确认ACK</strong>：当 ACK=1 时确认号字段有效，否则无效。TCP 规定在连接建立后所有传送的报文段都必须把 ACK 置 1。</p><p><strong>同步SYN</strong>：在连接建立时用来同步序号。当 SYN=1，ACK=0 时表示这是一个连接请求报文段。若对方同意建立连接，则响应报文中 SYN=1，ACK=1。</p><p><strong>终止FIN</strong>：用来释放一个连接，当 FIN=1 时，表示此报文段的发送方的数据已发送完毕，并要求释放连接。</p><p><strong>窗口</strong>：窗口值作为接收方让发送方设置其发送窗口的依据。之所以要有这个限制，是因为接收方的数据缓存空间是有限的。</p><!--more--><h2 id="三次握手"><a href="#三次握手" class="headerlink" title="三次握手"></a>三次握手</h2><p><img src="http://pgmrhouhm.bkt.clouddn.com/%E4%B8%89%E6%AC%A1%E6%8F%A1%E6%89%8B.png" alt="三次握手"></p><p><strong>第一次握手</strong>：Client 向 Server 发送连接请求报文SYN=1，随机产生一个值seq= x给Server，Client 进入SYN_SENT状态，等待Server确认。</p><p><strong>第二次握手</strong>：Server 收到连接请求报文，由标志位SYN=1知道Client请求建立连接,Server 向Client 发送连接确认报文SYN=1，ACK=1，seq为 x+1，同时随机产生一个值seq= y,Server进入SYN_RCVD状态</p><p><strong>第三次握手</strong>：Client 收到 Server  的连接确认报文后,检查ACK是否为1，ack是否为x+1,如果正确则还要向 Server  发出确认，ack为 y+1,将标志位ACK置为1。Server检查ack是否为y+1,ACK是否为1，如果正确则连接建立成功，Client和Server进入ESTABLISHED状态，完成三次握手，开始传输数据。</p><blockquote><p>SYN攻击时一种典型的DDOS攻击，就是Client在短时间内伪造大量不存在的IP地址，并向Server不断地发送SYN包，Server回复确认包，并等待Client的确认，由于源地址是不存在的，因此，Server需要不断重发直至超时，这些伪造的SYN包将产时间占用未连接队列，导致正常的SYN请求因为队列满而被丢弃，从而引起网络堵塞甚至系统瘫痪。</p></blockquote><h3 id="三次握手的原因"><a href="#三次握手的原因" class="headerlink" title="三次握手的原因"></a>三次握手的原因</h3><p>第三次握手是为了防止失效的连接请求到达服务器，让服务器错误打开连接。客户端发送的连接请求如果在网络中延迟，那么就会隔很长一段时间才能收到服务器端发回的连接确认。客户端等待一个超时重传时间之后，就会重新请求连接。但是这个滞留的连接请求最后还是会到达服务器，如果不进行三次握手，那么服务器就会打开两个连接。如果有第三次握手，客户端会忽略服务器之后发送的对滞留连接请求的连接确认，不进行第三次握手，因此就不会再次打开连接。</p><h2 id="四次挥手"><a href="#四次挥手" class="headerlink" title="四次挥手"></a>四次挥手</h2><p><img src="http://pgmrhouhm.bkt.clouddn.com/%E5%9B%9B%E6%AC%A1%E6%8C%A5%E6%89%8B.jpg" alt="四次挥手"></p><p><strong>第一次挥手</strong>：Client 发送连接释放报文，FIN=1，用来关闭Client到Server的数据传送，Client进入FIN_WAIT_1状态。</p><p><strong>第二次挥手</strong>：Server 收到FIN后之后发出确认，此时 TCP 属于半关闭状态，Server  能向 Client 发送数据但是 Client  不能向 Server  发送数据。发送一个ACK给Client，ack为u+1后进入CLOSE_WAIT状态。</p><p><strong>第三次挥手</strong>：当Server 不再需要连接时，发送连接释放报文，FIN=1用来关闭Server到Client的数据传送，Server进入LAST_ACK状态</p><p><strong>第四次挥手</strong>：Client 收到后FIN后进入 TIME-WAIT 状态，发出确认，等待 2 MSL（最大报文存活时间）后释放连接。Server  收到 Client  的确认后进入CLOSED状态</p><h3 id="四次挥手的原因"><a href="#四次挥手的原因" class="headerlink" title="四次挥手的原因"></a>四次挥手的原因</h3><p>客户端发送了 FIN 连接释放报文之后，服务器收到了这个报文，就进入了 CLOSE-WAIT 状态。这个状态是为了让服务器端发送还未传送完毕的数据，传送完毕之后，服务器会发送 FIN 连接释放报文。</p><h3 id="TIME-WAIT"><a href="#TIME-WAIT" class="headerlink" title="TIME_WAIT"></a>TIME_WAIT</h3><p>客户端接收到服务器端的 FIN 报文后进入此状态，此时并不是直接进入 CLOSED 状态，还需要等待一个时间计时器设置的时间 2MSL。这么做有两个理由</p><ul><li>确保最后一个确认报文能够到达。如果Server  没收到Client 发送来的确认报文，那么就会重新发送连接释放请求报文，Client  等待一段时间就是为了处理这种情况的发生。</li><li>等待一段时间是为了让本连接持续时间内所产生的所有报文都从网络中消失，使得下一个新的连接不会出现旧的连接请求报文。</li></ul><h2 id="滑动窗口"><a href="#滑动窗口" class="headerlink" title="滑动窗口"></a>滑动窗口</h2><p>窗口是缓存的一部分，用来暂时存放字节流。发送方和接收方各有一个窗口，接收方通过 TCP 报文段中的窗口字段告诉发送方自己的窗口大小，发送方根据这个值和其它信息设置自己的窗口大小。</p><p>发送窗口内的字节都允许被发送，接收窗口内的字节都允许被接收。如果发送窗口左部的字节已经发送并且收到了确认，那么就将发送窗口向右滑动一定距离，直到左部第一个字节不是已发送并且已确认的状态；接收窗口的滑动类似，接收窗口左部字节已经发送确认并交付主机，就向右滑动接收窗口。</p><p>接收窗口只会对窗口内最后一个按序到达的字节进行确认，例如接收窗口已经收到的字节为 {31, 34, 35}，其中 {31} 按序到达，而 {34, 35} 就不是，因此只对字节 31 进行确认。发送方得到一个字节的确认之后，就知道这个字节之前的所有字节都已经被接收。</p><p><img src="http://pgmrhouhm.bkt.clouddn.com/%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3.jpg" alt="滑动窗口"></p><h3 id="超时重发"><a href="#超时重发" class="headerlink" title="超时重发"></a>超时重发</h3><p>当发送者向接收者发包后，如果过了一段时间(超时时间)依然没有收到消息，就当做本次包丢失，需要重新补发。并且如果一次性发了三个包，只要最后一个包确认收到之后就默认前面两个也收到了。</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;TCP通信原理&quot;&gt;&lt;a href=&quot;#TCP通信原理&quot; class=&quot;headerlink&quot; title=&quot;TCP通信原理&quot;&gt;&lt;/a&gt;TCP通信原理&lt;/h2&gt;&lt;p&gt;对于TCP通信来说，每个Socket的内核中都有一个发送缓冲区和一个接收缓冲区，TCP的全双工的工作模式及TCP的滑动窗口就是依赖于这两个独立的缓冲区和缓冲区填充状态。 &lt;/p&gt;
+&lt;p&gt;接收缓冲区把数据缓存到内核，若应用进程一直没有调用Socket的read方法进行读取，那么该数据会一直被缓存在接收缓冲区内，不管进程是否读取Socket，对发送端发来的数据都会经过内核接收并缓存到Socket的内核接受缓冲区。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="分布式" scheme="https://masonnpe.github.io/categories/%E5%88%86%E5%B8%83%E5%BC%8F/"/>
+    
+    
+      <category term="TCP" scheme="https://masonnpe.github.io/tags/TCP/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Dockerfile语法</title>
+    <link href="https://masonnpe.github.io/2018/10/24/Docker/Dockerfile%E8%AF%AD%E6%B3%95/"/>
+    <id>https://masonnpe.github.io/2018/10/24/Docker/Dockerfile语法/</id>
+    <published>2018-10-24T12:25:46.450Z</published>
+    <updated>2018-10-24T14:34:39.797Z</updated>
+    
+    <content type="html"><![CDATA[<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">FROM</span> scratch <span class="comment"># 制作baseimage</span></span><br><span class="line"><span class="keyword">FROM</span> centos <span class="comment"># 使用baseimage</span></span><br><span class="line"><span class="keyword">LABEL</span> version="1.0" # 定义metadata</span><br><span class="line">RUN set -ex; # 执行命令并创建新的imagelayer</span><br><span class="line">WORKDIR demo # 创建目录并进入，默认根目录/test</span><br><span class="line">ADD hello / # 将本地文件添加到里面</span><br><span class="line">ADD test.tar.gz / # 添加到根目录并解压</span><br><span class="line">COPY docker-entrypoint.sh /usr/local/bin/ # 添加文件，但不能解压</span><br><span class="line">ENV GOSU_VERSION 1.7 # 设置常量  使用$GOSU_VERSION引用常量</span><br><span class="line">VOLUME /var/lib/mysql # 存储</span><br><span class="line">EXPOSE 3306 33060 # 网络</span><br><span class="line">CMD ["mysqld"] # 设置容器启动后默认执行的命令和参数</span><br><span class="line">ENTRYPOINT ["docker-entrypoint.sh"] # 设置容器启动时运行的命令</span><br></pre></td></tr></table></figure><p><a href="https://github.com/docker-library/" target="_blank" rel="noopener">docker-library</a>里有官方收录的Dockerfile，可以作为参考</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker build -t imagename path # 构建image</span><br><span class="line">docker run imagename # 运行</span><br></pre></td></tr></table></figure><a id="more"></a>]]></content>
+    
+    <summary type="html">
+    
+      &lt;figure class=&quot;highlight dockerfile&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;FROM&lt;/span&gt; scratch &lt;span class=&quot;comment&quot;&gt;# 制作baseimage&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;FROM&lt;/span&gt; centos &lt;span class=&quot;comment&quot;&gt;# 使用baseimage&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;LABEL&lt;/span&gt; version=&quot;1.0&quot; # 定义metadata&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;RUN set -ex; # 执行命令并创建新的imagelayer&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;WORKDIR demo # 创建目录并进入，默认根目录/test&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;ADD hello / # 将本地文件添加到里面&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;ADD test.tar.gz / # 添加到根目录并解压&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;COPY docker-entrypoint.sh /usr/local/bin/ # 添加文件，但不能解压&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;ENV GOSU_VERSION 1.7 # 设置常量  使用$GOSU_VERSION引用常量&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;VOLUME /var/lib/mysql # 存储&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;EXPOSE 3306 33060 # 网络&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;CMD [&quot;mysqld&quot;] # 设置容器启动后默认执行的命令和参数&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;ENTRYPOINT [&quot;docker-entrypoint.sh&quot;] # 设置容器启动时运行的命令&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;&lt;a href=&quot;https://github.com/docker-library/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;docker-library&lt;/a&gt;里有官方收录的Dockerfile，可以作为参考&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;docker build -t imagename path # 构建image&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;docker run imagename # 运行&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+    
+    </summary>
+    
+      <category term="Docker" scheme="https://masonnpe.github.io/categories/Docker/"/>
+    
+    
+      <category term="Docker" scheme="https://masonnpe.github.io/tags/Docker/"/>
+    
+  </entry>
   
   <entry>
     <title>Docker简介</title>
