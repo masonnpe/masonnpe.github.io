@@ -132,7 +132,7 @@
 <meta property="og:site_name" content="Masonnpe&#39;s Blog">
 <meta property="og:description" content="HTTP是一个应用层协议，也是一个无状态的协议，由请求和响应构成，是一个标准的客户端服务器模型。通常承载于TCP协议之上，有时也承载于TLS或SSL协议层之上，这个时候，就成了我们常说的HTTPS。 HTTP状态码服务器返回的  响应报文  中第一行为状态行，包含了状态码以及原因短语，用来告知客户端请求的结果。    状态码 类别 原因短语     1XX Informational（信息性状态码">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-10-24T16:00:02.446Z">
+<meta property="og:updated_time" content="2018-10-26T13:54:50.213Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="HTTP状态码和首部">
 <meta name="twitter:description" content="HTTP是一个应用层协议，也是一个无状态的协议，由请求和响应构成，是一个标准的客户端服务器模型。通常承载于TCP协议之上，有时也承载于TLS或SSL协议层之上，这个时候，就成了我们常说的HTTPS。 HTTP状态码服务器返回的  响应报文  中第一行为状态行，包含了状态码以及原因短语，用来告知客户端请求的结果。    状态码 类别 原因短语     1XX Informational（信息性状态码">
@@ -726,6 +726,13 @@
 </tr>
 </tbody>
 </table>
+<h3 id="Cache-Control"><a href="#Cache-Control" class="headerlink" title="Cache-Control"></a>Cache-Control</h3><p>HTTP/1.1 通过 Cache-Control 首部字段来控制缓存。</p>
+<p>Cache-Control: no-store指令规定不能对请求或响应的任何一部分进行缓存。</p>
+<p>Cache-Control: no-cache指令规定缓存服务器需要先向源服务器验证缓存资源的有效性，只有当缓存资源有效才将能使用该缓存对客户端的请求进行响应。</p>
+<p>Cache-Control: max-age 指令出现在请求报文中，并且缓存资源的缓存时间小于该指令指定的时间，那么就能接受该缓存；出现在响应报文中，表示缓存资源在缓存服务器中保存的时间。</p>
+<p>Expires 首部字段也可以用于告知缓存服务器该资源什么时候会过期。</p>
+<h3 id="缓存验证"><a href="#缓存验证" class="headerlink" title="缓存验证"></a>缓存验证</h3><p>需要先了解 ETag 首部字段的含义，它是资源的唯一标识。URL 不能唯一表示资源。可以将缓存资源的 ETag 值放入 If-None-Match 首部，服务器收到该请求后，判断缓存资源的 ETag 值和资源的最新 ETag 值是否一致，如果一致则表示缓存资源有效，返回 304 Not Modified。</p>
+<p>Last-Modified 首部字段也可以用于缓存验证，它包含在源服务器发送的响应报文中，指示源服务器对资源的最后修改时间。但是它是一种弱校验器，因为只能精确到一秒，所以它通常作为 ETag 的备用方案。如果响应首部字段里含有这个信息，客户端可以在后续的请求中带上 If-Modified-Since 来验证缓存。服务器只在所请求的资源在给定的日期时间之后对内容进行过修改的情况下才会将资源返回，状态码为 200 OK。如果请求的资源从那时起未经修改，那么返回一个不带有消息主体的 304 Not Modified 响应。</p>
 
       
     </div>
@@ -765,6 +772,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/10/26/分布式/Cookie/" rel="prev" title="Cookie">
+                Cookie <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -850,7 +861,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-count">19</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -872,7 +883,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-count">20</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -986,7 +997,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#HTTP状态码"><span class="nav-number">1.</span> <span class="nav-text">HTTP状态码</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1XX-信息"><span class="nav-number">1.1.</span> <span class="nav-text">1XX 信息</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2XX-成功"><span class="nav-number">1.2.</span> <span class="nav-text">2XX 成功</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3XX-重定向"><span class="nav-number">1.3.</span> <span class="nav-text">3XX 重定向</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4XX-客户端错误"><span class="nav-number">1.4.</span> <span class="nav-text">4XX 客户端错误</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5XX-服务器错误"><span class="nav-number">1.5.</span> <span class="nav-text">5XX 服务器错误</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HTTP首部"><span class="nav-number">2.</span> <span class="nav-text">HTTP首部</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#通用首部字段"><span class="nav-number">2.1.</span> <span class="nav-text">通用首部字段</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#请求首部字段"><span class="nav-number">2.2.</span> <span class="nav-text">请求首部字段</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#响应首部字段"><span class="nav-number">2.3.</span> <span class="nav-text">响应首部字段</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实体首部字段"><span class="nav-number">2.4.</span> <span class="nav-text">实体首部字段</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#HTTP状态码"><span class="nav-number">1.</span> <span class="nav-text">HTTP状态码</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1XX-信息"><span class="nav-number">1.1.</span> <span class="nav-text">1XX 信息</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2XX-成功"><span class="nav-number">1.2.</span> <span class="nav-text">2XX 成功</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3XX-重定向"><span class="nav-number">1.3.</span> <span class="nav-text">3XX 重定向</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4XX-客户端错误"><span class="nav-number">1.4.</span> <span class="nav-text">4XX 客户端错误</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5XX-服务器错误"><span class="nav-number">1.5.</span> <span class="nav-text">5XX 服务器错误</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HTTP首部"><span class="nav-number">2.</span> <span class="nav-text">HTTP首部</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#通用首部字段"><span class="nav-number">2.1.</span> <span class="nav-text">通用首部字段</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#请求首部字段"><span class="nav-number">2.2.</span> <span class="nav-text">请求首部字段</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#响应首部字段"><span class="nav-number">2.3.</span> <span class="nav-text">响应首部字段</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实体首部字段"><span class="nav-number">2.4.</span> <span class="nav-text">实体首部字段</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Cache-Control"><span class="nav-number">2.5.</span> <span class="nav-text">Cache-Control</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#缓存验证"><span class="nav-number">2.6.</span> <span class="nav-text">缓存验证</span></a></li></ol></li></ol></div>
             
 
           </div>

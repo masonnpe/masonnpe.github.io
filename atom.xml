@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://masonnpe.github.io/"/>
-  <updated>2018-10-24T16:00:02.446Z</updated>
+  <updated>2018-10-26T15:52:21.051Z</updated>
   <id>https://masonnpe.github.io/</id>
   
   <author>
@@ -17,13 +17,291 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>SQL语句优化</title>
+    <link href="https://masonnpe.github.io/2018/10/26/%E6%95%B0%E6%8D%AE%E5%BA%93/SQL%E8%AF%AD%E5%8F%A5%E4%BC%98%E5%8C%96/"/>
+    <id>https://masonnpe.github.io/2018/10/26/数据库/SQL语句优化/</id>
+    <published>2018-10-26T15:49:38.482Z</published>
+    <updated>2018-10-26T15:52:21.051Z</updated>
+    
+    <content type="html"><![CDATA[<ul><li>只返回必要的列，减少查询字段数，不使用select *</li><li>只返回必要的行   limit限制返回的数据， 确定只要一行数据时使用limit 1</li><li>缓存重复查询的数据</li><li>使用索引减少扫描次数</li><li>切分大查询 如果一个大查询如果一次性执行的话，可能一次锁住很多数据、占满整个事务日志、耗尽系统资源、阻塞很多小的但重要的查询，所以要切分</li><li>分解大连接查询   让缓存更高效 对于连接查询，如果其中一个表发生变化，那么整个查询缓存就无法使用</li><li>在需要使用多个列作为条件进行查询时，使用多列索引比使用多个单列索引性能更好</li><li>对于 BLOB、TEXT 和 VARCHAR 类型的列，必须使用前缀索引，只索引开始的部分字符</li><li>冷热数据分离 历史数据归档</li><li>不使用uuid md5 hash 字符串作为主键<a id="more"></a></li><li>使用分区表 逻辑上是一张表 物理上存在不同的表上（list,hash,range）</li><li>避免使用子查询 会产生大量的临时表 子查询的没有索引</li><li>合理使用join，表关联尽量用主键</li><li>where 从句不要使用函数转换或计算，会导致无法使用索引</li><li>尽量不在数据库做运算，否则无法使用索引导致全表扫描</li><li>避免前缀模糊查询  用不了索引导致全表扫描  </li><li>控制表单数据量    合理分表  单库不超过300-400个表</li><li>表字段少而精   字段上限控制在20-50个</li><li>效率优先 可以适当冗余</li><li>用好数据字段类型 tinyint int bigint </li><li>字符转化为数字   数字型更高效 查询更快 占用空间小</li><li>避免使用null 字段    难以进行查询优化  null列加索引，需要额外的空间按     含null复合索引无效</li><li>字符字段必须建前缀索引  ALTER TABLE messages_messagehistory ADD KEY (messagecontent(8))</li><li>尽量不用外键   有额外开销  高并发容易死锁</li><li>大sql拆解成多条简单sql   缓存命中高   减少锁表时间  能用上更多的cpu</li><li>保持事务连接短小    与事务无关的操作放到事务外面</li><li>避免负向查询       如 not   !=   &lt;&gt;   !&lt;  !&gt;   not exists  not in   not like</li><li>减少count(*)   资源开销大</li><li>无需对结果去重时，用union all ,    union有去重开销</li><li>同数据类型的列值比较  数字对数字  字符对字符  字符列与数值类型比较   字符列转成数值，不会使用索引查询</li><li>两个表join的字段 数据类型要相同</li></ul>]]></content>
+    
+    <summary type="html">
+    
+      &lt;ul&gt;
+&lt;li&gt;只返回必要的列，减少查询字段数，不使用select *&lt;/li&gt;
+&lt;li&gt;只返回必要的行   limit限制返回的数据， 确定只要一行数据时使用limit 1&lt;/li&gt;
+&lt;li&gt;缓存重复查询的数据&lt;/li&gt;
+&lt;li&gt;使用索引减少扫描次数&lt;/li&gt;
+&lt;li&gt;切分大查询 如果一个大查询如果一次性执行的话，可能一次锁住很多数据、占满整个事务日志、耗尽系统资源、阻塞很多小的但重要的查询，所以要切分&lt;/li&gt;
+&lt;li&gt;分解大连接查询   让缓存更高效 对于连接查询，如果其中一个表发生变化，那么整个查询缓存就无法使用&lt;/li&gt;
+&lt;li&gt;在需要使用多个列作为条件进行查询时，使用多列索引比使用多个单列索引性能更好&lt;/li&gt;
+&lt;li&gt;对于 BLOB、TEXT 和 VARCHAR 类型的列，必须使用前缀索引，只索引开始的部分字符&lt;/li&gt;
+&lt;li&gt;冷热数据分离 历史数据归档&lt;/li&gt;
+&lt;li&gt;不使用uuid md5 hash 字符串作为主键
+    
+    </summary>
+    
+      <category term="数据库" scheme="https://masonnpe.github.io/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
+    
+    
+      <category term="SQL" scheme="https://masonnpe.github.io/tags/SQL/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>数据库事务</title>
+    <link href="https://masonnpe.github.io/2018/10/26/%E6%95%B0%E6%8D%AE%E5%BA%93/%E4%BA%8B%E5%8A%A1%E7%9A%84%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB/"/>
+    <id>https://masonnpe.github.io/2018/10/26/数据库/事务的隔离级别/</id>
+    <published>2018-10-26T15:25:38.883Z</published>
+    <updated>2018-10-26T15:56:24.363Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="未提交读（READ-UNCOMMITTED）"><a href="#未提交读（READ-UNCOMMITTED）" class="headerlink" title="未提交读（READ UNCOMMITTED）"></a>未提交读（READ UNCOMMITTED）</h2><p>事务中的修改，即使没有提交，对其它事务也是可见的。使用查询语句不会加锁，可能会读到未提交的行（Dirty Read）</p><p>造成：脏读；不可重复读；幻影读</p><h2 id="提交读（READ-COMMITTED）"><a href="#提交读（READ-COMMITTED）" class="headerlink" title="提交读（READ COMMITTED）"></a>提交读（READ COMMITTED）</h2><p>一个事务只能读取已经提交的事务所做的修改。换句话说，一个事务所做的修改在提交之前对其它事务是不可见的。只对记录加记录锁，而不会在记录之间加间隙锁，所以允许新的记录插入到被锁定记录的附近，所以再多次使用查询语句时，可能得到不同的结果（Non-Repeatable Read）</p><p>造成：不可重复读；幻影读</p><h2 id="可重复读（REPEATABLE-READ）"><a href="#可重复读（REPEATABLE-READ）" class="headerlink" title="可重复读（REPEATABLE READ）"></a>可重复读（REPEATABLE READ）</h2><p>保证在同一个事务中多次读取同样数据的结果是一样的。多次读取同一范围的数据会返回第一次查询的快照，不会返回不同的数据行，但是可能发生幻读（Phantom Read）</p><p>造成：幻影读</p><h2 id="可串行化（SERIALIZABLE）"><a href="#可串行化（SERIALIZABLE）" class="headerlink" title="可串行化（SERIALIZABLE）"></a>可串行化（SERIALIZABLE）</h2><p>强制事务串行执行。InnoDB 隐式地将全部的查询语句加上共享锁，解决了幻读的问题；</p><h2 id="MySql"><a href="#MySql" class="headerlink" title="MySql"></a>MySql</h2><p>MySQL 中默认的事务隔离级别就是 <code>REPEATABLE READ</code>，它通过 Next-Key 锁也能够在某种程度上解决幻读的问题。MVCC 会产生幻读问题（更新时异常）在可重复读隔离级别下，通过多版本并发控制（MVCC）+ 间隙锁（Next-Key Locking）防止幻影读。</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;未提交读（READ-UNCOMMITTED）&quot;&gt;&lt;a href=&quot;#未提交读（READ-UNCOMMITTED）&quot; class=&quot;headerlink&quot; title=&quot;未提交读（READ UNCOMMITTED）&quot;&gt;&lt;/a&gt;未提交读（READ UNCOMMITTE
+      
+    
+    </summary>
+    
+      <category term="数据库" scheme="https://masonnpe.github.io/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
+    
+    
+      <category term="Transaction" scheme="https://masonnpe.github.io/tags/Transaction/"/>
+    
+      <category term="Isolation" scheme="https://masonnpe.github.io/tags/Isolation/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>数据库事务</title>
+    <link href="https://masonnpe.github.io/2018/10/26/%E6%95%B0%E6%8D%AE%E5%BA%93/%E6%95%B0%E6%8D%AE%E5%BA%93%E4%BA%8B%E5%8A%A1/"/>
+    <id>https://masonnpe.github.io/2018/10/26/数据库/数据库事务/</id>
+    <published>2018-10-26T15:22:22.841Z</published>
+    <updated>2018-10-26T15:24:36.340Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="原子性（Atomicity）"><a href="#原子性（Atomicity）" class="headerlink" title="原子性（Atomicity）"></a>原子性（Atomicity）</h2><p>事务被视为不可分割的最小单元，事务的所有操作要么全部提交成功，要么全部失败回滚。回滚可以用日志来实现，日志记录着事务所执行的修改操作，在回滚时反向执行这些修改操作即可。</p><h2 id="一致性（Consistency）"><a href="#一致性（Consistency）" class="headerlink" title="一致性（Consistency）"></a>一致性（Consistency）</h2><p>数据库在事务执行前后都保持一致性状态。在一致性状态下，所有事务对一个数据的读取结果都是相同的。</p><h2 id="隔离性（Isolation）"><a href="#隔离性（Isolation）" class="headerlink" title="隔离性（Isolation）"></a>隔离性（Isolation）</h2><p>一个事务所做的修改在最终提交以前，对其它事务是不可见的。</p><h2 id="持久性（Durability）"><a href="#持久性（Durability）" class="headerlink" title="持久性（Durability）"></a>持久性（Durability）</h2><p>一旦事务提交，则其所做的修改将会永远保存到数据库中。即使系统发生崩溃，事务执行的结果也不能丢失。可以通过数据库备份和恢复来实现，在系统发生崩溃时，使用备份的数据库进行数据恢复。</p><a id="more"></a>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;原子性（Atomicity）&quot;&gt;&lt;a href=&quot;#原子性（Atomicity）&quot; class=&quot;headerlink&quot; title=&quot;原子性（Atomicity）&quot;&gt;&lt;/a&gt;原子性（Atomicity）&lt;/h2&gt;&lt;p&gt;事务被视为不可分割的最小单元，事务的所有操作要么全部提交成功，要么全部失败回滚。回滚可以用日志来实现，日志记录着事务所执行的修改操作，在回滚时反向执行这些修改操作即可。&lt;/p&gt;
+&lt;h2 id=&quot;一致性（Consistency）&quot;&gt;&lt;a href=&quot;#一致性（Consistency）&quot; class=&quot;headerlink&quot; title=&quot;一致性（Consistency）&quot;&gt;&lt;/a&gt;一致性（Consistency）&lt;/h2&gt;&lt;p&gt;数据库在事务执行前后都保持一致性状态。在一致性状态下，所有事务对一个数据的读取结果都是相同的。&lt;/p&gt;
+&lt;h2 id=&quot;隔离性（Isolation）&quot;&gt;&lt;a href=&quot;#隔离性（Isolation）&quot; class=&quot;headerlink&quot; title=&quot;隔离性（Isolation）&quot;&gt;&lt;/a&gt;隔离性（Isolation）&lt;/h2&gt;&lt;p&gt;一个事务所做的修改在最终提交以前，对其它事务是不可见的。&lt;/p&gt;
+&lt;h2 id=&quot;持久性（Durability）&quot;&gt;&lt;a href=&quot;#持久性（Durability）&quot; class=&quot;headerlink&quot; title=&quot;持久性（Durability）&quot;&gt;&lt;/a&gt;持久性（Durability）&lt;/h2&gt;&lt;p&gt;一旦事务提交，则其所做的修改将会永远保存到数据库中。即使系统发生崩溃，事务执行的结果也不能丢失。可以通过数据库备份和恢复来实现，在系统发生崩溃时，使用备份的数据库进行数据恢复。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="数据库" scheme="https://masonnpe.github.io/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
+    
+    
+      <category term="Transaction" scheme="https://masonnpe.github.io/tags/Transaction/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>forward与redirect</title>
+    <link href="https://masonnpe.github.io/2018/10/26/%E5%88%86%E5%B8%83%E5%BC%8F/forward%E4%B8%8Eredirect/"/>
+    <id>https://masonnpe.github.io/2018/10/26/分布式/forward与redirect/</id>
+    <published>2018-10-26T14:33:44.856Z</published>
+    <updated>2018-10-26T14:42:28.555Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="forward（转发）"><a href="#forward（转发）" class="headerlink" title="forward（转发）"></a>forward（转发）</h2><p>服务器请求资源,服务器直接访问目标地址的URL,把那个URL的响应内容读取过来,然后把这些内容再发给浏览器.浏览器根本不知道服务器发送的内容从哪里来的,因为这个跳转过程实在服务器实现的，并不是在客户端实现的所以客户端并不知道这个跳转动作，所以它的地址栏还是原来的地址.</p><h2 id="redirect（重定向）"><a href="#redirect（重定向）" class="headerlink" title="redirect（重定向）"></a>redirect（重定向）</h2><p>服务端根据逻辑,发送一个状态码,告诉浏览器重新去请求那个地址.所以地址栏显示的是新的URL.</p><h2 id="区别"><a href="#区别" class="headerlink" title="区别"></a>区别</h2><p>转发是服务器行为，重定向是客户端行为，通过302状态码响应及对应新的location，发起第二次请求</p><p>转发页面和转发到的页面可以共享request里面的数据，重定向不能共享数据，过程中传输的信息会被丢失</p><a id="more"></a>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;forward（转发）&quot;&gt;&lt;a href=&quot;#forward（转发）&quot; class=&quot;headerlink&quot; title=&quot;forward（转发）&quot;&gt;&lt;/a&gt;forward（转发）&lt;/h2&gt;&lt;p&gt;服务器请求资源,服务器直接访问目标地址的URL,把那个URL的响应内容读取过来,然后把这些内容再发给浏览器.浏览器根本不知道服务器发送的内容从哪里来的,因为这个跳转过程实在服务器实现的，并不是在客户端实现的所以客户端并不知道这个跳转动作，所以它的地址栏还是原来的地址.&lt;/p&gt;
+&lt;h2 id=&quot;redirect（重定向）&quot;&gt;&lt;a href=&quot;#redirect（重定向）&quot; class=&quot;headerlink&quot; title=&quot;redirect（重定向）&quot;&gt;&lt;/a&gt;redirect（重定向）&lt;/h2&gt;&lt;p&gt;服务端根据逻辑,发送一个状态码,告诉浏览器重新去请求那个地址.所以地址栏显示的是新的URL.&lt;/p&gt;
+&lt;h2 id=&quot;区别&quot;&gt;&lt;a href=&quot;#区别&quot; class=&quot;headerlink&quot; title=&quot;区别&quot;&gt;&lt;/a&gt;区别&lt;/h2&gt;&lt;p&gt;转发是服务器行为，重定向是客户端行为，通过302状态码响应及对应新的location，发起第二次请求&lt;/p&gt;
+&lt;p&gt;转发页面和转发到的页面可以共享request里面的数据，重定向不能共享数据，过程中传输的信息会被丢失&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="分布式" scheme="https://masonnpe.github.io/categories/%E5%88%86%E5%B8%83%E5%BC%8F/"/>
+    
+    
+      <category term="forward" scheme="https://masonnpe.github.io/tags/forward/"/>
+    
+      <category term="redirect" scheme="https://masonnpe.github.io/tags/redirect/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Get与Post</title>
+    <link href="https://masonnpe.github.io/2018/10/26/%E5%88%86%E5%B8%83%E5%BC%8F/Get%E4%B8%8EPost/"/>
+    <id>https://masonnpe.github.io/2018/10/26/分布式/Get与Post/</id>
+    <published>2018-10-26T14:20:34.839Z</published>
+    <updated>2018-10-26T14:36:00.871Z</updated>
+    
+    <content type="html"><![CDATA[<p>HTTP定义了与服务器交互的不同方法，最基本的方法有4种，分别是GET，POST，PUT，DELETE</p><h2 id="GET"><a href="#GET" class="headerlink" title="GET"></a>GET</h2><p>GET用于信息获取，而且应该是安全的和幂等的</p><p>GET请求的数据会附在URL之后</p><p>GET方式提交的数据最多只能是1024字节</p><h2 id="POST"><a href="#POST" class="headerlink" title="POST"></a>POST</h2><p>POST表示可能修改变服务器上的资源的请求</p><p>POST把提交的数据则放置在是HTTP包的包体中</p><p>理论上POST没有限制，可传较大量的数据</p><a id="more"></a>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;HTTP定义了与服务器交互的不同方法，最基本的方法有4种，分别是GET，POST，PUT，DELETE&lt;/p&gt;
+&lt;h2 id=&quot;GET&quot;&gt;&lt;a href=&quot;#GET&quot; class=&quot;headerlink&quot; title=&quot;GET&quot;&gt;&lt;/a&gt;GET&lt;/h2&gt;&lt;p&gt;GET用于信息获取，而且应该是安全的和幂等的&lt;/p&gt;
+&lt;p&gt;GET请求的数据会附在URL之后&lt;/p&gt;
+&lt;p&gt;GET方式提交的数据最多只能是1024字节&lt;/p&gt;
+&lt;h2 id=&quot;POST&quot;&gt;&lt;a href=&quot;#POST&quot; class=&quot;headerlink&quot; title=&quot;POST&quot;&gt;&lt;/a&gt;POST&lt;/h2&gt;&lt;p&gt;POST表示可能修改变服务器上的资源的请求&lt;/p&gt;
+&lt;p&gt;POST把提交的数据则放置在是HTTP包的包体中&lt;/p&gt;
+&lt;p&gt;理论上POST没有限制，可传较大量的数据&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="分布式" scheme="https://masonnpe.github.io/categories/%E5%88%86%E5%B8%83%E5%BC%8F/"/>
+    
+    
+      <category term="Get" scheme="https://masonnpe.github.io/tags/Get/"/>
+    
+      <category term="Post" scheme="https://masonnpe.github.io/tags/Post/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>HTTP2.0</title>
+    <link href="https://masonnpe.github.io/2018/10/26/%E5%88%86%E5%B8%83%E5%BC%8F/HTTP2.0/"/>
+    <id>https://masonnpe.github.io/2018/10/26/分布式/HTTP2.0/</id>
+    <published>2018-10-26T14:15:19.310Z</published>
+    <updated>2018-10-26T14:21:40.811Z</updated>
+    
+    <content type="html"><![CDATA[<p>HTTP2.0 的目的是通过支持请求与响应的多路复用来减少延迟，通过压缩HTTPS首部字段将协议开销降低，同时增加请求优先级和服务器端推送的支持。 二进制分帧层，是HTTP 2.0性能增强的核心。HTTP 1.x在应用层以纯文本的形式进行通信，而HTTP 2.0将所有的传输信息分割为更小的消息和帧，并对它们采用二进制格式编码。这样，客户端和服务端都需要引入新的二进制编码和解码的机制。 </p><h2 id="二进制分帧层"><a href="#二进制分帧层" class="headerlink" title="二进制分帧层"></a>二进制分帧层</h2><p>HTTP/2.0 将报文分成 HEADERS 帧和 DATA 帧，它们都是二进制格式的。</p><p>在通信过程中，只会有一个 TCP 连接存在，它承载了任意数量的双向数据流（Stream）。</p><ul><li>一个数据流（Stream）都有一个唯一标识符和可选的优先级信息，用于承载双向信息。</li><li>消息（Message）是与逻辑请求或响应对应的完整的一系列帧。</li><li>帧（Frame）是最小的通信单位，来自不同数据流的帧可以交错发送，然后再根据每个帧头的数据流标识符重新组装。</li></ul><h2 id="服务端推送"><a href="#服务端推送" class="headerlink" title="服务端推送"></a>服务端推送</h2><p>HTTP/2.0 在客户端请求一个资源时，会把相关的资源一起发送给客户端，客户端就不需要再次发起请求了。例如客户端请求 page.html 页面，服务端就把 script.js 和 style.css 等与之相关的资源一起发给客户端。</p><a id="more"></a>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;HTTP2.0 的目的是通过支持请求与响应的多路复用来减少延迟，通过压缩HTTPS首部字段将协议开销降低，同时增加请求优先级和服务器端推送的支持。 二进制分帧层，是HTTP 2.0性能增强的核心。HTTP 1.x在应用层以纯文本的形式进行通信，而HTTP 2.0将所有的传输信息分割为更小的消息和帧，并对它们采用二进制格式编码。这样，客户端和服务端都需要引入新的二进制编码和解码的机制。 &lt;/p&gt;
+&lt;h2 id=&quot;二进制分帧层&quot;&gt;&lt;a href=&quot;#二进制分帧层&quot; class=&quot;headerlink&quot; title=&quot;二进制分帧层&quot;&gt;&lt;/a&gt;二进制分帧层&lt;/h2&gt;&lt;p&gt;HTTP/2.0 将报文分成 HEADERS 帧和 DATA 帧，它们都是二进制格式的。&lt;/p&gt;
+&lt;p&gt;在通信过程中，只会有一个 TCP 连接存在，它承载了任意数量的双向数据流（Stream）。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;一个数据流（Stream）都有一个唯一标识符和可选的优先级信息，用于承载双向信息。&lt;/li&gt;
+&lt;li&gt;消息（Message）是与逻辑请求或响应对应的完整的一系列帧。&lt;/li&gt;
+&lt;li&gt;帧（Frame）是最小的通信单位，来自不同数据流的帧可以交错发送，然后再根据每个帧头的数据流标识符重新组装。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;服务端推送&quot;&gt;&lt;a href=&quot;#服务端推送&quot; class=&quot;headerlink&quot; title=&quot;服务端推送&quot;&gt;&lt;/a&gt;服务端推送&lt;/h2&gt;&lt;p&gt;HTTP/2.0 在客户端请求一个资源时，会把相关的资源一起发送给客户端，客户端就不需要再次发起请求了。例如客户端请求 page.html 页面，服务端就把 script.js 和 style.css 等与之相关的资源一起发给客户端。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="分布式" scheme="https://masonnpe.github.io/categories/%E5%88%86%E5%B8%83%E5%BC%8F/"/>
+    
+    
+      <category term="HTTP2.0" scheme="https://masonnpe.github.io/tags/HTTP2-0/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>HTTPS</title>
+    <link href="https://masonnpe.github.io/2018/10/26/%E5%88%86%E5%B8%83%E5%BC%8F/HTTPS/"/>
+    <id>https://masonnpe.github.io/2018/10/26/分布式/HTTPS/</id>
+    <published>2018-10-26T13:59:28.131Z</published>
+    <updated>2018-10-26T14:09:00.912Z</updated>
+    
+    <content type="html"><![CDATA[<p>超文本传输协议HTTP 有以下安全性问题：</p><ul><li>使用明文进行通信，内容可能会被窃听；</li><li>不验证通信方的身份，通信方的身份有可能遭遇伪装；</li><li>无法证明报文的完整性，报文有可能遭篡改。</li></ul><p>因此HTTP协议不适合传输一些敏感信息，比如信用卡号、密码等。</p><p>为了解决HTTP协议的这一缺陷，需要使用另一种协议：安全套接字层超文本传输协议HTTPS。HTTPs 并不是新协议，而是让 HTTP 先和 SSL（Secure Sockets Layer）通信，再由 SSL 和 TCP 通信，也就是说 HTTPS 使用了隧道进行通信。SSL依靠证书来验证服务器的身份，并为浏览器和服务器之间的通信加密。</p><p>通过使用 SSL，HTTPs 具有了加密（防窃听）、认证（防伪装）和完整性保护（防篡改）。</p><ul><li><p>HTTP是超文本传输协议，信息是明文传输，HTTPS 则是具有安全性的SSL加密传输协议。</p></li><li><p>HTTP和HTTPS 使用的是完全不同的连接方式，用的端口也不一样，前者是80，后者是443。</p></li><li><p>HTTP的连接很简单，是无状态的；HTTPS协议是由SSL+HTTP协议构建的可进行加密传输、身份认证的网络协议，比HTTP协议安全。</p></li></ul><a id="more"></a><p>HTTPS 采用混合的加密机制，使用非对称密钥加密用于传输对称密钥来保证传输过程的安全性，之后使用对称密钥加密进行通信来保证通信过程的效率。</p><p><a href="https://aotu.io/notes/2016/08/16/nginx-https/index.html" target="_blank" rel="noopener">Nginx 配置 HTTPS 服务器</a></p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;超文本传输协议HTTP 有以下安全性问题：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;使用明文进行通信，内容可能会被窃听；&lt;/li&gt;
+&lt;li&gt;不验证通信方的身份，通信方的身份有可能遭遇伪装；&lt;/li&gt;
+&lt;li&gt;无法证明报文的完整性，报文有可能遭篡改。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;因此HTTP协议不适合传输一些敏感信息，比如信用卡号、密码等。&lt;/p&gt;
+&lt;p&gt;为了解决HTTP协议的这一缺陷，需要使用另一种协议：安全套接字层超文本传输协议HTTPS。HTTPs 并不是新协议，而是让 HTTP 先和 SSL（Secure Sockets Layer）通信，再由 SSL 和 TCP 通信，也就是说 HTTPS 使用了隧道进行通信。SSL依靠证书来验证服务器的身份，并为浏览器和服务器之间的通信加密。&lt;/p&gt;
+&lt;p&gt;通过使用 SSL，HTTPs 具有了加密（防窃听）、认证（防伪装）和完整性保护（防篡改）。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;HTTP是超文本传输协议，信息是明文传输，HTTPS 则是具有安全性的SSL加密传输协议。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;HTTP和HTTPS 使用的是完全不同的连接方式，用的端口也不一样，前者是80，后者是443。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;HTTP的连接很简单，是无状态的；HTTPS协议是由SSL+HTTP协议构建的可进行加密传输、身份认证的网络协议，比HTTP协议安全。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+    
+    </summary>
+    
+      <category term="分布式" scheme="https://masonnpe.github.io/categories/%E5%88%86%E5%B8%83%E5%BC%8F/"/>
+    
+    
+      <category term="HTTPS" scheme="https://masonnpe.github.io/tags/HTTPS/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Session</title>
+    <link href="https://masonnpe.github.io/2018/10/26/%E5%88%86%E5%B8%83%E5%BC%8F/Session/"/>
+    <id>https://masonnpe.github.io/2018/10/26/分布式/Session/</id>
+    <published>2018-10-26T13:48:41.243Z</published>
+    <updated>2018-10-26T13:59:59.688Z</updated>
+    
+    <content type="html"><![CDATA[<p>除了可以将用户信息通过 Cookie 存储在用户浏览器中，也可以利用 Session 存储在服务器端，存储在服务器端的信息更加安全。</p><p>Session 可以存储在服务器上的文件、数据库或者内存中。也可以将 Session 存储在 Redis 这种内存型数据库中，效率会更高。</p><p>使用 Session 维护用户登录状态的过程如下：</p><ul><li>用户进行登录时，用户提交包含用户名和密码的表单，放入 HTTP 请求报文中；</li><li>服务器验证该用户名和密码，如果正确则把用户信息存储到 Redis 中，它在 Redis 中的 Key 称为 Session ID；</li><li>服务器返回的响应报文的 Set-Cookie 首部字段包含了这个 Session ID，客户端收到响应报文之后将该 Cookie 值存入浏览器中；</li><li>客户端之后对同一个服务器进行请求时会包含该 Cookie 值，服务器收到之后提取出 Session ID，从 Redis 中取出用户信息，继续之前的业务操作。</li></ul><p>应该注意 Session ID 的安全性问题，不能让它被恶意攻击者轻易获取，那么就不能产生一个容易被猜到的 Session ID 值。此外，还需要经常重新生成 Session ID。在对安全性要求极高的场景下，例如转账等操作，除了使用 Session 管理用户状态之外，还需要对用户进行重新验证，比如重新输入密码，或者使用短信验证码等方式。</p><a id="more"></a>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;除了可以将用户信息通过 Cookie 存储在用户浏览器中，也可以利用 Session 存储在服务器端，存储在服务器端的信息更加安全。&lt;/p&gt;
+&lt;p&gt;Session 可以存储在服务器上的文件、数据库或者内存中。也可以将 Session 存储在 Redis 这种内存型数据库中，效率会更高。&lt;/p&gt;
+&lt;p&gt;使用 Session 维护用户登录状态的过程如下：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;用户进行登录时，用户提交包含用户名和密码的表单，放入 HTTP 请求报文中；&lt;/li&gt;
+&lt;li&gt;服务器验证该用户名和密码，如果正确则把用户信息存储到 Redis 中，它在 Redis 中的 Key 称为 Session ID；&lt;/li&gt;
+&lt;li&gt;服务器返回的响应报文的 Set-Cookie 首部字段包含了这个 Session ID，客户端收到响应报文之后将该 Cookie 值存入浏览器中；&lt;/li&gt;
+&lt;li&gt;客户端之后对同一个服务器进行请求时会包含该 Cookie 值，服务器收到之后提取出 Session ID，从 Redis 中取出用户信息，继续之前的业务操作。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;应该注意 Session ID 的安全性问题，不能让它被恶意攻击者轻易获取，那么就不能产生一个容易被猜到的 Session ID 值。此外，还需要经常重新生成 Session ID。在对安全性要求极高的场景下，例如转账等操作，除了使用 Session 管理用户状态之外，还需要对用户进行重新验证，比如重新输入密码，或者使用短信验证码等方式。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="分布式" scheme="https://masonnpe.github.io/categories/%E5%88%86%E5%B8%83%E5%BC%8F/"/>
+    
+    
+      <category term="Session" scheme="https://masonnpe.github.io/tags/Session/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Cookie</title>
+    <link href="https://masonnpe.github.io/2018/10/26/%E5%88%86%E5%B8%83%E5%BC%8F/Cookie/"/>
+    <id>https://masonnpe.github.io/2018/10/26/分布式/Cookie/</id>
+    <published>2018-10-26T13:36:10.007Z</published>
+    <updated>2018-10-26T14:26:12.686Z</updated>
+    
+    <content type="html"><![CDATA[<p>HTTP 协议是无状态的，主要是为了让 HTTP 协议尽可能简单，使得它能够处理大量事务，HTTP/1.1 引入 Cookie 来保存状态信息。</p><p>Cookie 是服务器发送到用户浏览器并保存在本地的一小块数据，它会在浏览器之后向同一服务器再次发起请求时被携带上，用于告知服务端两个请求是否来自同一浏览器。由于之后每次请求都会需要携带 Cookie 数据，因此会带来额外的性能开销（尤其是在移动环境下）。Cookie 曾一度用于客户端数据的存储，因为当时并没有其它合适的存储办法而作为唯一的存储手段，但现在随着现代浏览器开始支持各种各样的存储方式，Cookie 渐渐被淘汰。新的浏览器 API 已经允许开发者直接将数据存储到本地，如使用 Web storage API（本地存储和会话存储）或 IndexedDB。</p><p>如果客户端的浏览器禁用了 Cookie 怎么办？一般这种情况下，会使用一种叫做URL重写的技术来进行会话跟踪，即每次HTTP交互，URL后面都会被附加上一个诸如 sid=xxxxx 这样的参数，服务端据此来识别用户</p><h2 id="用途"><a href="#用途" class="headerlink" title="用途"></a>用途</h2><ul><li>会话状态管理（如用户登录状态、购物车、游戏分数或其它需要记录的信息）</li><li>个性化设置（如用户自定义设置、主题等）</li><li>浏览器行为跟踪（如跟踪分析用户行为等）</li></ul><h2 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h2><ul><li>会话期 Cookie：浏览器关闭之后它会被自动删除，也就是说它仅在会话期内有效。</li><li>持久性 Cookie：指定一个特定的过期时间（Expires）或有效期（max-age）之后就成为了持久性的 Cookie。</li></ul><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Set-Cookie: id=a3fWa; Expires=Wed, 21 Oct 2015 07:28:00 GMT;</span><br></pre></td></tr></table></figure><h2 id="JavaScript和Cookie"><a href="#JavaScript和Cookie" class="headerlink" title="JavaScript和Cookie"></a>JavaScript和Cookie</h2><p>通过 <code>Document.cookie</code> 属性可创建新的 Cookie，也可通过该属性访问非 HttpOnly 标记的 Cookie。</p><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">document.cookie = "yummy_cookie=choco";</span><br><span class="line">document.cookie = "tasty_cookie=strawberry";</span><br><span class="line">console.log(document.cookie);</span><br></pre></td></tr></table></figure><p>标记为 HttpOnly 的 Cookie 不能被 JavaScript 脚本调用。跨站脚本攻击 (XSS) 常常使用 JavaScript 的 <code>Document.cookie</code> API 窃取用户的 Cookie 信息，因此使用 HttpOnly 标记可以在一定程度上避免 XSS 攻击。</p><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Set-Cookie: id=a3fWa; Expires=Wed, 21 Oct 2015 07:28:00 GMT; Secure; HttpOnly</span><br></pre></td></tr></table></figure><a id="more"></a>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;HTTP 协议是无状态的，主要是为了让 HTTP 协议尽可能简单，使得它能够处理大量事务，HTTP/1.1 引入 Cookie 来保存状态信息。&lt;/p&gt;
+&lt;p&gt;Cookie 是服务器发送到用户浏览器并保存在本地的一小块数据，它会在浏览器之后向同一服务器再次发起请求时被携带上，用于告知服务端两个请求是否来自同一浏览器。由于之后每次请求都会需要携带 Cookie 数据，因此会带来额外的性能开销（尤其是在移动环境下）。Cookie 曾一度用于客户端数据的存储，因为当时并没有其它合适的存储办法而作为唯一的存储手段，但现在随着现代浏览器开始支持各种各样的存储方式，Cookie 渐渐被淘汰。新的浏览器 API 已经允许开发者直接将数据存储到本地，如使用 Web storage API（本地存储和会话存储）或 IndexedDB。&lt;/p&gt;
+&lt;p&gt;如果客户端的浏览器禁用了 Cookie 怎么办？一般这种情况下，会使用一种叫做URL重写的技术来进行会话跟踪，即每次HTTP交互，URL后面都会被附加上一个诸如 sid=xxxxx 这样的参数，服务端据此来识别用户&lt;/p&gt;
+&lt;h2 id=&quot;用途&quot;&gt;&lt;a href=&quot;#用途&quot; class=&quot;headerlink&quot; title=&quot;用途&quot;&gt;&lt;/a&gt;用途&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;会话状态管理（如用户登录状态、购物车、游戏分数或其它需要记录的信息）&lt;/li&gt;
+&lt;li&gt;个性化设置（如用户自定义设置、主题等）&lt;/li&gt;
+&lt;li&gt;浏览器行为跟踪（如跟踪分析用户行为等）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;分类&quot;&gt;&lt;a href=&quot;#分类&quot; class=&quot;headerlink&quot; title=&quot;分类&quot;&gt;&lt;/a&gt;分类&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;会话期 Cookie：浏览器关闭之后它会被自动删除，也就是说它仅在会话期内有效。&lt;/li&gt;
+&lt;li&gt;持久性 Cookie：指定一个特定的过期时间（Expires）或有效期（max-age）之后就成为了持久性的 Cookie。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;figure class=&quot;highlight html&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;Set-Cookie: id=a3fWa; Expires=Wed, 21 Oct 2015 07:28:00 GMT;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h2 id=&quot;JavaScript和Cookie&quot;&gt;&lt;a href=&quot;#JavaScript和Cookie&quot; class=&quot;headerlink&quot; title=&quot;JavaScript和Cookie&quot;&gt;&lt;/a&gt;JavaScript和Cookie&lt;/h2&gt;&lt;p&gt;通过 &lt;code&gt;Document.cookie&lt;/code&gt; 属性可创建新的 Cookie，也可通过该属性访问非 HttpOnly 标记的 Cookie。&lt;/p&gt;
+&lt;figure class=&quot;highlight html&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;document.cookie = &quot;yummy_cookie=choco&quot;;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;document.cookie = &quot;tasty_cookie=strawberry&quot;;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;console.log(document.cookie);&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;标记为 HttpOnly 的 Cookie 不能被 JavaScript 脚本调用。跨站脚本攻击 (XSS) 常常使用 JavaScript 的 &lt;code&gt;Document.cookie&lt;/code&gt; API 窃取用户的 Cookie 信息，因此使用 HttpOnly 标记可以在一定程度上避免 XSS 攻击。&lt;/p&gt;
+&lt;figure class=&quot;highlight html&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;Set-Cookie: id=a3fWa; Expires=Wed, 21 Oct 2015 07:28:00 GMT; Secure; HttpOnly&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+    
+    </summary>
+    
+      <category term="分布式" scheme="https://masonnpe.github.io/categories/%E5%88%86%E5%B8%83%E5%BC%8F/"/>
+    
+    
+      <category term="Cookie" scheme="https://masonnpe.github.io/tags/Cookie/"/>
+    
+  </entry>
+  
+  <entry>
     <title>HTTP状态码和首部</title>
     <link href="https://masonnpe.github.io/2018/10/24/%E5%88%86%E5%B8%83%E5%BC%8F/HTTP%E7%8A%B6%E6%80%81%E7%A0%81%E5%92%8C%E9%A6%96%E9%83%A8/"/>
     <id>https://masonnpe.github.io/2018/10/24/分布式/HTTP状态码和首部/</id>
     <published>2018-10-24T15:56:16.432Z</published>
-    <updated>2018-10-24T16:00:02.446Z</updated>
+    <updated>2018-10-26T13:54:50.213Z</updated>
     
-    <content type="html"><![CDATA[<p>HTTP是一个应用层协议，也是一个无状态的协议，由请求和响应构成，是一个标准的客户端服务器模型。通常承载于TCP协议之上，有时也承载于TLS或SSL协议层之上，这个时候，就成了我们常说的HTTPS。</p><h2 id="HTTP状态码"><a href="#HTTP状态码" class="headerlink" title="HTTP状态码"></a>HTTP状态码</h2><p>服务器返回的  <strong>响应报文</strong>  中第一行为状态行，包含了状态码以及原因短语，用来告知客户端请求的结果。</p><table><thead><tr><th style="text-align:center">状态码</th><th style="text-align:center">类别</th><th style="text-align:center">原因短语</th></tr></thead><tbody><tr><td style="text-align:center">1XX</td><td style="text-align:center">Informational（信息性状态码）</td><td style="text-align:center">接收的请求正在处理</td></tr><tr><td style="text-align:center">2XX</td><td style="text-align:center">Success（成功状态码）</td><td style="text-align:center">请求正常处理完毕</td></tr><tr><td style="text-align:center">3XX</td><td style="text-align:center">Redirection（重定向状态码）</td><td style="text-align:center">需要进行附加操作以完成请求</td></tr><tr><td style="text-align:center">4XX</td><td style="text-align:center">Client Error（客户端错误状态码）</td><td style="text-align:center">服务器无法处理请求</td></tr><tr><td style="text-align:center">5XX</td><td style="text-align:center">Server Error（服务器错误状态码）</td><td style="text-align:center">服务器处理请求出错</td></tr></tbody></table><a id="more"></a><h3 id="1XX-信息"><a href="#1XX-信息" class="headerlink" title="1XX 信息"></a>1XX 信息</h3><ul><li><strong>100 Continue</strong> ：表明到目前为止都很正常，客户端可以继续发送请求或者忽略这个响应。</li></ul><h3 id="2XX-成功"><a href="#2XX-成功" class="headerlink" title="2XX 成功"></a>2XX 成功</h3><ul><li><strong>200 OK</strong> ：客户端请求成功</li><li><strong>204 No Content</strong> ：请求已经成功处理，但是返回的响应报文不包含实体的主体部分。一般在只需要从客户端往服务器发送信息，而不需要返回数据时使用。</li><li><strong>206 Partial Content</strong> ：表示客户端进行了范围请求，响应报文包含由 Content-Range 指定范围的实体内容。</li></ul><h3 id="3XX-重定向"><a href="#3XX-重定向" class="headerlink" title="3XX 重定向"></a>3XX 重定向</h3><ul><li><strong>301 Moved Permanently</strong> ：永久性重定向</li><li><strong>302 Found</strong> ：临时性重定向</li><li><strong>303 See Other</strong> ：和 302 有着相同的功能，但是 303 明确要求客户端应该采用 GET 方法获取资源。</li><li>注：虽然 HTTP 协议规定 301、302 状态下重定向时不允许把 POST 方法改成 GET 方法，但是大多数浏览器都会在 301、302 和 303 状态下的重定向把 POST 方法改成 GET 方法。</li><li><strong>304 Not Modified</strong> ：如果请求报文首部包含一些条件，例如：If-Match，If-Modified-Since，If-None-Match，If-Range，If-Unmodified-Since，如果不满足条件，则服务器会返回 304 状态码。</li><li><strong>307 Temporary Redirect</strong> ：临时重定向，与 302 的含义类似，但是 307 要求浏览器不会把重定向请求的 POST 方法改成 GET 方法。</li></ul><h3 id="4XX-客户端错误"><a href="#4XX-客户端错误" class="headerlink" title="4XX 客户端错误"></a>4XX 客户端错误</h3><ul><li><strong>400 Bad Request</strong> ：请求报文中存在语法错误。</li><li><strong>401 Unauthorized</strong> ：该状态码表示发送的请求需要有认证信息（BASIC 认证、DIGEST 认证）。如果之前已进行过一次请求，则表示用户认证失败。</li><li><strong>403 Forbidden</strong> ：请求被拒绝。</li><li><strong>404 Not Found</strong> ：请求的资源不存在</li></ul><h3 id="5XX-服务器错误"><a href="#5XX-服务器错误" class="headerlink" title="5XX 服务器错误"></a>5XX 服务器错误</h3><ul><li><strong>500 Internal Server Error</strong> ：服务器正在执行请求时发生错误。</li><li><strong>503 Service Unavailable</strong> ：服务器暂时处于超负载或正在进行停机维护，现在无法处理请求。</li></ul><h2 id="HTTP首部"><a href="#HTTP首部" class="headerlink" title="HTTP首部"></a>HTTP首部</h2><h3 id="通用首部字段"><a href="#通用首部字段" class="headerlink" title="通用首部字段"></a>通用首部字段</h3><table><thead><tr><th style="text-align:center">首部字段名</th><th style="text-align:center">说明</th></tr></thead><tbody><tr><td style="text-align:center">Cache-Control</td><td style="text-align:center">控制缓存的行为</td></tr><tr><td style="text-align:center">Connection</td><td style="text-align:center">控制不再转发给代理的首部字段、管理持久连接</td></tr><tr><td style="text-align:center">Date</td><td style="text-align:center">创建报文的日期时间</td></tr><tr><td style="text-align:center">Pragma</td><td style="text-align:center">报文指令</td></tr><tr><td style="text-align:center">Trailer</td><td style="text-align:center">报文末端的首部一览</td></tr><tr><td style="text-align:center">Transfer-Encoding</td><td style="text-align:center">指定报文主体的传输编码方式</td></tr><tr><td style="text-align:center">Upgrade</td><td style="text-align:center">升级为其他协议</td></tr><tr><td style="text-align:center">Via</td><td style="text-align:center">代理服务器的相关信息</td></tr><tr><td style="text-align:center">Warning</td><td style="text-align:center">错误通知</td></tr></tbody></table><h3 id="请求首部字段"><a href="#请求首部字段" class="headerlink" title="请求首部字段"></a>请求首部字段</h3><table><thead><tr><th style="text-align:center">首部字段名</th><th style="text-align:center">说明</th></tr></thead><tbody><tr><td style="text-align:center">Accept</td><td style="text-align:center">用户代理可处理的媒体类型</td></tr><tr><td style="text-align:center">Accept-Charset</td><td style="text-align:center">优先的字符集</td></tr><tr><td style="text-align:center">Accept-Encoding</td><td style="text-align:center">优先的内容编码</td></tr><tr><td style="text-align:center">Accept-Language</td><td style="text-align:center">优先的语言（自然语言）</td></tr><tr><td style="text-align:center">Authorization</td><td style="text-align:center">Web 认证信息</td></tr><tr><td style="text-align:center">Expect</td><td style="text-align:center">期待服务器的特定行为</td></tr><tr><td style="text-align:center">From</td><td style="text-align:center">用户的电子邮箱地址</td></tr><tr><td style="text-align:center">Host</td><td style="text-align:center">请求资源所在服务器</td></tr><tr><td style="text-align:center">If-Match</td><td style="text-align:center">比较实体标记（ETag）</td></tr><tr><td style="text-align:center">If-Modified-Since</td><td style="text-align:center">比较资源的更新时间</td></tr><tr><td style="text-align:center">If-None-Match</td><td style="text-align:center">比较实体标记（与 If-Match 相反）</td></tr><tr><td style="text-align:center">If-Range</td><td style="text-align:center">资源未更新时发送实体 Byte 的范围请求</td></tr><tr><td style="text-align:center">If-Unmodified-Since</td><td style="text-align:center">比较资源的更新时间（与 If-Modified-Since 相反）</td></tr><tr><td style="text-align:center">Max-Forwards</td><td style="text-align:center">最大传输逐跳数</td></tr><tr><td style="text-align:center">Proxy-Authorization</td><td style="text-align:center">代理服务器要求客户端的认证信息</td></tr><tr><td style="text-align:center">Range</td><td style="text-align:center">实体的字节范围请求</td></tr><tr><td style="text-align:center">Referer</td><td style="text-align:center">对请求中 URI 的原始获取方</td></tr><tr><td style="text-align:center">TE</td><td style="text-align:center">传输编码的优先级</td></tr><tr><td style="text-align:center">User-Agent</td><td style="text-align:center">HTTP 客户端程序的信息</td></tr></tbody></table><h3 id="响应首部字段"><a href="#响应首部字段" class="headerlink" title="响应首部字段"></a>响应首部字段</h3><table><thead><tr><th style="text-align:center">首部字段名</th><th style="text-align:center">说明</th></tr></thead><tbody><tr><td style="text-align:center">Accept-Ranges</td><td style="text-align:center">是否接受字节范围请求</td></tr><tr><td style="text-align:center">Age</td><td style="text-align:center">推算资源创建经过时间</td></tr><tr><td style="text-align:center">ETag</td><td style="text-align:center">资源的匹配信息让服务端给每一个页面分配一个唯一的编号，通过编号来区分当前这个页面是否是最新的</td></tr><tr><td style="text-align:center">Location</td><td style="text-align:center">令客户端重定向至指定 URI</td></tr><tr><td style="text-align:center">Proxy-Authenticate</td><td style="text-align:center">代理服务器对客户端的认证信息</td></tr><tr><td style="text-align:center">Retry-After</td><td style="text-align:center">对再次发起请求的时机要求</td></tr><tr><td style="text-align:center">Server</td><td style="text-align:center">HTTP 服务器的安装信息</td></tr><tr><td style="text-align:center">Vary</td><td style="text-align:center">代理服务器缓存的管理信息</td></tr><tr><td style="text-align:center">WWW-Authenticate</td><td style="text-align:center">服务器对客户端的认证信息</td></tr></tbody></table><h3 id="实体首部字段"><a href="#实体首部字段" class="headerlink" title="实体首部字段"></a>实体首部字段</h3><table><thead><tr><th style="text-align:center">首部字段名</th><th style="text-align:center">说明</th></tr></thead><tbody><tr><td style="text-align:center">Allow</td><td style="text-align:center">资源可支持的 HTTP 方法</td></tr><tr><td style="text-align:center">Content-Encoding</td><td style="text-align:center">实体主体适用的编码方式</td></tr><tr><td style="text-align:center">Content-Language</td><td style="text-align:center">实体主体的自然语言</td></tr><tr><td style="text-align:center">Content-Length</td><td style="text-align:center">实体主体的大小</td></tr><tr><td style="text-align:center">Content-Location</td><td style="text-align:center">替代对应资源的 URI</td></tr><tr><td style="text-align:center">Content-MD5</td><td style="text-align:center">实体主体的报文摘要</td></tr><tr><td style="text-align:center">Content-Range</td><td style="text-align:center">实体主体的位置范围</td></tr><tr><td style="text-align:center">Content-Type</td><td style="text-align:center">实体主体的媒体类型</td></tr><tr><td style="text-align:center">Expires</td><td style="text-align:center">实体主体过期的日期时间</td></tr><tr><td style="text-align:center">Last-Modified</td><td style="text-align:center">资源的最后修改日期时间</td></tr></tbody></table>]]></content>
+    <content type="html"><![CDATA[<p>HTTP是一个应用层协议，也是一个无状态的协议，由请求和响应构成，是一个标准的客户端服务器模型。通常承载于TCP协议之上，有时也承载于TLS或SSL协议层之上，这个时候，就成了我们常说的HTTPS。</p><h2 id="HTTP状态码"><a href="#HTTP状态码" class="headerlink" title="HTTP状态码"></a>HTTP状态码</h2><p>服务器返回的  <strong>响应报文</strong>  中第一行为状态行，包含了状态码以及原因短语，用来告知客户端请求的结果。</p><table><thead><tr><th style="text-align:center">状态码</th><th style="text-align:center">类别</th><th style="text-align:center">原因短语</th></tr></thead><tbody><tr><td style="text-align:center">1XX</td><td style="text-align:center">Informational（信息性状态码）</td><td style="text-align:center">接收的请求正在处理</td></tr><tr><td style="text-align:center">2XX</td><td style="text-align:center">Success（成功状态码）</td><td style="text-align:center">请求正常处理完毕</td></tr><tr><td style="text-align:center">3XX</td><td style="text-align:center">Redirection（重定向状态码）</td><td style="text-align:center">需要进行附加操作以完成请求</td></tr><tr><td style="text-align:center">4XX</td><td style="text-align:center">Client Error（客户端错误状态码）</td><td style="text-align:center">服务器无法处理请求</td></tr><tr><td style="text-align:center">5XX</td><td style="text-align:center">Server Error（服务器错误状态码）</td><td style="text-align:center">服务器处理请求出错</td></tr></tbody></table><a id="more"></a><h3 id="1XX-信息"><a href="#1XX-信息" class="headerlink" title="1XX 信息"></a>1XX 信息</h3><ul><li><strong>100 Continue</strong> ：表明到目前为止都很正常，客户端可以继续发送请求或者忽略这个响应。</li></ul><h3 id="2XX-成功"><a href="#2XX-成功" class="headerlink" title="2XX 成功"></a>2XX 成功</h3><ul><li><strong>200 OK</strong> ：客户端请求成功</li><li><strong>204 No Content</strong> ：请求已经成功处理，但是返回的响应报文不包含实体的主体部分。一般在只需要从客户端往服务器发送信息，而不需要返回数据时使用。</li><li><strong>206 Partial Content</strong> ：表示客户端进行了范围请求，响应报文包含由 Content-Range 指定范围的实体内容。</li></ul><h3 id="3XX-重定向"><a href="#3XX-重定向" class="headerlink" title="3XX 重定向"></a>3XX 重定向</h3><ul><li><strong>301 Moved Permanently</strong> ：永久性重定向</li><li><strong>302 Found</strong> ：临时性重定向</li><li><strong>303 See Other</strong> ：和 302 有着相同的功能，但是 303 明确要求客户端应该采用 GET 方法获取资源。</li><li>注：虽然 HTTP 协议规定 301、302 状态下重定向时不允许把 POST 方法改成 GET 方法，但是大多数浏览器都会在 301、302 和 303 状态下的重定向把 POST 方法改成 GET 方法。</li><li><strong>304 Not Modified</strong> ：如果请求报文首部包含一些条件，例如：If-Match，If-Modified-Since，If-None-Match，If-Range，If-Unmodified-Since，如果不满足条件，则服务器会返回 304 状态码。</li><li><strong>307 Temporary Redirect</strong> ：临时重定向，与 302 的含义类似，但是 307 要求浏览器不会把重定向请求的 POST 方法改成 GET 方法。</li></ul><h3 id="4XX-客户端错误"><a href="#4XX-客户端错误" class="headerlink" title="4XX 客户端错误"></a>4XX 客户端错误</h3><ul><li><strong>400 Bad Request</strong> ：请求报文中存在语法错误。</li><li><strong>401 Unauthorized</strong> ：该状态码表示发送的请求需要有认证信息（BASIC 认证、DIGEST 认证）。如果之前已进行过一次请求，则表示用户认证失败。</li><li><strong>403 Forbidden</strong> ：请求被拒绝。</li><li><strong>404 Not Found</strong> ：请求的资源不存在</li></ul><h3 id="5XX-服务器错误"><a href="#5XX-服务器错误" class="headerlink" title="5XX 服务器错误"></a>5XX 服务器错误</h3><ul><li><strong>500 Internal Server Error</strong> ：服务器正在执行请求时发生错误。</li><li><strong>503 Service Unavailable</strong> ：服务器暂时处于超负载或正在进行停机维护，现在无法处理请求。</li></ul><h2 id="HTTP首部"><a href="#HTTP首部" class="headerlink" title="HTTP首部"></a>HTTP首部</h2><h3 id="通用首部字段"><a href="#通用首部字段" class="headerlink" title="通用首部字段"></a>通用首部字段</h3><table><thead><tr><th style="text-align:center">首部字段名</th><th style="text-align:center">说明</th></tr></thead><tbody><tr><td style="text-align:center">Cache-Control</td><td style="text-align:center">控制缓存的行为</td></tr><tr><td style="text-align:center">Connection</td><td style="text-align:center">控制不再转发给代理的首部字段、管理持久连接</td></tr><tr><td style="text-align:center">Date</td><td style="text-align:center">创建报文的日期时间</td></tr><tr><td style="text-align:center">Pragma</td><td style="text-align:center">报文指令</td></tr><tr><td style="text-align:center">Trailer</td><td style="text-align:center">报文末端的首部一览</td></tr><tr><td style="text-align:center">Transfer-Encoding</td><td style="text-align:center">指定报文主体的传输编码方式</td></tr><tr><td style="text-align:center">Upgrade</td><td style="text-align:center">升级为其他协议</td></tr><tr><td style="text-align:center">Via</td><td style="text-align:center">代理服务器的相关信息</td></tr><tr><td style="text-align:center">Warning</td><td style="text-align:center">错误通知</td></tr></tbody></table><h3 id="请求首部字段"><a href="#请求首部字段" class="headerlink" title="请求首部字段"></a>请求首部字段</h3><table><thead><tr><th style="text-align:center">首部字段名</th><th style="text-align:center">说明</th></tr></thead><tbody><tr><td style="text-align:center">Accept</td><td style="text-align:center">用户代理可处理的媒体类型</td></tr><tr><td style="text-align:center">Accept-Charset</td><td style="text-align:center">优先的字符集</td></tr><tr><td style="text-align:center">Accept-Encoding</td><td style="text-align:center">优先的内容编码</td></tr><tr><td style="text-align:center">Accept-Language</td><td style="text-align:center">优先的语言（自然语言）</td></tr><tr><td style="text-align:center">Authorization</td><td style="text-align:center">Web 认证信息</td></tr><tr><td style="text-align:center">Expect</td><td style="text-align:center">期待服务器的特定行为</td></tr><tr><td style="text-align:center">From</td><td style="text-align:center">用户的电子邮箱地址</td></tr><tr><td style="text-align:center">Host</td><td style="text-align:center">请求资源所在服务器</td></tr><tr><td style="text-align:center">If-Match</td><td style="text-align:center">比较实体标记（ETag）</td></tr><tr><td style="text-align:center">If-Modified-Since</td><td style="text-align:center">比较资源的更新时间</td></tr><tr><td style="text-align:center">If-None-Match</td><td style="text-align:center">比较实体标记（与 If-Match 相反）</td></tr><tr><td style="text-align:center">If-Range</td><td style="text-align:center">资源未更新时发送实体 Byte 的范围请求</td></tr><tr><td style="text-align:center">If-Unmodified-Since</td><td style="text-align:center">比较资源的更新时间（与 If-Modified-Since 相反）</td></tr><tr><td style="text-align:center">Max-Forwards</td><td style="text-align:center">最大传输逐跳数</td></tr><tr><td style="text-align:center">Proxy-Authorization</td><td style="text-align:center">代理服务器要求客户端的认证信息</td></tr><tr><td style="text-align:center">Range</td><td style="text-align:center">实体的字节范围请求</td></tr><tr><td style="text-align:center">Referer</td><td style="text-align:center">对请求中 URI 的原始获取方</td></tr><tr><td style="text-align:center">TE</td><td style="text-align:center">传输编码的优先级</td></tr><tr><td style="text-align:center">User-Agent</td><td style="text-align:center">HTTP 客户端程序的信息</td></tr></tbody></table><h3 id="响应首部字段"><a href="#响应首部字段" class="headerlink" title="响应首部字段"></a>响应首部字段</h3><table><thead><tr><th style="text-align:center">首部字段名</th><th style="text-align:center">说明</th></tr></thead><tbody><tr><td style="text-align:center">Accept-Ranges</td><td style="text-align:center">是否接受字节范围请求</td></tr><tr><td style="text-align:center">Age</td><td style="text-align:center">推算资源创建经过时间</td></tr><tr><td style="text-align:center">ETag</td><td style="text-align:center">资源的匹配信息让服务端给每一个页面分配一个唯一的编号，通过编号来区分当前这个页面是否是最新的</td></tr><tr><td style="text-align:center">Location</td><td style="text-align:center">令客户端重定向至指定 URI</td></tr><tr><td style="text-align:center">Proxy-Authenticate</td><td style="text-align:center">代理服务器对客户端的认证信息</td></tr><tr><td style="text-align:center">Retry-After</td><td style="text-align:center">对再次发起请求的时机要求</td></tr><tr><td style="text-align:center">Server</td><td style="text-align:center">HTTP 服务器的安装信息</td></tr><tr><td style="text-align:center">Vary</td><td style="text-align:center">代理服务器缓存的管理信息</td></tr><tr><td style="text-align:center">WWW-Authenticate</td><td style="text-align:center">服务器对客户端的认证信息</td></tr></tbody></table><h3 id="实体首部字段"><a href="#实体首部字段" class="headerlink" title="实体首部字段"></a>实体首部字段</h3><table><thead><tr><th style="text-align:center">首部字段名</th><th style="text-align:center">说明</th></tr></thead><tbody><tr><td style="text-align:center">Allow</td><td style="text-align:center">资源可支持的 HTTP 方法</td></tr><tr><td style="text-align:center">Content-Encoding</td><td style="text-align:center">实体主体适用的编码方式</td></tr><tr><td style="text-align:center">Content-Language</td><td style="text-align:center">实体主体的自然语言</td></tr><tr><td style="text-align:center">Content-Length</td><td style="text-align:center">实体主体的大小</td></tr><tr><td style="text-align:center">Content-Location</td><td style="text-align:center">替代对应资源的 URI</td></tr><tr><td style="text-align:center">Content-MD5</td><td style="text-align:center">实体主体的报文摘要</td></tr><tr><td style="text-align:center">Content-Range</td><td style="text-align:center">实体主体的位置范围</td></tr><tr><td style="text-align:center">Content-Type</td><td style="text-align:center">实体主体的媒体类型</td></tr><tr><td style="text-align:center">Expires</td><td style="text-align:center">实体主体过期的日期时间</td></tr><tr><td style="text-align:center">Last-Modified</td><td style="text-align:center">资源的最后修改日期时间</td></tr></tbody></table><h3 id="Cache-Control"><a href="#Cache-Control" class="headerlink" title="Cache-Control"></a>Cache-Control</h3><p>HTTP/1.1 通过 Cache-Control 首部字段来控制缓存。</p><p>Cache-Control: no-store指令规定不能对请求或响应的任何一部分进行缓存。</p><p>Cache-Control: no-cache指令规定缓存服务器需要先向源服务器验证缓存资源的有效性，只有当缓存资源有效才将能使用该缓存对客户端的请求进行响应。</p><p>Cache-Control: max-age 指令出现在请求报文中，并且缓存资源的缓存时间小于该指令指定的时间，那么就能接受该缓存；出现在响应报文中，表示缓存资源在缓存服务器中保存的时间。</p><p>Expires 首部字段也可以用于告知缓存服务器该资源什么时候会过期。</p><h3 id="缓存验证"><a href="#缓存验证" class="headerlink" title="缓存验证"></a>缓存验证</h3><p>需要先了解 ETag 首部字段的含义，它是资源的唯一标识。URL 不能唯一表示资源。可以将缓存资源的 ETag 值放入 If-None-Match 首部，服务器收到该请求后，判断缓存资源的 ETag 值和资源的最新 ETag 值是否一致，如果一致则表示缓存资源有效，返回 304 Not Modified。</p><p>Last-Modified 首部字段也可以用于缓存验证，它包含在源服务器发送的响应报文中，指示源服务器对资源的最后修改时间。但是它是一种弱校验器，因为只能精确到一秒，所以它通常作为 ETag 的备用方案。如果响应首部字段里含有这个信息，客户端可以在后续的请求中带上 If-Modified-Since 来验证缓存。服务器只在所请求的资源在给定的日期时间之后对内容进行过修改的情况下才会将资源返回，状态码为 200 OK。如果请求的资源从那时起未经修改，那么返回一个不带有消息主体的 304 Not Modified 响应。</p>]]></content>
     
     <summary type="html">
     
@@ -207,13 +485,27 @@
     <link href="https://masonnpe.github.io/2018/10/22/%E6%95%B0%E6%8D%AE%E5%BA%93/%E6%95%B0%E6%8D%AE%E5%BA%93%E9%94%81/"/>
     <id>https://masonnpe.github.io/2018/10/22/数据库/数据库锁/</id>
     <published>2018-10-22T15:49:53.298Z</published>
-    <updated>2018-10-22T15:57:43.868Z</updated>
+    <updated>2018-10-26T15:14:16.946Z</updated>
     
-    <content type="html"><![CDATA[<table><thead><tr><th></th><th>共享锁(S)</th><th>排他锁(X)</th><th>意向共享锁(IS)</th><th>意向排他锁(IX)</th></tr></thead><tbody><tr><td><strong>共享锁</strong></td><td>兼容</td><td>冲突</td><td>兼容</td><td>冲突</td></tr><tr><td><strong>排他锁</strong></td><td>冲突</td><td>冲突</td><td>冲突</td><td>冲突</td></tr><tr><td><strong>意向共享锁</strong></td><td>兼容</td><td>冲突</td><td>兼容</td><td>兼容</td></tr><tr><td><strong>意向排他锁</strong></td><td>冲突</td><td>冲突</td><td>兼容</td><td>兼容</td></tr></tbody></table><a id="more"></a>]]></content>
+    <content type="html"><![CDATA[<ul><li><p>排它锁（Exclusive），简写为 X 锁，又称写锁。</p></li><li><p>共享锁（Shared），简写为 S 锁，又称读锁。</p></li><li><p>IX/IS 都是表锁，用来表示一个事务想要在表中的某个数据行上加 X 锁或 S 锁。</p></li></ul><blockquote><p>在存在行级锁和表级锁的情况下，事务 T 想要对表 A 加 X 锁，就需要先检测是否有其它事务对表 A 或者表 A 中的任意一行加了锁，那么就需要对表 A 的每一行都检测一次，这是非常耗时的。</p><p> 一个事务在获得某个数据行对象的 S 锁之前，必须先获得表的 IS 锁或者更强的锁；</p><p>一个事务在获得某个数据行对象的 X 锁之前，必须先获得表的 IX 锁。</p><p>通过引入意向锁，事务 T 想要对表 A 加 X 锁，只需要先检测是否有其它事务对表 A 加了 X/IX/S/IS 锁，如果加了就表示有其它事务正在使用这个表或者表中某一行的锁，因此事务 T 加 X 锁失败。</p></blockquote><table><thead><tr><th></th><th>共享锁(S)</th><th>排他锁(X)</th><th>意向共享锁(IS)</th><th>意向排他锁(IX)</th></tr></thead><tbody><tr><td><strong>共享锁</strong></td><td>兼容</td><td>冲突</td><td>兼容</td><td>冲突</td></tr><tr><td><strong>排他锁</strong></td><td>冲突</td><td>冲突</td><td>冲突</td><td>冲突</td></tr><tr><td><strong>意向共享锁</strong></td><td>兼容</td><td>冲突</td><td>兼容</td><td>兼容</td></tr><tr><td><strong>意向排他锁</strong></td><td>冲突</td><td>冲突</td><td>兼容</td><td>兼容</td></tr></tbody></table><ul><li>任意 IS/IX 锁之间都是兼容的，因为它们只是表示想要对表加锁，而不是真正加锁；</li><li>S 锁只与 S 锁和 IS 锁兼容</li></ul><a id="more"></a><h2 id="三级封锁协议"><a href="#三级封锁协议" class="headerlink" title="三级封锁协议"></a>三级封锁协议</h2><p><strong>一级封锁协议</strong>：写-写；事务要修改数据时必须加 X 锁，直到事务结束才释放锁。可以解决丢失修改问题，因为不能同时有两个事务对同一个数据进行修改，那么事务的修改就不会被覆盖。</p><p><strong>二级封锁协议</strong>：写-读；在一级的基础上，要求读取数据 A 时必须加 S 锁，读取完马上释放 S 锁。可以解决读脏数据问题，因为如果一个事务在对数据进行修改，根据一级封锁协议，会加 X 锁，那么就不能再加 S 锁了，也就是不会读入数据。</p><p><strong>三级封锁协议</strong>：读-写；在二级的基础上，要求读取数据 A 时必须加 S 锁，直到事务结束了才能释放 S 锁。可以解决不可重复读的问题，因为读数据时，其它事务不能对数据加 X 锁，从而避免了在读的期间数据发生改变。</p>]]></content>
     
     <summary type="html">
     
-      &lt;table&gt;
+      &lt;ul&gt;
+&lt;li&gt;&lt;p&gt;排它锁（Exclusive），简写为 X 锁，又称写锁。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;共享锁（Shared），简写为 S 锁，又称读锁。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;IX/IS 都是表锁，用来表示一个事务想要在表中的某个数据行上加 X 锁或 S 锁。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;在存在行级锁和表级锁的情况下，事务 T 想要对表 A 加 X 锁，就需要先检测是否有其它事务对表 A 或者表 A 中的任意一行加了锁，那么就需要对表 A 的每一行都检测一次，这是非常耗时的。&lt;/p&gt;
+&lt;p&gt; 一个事务在获得某个数据行对象的 S 锁之前，必须先获得表的 IS 锁或者更强的锁；&lt;/p&gt;
+&lt;p&gt;一个事务在获得某个数据行对象的 X 锁之前，必须先获得表的 IX 锁。&lt;/p&gt;
+&lt;p&gt;通过引入意向锁，事务 T 想要对表 A 加 X 锁，只需要先检测是否有其它事务对表 A 加了 X/IX/S/IS 锁，如果加了就表示有其它事务正在使用这个表或者表中某一行的锁，因此事务 T 加 X 锁失败。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;table&gt;
 &lt;thead&gt;
 &lt;tr&gt;
 &lt;th&gt;&lt;/th&gt;
@@ -254,6 +546,10 @@
 &lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
+&lt;ul&gt;
+&lt;li&gt;任意 IS/IX 锁之间都是兼容的，因为它们只是表示想要对表加锁，而不是真正加锁；&lt;/li&gt;
+&lt;li&gt;S 锁只与 S 锁和 IS 锁兼容&lt;/li&gt;
+&lt;/ul&gt;
     
     </summary>
     

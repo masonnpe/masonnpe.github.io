@@ -124,18 +124,18 @@
 
 
 
-<meta name="description" content="共享锁(S) 排他锁(X) 意向共享锁(IS) 意向排他锁(IX)     共享锁 兼容 冲突 兼容 冲突   排他锁 冲突 冲突 冲突 冲突   意向共享锁 兼容 冲突 兼容 兼容   意向排他锁 冲突 冲突 兼容 兼容">
+<meta name="description" content="排它锁（Exclusive），简写为 X 锁，又称写锁。  共享锁（Shared），简写为 S 锁，又称读锁。  IX/IS 都是表锁，用来表示一个事务想要在表中的某个数据行上加 X 锁或 S 锁。    在存在行级锁和表级锁的情况下，事务 T 想要对表 A 加 X 锁，就需要先检测是否有其它事务对表 A 或者表 A 中的任意一行加了锁，那么就需要对表 A 的每一行都检测一次，这是非常耗时的。">
 <meta name="keywords" content="Lock">
 <meta property="og:type" content="article">
 <meta property="og:title" content="数据库锁">
 <meta property="og:url" content="https://masonnpe.github.io/2018/10/22/数据库/数据库锁/index.html">
 <meta property="og:site_name" content="Masonnpe&#39;s Blog">
-<meta property="og:description" content="共享锁(S) 排他锁(X) 意向共享锁(IS) 意向排他锁(IX)     共享锁 兼容 冲突 兼容 冲突   排他锁 冲突 冲突 冲突 冲突   意向共享锁 兼容 冲突 兼容 兼容   意向排他锁 冲突 冲突 兼容 兼容">
+<meta property="og:description" content="排它锁（Exclusive），简写为 X 锁，又称写锁。  共享锁（Shared），简写为 S 锁，又称读锁。  IX/IS 都是表锁，用来表示一个事务想要在表中的某个数据行上加 X 锁或 S 锁。    在存在行级锁和表级锁的情况下，事务 T 想要对表 A 加 X 锁，就需要先检测是否有其它事务对表 A 或者表 A 中的任意一行加了锁，那么就需要对表 A 的每一行都检测一次，这是非常耗时的。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-10-22T15:57:43.868Z">
+<meta property="og:updated_time" content="2018-10-26T15:14:16.946Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="数据库锁">
-<meta name="twitter:description" content="共享锁(S) 排他锁(X) 意向共享锁(IS) 意向排他锁(IX)     共享锁 兼容 冲突 兼容 冲突   排他锁 冲突 冲突 冲突 冲突   意向共享锁 兼容 冲突 兼容 兼容   意向排他锁 冲突 冲突 兼容 兼容">
+<meta name="twitter:description" content="排它锁（Exclusive），简写为 X 锁，又称写锁。  共享锁（Shared），简写为 S 锁，又称读锁。  IX/IS 都是表锁，用来表示一个事务想要在表中的某个数据行上加 X 锁或 S 锁。    在存在行级锁和表级锁的情况下，事务 T 想要对表 A 加 X 锁，就需要先检测是否有其它事务对表 A 或者表 A 中的任意一行加了锁，那么就需要对表 A 的每一行都检测一次，这是非常耗时的。">
 
 
 
@@ -433,7 +433,21 @@
       
 
       
-        <table>
+        <ul>
+<li><p>排它锁（Exclusive），简写为 X 锁，又称写锁。</p>
+</li>
+<li><p>共享锁（Shared），简写为 S 锁，又称读锁。</p>
+</li>
+<li><p>IX/IS 都是表锁，用来表示一个事务想要在表中的某个数据行上加 X 锁或 S 锁。</p>
+</li>
+</ul>
+<blockquote>
+<p>在存在行级锁和表级锁的情况下，事务 T 想要对表 A 加 X 锁，就需要先检测是否有其它事务对表 A 或者表 A 中的任意一行加了锁，那么就需要对表 A 的每一行都检测一次，这是非常耗时的。</p>
+<p> 一个事务在获得某个数据行对象的 S 锁之前，必须先获得表的 IS 锁或者更强的锁；</p>
+<p>一个事务在获得某个数据行对象的 X 锁之前，必须先获得表的 IX 锁。</p>
+<p>通过引入意向锁，事务 T 想要对表 A 加 X 锁，只需要先检测是否有其它事务对表 A 加了 X/IX/S/IS 锁，如果加了就表示有其它事务正在使用这个表或者表中某一行的锁，因此事务 T 加 X 锁失败。</p>
+</blockquote>
+<table>
 <thead>
 <tr>
 <th></th>
@@ -474,7 +488,15 @@
 </tr>
 </tbody>
 </table>
+<ul>
+<li>任意 IS/IX 锁之间都是兼容的，因为它们只是表示想要对表加锁，而不是真正加锁；</li>
+<li>S 锁只与 S 锁和 IS 锁兼容</li>
+</ul>
 <a id="more"></a>
+<h2 id="三级封锁协议"><a href="#三级封锁协议" class="headerlink" title="三级封锁协议"></a>三级封锁协议</h2><p><strong>一级封锁协议</strong>：写-写；事务要修改数据时必须加 X 锁，直到事务结束才释放锁。可以解决丢失修改问题，因为不能同时有两个事务对同一个数据进行修改，那么事务的修改就不会被覆盖。</p>
+<p><strong>二级封锁协议</strong>：写-读；在一级的基础上，要求读取数据 A 时必须加 S 锁，读取完马上释放 S 锁。可以解决读脏数据问题，因为如果一个事务在对数据进行修改，根据一级封锁协议，会加 X 锁，那么就不能再加 S 锁了，也就是不会读入数据。</p>
+<p><strong>三级封锁协议</strong>：读-写；在二级的基础上，要求读取数据 A 时必须加 S 锁，直到事务结束了才能释放 S 锁。可以解决不可重复读的问题，因为读数据时，其它事务不能对数据加 X 锁，从而避免了在读的期间数据发生改变。</p>
+
       
     </div>
     
@@ -573,8 +595,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -593,7 +624,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-count">19</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -615,7 +646,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-count">20</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -719,6 +750,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#三级封锁协议"><span class="nav-number">1.</span> <span class="nav-text">三级封锁协议</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
