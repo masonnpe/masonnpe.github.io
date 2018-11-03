@@ -132,7 +132,7 @@
 <meta property="og:site_name" content="Masonnpe&#39;s Blog">
 <meta property="og:description" content="未提交读（READ UNCOMMITTED）事务中的修改，即使没有提交，对其它事务也是可见的。使用查询语句不会加锁，可能会读到未提交的行（Dirty Read） 造成：脏读；不可重复读；幻影读 提交读（READ COMMITTED）一个事务只能读取已经提交的事务所做的修改。换句话说，一个事务所做的修改在提交之前对其它事务是不可见的。只对记录加记录锁，而不会在记录之间加间隙锁，所以允许新的记录插入到">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-10-26T15:56:24.363Z">
+<meta property="og:updated_time" content="2018-10-27T01:17:25.197Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="数据库事务">
 <meta name="twitter:description" content="未提交读（READ UNCOMMITTED）事务中的修改，即使没有提交，对其它事务也是可见的。使用查询语句不会加锁，可能会读到未提交的行（Dirty Read） 造成：脏读；不可重复读；幻影读 提交读（READ COMMITTED）一个事务只能读取已经提交的事务所做的修改。换句话说，一个事务所做的修改在提交之前对其它事务是不可见的。只对记录加记录锁，而不会在记录之间加间隙锁，所以允许新的记录插入到">
@@ -440,7 +440,7 @@
 <h2 id="可重复读（REPEATABLE-READ）"><a href="#可重复读（REPEATABLE-READ）" class="headerlink" title="可重复读（REPEATABLE READ）"></a>可重复读（REPEATABLE READ）</h2><p>保证在同一个事务中多次读取同样数据的结果是一样的。多次读取同一范围的数据会返回第一次查询的快照，不会返回不同的数据行，但是可能发生幻读（Phantom Read）</p>
 <p>造成：幻影读</p>
 <h2 id="可串行化（SERIALIZABLE）"><a href="#可串行化（SERIALIZABLE）" class="headerlink" title="可串行化（SERIALIZABLE）"></a>可串行化（SERIALIZABLE）</h2><p>强制事务串行执行。InnoDB 隐式地将全部的查询语句加上共享锁，解决了幻读的问题；</p>
-<h2 id="MySql"><a href="#MySql" class="headerlink" title="MySql"></a>MySql</h2><p>MySQL 中默认的事务隔离级别就是 <code>REPEATABLE READ</code>，它通过 Next-Key 锁也能够在某种程度上解决幻读的问题。MVCC 会产生幻读问题（更新时异常）在可重复读隔离级别下，通过多版本并发控制（MVCC）+ 间隙锁（Next-Key Locking）防止幻影读。</p>
+<h2 id="MySQL"><a href="#MySQL" class="headerlink" title="MySQL"></a>MySQL</h2><p>MySQL 中默认的事务隔离级别就是 <code>REPEATABLE READ</code>，它通过 Next-Key 锁也能够在某种程度上解决幻读的问题。MVCC 会产生幻读问题（更新时异常）在可重复读隔离级别下，通过多版本并发控制（MVCC）+ 间隙锁（Next-Key Locking）防止幻影读。</p>
 
       
     </div>
@@ -571,7 +571,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-count">41</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -582,7 +582,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-count">8</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -593,7 +593,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">20</span>
+                  <span class="site-state-item-count">32</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -707,7 +707,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#未提交读（READ-UNCOMMITTED）"><span class="nav-number">1.</span> <span class="nav-text">未提交读（READ UNCOMMITTED）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#提交读（READ-COMMITTED）"><span class="nav-number">2.</span> <span class="nav-text">提交读（READ COMMITTED）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#可重复读（REPEATABLE-READ）"><span class="nav-number">3.</span> <span class="nav-text">可重复读（REPEATABLE READ）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#可串行化（SERIALIZABLE）"><span class="nav-number">4.</span> <span class="nav-text">可串行化（SERIALIZABLE）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MySql"><span class="nav-number">5.</span> <span class="nav-text">MySql</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#未提交读（READ-UNCOMMITTED）"><span class="nav-number">1.</span> <span class="nav-text">未提交读（READ UNCOMMITTED）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#提交读（READ-COMMITTED）"><span class="nav-number">2.</span> <span class="nav-text">提交读（READ COMMITTED）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#可重复读（REPEATABLE-READ）"><span class="nav-number">3.</span> <span class="nav-text">可重复读（REPEATABLE READ）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#可串行化（SERIALIZABLE）"><span class="nav-number">4.</span> <span class="nav-text">可串行化（SERIALIZABLE）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MySQL"><span class="nav-number">5.</span> <span class="nav-text">MySQL</span></a></li></ol></div>
             
 
           </div>
