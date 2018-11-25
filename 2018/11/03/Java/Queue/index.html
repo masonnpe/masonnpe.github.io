@@ -124,18 +124,18 @@
 
 
 
-<meta name="description" content="method description     add 添加元素  如果队列满 抛出异常   offer 元素插入到队尾 如果队列满，返回false   put 添加元素 队列满则阻塞   peek 不移除元素返回队头，队列为空返回null   element 不移除元素返回队头，队列为空抛异常   poll 移除元素返回队头，队列为空返回null   remove 移除元素返回队头，队列为空">
+<meta name="description" content="Queue是一个FIFO的数据结构，Queue接口与List、Set一样都继承了Collection接口 Deque双向队列，队列两端的元素既能入队也能出队，LinkedList实现了Deque接口 非阻塞队列 PriorityQueue实质上维护了一个有序列表。加入到 Queue 中的元素根据它们的天然排序（通过其 java.util.Comparable 实现）或者根据传递给构造函数的 jav">
 <meta name="keywords" content="Queue">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Queue">
 <meta property="og:url" content="https://masonnpe.github.io/2018/11/03/Java/Queue/index.html">
 <meta property="og:site_name" content="Masonnpe&#39;s Blog">
-<meta property="og:description" content="method description     add 添加元素  如果队列满 抛出异常   offer 元素插入到队尾 如果队列满，返回false   put 添加元素 队列满则阻塞   peek 不移除元素返回队头，队列为空返回null   element 不移除元素返回队头，队列为空抛异常   poll 移除元素返回队头，队列为空返回null   remove 移除元素返回队头，队列为空">
+<meta property="og:description" content="Queue是一个FIFO的数据结构，Queue接口与List、Set一样都继承了Collection接口 Deque双向队列，队列两端的元素既能入队也能出队，LinkedList实现了Deque接口 非阻塞队列 PriorityQueue实质上维护了一个有序列表。加入到 Queue 中的元素根据它们的天然排序（通过其 java.util.Comparable 实现）或者根据传递给构造函数的 jav">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-11-03T11:20:12.011Z">
+<meta property="og:updated_time" content="2018-11-05T14:05:15.181Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Queue">
-<meta name="twitter:description" content="method description     add 添加元素  如果队列满 抛出异常   offer 元素插入到队尾 如果队列满，返回false   put 添加元素 队列满则阻塞   peek 不移除元素返回队头，队列为空返回null   element 不移除元素返回队头，队列为空抛异常   poll 移除元素返回队头，队列为空返回null   remove 移除元素返回队头，队列为空">
+<meta name="twitter:description" content="Queue是一个FIFO的数据结构，Queue接口与List、Set一样都继承了Collection接口 Deque双向队列，队列两端的元素既能入队也能出队，LinkedList实现了Deque接口 非阻塞队列 PriorityQueue实质上维护了一个有序列表。加入到 Queue 中的元素根据它们的天然排序（通过其 java.util.Comparable 实现）或者根据传递给构造函数的 jav">
 
 
 
@@ -433,7 +433,28 @@
       
 
       
-        <table>
+        <p>Queue是一个FIFO的数据结构，Queue接口与List、Set一样都继承了Collection接口</p>
+<p>Deque双向队列，队列两端的元素既能入队也能出队，LinkedList实现了Deque接口</p>
+<h2 id="非阻塞队列"><a href="#非阻塞队列" class="headerlink" title="非阻塞队列"></a>非阻塞队列</h2><ul>
+<li><p>PriorityQueue实质上维护了一个有序列表。加入到 Queue 中的元素根据它们的天然排序（通过其 java.util.Comparable 实现）或者根据传递给构造函数的 java.util.Comparator 实现来定位  </p>
+</li>
+<li><p>ConcurrentLinkedQueue是基于链接节点的、<strong>线程安全</strong>的<strong>无界</strong>队列。并发访问不需要同步，需要遍历队列。  因为它在队列的尾部添加元素并从头部删除它们，所以只要不需要知道队列的大小，ConcurrentLinkedQueue 对公共集合的共享访问就可以工作得很好。收集关于队列大小的信息会很慢，需要遍历队列。采用CAS机制（compareAndSwapObject原子操作）。</p>
+</li>
+</ul>
+<h2 id="阻塞队列"><a href="#阻塞队列" class="headerlink" title="阻塞队列"></a>阻塞队列</h2><ul>
+<li><p>LinkedBlockingQueue ：一个由链接节点支持的可选有界队列。LinkedBlockingQueue的容量是没有上限的（说的不准确，在不指定时容量为Integer.MAX_VALUE，不要然的话在put时怎么会受阻呢），但是也可以选择指定其最大容量，它是基于链表的队列，此队列按 FIFO（先进先出）排序元素。使用 ReentrantLock 锁,添加元素为原子操作的队列</p>
+</li>
+<li><p>ArrayBlockingQueue ：一个由<strong>数组</strong>支持的<strong>有界</strong>队列。ArrayBlockingQueue在构造时需要指定容量， 并可以选择是否需要公平性，如果公平参数被设置true，等待时间最长的线程会优先得到处理（其实就是通过将ReentrantLock设置为true来 达到这种公平性的：即等待时间最长的线程会先操作）。通常，公平性会使你在性能上付出代价，只有在的确非常需要的时候再使用它。它是基于数组的阻塞循环队 列，此队列按 FIFO（先进先出）原则对元素进行排序。</p>
+</li>
+<li><p>PriorityBlockingQueue ：一个由<strong>优先级堆</strong>支持的<strong>无界</strong>优先级队列，而不是先进先出队列。元素按优先级顺序被移除，该队列也没有上限（看了一下源码，PriorityBlockingQueue是对 PriorityQueue的再次包装，是基于堆数据结构的，而PriorityQueue是没有容量限制的，与ArrayList一样，所以在优先阻塞 队列上put时是不会受阻的。虽然此队列逻辑上是无界的，但是由于资源被耗尽，所以试图执行添加操作可能会导致 OutOfMemoryError），但是如果队列为空，那么取元素的操作take就会阻塞，所以它的检索操作take是受阻的。另外，往入该队列中的元 素要具有比较能力。</p>
+</li>
+<li><p>DelayQueue ：一个由<strong>优先级堆</strong>支持的、基于时间的调度队列。DelayQueue（基于PriorityQueue来实现的）是一个存放Delayed 元素的无界阻塞队列，只有在延迟期满时才能从中提取元素。该队列的头部是延迟期满后保存时间最长的 Delayed 元素。如果延迟都还没有期满，则队列没有头部，并且poll将返回null。当一个元素的 getDelay(TimeUnit.NANOSECONDS) 方法返回一个小于或等于零的值时，则出现期满，poll就以移除这个元素了。此队列不允许使用 null 元素。</p>
+</li>
+<li><p>SynchronousQueue （并发同步阻塞队列）一个利用 BlockingQueue 接口的简单聚集（rendezvous）机制。</p>
+</li>
+</ul>
+<a id="more"></a>
+<table>
 <thead>
 <tr>
 <th>method</th>
@@ -443,7 +464,7 @@
 <tbody>
 <tr>
 <td>add</td>
-<td>添加元素  如果队列满 抛出异常</td>
+<td>添加元素  如果队列满 抛出IIIegaISlabEepeplian异常</td>
 </tr>
 <tr>
 <td>offer</td>
@@ -459,7 +480,7 @@
 </tr>
 <tr>
 <td>element</td>
-<td>不移除元素返回队头，队列为空抛异常</td>
+<td>不移除元素返回队头，队列为空抛NoSuchElementException异常</td>
 </tr>
 <tr>
 <td>poll</td>
@@ -467,7 +488,7 @@
 </tr>
 <tr>
 <td>remove</td>
-<td>移除元素返回队头，队列为空抛异常</td>
+<td>移除元素返回队头，队列为空抛NoSuchElementException异常</td>
 </tr>
 <tr>
 <td>take</td>
@@ -475,6 +496,10 @@
 </tr>
 </tbody>
 </table>
+<h2 id="生产者-消费者"><a href="#生产者-消费者" class="headerlink" title="生产者-消费者"></a>生产者-消费者</h2><p>阻塞队列支持设计模式</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">package</span> com.yao;</span><br><span class="line"><span class="keyword">import</span> java.util.concurrent.ArrayBlockingQueue;</span><br><span class="line"><span class="keyword">import</span> java.util.concurrent.BlockingQueue;</span><br><span class="line"><span class="keyword">import</span> java.util.concurrent.ExecutorService;</span><br><span class="line"><span class="keyword">import</span> java.util.concurrent.Executors;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BlockingQueueTest</span> </span>&#123;</span><br><span class="line"> <span class="comment">/**</span></span><br><span class="line"><span class="comment"> 定义装苹果的篮子</span></span><br><span class="line"><span class="comment">  */</span></span><br><span class="line"> <span class="keyword">public</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">Basket</span></span>&#123;</span><br><span class="line">  <span class="comment">// 篮子，能够容纳3个苹果</span></span><br><span class="line">  BlockingQueue&lt;String&gt; basket = <span class="keyword">new</span> ArrayBlockingQueue&lt;String&gt;(<span class="number">3</span>);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 生产苹果，放入篮子</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">produce</span><span class="params">()</span> <span class="keyword">throws</span> InterruptedException</span>&#123;</span><br><span class="line">   <span class="comment">// put方法放入一个苹果，若basket满了，等到basket有位置</span></span><br><span class="line">   basket.put(<span class="string">"An apple"</span>);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// 消费苹果，从篮子中取走</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> String <span class="title">consume</span><span class="params">()</span> <span class="keyword">throws</span> InterruptedException</span>&#123;</span><br><span class="line">   <span class="comment">// get方法取出一个苹果，若basket为空，等到basket有苹果为止</span></span><br><span class="line">   String apple = basket.take();</span><br><span class="line">   <span class="keyword">return</span> apple;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getAppleNumber</span><span class="params">()</span></span>&#123;</span><br><span class="line">   <span class="keyword">return</span> basket.size();</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line"> &#125;</span><br><span class="line"> <span class="comment">//　测试方法</span></span><br><span class="line"> <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">testBasket</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="comment">// 建立一个装苹果的篮子</span></span><br><span class="line">  <span class="keyword">final</span> Basket basket = <span class="keyword">new</span> Basket();</span><br><span class="line">  <span class="comment">// 定义苹果生产者</span></span><br><span class="line">  <span class="class"><span class="keyword">class</span> <span class="title">Producer</span> <span class="keyword">implements</span> <span class="title">Runnable</span> </span>&#123;</span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">     <span class="keyword">while</span> (<span class="keyword">true</span>) &#123;</span><br><span class="line">      <span class="comment">// 生产苹果</span></span><br><span class="line">      System.out.println(<span class="string">"生产者准备生产苹果："</span> </span><br><span class="line">        + System.currentTimeMillis());</span><br><span class="line">      basket.produce();</span><br><span class="line">      System.out.println(<span class="string">"生产者生产苹果完毕："</span> </span><br><span class="line">        + System.currentTimeMillis());</span><br><span class="line">      System.out.println(<span class="string">"生产完后有苹果："</span>+basket.getAppleNumber()+<span class="string">"个"</span>);</span><br><span class="line">      <span class="comment">// 休眠300ms</span></span><br><span class="line">      Thread.sleep(<span class="number">300</span>);</span><br><span class="line">     &#125;</span><br><span class="line">    &#125; <span class="keyword">catch</span> (InterruptedException ex) &#123;</span><br><span class="line">    &#125;</span><br><span class="line">   &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// 定义苹果消费者</span></span><br><span class="line">  <span class="class"><span class="keyword">class</span> <span class="title">Consumer</span> <span class="keyword">implements</span> <span class="title">Runnable</span> </span>&#123;</span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">     <span class="keyword">while</span> (<span class="keyword">true</span>) &#123;</span><br><span class="line">      <span class="comment">// 消费苹果</span></span><br><span class="line">      System.out.println(<span class="string">"消费者准备消费苹果："</span> </span><br><span class="line">        + System.currentTimeMillis());</span><br><span class="line">      basket.consume();</span><br><span class="line">      System.out.println(<span class="string">"消费者消费苹果完毕："</span> </span><br><span class="line">        + System.currentTimeMillis());</span><br><span class="line">      System.out.println(<span class="string">"消费完后有苹果："</span>+basket.getAppleNumber()+<span class="string">"个"</span>);</span><br><span class="line">      <span class="comment">// 休眠1000ms</span></span><br><span class="line">      Thread.sleep(<span class="number">1000</span>);</span><br><span class="line">     &#125;</span><br><span class="line">    &#125; <span class="keyword">catch</span> (InterruptedException ex) &#123;</span><br><span class="line">    &#125;</span><br><span class="line">   &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  ExecutorService service = Executors.newCachedThreadPool();</span><br><span class="line">  Producer producer = <span class="keyword">new</span> Producer();</span><br><span class="line">  Consumer consumer = <span class="keyword">new</span> Consumer();</span><br><span class="line">  service.submit(producer);</span><br><span class="line">  service.submit(consumer);</span><br><span class="line">  <span class="comment">// 程序运行10s后，所有任务停止</span></span><br><span class="line">  <span class="keyword">try</span> &#123;</span><br><span class="line">   Thread.sleep(<span class="number">10000</span>);</span><br><span class="line">  &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">  &#125;</span><br><span class="line">  service.shutdownNow();</span><br><span class="line"> &#125;</span><br><span class="line"> <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">  BlockingQueueTest.testBasket();</span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">1.LinkedBlockingQueue是使用锁机制，ConcurrentLinkedQueue是使用CAS算法，虽然LinkedBlockingQueue的底层获取锁也是使用的CAS算法</span><br><span class="line"></span><br><span class="line">2.关于取元素，ConcurrentLinkedQueue不支持阻塞去取元素，LinkedBlockingQueue支持阻塞的take()方法，如若大家需要ConcurrentLinkedQueue的消费者产生阻塞效果，需要自行实现</span><br><span class="line"></span><br><span class="line">3.关于插入元素的性能，从字面上和代码简单的分析来看ConcurrentLinkedQueue肯定是最快的，但是这个也要看具体的测试场景，我做了两个简单的demo做测试，测试的结果如下，两个的性能差不多，但在实际的使用过程中，尤其在多cpu的服务器上，有锁和无锁的差距便体现出来了，ConcurrentLinkedQueue会比LinkedBlockingQueue快很多：</span><br></pre></td></tr></table></figure>
+<p>linkedlist线程不安全</p>
 
       
     </div>
@@ -574,8 +599,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -594,7 +628,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">42</span>
+                  <span class="site-state-item-count">77</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -605,7 +639,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-count">19</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -616,7 +650,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">33</span>
+                  <span class="site-state-item-count">47</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -728,6 +762,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#非阻塞队列"><span class="nav-number">1.</span> <span class="nav-text">非阻塞队列</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#阻塞队列"><span class="nav-number">2.</span> <span class="nav-text">阻塞队列</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#生产者-消费者"><span class="nav-number">3.</span> <span class="nav-text">生产者-消费者</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       

@@ -132,7 +132,7 @@
 <meta property="og:site_name" content="Masonnpe&#39;s Blog">
 <meta property="og:description" content="Scala是一个面向对象和函数式编程的语言，运行于JVM之上，兼容Java程序 结尾不写；和Python有点像 类型声明，推测和Go有点像 scalac xxx.scala 编译Scala文件，生成Class字节码文件 scala xxx 运行字节码文件 卧槽和Java好像">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-11-03T07:38:22.458Z">
+<meta property="og:updated_time" content="2018-11-03T16:02:02.767Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Scala入门">
 <meta name="twitter:description" content="Scala是一个面向对象和函数式编程的语言，运行于JVM之上，兼容Java程序 结尾不写；和Python有点像 类型声明，推测和Go有点像 scalac xxx.scala 编译Scala文件，生成Class字节码文件 scala xxx 运行字节码文件 卧槽和Java好像">
@@ -441,15 +441,20 @@
 <p>卧槽和Java好像</p>
 <a id="more"></a>
 <p>scala没有原生类型</p>
-<p>var 变量 val常量</p>
 <p>访问修饰符与Java不同</p>
 <ul>
-<li><p>protected 只能被子类访问</p>
-</li>
-<li><p>private  只能内部可见    外部类调用不了内部类的私有方法</p>
-</li>
+<li>protected 只能被子类访问</li>
+<li>private  只能内部可见    外部类调用不了内部类的私有方法</li>
 </ul>
-<p><a href="http://www.runoob.com/scala/scala-functions.html" target="_blank" rel="noopener">http://www.runoob.com/scala/scala-functions.html</a></p>
+<h2 id="val-和-var-区别"><a href="#val-和-var-区别" class="headerlink" title="val 和 var 区别"></a>val 和 var 区别</h2><p>var 变量</p>
+<p>val 常量相当于final</p>
+<h2 id="基本数据类型"><a href="#基本数据类型" class="headerlink" title="基本数据类型"></a>基本数据类型</h2><p>Byte/Char</p>
+<p>Short/Int/Long/Float/Double</p>
+<p>Boolean </p>
+<p>转换类型asInstanceOf[Double]</p>
+<p>判断类型asInstanceOf[Double]</p>
+<h2 id="Lazy"><a href="#Lazy" class="headerlink" title="Lazy"></a>Lazy</h2><p>使用lazy可以延迟加载，第一次使用时，对应的表达式才会计算</p>
+<p>lazy var a=10</p>
 
       
     </div>
@@ -549,8 +554,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -569,7 +583,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">42</span>
+                  <span class="site-state-item-count">77</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -580,7 +594,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-count">19</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -591,7 +605,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">33</span>
+                  <span class="site-state-item-count">47</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -703,6 +717,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#val-和-var-区别"><span class="nav-number">1.</span> <span class="nav-text">val 和 var 区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#基本数据类型"><span class="nav-number">2.</span> <span class="nav-text">基本数据类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Lazy"><span class="nav-number">3.</span> <span class="nav-text">Lazy</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
