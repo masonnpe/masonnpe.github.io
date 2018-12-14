@@ -126,14 +126,14 @@
 
 <meta name="description" content="结构型模式：  适配器：用来把一个接口转化成另一个接口，如 java.util.Arrays#asList()。java.io.InputStreamReader(InputStream)java.io.OutputStreamWriter(OutputStream)  桥接模式：这个模式将抽象和抽象操作的实现进行了解耦，这样使得抽象和实现可以独立地变化，如JDBC；  组合模式：使得客户端看来">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Masonnpe&#39;s Blog">
+<meta property="og:title" content="JDK中的设计模式">
 <meta property="og:url" content="https://masonnpe.github.io/2018/11/06/Java/JDK中的设计模式/index.html">
 <meta property="og:site_name" content="Masonnpe&#39;s Blog">
 <meta property="og:description" content="结构型模式：  适配器：用来把一个接口转化成另一个接口，如 java.util.Arrays#asList()。java.io.InputStreamReader(InputStream)java.io.OutputStreamWriter(OutputStream)  桥接模式：这个模式将抽象和抽象操作的实现进行了解耦，这样使得抽象和实现可以独立地变化，如JDBC；  组合模式：使得客户端看来">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-11-05T16:20:17.927Z">
+<meta property="og:updated_time" content="2018-12-14T13:44:49.436Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Masonnpe&#39;s Blog">
+<meta name="twitter:title" content="JDK中的设计模式">
 <meta name="twitter:description" content="结构型模式：  适配器：用来把一个接口转化成另一个接口，如 java.util.Arrays#asList()。java.io.InputStreamReader(InputStream)java.io.OutputStreamWriter(OutputStream)  桥接模式：这个模式将抽象和抽象操作的实现进行了解耦，这样使得抽象和实现可以独立地变化，如JDBC；  组合模式：使得客户端看来">
 
 
@@ -170,7 +170,7 @@
 
 
 
-  <title> | Masonnpe's Blog</title>
+  <title>JDK中的设计模式 | Masonnpe's Blog</title>
   
 
 
@@ -360,7 +360,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline"></h1>
+          <h1 class="post-title" itemprop="name headline">JDK中的设计模式</h1>
         
 
         <div class="post-meta">
@@ -382,6 +382,28 @@
             
           </span>
 
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -425,20 +447,17 @@
 </li>
 <li><p>代理模式：代理模式是用一个简单的对象来代替一个复杂的或者创建耗时的对象，如 java.lang.reflect.Proxy</p>
 </li>
-<li><h5 id="门面模式："><a href="#门面模式：" class="headerlink" title="门面模式："></a>门面模式：</h5><p>给一组组件，接口，抽象，或者子系统提供一个简单的接口。</p>
-<ul>
-<li><ul>
-<li><ul>
+</ul>
+</li>
+</ul>
+<h5 id="门面模式："><a href="#门面模式：" class="headerlink" title="门面模式："></a>门面模式：</h5><pre><code>给一组组件，接口，抽象，或者子系统提供一个简单的接口。
+</code></pre><ul>
 <li>java.lang.Class</li>
+</ul>
+<ul>
 <li>javax.faces.webapp.FacesServlet</li>
 </ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
+<ul>
 <li><p>创建模式:</p>
 <ul>
 <li><p>抽象工厂模式：抽象工厂模式提供了一个协议来生成一系列的相关或者独立的对象，而不用指定具体对象的类型，如 java.util.Calendar#getInstance()。java.util.Arrays#asList()java.util.ResourceBundle#getBundle()java.sql.DriverManager#getConnection()java.sql.Connection#createStatement()java.sql.Statement#executeQuery()</p>
@@ -449,19 +468,13 @@
 </li>
 <li><p>原型模式：使得类的实例能够生成自身的拷贝、如：java.lang.Object#clone()。java.lang.Object#clone()java.lang.Cloneable</p>
 </li>
-<li><h5 id="单例模式"><a href="#单例模式" class="headerlink" title="单例模式"></a>单例模式</h5><p>用来确保类只有一个实例。</p>
-<ul>
-<li><ul>
-<li><ul>
-<li>java.lang.Runtime#getRuntime()</li>
 </ul>
 </li>
 </ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
+<h5 id="单例模式"><a href="#单例模式" class="headerlink" title="单例模式"></a>单例模式</h5><pre><code>用来确保类只有一个实例。
+
+java.lang.Runtime#getRuntime()
+</code></pre><ul>
 <li><p>行为模式：</p>
 <ul>
 <li><p>责任链模式：通过把请求从一个对象传递到链条中下一个对象的方式，直到请求被处理完毕，以实现对象间的解耦。如 javax.servlet.Filter#doFilter()。 java.util.logging.Logger#log()</p>
@@ -480,26 +493,15 @@
 </li>
 <li><p>模板方法模式：让子类可以重写方法的一部分，而不是整个重写，如 java.util.Collections#sort()。</p>
 </li>
-<li><h5 id="备忘录模式"><a href="#备忘录模式" class="headerlink" title="备忘录模式"></a>备忘录模式</h5><p>生成对象状态的一个快照，以便对象可以恢复原始状态而不用暴露自身的内容。Date对象通过自身内部的一个long值来实现备忘录模式。</p>
-<ul>
-<li><ul>
-<li><ul>
-<li>java.util.Date</li>
-<li>java.io.Serializable</li>
 </ul>
 </li>
 </ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><ul>
-<li><h5 id="状态模"><a href="#状态模" class="headerlink" title="状态模"></a>状态模</h5></li>
-</ul>
-</li>
-</ul>
-<p>通过改变对象内部的状态，使得你可以在运行时动态改变一个对象的行为。</p>
+<h5 id="备忘录模式"><a href="#备忘录模式" class="headerlink" title="备忘录模式"></a>备忘录模式</h5><pre><code>生成对象状态的一个快照，以便对象可以恢复原始状态而不用暴露自身的内容。Date对象通过自身内部的一个long值来实现备忘录模式。
+
+java.util.Date
+
+java.io.Serializable
+</code></pre><h5 id="状态模式"><a href="#状态模式" class="headerlink" title="状态模式"></a>状态模式</h5><p>通过改变对象内部的状态，使得你可以在运行时动态改变一个对象的行为。</p>
 <ul>
 <li><ul>
 <li><ul>
@@ -512,39 +514,23 @@
 </ul>
 <h5 id="策略模式"><a href="#策略模式" class="headerlink" title="策略模式"></a>策略模式</h5><p>使用这个模式来将一组算法封装成一系列对象。通过传递这些对象可以灵活的改变程序的功能。</p>
 <ul>
-<li><ul>
-<li><ul>
 <li>java.util.Comparator#compare()</li>
 <li>javax.servlet.http.HttpServlet</li>
 <li>javax.servlet.Filter#doFilter()</li>
 </ul>
-</li>
-</ul>
-</li>
-</ul>
 <h5 id="模板方法模式"><a href="#模板方法模式" class="headerlink" title="模板方法模式"></a>模板方法模式</h5><p>让子类可以重写方法的一部分，而不是整个重写，你可以控制子类需要重写那些操作。</p>
 <ul>
-<li><ul>
-<li><ul>
 <li>java.util.Collections#sort()</li>
+</ul>
+<ul>
 <li>java.io.InputStream#skip()</li>
 <li>java.io.InputStream#read()</li>
 <li>java.util.AbstractList#indexOf()</li>
 </ul>
-</li>
-</ul>
-</li>
-</ul>
 <h5 id="访问者模式"><a href="#访问者模式" class="headerlink" title="访问者模式"></a>访问者模式</h5><p>提供一个方便的可维护的方式来操作一组对象。它使得你在不改变操作的对象前提下，可以修改或者扩展对象的行为。</p>
 <ul>
-<li><ul>
-<li><ul>
 <li>javax.lang.model.element.Element and javax.lang.model.element.ElementVisitor</li>
 <li>javax.lang.model.type.TypeMirror and javax.lang.model.type.TypeVisitor</li>
-</ul>
-</li>
-</ul>
-</li>
 </ul>
 
       
@@ -668,7 +654,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">77</span>
+                  <span class="site-state-item-count">83</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -679,7 +665,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-count">20</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -690,7 +676,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">47</span>
+                  <span class="site-state-item-count">54</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -793,6 +779,18 @@
                     <a href="http://www.cnblogs.com/xrq730" title="五月的仓颉" target="_blank">五月的仓颉</a>
                   </li>
                 
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.cnblogs.com/skywang12345/" title="如果天空不死" target="_blank">如果天空不死</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.weiweiblog.cn/" title="尾尾部落" target="_blank">尾尾部落</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://blog.720ui.com/" title="梁桂钊的博客" target="_blank">梁桂钊的博客</a>
+                  </li>
+                
               </ul>
             </div>
           
@@ -812,7 +810,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#门面模式："><span class="nav-number">1.</span> <span class="nav-text">门面模式：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#单例模式"><span class="nav-number">2.</span> <span class="nav-text">单例模式</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#备忘录模式"><span class="nav-number">3.</span> <span class="nav-text">备忘录模式</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#状态模"><span class="nav-number">4.</span> <span class="nav-text">状态模</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#策略模式"><span class="nav-number">5.</span> <span class="nav-text">策略模式</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#模板方法模式"><span class="nav-number">6.</span> <span class="nav-text">模板方法模式</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#访问者模式"><span class="nav-number">7.</span> <span class="nav-text">访问者模式</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#门面模式："><span class="nav-number">1.</span> <span class="nav-text">门面模式：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#单例模式"><span class="nav-number">2.</span> <span class="nav-text">单例模式</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#备忘录模式"><span class="nav-number">3.</span> <span class="nav-text">备忘录模式</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#状态模式"><span class="nav-number">4.</span> <span class="nav-text">状态模式</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#策略模式"><span class="nav-number">5.</span> <span class="nav-text">策略模式</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#模板方法模式"><span class="nav-number">6.</span> <span class="nav-text">模板方法模式</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#访问者模式"><span class="nav-number">7.</span> <span class="nav-text">访问者模式</span></a></li></ol></div>
             
 
           </div>

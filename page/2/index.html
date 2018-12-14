@@ -343,6 +343,1046 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://masonnpe.github.io/2018/11/12/并发编程/ConcurrentHashMap的工作原理及代码实现/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Masonnpe">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Masonnpe's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/11/12/并发编程/ConcurrentHashMap的工作原理及代码实现/" itemprop="url">ConcurrentHashMap的工作原理及代码实现</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-12T00:36:28+08:00">
+                2018-11-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/并发编程/" itemprop="url" rel="index">
+                    <span itemprop="name">并发编程</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>1.8以后的锁的颗粒度，是加在链表头上的，这个是个思路上的突破。</p>
+<h2 id="为什么需要ConcurrentHashMap"><a href="#为什么需要ConcurrentHashMap" class="headerlink" title="为什么需要ConcurrentHashMap"></a>为什么需要ConcurrentHashMap</h2><p>Hashtable本身比较低效，因为它的实现基本就是将put、get、size等各种方法加上synchronized。这就导致了所有并发操作都要竞争同一把锁，大大降低了并发操作的效率。<br>HashMap不是线程安全的，并发情况会导致类似CPU占用100%等一些问题。Collections提供的同步包装器只是利用输入Map构造了另一个同步版本，所有操作虽然不再声明成为synchronized方法，但是还是利用了“this”作为互斥的mutex，没有真正意义上的改进！<br>所以Hashtable或者同步包装版本，都只是适合在非高度并发的场景下。</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/11/12/并发编程/ConcurrentHashMap的工作原理及代码实现/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://masonnpe.github.io/2018/11/12/Docker/Docker与Java/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Masonnpe">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Masonnpe's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/11/12/Docker/Docker与Java/" itemprop="url">Docker与Java</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-12T00:25:30+08:00">
+                2018-11-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Docker/" itemprop="url" rel="index">
+                    <span itemprop="name">Docker</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>对于Java来说，Docker毕竟是一个较新的环境，例如，其内存、CPU等资源限制是通过CGroup（Control Group）实现的，早期的JDK版本（8u131之前）并不能识别这些限<br>制，进而会导致一些基础问题：<br>如果未配置合适的JVM堆和元数据区、直接内存等参数，Java就有可能试图使用超过容器限制的内存，最终被容器OOM kill，或者自身发生OOM。<br>错误判断了可获取的CPU资源，例如，Docker限制了CPU的核数，JVM就可能设置不合适的GC并行线程数等。<br>从应用打包、发布等角度出发，JDK自身就比较大，生成的镜像就更为臃肿，当我们的镜像非常多的时候，镜像的存储等开销就比较明显了。<br>如果考虑到微服务、Serverless等新的架构和场景，Java自身的大小、内存占用、启动速度，都存在一定局限性，因为Java早期的优化大多是针对长时间运行的大型服务器端应<br>用。<br>Java在容器环境的局限性来源，Docker到底有什么特别？<br>虽然看起来Docker之类容器和虚拟机非常相似，例如，它也有自己的shell，能独立安装软件包，运行时与其他容器互不干扰。但是，如果深入分析你会发现，Docker并不是一种完<br>全的虚拟化技术，而更是一种轻量级的隔离技术。<br>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/11/12/Docker/Docker与Java/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://masonnpe.github.io/2018/11/12/分布式/分布式ID/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Masonnpe">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Masonnpe's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/11/12/分布式/分布式ID/" itemprop="url">分布式ID</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-12T00:16:42+08:00">
+                2018-11-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/分布式/" itemprop="url" rel="index">
+                    <span itemprop="name">分布式</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="雪花算法"><a href="#雪花算法" class="headerlink" title="雪花算法"></a>雪花算法</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line">public class Snowflake &#123;</span><br><span class="line"></span><br><span class="line">  public static final int NODE_SHIFT = 10;</span><br><span class="line">  public static final int SEQ_SHIFT = 12;</span><br><span class="line"></span><br><span class="line">  public static final short MAX_NODE = 1024;</span><br><span class="line">  public static final short MAX_SEQUENCE = 4096;</span><br><span class="line"></span><br><span class="line">  private short sequence;</span><br><span class="line">  private long referenceTime;</span><br><span class="line"></span><br><span class="line">  private int node;</span><br><span class="line"></span><br><span class="line">  /**</span><br><span class="line">   * A snowflake is designed to operate as a singleton instance within the context of a node.</span><br><span class="line">   * If you deploy different nodes, supplying a unique node id will guarantee the uniqueness</span><br><span class="line">   * of ids generated concurrently on different nodes.</span><br><span class="line">   *</span><br><span class="line">   * @param node This is an id you use to differentiate different nodes.</span><br><span class="line">   */</span><br><span class="line">  public Snowflake(int node) &#123;</span><br><span class="line">    if (node &lt; 0 || node &gt; MAX_NODE) &#123;</span><br><span class="line">      throw new IllegalArgumentException(String.format(&quot;node must be between %s and %s&quot;, 0, MAX_NODE));</span><br><span class="line">    &#125;</span><br><span class="line">    this.node = node;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  /**</span><br><span class="line">   * Generates a k-ordered unique 64-bit integer. Subsequent invocations of this method will produce</span><br><span class="line">   * increasing integer values.</span><br><span class="line">   *</span><br><span class="line">   * @return The next 64-bit integer.</span><br><span class="line">   */</span><br><span class="line">  public long next() &#123;</span><br><span class="line"></span><br><span class="line">    long currentTime = System.currentTimeMillis();</span><br><span class="line">    long counter;</span><br><span class="line"></span><br><span class="line">    synchronized(this) &#123;</span><br><span class="line"></span><br><span class="line">      if (currentTime &lt; referenceTime) &#123;</span><br><span class="line">        throw new RuntimeException(String.format(&quot;Last referenceTime %s is after reference time %s&quot;, referenceTime, currentTime));</span><br><span class="line">      &#125; else if (currentTime &gt; referenceTime) &#123;</span><br><span class="line">        this.sequence = 0;</span><br><span class="line">      &#125; else &#123;</span><br><span class="line">        if (this.sequence &lt; Snowflake.MAX_SEQUENCE) &#123;</span><br><span class="line">          this.sequence++;</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">          throw new RuntimeException(&quot;Sequence exhausted at &quot; + this.sequence);</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">      counter = this.sequence;</span><br><span class="line">      referenceTime = currentTime;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    return currentTime &lt;&lt; NODE_SHIFT &lt;&lt; SEQ_SHIFT | node &lt;&lt; SEQ_SHIFT | counter;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">int node = 1;</span><br><span class="line">Snowflake s = new Snowflake(node);</span><br><span class="line">long id = s.next();</span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://masonnpe.github.io/2018/11/12/Elasticsearch/ES基本用法/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Masonnpe">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Masonnpe's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/11/12/Elasticsearch/ES基本用法/" itemprop="url">ES基本用法</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-12T00:15:54+08:00">
+                2018-11-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Elasticsearch/" itemprop="url" rel="index">
+                    <span itemprop="name">Elasticsearch</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>document  数据 需要有唯一key</p>
+<p>index    表  具有相同字段的docment组成</p>
+<p>node  es实例</p>
+<p>cluster 集群</p>
+<p>_source 原始json数据</p>
+<p>restful api</p>
+<p>倒排索引</p>
+<p> 单词词典  记录所有单词</p>
+<p>倒排列表  在文档中的位置 偏移量offset</p>
+<h4 id="分词器"><a href="#分词器" class="headerlink" title="分词器"></a>分词器</h4><p>character filters  去p标签  字符替换</p>
+<p>tokenizer 切分 成单词</p>
+<p>token filters  转小写  删除the   of   的 这 那  这种没实际意义的词</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">POST _analyze</span><br><span class="line">&#123;</span><br><span class="line">  <span class="attr">"analyzer"</span>:<span class="string">"standard"</span>,</span><br><span class="line">  <span class="attr">"filter"</span>: [<span class="string">"lowercase"</span>], </span><br><span class="line">  <span class="attr">"text"</span>:<span class="string">"HeLLo wORld!"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>result</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"tokens"</span>: [</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="attr">"token"</span>: <span class="string">"hello"</span>,</span><br><span class="line">      <span class="attr">"start_offset"</span>: <span class="number">0</span>,</span><br><span class="line">      <span class="attr">"end_offset"</span>: <span class="number">5</span>,</span><br><span class="line">      <span class="attr">"type"</span>: <span class="string">"&lt;ALPHANUM&gt;"</span>,</span><br><span class="line">      <span class="attr">"position"</span>: <span class="number">0</span></span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="attr">"token"</span>: <span class="string">"world"</span>,</span><br><span class="line">      <span class="attr">"start_offset"</span>: <span class="number">6</span>,</span><br><span class="line">      <span class="attr">"end_offset"</span>: <span class="number">11</span>,</span><br><span class="line">      <span class="attr">"type"</span>: <span class="string">"&lt;ALPHANUM&gt;"</span>,</span><br><span class="line">      <span class="attr">"position"</span>: <span class="number">1</span></span><br><span class="line">    &#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>自带分词器</p>
+<p>standard 默认分词器  </p>
+<p>simple   非字母字符切分（空格 -之类的）  小写处理</p>
+<p>whitespace   空格切分</p>
+<p>stop    删除语气词  the  of</p>
+<p>keyword  不做分词  </p>
+<p>pattern  正则表达式自定义   默认\w+,非字符做分割</p>
+<p>language  不同语言的分词</p>
+<p>中文分词 IK   jieba  </p>
+<p>基于自然语言  模型 算法  hanpl thulac</p>
+<h4 id="自定义分词"><a href="#自定义分词" class="headerlink" title="自定义分词"></a>自定义分词</h4><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">PUT test_index</span><br><span class="line">&#123;</span><br><span class="line">  <span class="attr">"settings"</span>: &#123;</span><br><span class="line">    <span class="attr">"analysis"</span>: &#123;</span><br><span class="line">      <span class="attr">"analyzer"</span>: &#123;</span><br><span class="line">        <span class="attr">"my_analyzer"</span>:&#123;</span><br><span class="line">          <span class="attr">"type"</span>:<span class="string">"custom"</span>,</span><br><span class="line">          <span class="attr">"tokenizer"</span>:<span class="string">"standard"</span>,</span><br><span class="line">          <span class="attr">"char_filter"</span>: [<span class="string">"html_strip"</span>],</span><br><span class="line">          <span class="attr">"filter"</span>:[<span class="string">"lowercase"</span>]</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">POST /test_index/_analyze</span><br><span class="line">&#123;</span><br><span class="line">  <span class="attr">"analyzer"</span>:<span class="string">"my_analyzer"</span>,</span><br><span class="line">  <span class="attr">"text"</span>:<span class="string">"HeLLo wORld!"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>自定义mapping</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line">PUT my_index</span><br><span class="line">&#123;</span><br><span class="line">  <span class="attr">"mappings"</span>: &#123;</span><br><span class="line">    <span class="attr">"doc"</span>:&#123;</span><br><span class="line">      <span class="attr">"dynamic"</span>:<span class="literal">false</span>,</span><br><span class="line">      <span class="attr">"properties"</span>: &#123;</span><br><span class="line">        <span class="attr">"title"</span>:&#123;</span><br><span class="line">          <span class="attr">"type"</span>: <span class="string">"text"</span></span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="attr">"name"</span>:&#123;</span><br><span class="line">          <span class="attr">"type"</span>: <span class="string">"keyword"</span></span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="attr">"age"</span>:&#123;</span><br><span class="line">          <span class="attr">"type"</span>: <span class="string">"integer"</span></span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">PUT my_index/doc/1</span><br><span class="line">&#123;</span><br><span class="line">  <span class="attr">"name"</span>:<span class="string">"mason"</span>,</span><br><span class="line">  <span class="attr">"age"</span>:<span class="number">1</span>,</span><br><span class="line">  <span class="attr">"title"</span>:<span class="string">"mason good"</span>,</span><br><span class="line">  <span class="attr">"money"</span>:<span class="number">3123</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">_all 所有字段匹配</span><br><span class="line">GET my_index/_search</span><br><span class="line">&#123;</span><br><span class="line">  <span class="attr">"query"</span>: &#123;</span><br><span class="line">    <span class="attr">"match"</span>: &#123;</span><br><span class="line">      <span class="attr">"_all"</span>: <span class="string">"mason"</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">"index": false 不会被查询</span><br><span class="line">PUT my_index</span><br><span class="line">&#123;</span><br><span class="line">  <span class="attr">"mappings"</span>: &#123;</span><br><span class="line">    <span class="attr">"doc"</span>:&#123;</span><br><span class="line">      <span class="attr">"dynamic"</span>:<span class="literal">false</span>,</span><br><span class="line">      <span class="attr">"properties"</span>: &#123;</span><br><span class="line">        <span class="attr">"title"</span>:&#123;</span><br><span class="line">          <span class="attr">"type"</span>: <span class="string">"text"</span>,</span><br><span class="line">          <span class="attr">"index"</span>: <span class="literal">false</span></span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://masonnpe.github.io/2018/11/12/SpringCloud/Ribbon/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Masonnpe">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Masonnpe's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/11/12/SpringCloud/Ribbon/" itemprop="url">Ribbon</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-12T00:10:48+08:00">
+                2018-11-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/SpringCloud/" itemprop="url" rel="index">
+                    <span itemprop="name">SpringCloud</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>ribbon是一个基于http和tcp的客户端负载均衡工具</p>
+<p>eureka强调了cap中的ap    zookeeper强调 cp</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://masonnpe.github.io/2018/11/12/SpringCloud/Hystrix/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Masonnpe">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Masonnpe's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/11/12/SpringCloud/Hystrix/" itemprop="url">Hystrix</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-12T00:10:26+08:00">
+                2018-11-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/SpringCloud/" itemprop="url" rel="index">
+                    <span itemprop="name">SpringCloud</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>因为网络问题或者服务自身问题出现调用故障或延迟，会直接导致调用方的堆外服务也出现延迟，请求不断鞥家，调用方等待响应形成任务挤压，导致自身服务瘫痪。为了解决连锁故障，要使用断路器服务保护机制</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://masonnpe.github.io/2018/11/12/SpringCloud/Eureka/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Masonnpe">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Masonnpe's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/11/12/SpringCloud/Eureka/" itemprop="url">Eureka</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-12T00:09:42+08:00">
+                2018-11-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/SpringCloud/" itemprop="url" rel="index">
+                    <span itemprop="name">SpringCloud</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>当ribbon与eureka联合使用时ribbon的服务配置清单ribbonserverlist会被discoveryEnabledNIWSServerlist重写，扩展成从eureka注册中心获取服务端列表</p>
+<p>服务治理机制 注册中心互相注册组成高可用集群</p>
+<p>失效剔除   eureka会创建一个定时任务，默认每隔一段时间当清单中超时的没有预约的服务剔除</p>
+<p>自我保护  服务再注册是会维护一个心跳连接，eureka会将实例注册信息保存起来,让这些实例不过期，客户端必须要有容错机制，如请求重试，断路器等等</p>
+<p>服务提供者  启动的时候会发送rest请求将自己注册到eureka上，同时带上自身服务的一些元数据，eureka接受到rest请求后，将元数据信息存储再一个双层map，第一层key是服务名，第二层key是具体服务的实例名</p>
+<p>服务同步  服务提供者注册到不同的服务中心，提供者注册时会将请求装发到集群中其他的注册中心，实现同步</p>
+<p>服务续约   注册完服务后，服务提供者会维护一个心跳，防止eureka将服务实例从服务列表中剔除</p>
+<p>服务获取 启动消费者时，发送一个rest请求给注册中心，来获取上面注册的服务清单，eureka每隔一段时间返回给客户端</p>
+<p>服务调用  消费端获取清单后，通过服务名可以获取具体提供服务的实例名和元数据信息，ribbon会默认采用轮询的方式进行调用</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://masonnpe.github.io/2018/11/11/Scala/Scala集合/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -740,1236 +1780,51 @@
       
         
           
-            <p>Vector是Java早期提供的线程安全的动态数组，如果不需要线程安全，并不建议选择，毕竟同步是有额外开销的。Vector内部是使用对象数组来保存数据，可以根据需要自动的增加<br>容量，当数组已满时，会创建新的数组，并拷贝原有数组数据。<br>ArrayList是应用更加广泛的动态数组实现，它本身不是线程安全的，所以性能要好很多。与Vector近似，ArrayList也是可以根据需要调整容量，不过两者的调整逻辑有所区<br>别，Vector在扩容时会提高1倍，而ArrayList则是增加50%。<br>LinkedList顾名思义是Java提供的双向链表，所以它不需要像上面两种那样调整容量，它也不是线程安全的。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://masonnpe.github.io/2018/11/11/并发编程/对比synchronized、ReentrantLock/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Masonnpe">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Masonnpe's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/11/11/并发编程/对比synchronized、ReentrantLock/" itemprop="url">对比synchronized、ReentrantLock</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-11T21:40:18+08:00">
-                2018-11-11
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/并发编程/" itemprop="url" rel="index">
-                    <span itemprop="name">并发编程</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>ReentrantLock使用起来比较灵活，但是必须手动获取与释放锁，而synchronized不需要手动释放和开启锁<br>ReentrantLock只适用于代码块锁，而synchronized可用于修饰方法、代码块<br>ReentrantLock的优势体现在：<br>具备尝试非阻塞地获取锁的特性：当前线程尝试获取锁，如果这一时刻锁没有被其他线程获取到，则成功获取并持有锁<br>能被中断地获取锁的特性：与synchronized不同，获取到锁的线程能够响应中断，当获取到锁的线程被中断时，中断异常将会被抛出，同时锁会被释放<br>超时获取锁的特性：在指定的时间范围内获取锁；如果截止时间到了仍然无法获取锁，则返回<br>3 注意事项<br>在使用ReentrantLock类的时，一定要注意三点：<br>在fnally中释放锁，目的是保证在获取锁之后，最终能够被释放<br>不要将获取锁的过程写在try块内，因为如果在获取锁时发生了异常，异常抛出的同时，也会导致锁无故被释放。<br>ReentrantLock提供了一个newCondition的方法，以便用户在同一锁的情况下可以根据不同的情况执行等待或唤醒的动作</p>
-<p>锁降级确实是会发生的，当JVM进入安全点（SafePoint）的时候，会检查是否有闲置的Monitor，然后试图进行降级。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://masonnpe.github.io/2018/11/06/Java/JDK中的设计模式/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Masonnpe">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Masonnpe's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/11/06/Java/JDK中的设计模式/" itemprop="url">未命名</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-06T00:10:40+08:00">
-                2018-11-06
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <ul>
-<li><p>结构型模式：</p>
+            <h2 id="ArrayList"><a href="#ArrayList" class="headerlink" title="ArrayList"></a>ArrayList</h2><p><code>ArrayList</code> 是基于数组实现的，实现了 <code>List</code>、<code>RandomAccess</code> 接口。可以插入空数据，也支持随机访问。</p>
+<p>数组的默认大小为 10。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> DEFAULT_CAPACITY = <span class="number">10</span>;</span><br></pre></td></tr></table></figure>
+<p><code>ArrayList</code>相当于动态数据，其中最重要的两个属性分别是:<br><code>elementData</code> 数组，以及 <code>size</code> 大小。<br>在调用 <code>add()</code> 方法的时候：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">add</span><span class="params">(E e)</span> </span>&#123;</span><br><span class="line">    ensureCapacityInternal(size + <span class="number">1</span>);  <span class="comment">// Increments modCount!!</span></span><br><span class="line">    elementData[size++] = e;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <ul>
-<li><p>适配器：用来把一个接口转化成另一个接口，如 java.util.Arrays#asList()。java.io.InputStreamReader(InputStream)java.io.OutputStreamWriter(OutputStream)</p>
-</li>
-<li><p>桥接模式：这个模式将抽象和抽象操作的实现进行了解耦，这样使得抽象和实现可以独立地变化，如JDBC；</p>
-</li>
-<li><p>组合模式：使得客户端看来单个对象和对象的组合是同等的。换句话说，某个类型的方法同时也接受自身类型作为参数，如 Map.putAll，List.addAll、Set.addAll。</p>
-</li>
-<li><p>装饰者模式：动态的给一个对象附加额外的功能，这也是子类的一种替代方式，如 java.util.Collections#checkedList|Map|Set|SortedSet|SortedMap。java.io.BufferedInputStream(InputStream)java.io.DataInputStream(InputStream)java.io.BufferedOutputStream(OutputStream)</p>
-</li>
-<li><p>享元模式：使用缓存来加速大量小对象的访问时间，如 valueOf(int)。</p>
-</li>
-<li><p>代理模式：代理模式是用一个简单的对象来代替一个复杂的或者创建耗时的对象，如 java.lang.reflect.Proxy</p>
-</li>
-<li><h5 id="门面模式："><a href="#门面模式：" class="headerlink" title="门面模式："></a>门面模式：</h5><p>给一组组件，接口，抽象，或者子系统提供一个简单的接口。</p>
+<li>首先进行扩容校验。</li>
+<li>将插入的值放到尾部，并将 size + 1 。</li>
+</ul>
+<p>如果是调用 <code>add(index,e)</code> 在指定位置添加的话：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">add</span><span class="params">(<span class="keyword">int</span> index, E element)</span> </span>&#123;</span><br><span class="line">    rangeCheckForAdd(index);</span><br><span class="line"></span><br><span class="line">    ensureCapacityInternal(size + <span class="number">1</span>);  <span class="comment">// Increments modCount!!</span></span><br><span class="line">    <span class="comment">//复制，向后移动</span></span><br><span class="line">    System.arraycopy(elementData, index, elementData, index + <span class="number">1</span>,</span><br><span class="line">                     size - index);</span><br><span class="line">    elementData[index] = element;</span><br><span class="line">    size++;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <ul>
-<li><ul>
-<li><ul>
-<li>java.lang.Class</li>
-<li>javax.faces.webapp.FacesServlet</li>
+<li>也是首先扩容校验。</li>
+<li>接着对数据进行复制，目的是把 index 位置空出来放本次插入的数据，并将后面的数据向后移动一个位置。</li>
 </ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>创建模式:</p>
-<ul>
-<li><p>抽象工厂模式：抽象工厂模式提供了一个协议来生成一系列的相关或者独立的对象，而不用指定具体对象的类型，如 java.util.Calendar#getInstance()。java.util.Arrays#asList()java.util.ResourceBundle#getBundle()java.sql.DriverManager#getConnection()java.sql.Connection#createStatement()java.sql.Statement#executeQuery()</p>
-</li>
-<li><p>建造模式(Builder)：定义了一个新的类来构建另一个类的实例，以简化复杂对象的创建，如：java.lang.StringBuilder#append()。</p>
-</li>
-<li><p>工厂方法：就是 <strong>一个返*</strong> 回具体对象的方法，而不是多个，如 java.lang.Object#toString()、java.lang.Class#newInstance()。java.lang.Class#newInstance()java.lang.Class#forName()</p>
-</li>
-<li><p>原型模式：使得类的实例能够生成自身的拷贝、如：java.lang.Object#clone()。java.lang.Object#clone()java.lang.Cloneable</p>
-</li>
-<li><h5 id="单例模式"><a href="#单例模式" class="headerlink" title="单例模式"></a>单例模式</h5><p>用来确保类只有一个实例。</p>
-<ul>
-<li><ul>
-<li><ul>
-<li>java.lang.Runtime#getRuntime()</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>行为模式：</p>
-<ul>
-<li><p>责任链模式：通过把请求从一个对象传递到链条中下一个对象的方式，直到请求被处理完毕，以实现对象间的解耦。如 javax.servlet.Filter#doFilter()。 java.util.logging.Logger#log()</p>
-</li>
-<li><p>命令模式：将操作封装到对象内，以便存储，传递和返回，如：java.lang.Runnable。</p>
-</li>
-<li><p>解释器模式：定义了一个语言的语法，然后解析相应语法的语句，如，java.text.Format，java.text.Normalizer。</p>
-</li>
-<li><p>迭代器模式：提供一个一致的方法来顺序访问集合中的对象，如 java.util.Iterator。</p>
-</li>
-<li><p>中介者模式：通过使用一个中间对象来进行消息分发以及减少类之间的直接依赖，java.lang.reflect.Method#invoke()。java.util.Timerjava.util.concurrent.Executor#execute()java.util.concurrent.ExecutorService#submit()java.lang.reflect.Method#invoke()</p>
-</li>
-<li><p>空对象模式：如 java.util.Collections#emptyList()。</p>
-</li>
-<li><p>观察者模式：它使得一个对象可以灵活的将消息发送给感兴趣的对象，如 java.util.EventListener。javax.servlet.http.HttpSessionBindingListenerjavax.servlet.http.HttpSessionAttributeListenerjavax.faces.event.PhaseListener</p>
-</li>
-<li><p>模板方法模式：让子类可以重写方法的一部分，而不是整个重写，如 java.util.Collections#sort()。</p>
-</li>
-<li><h5 id="备忘录模式"><a href="#备忘录模式" class="headerlink" title="备忘录模式"></a>备忘录模式</h5><p>生成对象状态的一个快照，以便对象可以恢复原始状态而不用暴露自身的内容。Date对象通过自身内部的一个long值来实现备忘录模式。</p>
-<ul>
-<li><ul>
-<li><ul>
-<li>java.util.Date</li>
-<li>java.io.Serializable</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><ul>
-<li><h5 id="状态模"><a href="#状态模" class="headerlink" title="状态模"></a>状态模</h5></li>
-</ul>
-</li>
-</ul>
-<p>通过改变对象内部的状态，使得你可以在运行时动态改变一个对象的行为。</p>
-<ul>
-<li><ul>
-<li><ul>
-<li>java.util.Iterator</li>
-<li>javax.faces.lifecycle.LifeCycle#execute()</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<h5 id="策略模式"><a href="#策略模式" class="headerlink" title="策略模式"></a>策略模式</h5><p>使用这个模式来将一组算法封装成一系列对象。通过传递这些对象可以灵活的改变程序的功能。</p>
-<ul>
-<li><ul>
-<li><ul>
-<li>java.util.Comparator#compare()</li>
-<li>javax.servlet.http.HttpServlet</li>
-<li>javax.servlet.Filter#doFilter()</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<h5 id="模板方法模式"><a href="#模板方法模式" class="headerlink" title="模板方法模式"></a>模板方法模式</h5><p>让子类可以重写方法的一部分，而不是整个重写，你可以控制子类需要重写那些操作。</p>
-<ul>
-<li><ul>
-<li><ul>
-<li>java.util.Collections#sort()</li>
-<li>java.io.InputStream#skip()</li>
-<li>java.io.InputStream#read()</li>
-<li>java.util.AbstractList#indexOf()</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<h5 id="访问者模式"><a href="#访问者模式" class="headerlink" title="访问者模式"></a>访问者模式</h5><p>提供一个方便的可维护的方式来操作一组对象。它使得你在不改变操作的对象前提下，可以修改或者扩展对象的行为。</p>
-<ul>
-<li><ul>
-<li><ul>
-<li>javax.lang.model.element.Element and javax.lang.model.element.ElementVisitor</li>
-<li>javax.lang.model.type.TypeMirror and javax.lang.model.type.TypeVisitor</li>
-</ul>
-</li>
-</ul>
-</li>
+<p>其实扩容最终调用的代码:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">grow</span><span class="params">(<span class="keyword">int</span> minCapacity)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// overflow-conscious code</span></span><br><span class="line">    <span class="keyword">int</span> oldCapacity = elementData.length;</span><br><span class="line">    <span class="keyword">int</span> newCapacity = oldCapacity + (oldCapacity &gt;&gt; <span class="number">1</span>);</span><br><span class="line">    <span class="keyword">if</span> (newCapacity - minCapacity &lt; <span class="number">0</span>)</span><br><span class="line">        newCapacity = minCapacity;</span><br><span class="line">    <span class="keyword">if</span> (newCapacity - MAX_ARRAY_SIZE &gt; <span class="number">0</span>)</span><br><span class="line">        newCapacity = hugeCapacity(minCapacity);</span><br><span class="line">    <span class="comment">// minCapacity is usually close to size, so this is a win:</span></span><br><span class="line">    elementData = Arrays.copyOf(elementData, newCapacity);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>新容量的大小为 <code>oldCapacity + (oldCapacity &gt;&gt; 1)</code>，也就是旧容量的 1.5 倍。扩容操作需要调用 <code>Arrays.copyOf()</code> 把原数组整个复制到新数组中，由此可见 <code>ArrayList</code> 的主要消耗是数组扩容以及在指定位置添加数据，在日常使用时最好是指定大小，减少扩容操作的次数。更要减少在指定位置插入数据的操作。</p>
+<p>删除元素时需要调用 System.arraycopy() 将 index+1 后面的元素都复制到 index 位置上，该操作的时间复杂度为 O(N)，可以看出 ArrayList 删除元素的代价是非常高的。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> E <span class="title">remove</span><span class="params">(<span class="keyword">int</span> index)</span> </span>&#123;</span><br><span class="line">    rangeCheck(index);</span><br><span class="line">    modCount++;</span><br><span class="line">    E oldValue = elementData(index);</span><br><span class="line">    <span class="keyword">int</span> numMoved = size - index - <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">if</span> (numMoved &gt; <span class="number">0</span>)</span><br><span class="line">        System.arraycopy(elementData, index+<span class="number">1</span>, elementData, index, numMoved);</span><br><span class="line">    elementData[--size] = <span class="keyword">null</span>; <span class="comment">// clear to let GC do its work</span></span><br><span class="line">    <span class="keyword">return</span> oldValue;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="序列化"><a href="#序列化" class="headerlink" title="序列化"></a>序列化</h3><p>由于 ArrayList 是基于动态数组实现的，所以并不是所有的空间都被使用。因此使用了 <code>transient</code> 修饰，可以防止被自动序列化。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">transient</span> Object[] elementData;</span><br></pre></td></tr></table></figure>
+<p>因此 ArrayList 自定义了序列化与反序列化：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">  <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">writeObject</span><span class="params">(java.io.ObjectOutputStream s)</span></span></span><br><span class="line"><span class="function">      <span class="keyword">throws</span> java.io.IOException</span>&#123;</span><br><span class="line">      <span class="comment">// Write out element count, and any hidden stuff</span></span><br><span class="line">      <span class="keyword">int</span> expectedModCount = modCount;</span><br><span class="line">      s.defaultWriteObject();</span><br><span class="line"></span><br><span class="line">      <span class="comment">// Write out size as capacity for behavioural compatibility with clone()</span></span><br><span class="line">      s.writeInt(size);</span><br><span class="line"></span><br><span class="line">      <span class="comment">// Write out all elements in the proper order.</span></span><br><span class="line">      <span class="comment">//只序列化了被使用的数据</span></span><br><span class="line">      <span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;size; i++) &#123;</span><br><span class="line">          s.writeObject(elementData[i]);</span><br><span class="line">      &#125;</span><br><span class="line"><span class="comment">// modCount 用来记录 ArrayList 结构发生变化的次数。结构发生变化是指添加或者删除至少一个元素的所有操作，或者是调整内部数组的大小，仅仅只是设置元素的值不算结构发生变化。在进行序列化或者迭代等操作时，需要比较操作前后 modCount 是否改变，如果改变了需要抛出 ConcurrentModificationException</span></span><br><span class="line"></span><br><span class="line">      <span class="keyword">if</span> (modCount != expectedModCount) &#123;</span><br><span class="line">          <span class="keyword">throw</span> <span class="keyword">new</span> ConcurrentModificationException();</span><br><span class="line">      &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">readObject</span><span class="params">(java.io.ObjectInputStream s)</span></span></span><br><span class="line"><span class="function">      <span class="keyword">throws</span> java.io.IOException, ClassNotFoundException </span>&#123;</span><br><span class="line">      elementData = EMPTY_ELEMENTDATA;</span><br><span class="line"></span><br><span class="line">      <span class="comment">// Read in size, and any hidden stuff</span></span><br><span class="line">      s.defaultReadObject();</span><br><span class="line"></span><br><span class="line">      <span class="comment">// Read in capacity</span></span><br><span class="line">      s.readInt(); <span class="comment">// ignored</span></span><br><span class="line"></span><br><span class="line">      <span class="keyword">if</span> (size &gt; <span class="number">0</span>) &#123;</span><br><span class="line">          <span class="comment">// be like clone(), allocate array based upon size not capacity</span></span><br><span class="line">          ensureCapacityInternal(size);</span><br><span class="line"></span><br><span class="line">          Object[] a = elementData;</span><br><span class="line">          <span class="comment">// Read in all elements in the proper order.</span></span><br><span class="line">          <span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;size; i++) &#123;</span><br><span class="line">              a[i] = s.readObject();</span><br><span class="line">          &#125;</span><br><span class="line">      &#125;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>当对象中自定义了 writeObject 和 readObject 方法时，JVM 会调用这两个自定义方法来实现序列化与反序列化。</p>
+</blockquote>
+<h2 id="Vector"><a href="#Vector" class="headerlink" title="Vector"></a>Vector</h2><p><code>Vector</code> 也是实现于 <code>List</code> 接口，底层数据结构和 <code>ArrayList</code> 类似,也是一个动态数组存放数据。不过是在 <code>add()</code> 方法的时候使用 <code>synchronized</code> 进行同步写数据，但是开销较大，所以 <code>Vector</code> 是一个同步容器并不是一个并发容器。</p>
+<p>以下是 <code>add()</code> 方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">boolean</span> <span class="title">add</span><span class="params">(E e)</span> </span>&#123;</span><br><span class="line">    modCount++;</span><br><span class="line">    ensureCapacityHelper(elementCount + <span class="number">1</span>);</span><br><span class="line">    elementData[elementCount++] = e;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>以及指定位置插入数据:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">add</span><span class="params">(<span class="keyword">int</span> index, E element)</span> </span>&#123;</span><br><span class="line">    insertElementAt(element, index);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title">insertElementAt</span><span class="params">(E obj, <span class="keyword">int</span> index)</span> </span>&#123;</span><br><span class="line">    modCount++;</span><br><span class="line">    <span class="keyword">if</span> (index &gt; elementCount) &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> ArrayIndexOutOfBoundsException(index</span><br><span class="line">                                                 + <span class="string">" &gt; "</span> + elementCount);</span><br><span class="line">    &#125;</span><br><span class="line">    ensureCapacityHelper(elementCount + <span class="number">1</span>);</span><br><span class="line">    System.arraycopy(elementData, index, elementData, index + <span class="number">1</span>, elementCount - index);</span><br><span class="line">    elementData[index] = obj;</span><br><span class="line">    elementCount++;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="LinkedList"><a href="#LinkedList" class="headerlink" title="LinkedList"></a>LinkedList</h2><p>基于双向链表实现，使用 Node 存储链表节点信息。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">Node</span>&lt;<span class="title">E</span>&gt; </span>&#123;</span><br><span class="line">    E item;</span><br><span class="line">    Node&lt;E&gt; next;</span><br><span class="line">    Node&lt;E&gt; prev;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>每个链表存储了 first 和 last 指针：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">transient</span> Node&lt;E&gt; first;</span><br><span class="line"><span class="keyword">transient</span> Node&lt;E&gt; last;</span><br></pre></td></tr></table></figure>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ul>
+<li>Vector 是同步的，因此开销就比 ArrayList 要大，访问速度更慢。最好使用 ArrayList 而不是 Vector，因为同步操作完全可以由程序员自己来控制；</li>
+<li>Vector 每次扩容请求其大小的 2 倍空间，而 ArrayList 是 1.5 倍。</li>
+<li>ArrayList 基于动态数组实现，LinkedList 基于双向链表实现；</li>
+<li>ArrayList 支持随机访问，LinkedList 不支持；</li>
+<li>LinkedList 在任意位置添加删除元素更快。</li>
 </ul>
 
           
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://masonnpe.github.io/2018/11/06/MyBatis/Mybatis中的设计模式/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Masonnpe">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Masonnpe's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/11/06/MyBatis/Mybatis中的设计模式/" itemprop="url">Mybatis中的设计模式</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-06T00:08:28+08:00">
-                2018-11-06
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Mybatis/" itemprop="url" rel="index">
-                    <span itemprop="name">Mybatis</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>一、装饰模式</p>
-<p>最明显的就是cache包下面的实现</p>
-<p>Cahe、LoggingCache、LruCache、TransactionalCahe…等</p>
-<p>以LoggingCache为例，UML图</p>
-<p>​                              </p>
-<p>Cache cache  = new LoggingCache(new PerpetualCache(“cacheid”));<br>一层层包装就使得默认cache实现PerpetualCache具有附加的功能，比如上面的log功能。<br>二、建造者模式</p>
-<p>BaseBuilder、XMLMapperBuilder</p>
-<p>三、工厂方法</p>
-<p>SqlSessionFactory</p>
-<p>四、适配器模式</p>
-<p>Log、LogFactory</p>
-<p>五、模板方法</p>
-<p>BaseExecutor、SimpleExecutor</p>
-<p>六、动态代理</p>
-<p>Plugin 见7图</p>
-<p>7、责任链模式</p>
-<p>Interceptor、InterceptorChain</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://masonnpe.github.io/2018/11/06/Spring/Spring中的设计模式/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Masonnpe">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Masonnpe's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/11/06/Spring/Spring中的设计模式/" itemprop="url">未命名</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-06T00:07:20+08:00">
-                2018-11-06
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p><strong>1. 简单工厂</strong></p>
-<p>又叫做静态工厂方法（StaticFactory Method）模式，但不属于23种GOF设计模式之一。</p>
-<p>简单工厂模式的实质是由一个工厂类根据传入的参数，动态决定应该创建哪一个产品类。</p>
-<p><em>Spring中的BeanFactory就是简单工厂模式的体现，根据传入一个唯一的标识来获得Bean对象，但是否是在传入参数后创建还是传入参数前创建这个要根据具体情况来定。</em></p>
-<p><strong>2. 工厂方法（Factory Method）</strong></p>
-<p>定义一个用于创建对象的接口，让子类决定实例化哪一个类。Factory Method使一个类的实例化延迟到其子类。</p>
-<p><em>Spring中的FactoryBean就是典型的工厂方法模式</em>。如下图：</p>
-<p><img src="https://images0.cnblogs.com/blog2015/521294/201505/172221089043885.png" alt="img"></p>
-<p><strong>3. 单例（Singleton）</strong></p>
-<p>保证一个类仅有一个实例，并提供一个访问它的全局访问点。</p>
-<p>Spring中的单例模式完成了后半句话，即提供了全局的访问点BeanFactory。但没有从构造器级别去控制单例，这是因为Spring管理的是是任意的Java对象。</p>
-<p><strong>4. 适配器（Adapter）</strong></p>
-<p>将一个类的接口转换成客户希望的另外一个接口。Adapter模式使得原本由于接口不兼容而不能一起工作的那些类可以一起工作。</p>
-<p>Spring中在对于AOP的处理中有Adapter模式的例子，见如下图：<img src="https://images0.cnblogs.com/blog2015/521294/201505/172222151238548.png" alt="img"></p>
-<p>由于Advisor链需要的是MethodInterceptor（拦截器）对象，所以每一个Advisor中的Advice都要适配成对应的MethodInterceptor对象。</p>
-<p><strong>5.包装器（Decorator）</strong></p>
-<p>动态地给一个对象添加一些额外的职责。就增加功能来说，Decorator模式相比生成子类更为灵活。</p>
-<p><img src="https://images0.cnblogs.com/blog2015/521294/201505/172223026393497.png" alt="img"></p>
-<p>Spring中用到的包装器模式在类名上有两种表现：一种是类名中含有Wrapper，另一种是类名中含有Decorator。基本上都是动态地给一个对象添加一些额外的职责。</p>
-<p><strong>6. 代理（Proxy）</strong></p>
-<p>为其他对象提供一种代理以控制对这个对象的访问。</p>
-<p>从结构上来看和Decorator模式类似，但Proxy是控制，更像是一种对功能的限制，而Decorator是增加职责。</p>
-<p><img src="https://images0.cnblogs.com/blog2015/521294/201505/172223379049538.png" alt="img"></p>
-<p>Spring的Proxy模式在aop中有体现，比如JdkDynamicAopProxy和Cglib2AopProxy。</p>
-<p><strong>7.观察者（Observer）</strong></p>
-<p>定义对象间的一种一对多的依赖关系，当一个对象的状态发生改变时，所有依赖于它的对象都得到通知并被自动更新。</p>
-<p><img src="https://images0.cnblogs.com/blog2015/521294/201505/172224113421820.png" alt="img"></p>
-<p>Spring中Observer模式常用的地方是listener的实现。如ApplicationListener。</p>
-<p><strong>8. 策略（Strategy）</strong></p>
-<p>定义一系列的算法，把它们一个个封装起来，并且使它们可相互替换。本模式使得算法可独立于使用它的客户而变化。</p>
-<p>Spring中在实例化对象的时候用到Strategy模式，见如下图：</p>
-<p><img src="https://images0.cnblogs.com/blog2015/521294/201505/172224299513506.png" alt="img"></p>
-<p>在SimpleInstantiationStrategy中有如下代码说明了策略模式的使用情况：</p>
-<p><img src="https://images0.cnblogs.com/blog2015/521294/201505/172224414206242.png" alt="img"></p>
-<p><strong>9.模板方法（Template Method）</strong></p>
-<p>定义一个操作中的算法的骨架，而将一些步骤延迟到子类中。Template Method使得子类可以不改变一个算法的结构即可重定义该算法的某些特定步骤。</p>
-<p>Template Method模式一般是需要继承的。这里想要探讨另一种对Template Method的理解。Spring中的JdbcTemplate，在用这个类时并不想去继承这个类，因为这个类的方法太多，但是我们还是想用到JdbcTemplate已有的稳定的、公用的数据库连接，那么我们怎么办呢？我们可以把变化的东西抽出来作为一个参数传入JdbcTemplate的方法中。但是变化的东西是一段代码，而且这段代码会用到JdbcTemplate中的变量。怎么办？那我们就用回调对象吧。在这个回调对象中定义一个操纵JdbcTemplate中变量的方法，我们去实现这个方法，就把变化的东西集中到这里了。然后我们再传入这个回调对象到JdbcTemplate，从而完成了调用。这可能是Template Method不需要继承的另一种实现方式吧。</p>
-<p>以下是一个具体的例子：</p>
-<p>JdbcTemplate中的execute方法：</p>
-<p><img src="https://images0.cnblogs.com/blog2015/521294/201505/172224551864583.png" alt="img"></p>
-<p>JdbcTemplate执行execute方法：</p>
-<p><img src="https://images0.cnblogs.com/blog2015/521294/201505/172225336542968.png" alt="img"></p>
-<p>知识只有共享才能传播，才能推崇出新的知识，才能学到更多，这里写的每一篇文字/博客，基本都是从网上查询了一下资料然后记录下来，也有些是原滋原味搬了过来，也有时加了一些自己的想法</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://masonnpe.github.io/2018/11/06/Netty/NIO/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Masonnpe">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Masonnpe's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/11/06/Netty/NIO/" itemprop="url">未命名</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-06T00:03:55+08:00">
-                2018-11-06
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p><strong>初识NIO：</strong></p>
-<p>​    在 JDK 1. 4 中 新 加入 了 NIO( New Input/ Output) 类, 引入了一种基于通道和缓冲区的 I/O 方式，它可以使用 Native 函数库直接分配堆外内存，然后通过一个存储在 Java 堆的 DirectByteBuffer 对象作为这块内存的引用进行操作，避免了在 Java 堆和 Native 堆中来回复制数据。</p>
-<p>​    NIO 是一种同步非阻塞的 IO 模型。同步是指线程不断轮询 IO 事件是否就绪，非阻塞是指线程在等待 IO 的时候，可以同时做其他任务。同步的核心就是 Selector，Selector 代替了线程本身轮询 IO 事件，避免了阻塞同时减少了不必要的线程消耗；非阻塞的核心就是通道和缓冲区，当 IO 事件就绪时，可以通过写道缓冲区，保证 IO 的成功，而无需线程阻塞式地等待。</p>
-<p><strong>Buffer：</strong></p>
-<p>​    为什么说NIO是基于缓冲区的IO方式呢？因为，当一个链接建立完成后，IO的数据未必会马上到达，为了当数据到达时能够正确完成IO操作，在BIO（阻塞IO）中，等待IO的线程必须被阻塞，以全天候地执行IO操作。为了解决这种IO方式低效的问题，引入了缓冲区的概念，当数据到达时，可以预先被写入缓冲区，再由缓冲区交给线程，因此线程无需阻塞地等待IO。</p>
-<p><strong>通道：</strong></p>
-<p>​    当执行：SocketChannel.write(Buffer)，便将一个 buffer 写到了一个通道中。如果说缓冲区还好理解，通道相对来说就更加抽象。网上博客难免有写不严谨的地方，容易使初学者感到难以理解。</p>
-<p>​    引用 Java NIO 中权威的说法：通道是 I/O 传输发生时通过的入口，而缓冲区是这些数 据传输的来源或目标。对于离开缓冲区的传输，您想传递出去的数据被置于一个缓冲区，被传送到通道。对于传回缓冲区的传输，一个通道将数据放置在您所提供的缓冲区中。</p>
-<p>​    例如 有一个服务器通道 ServerSocketChannel serverChannel，一个客户端通道 SocketChannel clientChannel；服务器缓冲区：serverBuffer，客户端缓冲区：clientBuffer。</p>
-<p>​    当服务器想向客户端发送数据时，需要调用：clientChannel.write(serverBuffer)。当客户端要读时，调用 clientChannel.read(clientBuffer)</p>
-<p>​    当客户端想向服务器发送数据时，需要调用：serverChannel.write(clientBuffer)。当服务器要读时，调用 serverChannel.read(serverBuffer)</p>
-<p>​    这样，通道和缓冲区的关系似乎更好理解了。在实践中，未必会出现这种双向连接的蠢事（然而这确实存在的，后面的内容还会涉及），但是可以理解为在NIO中：如果想将Data发到目标端，则需要将存储该Data的Buffer，写入到目标端的Channel中，然后再从Channel中读取数据到目标端的Buffer中。</p>
-<p><strong>Selector：</strong></p>
-<p>​    通道和缓冲区的机制，使得线程无需阻塞地等待IO事件的就绪，但是总是要有人来监管这些IO事件。这个工作就交给了selector来完成，这就是所谓的同步。</p>
-<p>​    Selector允许单线程处理多个 Channel。如果你的应用打开了多个连接（通道），但每个连接的流量都很低，使用Selector就会很方便。</p>
-<p>​    要使用Selector，得向Selector注册Channel，然后调用它的select()方法。这个方法会一直阻塞到某个注册的通道有事件就绪，这就是所说的轮询。一旦这个方法返回，线程就可以处理这些事件。</p>
-<p>​    Selector中注册的感兴趣事件有：</p>
-<ul>
-<li>OP_ACCEPT</li>
-<li>OP_CONNECT </li>
-<li>OP_READ </li>
-<li>OP_WRITE</li>
-</ul>
-<p><strong>优化：</strong></p>
-<p>​    一种优化方式是：将Selector进一步分解为Reactor，将不同的感兴趣事件分开，每一个Reactor只负责一种感兴趣的事件。这样做的好处是：1、分离阻塞级别，减少了轮询的时间；2、线程无需遍历set以找到自己感兴趣的事件，因为得到的set中仅包含自己感兴趣的事件。</p>
-<p><img src="http://imglf1.ph.126.net/9AtBKwQ8vHsko1RPRb0sew==/6631645009304717344.jpg" alt="img"></p>
-<p><strong>NIO和epoll：</strong></p>
-<p>​    epoll是Linux内核的IO模型。我想一定有人想问，AIO听起来比NIO更加高大上，为什么不使用AIO？AIO其实也有应用，但是有一个问题就是，Linux是不支持AIO的，因此基于AIO的程序运行在Linux上的效率相比NIO反而更低。而Linux是最主要的服务器OS，因此相比AIO，目前NIO的应用更加广泛。</p>
-<p>​    说到这里，可能你已经明白了，epoll一定和NIO有着很深的因缘。没错，如果仔细研究epoll的技术内幕，你会发现它确实和NIO非常相似，都是基于“通道”和缓冲区的，也有selector，只是在epoll中，通道实际上是操作系统的“管道”。和NIO不同的是，NIO中，解放了线程，但是需要由selector阻塞式地轮询IO事件的就绪；而epoll中，IO事件就绪后，会自动发送消息，通知selector：“我已经就绪了。”可以认为，Linux的epoll是一种效率更高的NIO。</p>
-<p><strong>NIO轶事：</strong></p>
-<p>​    一篇有意思的<a href="http://blog.csdn.net/haoel/article/details/2224069" target="_blank" rel="noopener">博客</a>，讲的 Java selector.open() 的时候，会创建一个自己和自己的链接（windows上是tcp，linux上是通道）</p>
-<p>​    这么做的原因：可以从 Apache Mina 中窥探。在 Mina 中，有如下机制：</p>
-<ol>
-<li>Mina框架会创建一个Work对象的线程。</li>
-<li>Work对象的线程的run()方法会从一个队列中拿出一堆Channel，然后使用Selector.select()方法来侦听是否有数据可以读/写。</li>
-<li>最关键的是，在select的时候，如果队列有新的Channel加入，那么，Selector.select()会被唤醒，然后重新select最新的Channel集合。</li>
-<li>要唤醒select方法，只需要调用Selector的wakeup()方法。</li>
-</ol>
-<p>​    而一个阻塞在select上的线程有以下三种方式可以被唤醒：</p>
-<ol>
-<li>有数据可读/写，或出现异常。</li>
-<li>阻塞时间到，即time out。</li>
-<li>收到一个non-block的信号。可由kill或pthread_kill发出。</li>
-</ol>
-<p>​    首先 2 可以排除，而第三种方式，只在linux中存在。因此，Java NIO为什么要创建一个自己和自己的链接：就是如果想要唤醒select，只需要朝着自己的这个loopback连接发点数据过去，于是，就可以唤醒阻塞在select上的线程了。</p>
-<p><a href="https://blog.csdn.net/xidianliuy/article/details/51612676" target="_blank" rel="noopener">《Java NIO编写Socket服务器的一个例子》</a></p>
-<p>1.Java NIO概览<br>首先，熟悉一下NIO的主要组成部分：<br>Bufer，高效的数据容器，除了布尔类型，所有原始数据类型都有相应的Bufer实现。<br>Channel，类似在Linux之类操作系统上看到的文件描述符，是NIO中被用来支持批量式IO操作的一种抽象。<br>File或者Socket，通常被认为是比较高层次的抽象，而Channel则是更加操作系统底层的一种抽象，这也使得NIO得以充分利用现代操作系统底层机制，获得特定场景的性能优<br>化，例如，DMA（Direct Memory Access）等。不同层次的抽象是相互关联的，我们可以通过Socket获取Channel，反之亦然。<br>Selector，是NIO实现多路复用的基础，它提供了一种高效的机制，可以检测到注册在Selector上的多个Channel中，是否有Channel处于就绪状态，进而实现了单线程对<br>多Channel的高效管理。<br>Selector同样是基于底层操作系统机制，不同模式、不同版本都存在区别，例如，在最新的代码库里，相关实现如下：<br>Linux上依赖于epoll（<a href="http://hg.openjdk.java.net/jdk/jdk/fle/d8327f838b88/src/java.base/linux/classes/sun/nio/ch/EPollSelectorImpl.java）。" target="_blank" rel="noopener">http://hg.openjdk.java.net/jdk/jdk/fle/d8327f838b88/src/java.base/linux/classes/sun/nio/ch/EPollSelectorImpl.java）。</a><br>Windows上NIO2（AIO）模式则是依赖于iocp（<a href="http://hg.openjdk.java.net/jdk/jdk/fle/d8327f838b88/src/java.base/windows/classes/sun/nio/ch/Iocp.java）。" target="_blank" rel="noopener">http://hg.openjdk.java.net/jdk/jdk/fle/d8327f838b88/src/java.base/windows/classes/sun/nio/ch/Iocp.java）。</a><br>Chartset，提供Unicode字符串定义，NIO也提供了相应的编解码器等，例如，通过下面的方式进行字符串到ByteBufer的转换：<br>Charset.defaultCharset().encode(“Hello world!”));<br>2.NIO能解决什么问题？<br>下面我通过一个典型场景，来分析为什么需要NIO，为什么需要多路复用。设想，我们需要实现一个服务器应用，只简单要求能够同时服务多个客户端请求即可。<br>使用java.io和java.net中的同步、阻塞式API，可以简单实现。<br>public class DemoServer extends Thread {<br>private ServerSocket serverSocket;<br>public int getPort() {<br>return serverSocket.getLocalPort();<br>}<br>public void run() {<br>try {<br>极客时间<br>serverSocket = new ServerSocket(0);<br>while (true) {<br>Socket socket = serverSocket.accept();<br>RequesHandler requesHandler = new RequesHandler(socket);<br>requesHandler.sart();<br>}<br>} catch (IOException e) {<br>e.printStackTrace();<br>} fnally {<br>if (serverSocket != null) {<br>try {<br>serverSocket.close();<br>} catch (IOException e) {<br>e.printStackTrace();<br>}<br>;<br>}<br>}<br>}<br>public satic void main(String[] args) throws IOException {<br>DemoServer server = new DemoServer();<br>server.sart();<br>try (Socket client = new Socket(InetAddress.getLocalHos(), server.getPort())) {<br>BuferedReader buferedReader = new BuferedReader(new InputStreamReader(client.getInputStream()));<br>buferedReader.lines().forEach(s -&gt; Sysem.out.println(s));<br>}<br>}<br>}<br>// 简化实现，不做读取，直接发送字符串<br>class RequesHandler extends Thread {<br>private Socket socket;<br>RequesHandler(Socket socket) {<br>this.socket = socket;<br>}<br>@Override<br>public void run() {<br>try (PrintWriter out = new PrintWriter(socket.getOutputStream());) {<br>out.println(“Hello world!”);<br>out.fush();<br>} catch (Exception e) {<br>e.printStackTrace();<br>}<br>}<br>}<br>其实现要点是：<br>服务器端启动ServerSocket，端口0表示自动绑定一个空闲端口。<br>调用accept方法，阻塞等待客户端连接。<br>利用Socket模拟了一个简单的客户端，只进行连接、读取、打印。<br>当连接建立后，启动一个单独线程负责回复客户端请求。<br>这样，一个简单的Socket服务器就被实现出来了。<br>思考一下，这个解决方案在扩展性方面，可能存在什么潜在问题呢？<br>大家知道Java语言目前的线程实现是比较重量级的，启动或者销毁一个线程是有明显开销的，每个线程都有单独的线程栈等结构，需要占用非常明显的内存，所以，每一个Client启<br>动一个线程似乎都有些浪费。<br>那么，稍微修正一下这个问题，我们引入线程池机制来避免浪费。<br>serverSocket = new ServerSocket(0);<br>executor = Executors.newFixedThreadPool(8);<br>while (true) {<br>Socket socket = serverSocket.accept();<br>RequesHandler requesHandler = new RequesHandler(socket);<br>executor.execute(requesHandler);<br>}<br>这样做似乎好了很多，通过一个固定大小的线程池，来负责管理工作线程，避免频繁创建、销毁线程的开销，这是我们构建并发服务的典型方式。这种工作方式，可以参考下图来理<br>解。<br>极客时间<br>如果连接数并不是非常多，只有最多几百个连接的普通应用，这种模式往往可以工作的很好。但是，如果连接数量急剧上升，这种实现方式就无法很好地工作了，因为线程上下文切<br>换开销会在高并发时变得很明显，这是同步阻塞方式的低扩展性劣势。<br>NIO引入的多路复用机制，提供了另外一种思路，请参考我下面提供的新的版本。<br>public class NIOServer extends Thread {<br>public void run() {<br>try (Selector selector = Selector.open();<br>ServerSocketChannel serverSocket = ServerSocketChannel.open();) {// 创建Selector和Channel<br>serverSocket.bind(new InetSocketAddress(InetAddress.getLocalHos(), 8888));<br>serverSocket.confgureBlocking(false);<br>// 注册到Selector，并说明关注点<br>serverSocket.regiser(selector, SelectionKey.OP_ACCEPT);<br>while (true) {<br>selector.select();// 阻塞等待就绪的Channel，这是关键点之一<br>Set selectedKeys = selector.selectedKeys();<br>Iterator iter = selectedKeys.iterator();<br>while (iter.hasNext()) {<br>SelectionKey key = iter.next();<br>// 生产系统中一般会额外进行就绪状态检查<br>sayHelloWorld((ServerSocketChannel) key.channel());<br>iter.remove();<br>}<br>}<br>} catch (IOException e) {<br>e.printStackTrace();<br>}<br>}<br>private void sayHelloWorld(ServerSocketChannel server) throws IOException {<br>try (SocketChannel client = server.accept();) { client.write(Charset.defaultCharset().encode(“Hello world!”));<br>}<br>}<br>// 省略了与前面类似的main<br>}<br>这个非常精简的样例掀开了NIO多路复用的面纱，我们可以分析下主要步骤和元素：<br>首先，通过Selector.open()创建一个Selector，作为类似调度员的角色。<br>然后，创建一个ServerSocketChannel，并且向Selector注册，通过指定SelectionKey.OP_ACCEPT，告诉调度员，它关注的是新的连接请求。<br>注意，为什么我们要明确配置非阻塞模式呢？这是因为阻塞模式下，注册操作是不允许的，会抛出IllegalBlockingModeException异常。<br>Selector阻塞在select操作，当有Channel发生接入请求，就会被唤醒。<br>在sayHelloWorld方法中，通过SocketChannel和Bufer进行数据操作，在本例中是发送了一段字符串。<br>可以看到，在前面两个样例中，IO都是同步阻塞模式，所以需要多线程以实现多任务处理。而NIO则是利用了单线程轮询事件的机制，通过高效地定位就绪的Channel，来决定做什<br>么，仅仅select阶段是阻塞的，可以有效避免大量客户端连接时，频繁线程切换带来的问题，应用的扩展能力有了非常大的提高。下面这张图对这种实现思路进行了形象地说明。<br>极客时间<br>在Java 7引入的NIO 2中，又增添了一种额外的异步IO模式，利用事件和回调，处理Accept、Read等操作。 AIO实现看起来是类似这样子：<br>AsynchronousServerSocketChannel serverSock = AsynchronousServerSocketChannel.open().bind(sockAddr);<br>serverSock.accept(serverSock, new CompletionHandler&lt;&gt;() { //为异步操作指定CompletionHandler回调函数<br>@Override<br>public void completed(AsynchronousSocketChannel sockChannel, AsynchronousServerSocketChannel serverSock) {<br>serverSock.accept(serverSock, this);<br>// 另外一个 write（sock，CompletionHandler{}）<br>sayHelloWorld(sockChannel, Charset.defaultCharset().encode<br>(“Hello World!”));<br>}<br>// 省略其他路径处理方法…<br>});<br>鉴于其编程要素（如Future、CompletionHandler等），我们还没有进行准备工作，为避免理解困难，我会在专栏后面相关概念补充后的再进行介绍，尤其<br>是Reactor、Proactor模式等方面将在Netty主题一起分析，这里我先进行概念性的对比：<br>基本抽象很相似，AsynchronousServerSocketChannel对应于上面例子中的ServerSocketChannel；AsynchronousSocketChannel则对应SocketChannel。<br>业务逻辑的关键在于，通过指定CompletionHandler回调接口，在accept/read/write等关键节点，通过事件机制调用，这是非常不同的一种编程思路。<br>今天我初步对Java提供的IO机制进行了介绍，概要地分析了传统同步IO和NIO的主要组成，并根据典型场景，通过不同的IO模式进行了实现与拆解。专栏下一讲，我还将继续分<br>析Java IO的主题。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://masonnpe.github.io/2018/11/06/Netty/Zero-Copy/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Masonnpe">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Masonnpe's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/11/06/Netty/Zero-Copy/" itemprop="url">Zero-Copy</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-06T00:00:47+08:00">
-                2018-11-06
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Netty/" itemprop="url" rel="index">
-                    <span itemprop="name">Netty</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>多个物理分离的buffer，通过逻辑上合并成为一个，从而避免了数据在内存之间的拷贝。</p>
-<p>所谓的 <code>Zero-copy</code>, 就是在操作数据时, 不需要将数据 buffer 从一个内存区域拷贝到另一个内存区域. 因为少了一次内存的拷贝, 因此 CPU 的效率就得到的提升.</p>
-<p>在 OS 层面上的 <code>Zero-copy</code> 通常指避免在 <code>用户态(User-space)</code> 与 <code>内核态(Kernel-space)</code> 之间来回拷贝数据. 例如 Linux 提供的 <code>mmap</code> 系统调用, 它可以将一段用户空间内存映射到内核空间, 当映射成功后, 用户对这段内存区域的修改可以直接反映到内核空间; 同样地, 内核空间对这段区域的修改也直接反映用户空间. 正因为有这样的映射关系, 我们就不需要在 <code>用户态(User-space)</code> 与 <code>内核态(Kernel-space)</code> 之间拷贝数据, 提高了数据传输的效率.</p>
-<p>而需要注意的是, Netty 中的 <code>Zero-copy</code> 与上面我们所提到到 OS 层面上的 <code>Zero-copy</code> 不太一样, Netty的 <code>Zero-coyp</code>完全是在用户态(Java 层面)的, 它的 <code>Zero-copy</code> 的更多的是偏向于 <code>优化数据操作</code> 这样的概念.</p>
-<p>Netty 的 <code>Zero-copy</code> 体现在如下几个个方面:</p>
-<ul>
-<li>Netty 提供了 <code>CompositeByteBuf</code> 类, 它可以将多个 ByteBuf 合并为一个逻辑上的 ByteBuf, 避免了各个 ByteBuf 之间的拷贝.</li>
-<li>通过 wrap 操作, 我们可以将 byte[] 数组、ByteBuf、ByteBuffer等包装成一个 Netty ByteBuf 对象, 进而避免了拷贝操作.</li>
-<li>ByteBuf 支持 slice 操作, 因此可以将 ByteBuf 分解为多个共享同一个存储区域的 ByteBuf, 避免了内存的拷贝.</li>
-<li>通过 <code>FileRegion</code> 包装的<code>FileChannel.tranferTo</code> 实现文件传输, 可以直接将文件缓冲区的数据发送到目标 <code>Channel</code>, 避免了传统通过循环 write 方式导致的内存拷贝问题.</li>
-</ul>
-<p>下面我们就来简单了解一下这几种常见的零拷贝操作.</p>
-<h2 id="通过-CompositeByteBuf-实现零拷贝"><a href="#通过-CompositeByteBuf-实现零拷贝" class="headerlink" title="通过 CompositeByteBuf 实现零拷贝"></a>通过 CompositeByteBuf 实现零拷贝</h2><p>假设我们有一份协议数据, 它由头部和消息体组成, 而头部和消息体是分别存放在两个 ByteBuf 中的, 即:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ByteBuf header = ...</span><br><span class="line">ByteBuf body = ...</span><br></pre></td></tr></table></figure>
-<p>我们在代码处理中, 通常希望将 header 和 body 合并为一个 ByteBuf, 方便处理, 那么通常的做法是:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ByteBuf allBuf = Unpooled.buffer(header.readableBytes() + body.readableBytes());</span><br><span class="line">allBuf.writeBytes(header);</span><br><span class="line">allBuf.writeBytes(body);</span><br></pre></td></tr></table></figure>
-<p>可以看到, 我们将 header 和 body 都拷贝到了新的 allBuf 中了, 这无形中增加了两次额外的数据拷贝操作了.</p>
-<p>那么有没有更加高效优雅的方式实现相同的目的呢? 我们来看一下 <code>CompositeByteBuf</code> 是如何实现这样的需求的吧.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">ByteBuf header = ...</span><br><span class="line">ByteBuf body = ...</span><br><span class="line"></span><br><span class="line">CompositeByteBuf compositeByteBuf = Unpooled.compositeBuffer();</span><br><span class="line">compositeByteBuf.addComponents(true, header, body);</span><br></pre></td></tr></table></figure>
-<p>上面代码中, 我们定义了一个 <code>CompositeByteBuf</code> 对象, 然后调用</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">public CompositeByteBuf addComponents(boolean increaseWriterIndex, ByteBuf... buffers) &#123;</span><br><span class="line">...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>方法将 <code>header</code> 与 <code>body</code> 合并为一个逻辑上的 ByteBuf, 即:</p>
-<p><img src="https://images2015.cnblogs.com/blog/1006163/201611/1006163-20161122125123065-1400680861.png" alt="img"></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">不过需要注意的是, 虽然看起来 CompositeByteBuf 是由两个 ByteBuf 组合而成的, 不过在 CompositeByteBuf 内部, 这两个 ByteBuf 都是单独存在的, CompositeByteBuf 只是逻辑上是一个整体.</span><br></pre></td></tr></table></figure>
-<p>上面 <code>CompositeByteBuf</code> 代码还以一个地方值得注意的是, 我们调用 <code>addComponents(boolean increaseWriterIndex, ByteBuf... buffers)</code> 来添加两个 ByteBuf, 其中第一个参数是 <code>true</code>, 表示当添加新的 ByteBuf 时, 自动递增 CompositeByteBuf 的 <code>writeIndex</code>.<br>如果我们调用的是</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">compositeByteBuf.addComponents(header, body);</span><br></pre></td></tr></table></figure>
-<p>那么其实 <code>compositeByteBuf</code> 的 <code>writeIndex</code> 仍然是0, 因此此时我们就不可能从 <code>compositeByteBuf</code> 中读取到数据, 这一点希望大家要特别注意.</p>
-<p>除了上面直接使用 <code>CompositeByteBuf</code> 类外, 我们还可以使用 <code>Unpooled.wrappedBuffer</code> 方法, 它底层封装了 <code>CompositeByteBuf</code> 操作, 因此使用起来更加方便:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ByteBuf header = ...</span><br><span class="line">ByteBuf body = ...</span><br><span class="line"></span><br><span class="line">ByteBuf allByteBuf = Unpooled.wrappedBuffer(header, body);</span><br></pre></td></tr></table></figure>
-<h2 id="通过-wrap-操作实现零拷贝"><a href="#通过-wrap-操作实现零拷贝" class="headerlink" title="通过 wrap 操作实现零拷贝"></a>通过 wrap 操作实现零拷贝</h2><p>例如我们有一个 byte 数组, 我们希望将它转换为一个 ByteBuf 对象, 以便于后续的操作, 那么传统的做法是将此 byte 数组拷贝到 ByteBuf 中, 即:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">byte[] bytes = ...</span><br><span class="line">ByteBuf byteBuf = Unpooled.buffer();</span><br><span class="line">byteBuf.writeBytes(bytes);</span><br></pre></td></tr></table></figure>
-<p>显然这样的方式也是有一个额外的拷贝操作的, 我们可以使用 Unpooled 的相关方法, 包装这个 byte 数组, 生成一个新的 ByteBuf 实例, 而不需要进行拷贝操作. 上面的代码可以改为:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">byte[] bytes = ...</span><br><span class="line">ByteBuf byteBuf = Unpooled.wrappedBuffer(bytes);</span><br></pre></td></tr></table></figure>
-<p>可以看到, 我们通过 <code>Unpooled.wrappedBuffer</code> 方法来将 bytes 包装成为一个 UnpooledHeapByteBuf 对象, 而在包装的过程中, 是不会有拷贝操作的. 即最后我们生成的生成的 ByteBuf 对象是和 bytes 数组共用了同一个存储空间, 对 bytes 的修改也会反映到 ByteBuf 对象中.</p>
-<p>Unpooled 工具类还提供了很多重载的 wrappedBuffer 方法:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">public static ByteBuf wrappedBuffer(byte[] array)</span><br><span class="line">public static ByteBuf wrappedBuffer(byte[] array, int offset, int length)</span><br><span class="line"></span><br><span class="line">public static ByteBuf wrappedBuffer(ByteBuffer buffer)</span><br><span class="line">public static ByteBuf wrappedBuffer(ByteBuf buffer)</span><br><span class="line"></span><br><span class="line">public static ByteBuf wrappedBuffer(byte[]... arrays)</span><br><span class="line">public static ByteBuf wrappedBuffer(ByteBuf... buffers)</span><br><span class="line">public static ByteBuf wrappedBuffer(ByteBuffer... buffers)</span><br><span class="line"></span><br><span class="line">public static ByteBuf wrappedBuffer(int maxNumComponents, byte[]... arrays)</span><br><span class="line">public static ByteBuf wrappedBuffer(int maxNumComponents, ByteBuf... buffers)</span><br><span class="line">public static ByteBuf wrappedBuffer(int maxNumComponents, ByteBuffer... buffers)</span><br></pre></td></tr></table></figure>
-<p>这些方法可以将一个或多个 buffer 包装为一个 ByteBuf 对象, 从而避免了拷贝操作.</p>
-<h2 id="通过-slice-操作实现零拷贝"><a href="#通过-slice-操作实现零拷贝" class="headerlink" title="通过 slice 操作实现零拷贝"></a>通过 slice 操作实现零拷贝</h2><p>slice 操作和 wrap 操作刚好相反, <code>Unpooled.wrappedBuffer</code> 可以将多个 ByteBuf 合并为一个, 而 slice 操作可以将一个 ByteBuf <code>切片</code> 为多个共享一个存储区域的 ByteBuf 对象.<br>ByteBuf 提供了两个 slice 操作方法:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">public ByteBuf slice();</span><br><span class="line">public ByteBuf slice(int index, int length);</span><br></pre></td></tr></table></figure>
-<p>不带参数的 <code>slice</code> 方法等同于 <code>buf.slice(buf.readerIndex(), buf.readableBytes())</code> 调用, 即返回 buf 中可读部分的切片. 而 <code>slice(int index, int length)</code> 方法相对就比较灵活了, 我们可以设置不同的参数来获取到 buf 的不同区域的切片.</p>
-<p>下面的例子展示了 <code>ByteBuf.slice</code> 方法的简单用法:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ByteBuf byteBuf = ...</span><br><span class="line">ByteBuf header = byteBuf.slice(0, 5);</span><br><span class="line">ByteBuf body = byteBuf.slice(5, 10);</span><br></pre></td></tr></table></figure>
-<p>用 <code>slice</code> 方法产生 header 和 body 的过程是没有拷贝操作的, header 和 body 对象在内部其实是共享了 byteBuf 存储空间的不同部分而已. 即:</p>
-<p><img src="https://images2015.cnblogs.com/blog/1006163/201611/1006163-20161122125113893-136149474.png" alt="img"></p>
-<h2 id="通过-FileRegion-实现零拷贝"><a href="#通过-FileRegion-实现零拷贝" class="headerlink" title="通过 FileRegion 实现零拷贝"></a>通过 FileRegion 实现零拷贝</h2><p>Netty 中使用 FileRegion 实现文件传输的零拷贝, 不过在底层 FileRegion 是依赖于 Java NIO <code>FileChannel.transfer</code> 的零拷贝功能.</p>
-<p>首先我们从最基础的 Java IO 开始吧. 假设我们希望实现一个文件拷贝的功能, 那么使用传统的方式, 我们有如下实现:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">public static void copyFile(String srcFile, String destFile) throws Exception &#123;</span><br><span class="line">    byte[] temp = new byte[1024];</span><br><span class="line">    FileInputStream in = new FileInputStream(srcFile);</span><br><span class="line">    FileOutputStream out = new FileOutputStream(destFile);</span><br><span class="line">    int length;</span><br><span class="line">    while ((length = in.read(temp)) != -1) &#123;</span><br><span class="line">        out.write(temp, 0, length);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    in.close();</span><br><span class="line">    out.close();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>上面是一个典型的读写二进制文件的代码实现了. 不用我说, 大家肯定都知道, 上面的代码中不断中源文件中读取定长数据到 temp 数组中, 然后再将 temp 中的内容写入目的文件, 这样的拷贝操作对于小文件倒是没有太大的影响, 但是如果我们需要拷贝大文件时, 频繁的内存拷贝操作就消耗大量的系统资源了.<br>下面我们来看一下使用 Java NIO 的 <code>FileChannel</code> 是如何实现零拷贝的:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">public static void copyFileWithFileChannel(String srcFileName, String destFileName) throws Exception &#123;</span><br><span class="line">    RandomAccessFile srcFile = new RandomAccessFile(srcFileName, &quot;r&quot;);</span><br><span class="line">    FileChannel srcFileChannel = srcFile.getChannel();</span><br><span class="line"></span><br><span class="line">    RandomAccessFile destFile = new RandomAccessFile(destFileName, &quot;rw&quot;);</span><br><span class="line">    FileChannel destFileChannel = destFile.getChannel();</span><br><span class="line"></span><br><span class="line">    long position = 0;</span><br><span class="line">    long count = srcFileChannel.size();</span><br><span class="line"></span><br><span class="line">    srcFileChannel.transferTo(position, count, destFileChannel);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>可以看到, 使用了 <code>FileChannel</code> 后, 我们就可以直接将源文件的内容直接拷贝(<code>transferTo</code>) 到目的文件中, 而不需要额外借助一个临时 buffer, 避免了不必要的内存操作.</p>
-<p>有了上面的一些理论知识, 我们来看一下在 Netty 中是怎么使用 <code>FileRegion</code> 来实现零拷贝传输一个文件的:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">@Override</span><br><span class="line">public void channelRead0(ChannelHandlerContext ctx, String msg) throws Exception &#123;</span><br><span class="line">    RandomAccessFile raf = null;</span><br><span class="line">    long length = -1;</span><br><span class="line">    try &#123;</span><br><span class="line">        // 1. 通过 RandomAccessFile 打开一个文件.</span><br><span class="line">        raf = new RandomAccessFile(msg, &quot;r&quot;);</span><br><span class="line">        length = raf.length();</span><br><span class="line">    &#125; catch (Exception e) &#123;</span><br><span class="line">        ctx.writeAndFlush(&quot;ERR: &quot; + e.getClass().getSimpleName() + &quot;: &quot; + e.getMessage() + &apos;\n&apos;);</span><br><span class="line">        return;</span><br><span class="line">    &#125; finally &#123;</span><br><span class="line">        if (length &lt; 0 &amp;&amp; raf != null) &#123;</span><br><span class="line">            raf.close();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    ctx.write(&quot;OK: &quot; + raf.length() + &apos;\n&apos;);</span><br><span class="line">    if (ctx.pipeline().get(SslHandler.class) == null) &#123;</span><br><span class="line">        // SSL not enabled - can use zero-copy file transfer.</span><br><span class="line">        // 2. 调用 raf.getChannel() 获取一个 FileChannel.</span><br><span class="line">        // 3. 将 FileChannel 封装成一个 DefaultFileRegion</span><br><span class="line">        ctx.write(new DefaultFileRegion(raf.getChannel(), 0, length));</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        // SSL enabled - cannot use zero-copy file transfer.</span><br><span class="line">        ctx.write(new ChunkedFile(raf));</span><br><span class="line">    &#125;</span><br><span class="line">    ctx.writeAndFlush(&quot;\n&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>上面的代码是 Netty 的一个例子, 其源码在 <strong>netty/example/src/main/java/io/netty/example/file/FileServerHandler.java</strong><br>可以看到, 第一步是通过 <code>RandomAccessFile</code> 打开一个文件, 然后 Netty 使用了 <code>DefaultFileRegion</code> 来封装一个 <code>FileChannel</code> 即:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">new DefaultFileRegion(raf.getChannel(), 0, length)</span><br></pre></td></tr></table></figure>
-<p>当有了 FileRegion 后, 我们就可以直接通过它将文件的内容直接写入 Channel 中, 而不需要像传统的做法: 拷贝文件内容到临时 buffer, 然后再将 buffer 写入 Channel. 通过这样的零拷贝操作, 无疑对传输大文件很有帮助.</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://masonnpe.github.io/2018/11/05/Elasticsearch/Elasticsearch入门/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Masonnpe">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Masonnpe's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/11/05/Elasticsearch/Elasticsearch入门/" itemprop="url">Elasticsearch入门</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-05T23:02:35+08:00">
-                2018-11-05
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Elasticsearch/" itemprop="url" rel="index">
-                    <span itemprop="name">Elasticsearch</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p> Elasticsearch是一个开源的高扩展的分布式全文检索引擎，它可以近乎实时的存储、检索数据；本身扩展性很好，可以扩展到上百台服务器，处理PB级别的数据。<br>Elasticsearch也使用Java开发并使用Lucene作为其核心来实现所有索引和搜索的功能，但是它的目的是通过简单的RESTful API来隐藏Lucene的复杂性，从而让全文搜索变得简单</p>
-<h2 id="elasticsearch与solr比较"><a href="#elasticsearch与solr比较" class="headerlink" title="elasticsearch与solr比较"></a>elasticsearch与solr比较</h2><h3 id="solr"><a href="#solr" class="headerlink" title="solr"></a>solr</h3><p>优点<br>1、Solr有一个更大、更成熟的用户、开发和贡献者社区。<br>2、支持添加多种格式的索引，如：HTML、PDF、微软 Office 系列软件格式以及 JSON、XML、CSV 等纯文本格式。<br>3、Solr比较成熟、稳定。<br>4、不考虑建索引的同时进行搜索，速度更快。<br>缺点<br>建立索引时，搜索效率下降，实时索引搜索效率不高。</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/11/05/Elasticsearch/Elasticsearch入门/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
         
       
     </div>
@@ -2007,7 +1862,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -2057,7 +1912,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">77</span>
+                  <span class="site-state-item-count">83</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2068,7 +1923,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-count">20</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -2079,7 +1934,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">47</span>
+                  <span class="site-state-item-count">54</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -2180,6 +2035,18 @@
                 
                   <li class="links-of-blogroll-item">
                     <a href="http://www.cnblogs.com/xrq730" title="五月的仓颉" target="_blank">五月的仓颉</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.cnblogs.com/skywang12345/" title="如果天空不死" target="_blank">如果天空不死</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.weiweiblog.cn/" title="尾尾部落" target="_blank">尾尾部落</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://blog.720ui.com/" title="梁桂钊的博客" target="_blank">梁桂钊的博客</a>
                   </li>
                 
               </ul>

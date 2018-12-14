@@ -131,12 +131,12 @@
 <meta property="og:site_name" content="Masonnpe&#39;s Blog">
 <meta property="og:description" content="MySQL主从复制原理">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://masonnpe.github.io/2018/11/25/数据库/MySQL主从复制/MySQL主从复制原理.png">
-<meta property="og:updated_time" content="2018-11-25T15:12:23.509Z">
+<meta property="og:image" content="http://ws4.sinaimg.cn/large/007iUdjSgy1fy6jgnueisj30pz0k6774.jpg">
+<meta property="og:updated_time" content="2018-12-14T12:18:58.015Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="MySQL主从复制">
 <meta name="twitter:description" content="MySQL主从复制原理">
-<meta name="twitter:image" content="https://masonnpe.github.io/2018/11/25/数据库/MySQL主从复制/MySQL主从复制原理.png">
+<meta name="twitter:image" content="http://ws4.sinaimg.cn/large/007iUdjSgy1fy6jgnueisj30pz0k6774.jpg">
 
 
 
@@ -434,7 +434,7 @@
       
 
       
-        <h2 id="MySQL主从复制原理"><a href="#MySQL主从复制原理" class="headerlink" title="MySQL主从复制原理"></a>MySQL主从复制原理</h2><p><img src=".\MySQL主从复制原理.png" alt=""></p>
+        <h2 id="MySQL主从复制原理"><a href="#MySQL主从复制原理" class="headerlink" title="MySQL主从复制原理"></a>MySQL主从复制原理</h2><p><img src="http://ws4.sinaimg.cn/large/007iUdjSgy1fy6jgnueisj30pz0k6774.jpg" alt="image"></p>
 <a id="more"></a>
 <p>主库将增删改操作写binlog日志，从库连接到主库之后有一个IO线程，将主库的binlog日志拷贝到本地，写入到一个中继日志中，接着从库中有一个SQL线程会从中继日志读取binlog日志，并执行binlog日志中的内容，也就是在本地再次执行一遍SQL，这样就可以保证自己跟主库的数据是一样的。这里有一个非常重要的点，就是从库同步主库数据的过程是串行化的，也就是说主库上并行的操作，在从库上会串行执行。在高并发场景下，从库的数据一定会比主库慢一些，是有延时的。所以经常出现，刚写入主库的数据可能是读不到的，要过几十毫秒，甚至几百毫秒才能读取到。</p>
 <p>如果主库突然宕机，然后恰好数据还没同步到从库，那么有些数据可能在从库上是没有的，有些数据可能就丢失了。所以MySQL在这一块有两个机制，一个是半同步复制，用来解决主库数据丢失问题；一个是并行复制，用来解决主从同步延时问题。</p>
@@ -476,6 +476,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/11/26/并发编程/CAS/" rel="prev" title="CAS">
+                CAS <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -561,7 +565,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">77</span>
+                  <span class="site-state-item-count">83</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -572,7 +576,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-count">20</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -583,7 +587,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">47</span>
+                  <span class="site-state-item-count">54</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -684,6 +688,18 @@
                 
                   <li class="links-of-blogroll-item">
                     <a href="http://www.cnblogs.com/xrq730" title="五月的仓颉" target="_blank">五月的仓颉</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.cnblogs.com/skywang12345/" title="如果天空不死" target="_blank">如果天空不死</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.weiweiblog.cn/" title="尾尾部落" target="_blank">尾尾部落</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://blog.720ui.com/" title="梁桂钊的博客" target="_blank">梁桂钊的博客</a>
                   </li>
                 
               </ul>

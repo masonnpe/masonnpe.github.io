@@ -124,18 +124,18 @@
 
 
 
-<meta name="description" content="未提交读（READ UNCOMMITTED）事务中的修改，即使没有提交，对其它事务也是可见的。使用查询语句不会加锁，可能会读到未提交的行（Dirty Read） 造成：脏读；不可重复读；幻影读 提交读（READ COMMITTED）一个事务只能读取已经提交的事务所做的修改。换句话说，一个事务所做的修改在提交之前对其它事务是不可见的。只对记录加记录锁，而不会在记录之间加间隙锁，所以允许新的记录插入到">
+<meta name="description" content="不事务隔离带来的问题更新丢失：两事务同时更新，一个失败回滚覆盖另一个事务的更新。或事务1执行更细操作，在事务1结束前事务2也更新，则事务1的更细结果被事务2的覆盖了。 脏读：事务T2读取到事务T1修改了但是还未提交的数据，之后事务T1又回滚其更新操作，导致事务T2读到的是脏数据。 不可重复读：事务T1读取某个数据后，事务T2对其做了修改，当事务T1再次读该数据时得到与前一次不同的值。 虚读（幻读）">
 <meta name="keywords" content="Transaction,Isolation">
 <meta property="og:type" content="article">
 <meta property="og:title" content="数据库事务">
 <meta property="og:url" content="https://masonnpe.github.io/2018/10/26/数据库/事务的隔离级别/index.html">
 <meta property="og:site_name" content="Masonnpe&#39;s Blog">
-<meta property="og:description" content="未提交读（READ UNCOMMITTED）事务中的修改，即使没有提交，对其它事务也是可见的。使用查询语句不会加锁，可能会读到未提交的行（Dirty Read） 造成：脏读；不可重复读；幻影读 提交读（READ COMMITTED）一个事务只能读取已经提交的事务所做的修改。换句话说，一个事务所做的修改在提交之前对其它事务是不可见的。只对记录加记录锁，而不会在记录之间加间隙锁，所以允许新的记录插入到">
+<meta property="og:description" content="不事务隔离带来的问题更新丢失：两事务同时更新，一个失败回滚覆盖另一个事务的更新。或事务1执行更细操作，在事务1结束前事务2也更新，则事务1的更细结果被事务2的覆盖了。 脏读：事务T2读取到事务T1修改了但是还未提交的数据，之后事务T1又回滚其更新操作，导致事务T2读到的是脏数据。 不可重复读：事务T1读取某个数据后，事务T2对其做了修改，当事务T1再次读该数据时得到与前一次不同的值。 虚读（幻读）">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-10-27T01:17:25.197Z">
+<meta property="og:updated_time" content="2018-11-26T15:34:04.938Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="数据库事务">
-<meta name="twitter:description" content="未提交读（READ UNCOMMITTED）事务中的修改，即使没有提交，对其它事务也是可见的。使用查询语句不会加锁，可能会读到未提交的行（Dirty Read） 造成：脏读；不可重复读；幻影读 提交读（READ COMMITTED）一个事务只能读取已经提交的事务所做的修改。换句话说，一个事务所做的修改在提交之前对其它事务是不可见的。只对记录加记录锁，而不会在记录之间加间隙锁，所以允许新的记录插入到">
+<meta name="twitter:description" content="不事务隔离带来的问题更新丢失：两事务同时更新，一个失败回滚覆盖另一个事务的更新。或事务1执行更细操作，在事务1结束前事务2也更新，则事务1的更细结果被事务2的覆盖了。 脏读：事务T2读取到事务T1修改了但是还未提交的数据，之后事务T1又回滚其更新操作，导致事务T2读到的是脏数据。 不可重复读：事务T1读取某个数据后，事务T2对其做了修改，当事务T1再次读该数据时得到与前一次不同的值。 虚读（幻读）">
 
 
 
@@ -433,13 +433,27 @@
       
 
       
-        <h2 id="未提交读（READ-UNCOMMITTED）"><a href="#未提交读（READ-UNCOMMITTED）" class="headerlink" title="未提交读（READ UNCOMMITTED）"></a>未提交读（READ UNCOMMITTED）</h2><p>事务中的修改，即使没有提交，对其它事务也是可见的。使用查询语句不会加锁，可能会读到未提交的行（Dirty Read）</p>
+        <h2 id="不事务隔离带来的问题"><a href="#不事务隔离带来的问题" class="headerlink" title="不事务隔离带来的问题"></a>不事务隔离带来的问题</h2><p><strong>更新丢失</strong>：两事务同时更新，一个失败回滚覆盖另一个事务的更新。或事务1执行更细操作，在事务1结束前事务2也更新，则事务1的更细结果被事务2的覆盖了。</p>
+<p><strong>脏读</strong>：事务T2读取到事务T1修改了但是还未提交的数据，之后事务T1又回滚其更新操作，导致事务T2读到的是脏数据。</p>
+<p><strong>不可重复读</strong>：事务T1读取某个数据后，事务T2对其做了修改，当事务T1再次读该数据时得到与前一次不同的值。</p>
+<p><strong>虚读（幻读）</strong>：事务T1读取在读取某范围数据时，事务T2又插入一条数据，当事务T1再次数据这个范围数据时发现不一样了，出现了一些“幻影行”。</p>
+<p>脏读和不可重复读的区别：脏读是某一事务读取了另一个事务未提交的脏数据，而不可重复读则是读取了前一事务提交的数据。</p>
+<p>不可重复读和幻读的异同：都是读取了另一条已经提交的事务（这点就脏读不同），所不同的是不可重复读查询的都是同一个数据项，而幻读针对的是一批数据整体（比如数据的个数）。</p>
+<a id="more"></a>
+<h2 id="未提交读（READ-UNCOMMITTED）"><a href="#未提交读（READ-UNCOMMITTED）" class="headerlink" title="未提交读（READ UNCOMMITTED）"></a>未提交读（READ UNCOMMITTED）</h2><p>事务中的修改，即使没有提交，对其它事务也是可见的。使用查询语句不会加锁，可能会读到未提交的行（Dirty Read）</p>
 <p>造成：脏读；不可重复读；幻影读</p>
-<h2 id="提交读（READ-COMMITTED）"><a href="#提交读（READ-COMMITTED）" class="headerlink" title="提交读（READ COMMITTED）"></a>提交读（READ COMMITTED）</h2><p>一个事务只能读取已经提交的事务所做的修改。换句话说，一个事务所做的修改在提交之前对其它事务是不可见的。只对记录加记录锁，而不会在记录之间加间隙锁，所以允许新的记录插入到被锁定记录的附近，所以再多次使用查询语句时，可能得到不同的结果（Non-Repeatable Read）</p>
+<p>所需的锁：排他写锁</p>
+<h2 id="提交读（READ-COMMITTED）"><a href="#提交读（READ-COMMITTED）" class="headerlink" title="提交读（READ COMMITTED）"></a>提交读（READ COMMITTED）</h2><p>一个事务只能读取已经提交的事务所做的修改。换句话说，一个事务所做的修改在提交之前对其它事务是不可见的。只对记录加记录锁，而不会在记录之间加间隙锁，所以允许新的记录插入到被锁定记录的附近，所以再多次使用查询语句时，可能得到不同的结果（Non-Repeatable Read）大多数数据库默认级别是RC，比如SQL Server，Oracle</p>
 <p>造成：不可重复读；幻影读</p>
-<h2 id="可重复读（REPEATABLE-READ）"><a href="#可重复读（REPEATABLE-READ）" class="headerlink" title="可重复读（REPEATABLE READ）"></a>可重复读（REPEATABLE READ）</h2><p>保证在同一个事务中多次读取同样数据的结果是一样的。多次读取同一范围的数据会返回第一次查询的快照，不会返回不同的数据行，但是可能发生幻读（Phantom Read）</p>
+<p>所需的锁：排他写锁、瞬间共享读锁</p>
+<h2 id="可重复读（REPEATABLE-READ）"><a href="#可重复读（REPEATABLE-READ）" class="headerlink" title="可重复读（REPEATABLE READ）"></a>可重复读（REPEATABLE READ）</h2><p>保证在同一个事务中多次读取同样数据的结果是一样的。多次读取同一范围的数据会返回第一次查询的快照，不会返回不同的数据行，但是可能发生幻读（Phantom Read）MySQL InnoDB 就是这个级别</p>
+<blockquote>
+<p>事例：程序员某一天去消费，花了2千元，然后他的妻子去查看他今天的消费记录（全表扫描FTS，妻子事务开启），看到确实是花了2千元，就在这个时候，程序员花了1万买了一部电脑，即新增INSERT了一条消费记录，并提交。当妻子打印程序员的消费记录清单时（妻子事务提交），发现花了1.2万元，似乎出现了幻觉，这就是幻读。解决幻读的方法是增加范围锁（range lock）或者表锁。</p>
+</blockquote>
 <p>造成：幻影读</p>
+<p>所需的锁：排他写锁、共享读锁</p>
 <h2 id="可串行化（SERIALIZABLE）"><a href="#可串行化（SERIALIZABLE）" class="headerlink" title="可串行化（SERIALIZABLE）"></a>可串行化（SERIALIZABLE）</h2><p>强制事务串行执行。InnoDB 隐式地将全部的查询语句加上共享锁，解决了幻读的问题；</p>
+<p>所须的锁：范围锁或表锁</p>
 <h2 id="MySQL"><a href="#MySQL" class="headerlink" title="MySQL"></a>MySQL</h2><p>MySQL 中默认的事务隔离级别就是 <code>REPEATABLE READ</code>，它通过 Next-Key 锁也能够在某种程度上解决幻读的问题。MVCC 会产生幻读问题（更新时异常）在可重复读隔离级别下，通过多版本并发控制（MVCC）+ 间隙锁（Next-Key Locking）防止幻影读。</p>
 
       
@@ -571,7 +585,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">77</span>
+                  <span class="site-state-item-count">83</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -582,7 +596,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-count">20</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -593,7 +607,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">47</span>
+                  <span class="site-state-item-count">54</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -696,6 +710,18 @@
                     <a href="http://www.cnblogs.com/xrq730" title="五月的仓颉" target="_blank">五月的仓颉</a>
                   </li>
                 
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.cnblogs.com/skywang12345/" title="如果天空不死" target="_blank">如果天空不死</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.weiweiblog.cn/" title="尾尾部落" target="_blank">尾尾部落</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://blog.720ui.com/" title="梁桂钊的博客" target="_blank">梁桂钊的博客</a>
+                  </li>
+                
               </ul>
             </div>
           
@@ -715,7 +741,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#未提交读（READ-UNCOMMITTED）"><span class="nav-number">1.</span> <span class="nav-text">未提交读（READ UNCOMMITTED）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#提交读（READ-COMMITTED）"><span class="nav-number">2.</span> <span class="nav-text">提交读（READ COMMITTED）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#可重复读（REPEATABLE-READ）"><span class="nav-number">3.</span> <span class="nav-text">可重复读（REPEATABLE READ）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#可串行化（SERIALIZABLE）"><span class="nav-number">4.</span> <span class="nav-text">可串行化（SERIALIZABLE）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MySQL"><span class="nav-number">5.</span> <span class="nav-text">MySQL</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#不事务隔离带来的问题"><span class="nav-number">1.</span> <span class="nav-text">不事务隔离带来的问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#未提交读（READ-UNCOMMITTED）"><span class="nav-number">2.</span> <span class="nav-text">未提交读（READ UNCOMMITTED）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#提交读（READ-COMMITTED）"><span class="nav-number">3.</span> <span class="nav-text">提交读（READ COMMITTED）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#可重复读（REPEATABLE-READ）"><span class="nav-number">4.</span> <span class="nav-text">可重复读（REPEATABLE READ）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#可串行化（SERIALIZABLE）"><span class="nav-number">5.</span> <span class="nav-text">可串行化（SERIALIZABLE）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MySQL"><span class="nav-number">6.</span> <span class="nav-text">MySQL</span></a></li></ol></div>
             
 
           </div>

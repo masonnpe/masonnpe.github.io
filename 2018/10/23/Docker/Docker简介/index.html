@@ -124,19 +124,19 @@
 
 
 
-<meta name="description" content="Docker是一种虚拟化技术解决开发环境和生产环境环境一致的问题，通过Docker可以将程序运行的环境也纳入到版本控制中，解决一些项目交付时的麻烦。  底层技术支持Namespaces：通过Linux的Namespaces对不同的容器实现了隔离，包括进程、网络等信息。通过挂载点映射和宿主机的目录。 ControlGroups：隔离宿主机器上的物理资源，例如CPU、内存、磁盘I/O和网络带宽。 Un">
+<meta name="description" content="Docker是一种虚拟化技术解决开发环境和生产环境环境一致的问题，通过Docker可以将程序运行的环境也纳入到版本控制中，解决一些项目交付时的麻烦。  解决的问题由于不同的机器有不同的操作系统，以及不同的库和组件，在将一个应用部署到多台机器上需要进行大量的环境配置操作。 Docker 主要解决环境配置问题，它是一种虚拟化技术，对进程进行隔离，被隔离的进程独立于宿主操作系统和其它隔离的进程。使用 D">
 <meta name="keywords" content="Docker">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Docker简介">
 <meta property="og:url" content="https://masonnpe.github.io/2018/10/23/Docker/Docker简介/index.html">
 <meta property="og:site_name" content="Masonnpe&#39;s Blog">
-<meta property="og:description" content="Docker是一种虚拟化技术解决开发环境和生产环境环境一致的问题，通过Docker可以将程序运行的环境也纳入到版本控制中，解决一些项目交付时的麻烦。  底层技术支持Namespaces：通过Linux的Namespaces对不同的容器实现了隔离，包括进程、网络等信息。通过挂载点映射和宿主机的目录。 ControlGroups：隔离宿主机器上的物理资源，例如CPU、内存、磁盘I/O和网络带宽。 Un">
+<meta property="og:description" content="Docker是一种虚拟化技术解决开发环境和生产环境环境一致的问题，通过Docker可以将程序运行的环境也纳入到版本控制中，解决一些项目交付时的麻烦。  解决的问题由于不同的机器有不同的操作系统，以及不同的库和组件，在将一个应用部署到多台机器上需要进行大量的环境配置操作。 Docker 主要解决环境配置问题，它是一种虚拟化技术，对进程进行隔离，被隔离的进程独立于宿主操作系统和其它隔离的进程。使用 D">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://pgmrhouhm.bkt.clouddn.com/docker%E6%9E%B6%E6%9E%84.jpg">
-<meta property="og:updated_time" content="2018-10-23T15:30:16.977Z">
+<meta property="og:updated_time" content="2018-11-27T15:30:48.492Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Docker简介">
-<meta name="twitter:description" content="Docker是一种虚拟化技术解决开发环境和生产环境环境一致的问题，通过Docker可以将程序运行的环境也纳入到版本控制中，解决一些项目交付时的麻烦。  底层技术支持Namespaces：通过Linux的Namespaces对不同的容器实现了隔离，包括进程、网络等信息。通过挂载点映射和宿主机的目录。 ControlGroups：隔离宿主机器上的物理资源，例如CPU、内存、磁盘I/O和网络带宽。 Un">
+<meta name="twitter:description" content="Docker是一种虚拟化技术解决开发环境和生产环境环境一致的问题，通过Docker可以将程序运行的环境也纳入到版本控制中，解决一些项目交付时的麻烦。  解决的问题由于不同的机器有不同的操作系统，以及不同的库和组件，在将一个应用部署到多台机器上需要进行大量的环境配置操作。 Docker 主要解决环境配置问题，它是一种虚拟化技术，对进程进行隔离，被隔离的进程独立于宿主操作系统和其它隔离的进程。使用 D">
 <meta name="twitter:image" content="http://pgmrhouhm.bkt.clouddn.com/docker%E6%9E%B6%E6%9E%84.jpg">
 
 
@@ -437,6 +437,32 @@
       
         <p>Docker是一种虚拟化技术解决开发环境和生产环境环境一致的问题，通过Docker可以将程序运行的环境也纳入到版本控制中，解决一些项目交付时的麻烦。</p>
 <p><img src="http://pgmrhouhm.bkt.clouddn.com/docker%E6%9E%B6%E6%9E%84.jpg" alt="docker架构"></p>
+<h2 id="解决的问题"><a href="#解决的问题" class="headerlink" title="解决的问题"></a>解决的问题</h2><p>由于不同的机器有不同的操作系统，以及不同的库和组件，在将一个应用部署到多台机器上需要进行大量的环境配置操作。</p>
+<p>Docker 主要解决环境配置问题，它是一种虚拟化技术，对进程进行隔离，被隔离的进程独立于宿主操作系统和其它隔离的进程。使用 Docker 可以不修改应用程序代码，不需要开发人员学习特定环境下的技术，就能够将现有的应用程序部署在其他机器中</p>
+<h2 id="优势"><a href="#优势" class="headerlink" title="优势"></a>优势</h2><ul>
+<li>启动快</li>
+</ul>
+<p>容器里面的应用，直接就是底层系统的一个进程，而不是虚拟机内部的进程。所以启动容器相当于启动本机的一个进程，而不是启动一个操作系统，速度就快很多</p>
+<ul>
+<li>资源占用少</li>
+</ul>
+<p>容器只占用需要的资源，不占用那些没有用到的资源；虚拟机由于是完整的操作系统，不可避免要占用所有资源。另外多个容器可以共享资源，虚拟机都是独享资源</p>
+<ul>
+<li>体积小</li>
+</ul>
+<p>容器只要包含用到的组件即可，而虚拟机是整个操作系统的打包，所以容器文件比虚拟机文件要小很多</p>
+<ul>
+<li>容易迁移</li>
+</ul>
+<p>提供一致性的运行环境，可以在不同的机器上进行迁移，而不用担心环境变化导致无法运行</p>
+<ul>
+<li>容易维护</li>
+</ul>
+<p>使用分层技术和镜像，使得应用可以更容易复用重复部分。复用程度越高，维护工作也越容易</p>
+<ul>
+<li>容易扩展</li>
+</ul>
+<p>可以使用基础镜像进一步扩展得到新的镜像，并且官方和开源社区提供了大量的镜像，通过扩展这些镜像可以非常容易得到我们想要的镜像</p>
 <h2 id="底层技术支持"><a href="#底层技术支持" class="headerlink" title="底层技术支持"></a>底层技术支持</h2><p>Namespaces：通过Linux的Namespaces对不同的容器实现了隔离，包括进程、网络等信息。通过挂载点映射和宿主机的目录。</p>
 <p>ControlGroups：隔离宿主机器上的物理资源，例如CPU、内存、磁盘I/O和网络带宽。</p>
 <p>UnionFileSystems：container和image的分层。</p>
@@ -465,6 +491,11 @@
 <li>负责运行</li>
 </ul>
 <p><code>docker run -it xxx</code> 可以进container里面进行一些操作</p>
+<h2 id="镜像与容器"><a href="#镜像与容器" class="headerlink" title="镜像与容器"></a>镜像与容器</h2><p>镜像是一种静态的结构，可以看成面向对象里面的类，而容器是镜像的一个实例。</p>
+<p>镜像包含着容器运行时所需要的代码以及其它组件，它是一种分层结构，每一层都是只读的（read-only layers）。构建镜像时，会一层一层构建，前一层是后一层的基础。镜像的这种分层存储结构很适合镜像的复用以及定制。</p>
+<p>构建容器时，通过在镜像的基础上添加一个可写层（writable layer），用来保存着容器运行过程中的修改。</p>
+<p>通过<strong>容器技术</strong>有效分配和管理物理资源，实现资源隔离</p>
+<p>通过<strong>镜像技术</strong>从系统环境开始，自底至上打包应用 </p>
 
       
     </div>
@@ -593,7 +624,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">77</span>
+                  <span class="site-state-item-count">83</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -604,7 +635,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-count">20</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -615,7 +646,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">47</span>
+                  <span class="site-state-item-count">54</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -718,6 +749,18 @@
                     <a href="http://www.cnblogs.com/xrq730" title="五月的仓颉" target="_blank">五月的仓颉</a>
                   </li>
                 
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.cnblogs.com/skywang12345/" title="如果天空不死" target="_blank">如果天空不死</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.weiweiblog.cn/" title="尾尾部落" target="_blank">尾尾部落</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://blog.720ui.com/" title="梁桂钊的博客" target="_blank">梁桂钊的博客</a>
+                  </li>
+                
               </ul>
             </div>
           
@@ -737,7 +780,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#底层技术支持"><span class="nav-number">1.</span> <span class="nav-text">底层技术支持</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#image"><span class="nav-number">2.</span> <span class="nav-text">image</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#container"><span class="nav-number">3.</span> <span class="nav-text">container</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#解决的问题"><span class="nav-number">1.</span> <span class="nav-text">解决的问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#优势"><span class="nav-number">2.</span> <span class="nav-text">优势</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#底层技术支持"><span class="nav-number">3.</span> <span class="nav-text">底层技术支持</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#image"><span class="nav-number">4.</span> <span class="nav-text">image</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#container"><span class="nav-number">5.</span> <span class="nav-text">container</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#镜像与容器"><span class="nav-number">6.</span> <span class="nav-text">镜像与容器</span></a></li></ol></div>
             
 
           </div>

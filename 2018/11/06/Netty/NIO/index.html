@@ -111,7 +111,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="Nio," />
 
 
 
@@ -125,16 +125,17 @@
 
 
 <meta name="description" content="初识NIO： ​    在 JDK 1. 4 中 新 加入 了 NIO( New Input/ Output) 类, 引入了一种基于通道和缓冲区的 I/O 方式，它可以使用 Native 函数库直接分配堆外内存，然后通过一个存储在 Java 堆的 DirectByteBuffer 对象作为这块内存的引用进行操作，避免了在 Java 堆和 Native 堆中来回复制数据。 ​    NIO 是一种同">
+<meta name="keywords" content="Nio">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Masonnpe&#39;s Blog">
+<meta property="og:title" content="Nio">
 <meta property="og:url" content="https://masonnpe.github.io/2018/11/06/Netty/NIO/index.html">
 <meta property="og:site_name" content="Masonnpe&#39;s Blog">
 <meta property="og:description" content="初识NIO： ​    在 JDK 1. 4 中 新 加入 了 NIO( New Input/ Output) 类, 引入了一种基于通道和缓冲区的 I/O 方式，它可以使用 Native 函数库直接分配堆外内存，然后通过一个存储在 Java 堆的 DirectByteBuffer 对象作为这块内存的引用进行操作，避免了在 Java 堆和 Native 堆中来回复制数据。 ​    NIO 是一种同">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://imglf1.ph.126.net/9AtBKwQ8vHsko1RPRb0sew==/6631645009304717344.jpg">
-<meta property="og:updated_time" content="2018-11-11T16:15:13.389Z">
+<meta property="og:updated_time" content="2018-12-14T13:42:16.911Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Masonnpe&#39;s Blog">
+<meta name="twitter:title" content="Nio">
 <meta name="twitter:description" content="初识NIO： ​    在 JDK 1. 4 中 新 加入 了 NIO( New Input/ Output) 类, 引入了一种基于通道和缓冲区的 I/O 方式，它可以使用 Native 函数库直接分配堆外内存，然后通过一个存储在 Java 堆的 DirectByteBuffer 对象作为这块内存的引用进行操作，避免了在 Java 堆和 Native 堆中来回复制数据。 ​    NIO 是一种同">
 <meta name="twitter:image" content="http://imglf1.ph.126.net/9AtBKwQ8vHsko1RPRb0sew==/6631645009304717344.jpg">
 
@@ -172,7 +173,7 @@
 
 
 
-  <title> | Masonnpe's Blog</title>
+  <title>Nio | Masonnpe's Blog</title>
   
 
 
@@ -362,7 +363,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline"></h1>
+          <h1 class="post-title" itemprop="name headline">Nio</h1>
         
 
         <div class="post-meta">
@@ -384,6 +385,28 @@
             
           </span>
 
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Netty/" itemprop="url" rel="index">
+                    <span itemprop="name">Netty</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -474,6 +497,12 @@
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/Nio/" rel="tag"><i class="fa fa-tag"></i> Nio</a>
+          
+        </div>
+      
 
       
       
@@ -493,8 +522,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/11/06/Spring/Spring中的设计模式/" rel="prev" title="">
-                 <i class="fa fa-chevron-right"></i>
+              <a href="/2018/11/06/Spring/Spring中的设计模式/" rel="prev" title="Spring中的设计模式">
+                Spring中的设计模式 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -572,7 +601,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">77</span>
+                  <span class="site-state-item-count">83</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -583,7 +612,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-count">20</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -594,7 +623,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">47</span>
+                  <span class="site-state-item-count">54</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -695,6 +724,18 @@
                 
                   <li class="links-of-blogroll-item">
                     <a href="http://www.cnblogs.com/xrq730" title="五月的仓颉" target="_blank">五月的仓颉</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.cnblogs.com/skywang12345/" title="如果天空不死" target="_blank">如果天空不死</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.weiweiblog.cn/" title="尾尾部落" target="_blank">尾尾部落</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://blog.720ui.com/" title="梁桂钊的博客" target="_blank">梁桂钊的博客</a>
                   </li>
                 
               </ul>

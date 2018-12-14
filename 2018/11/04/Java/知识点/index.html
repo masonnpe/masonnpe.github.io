@@ -131,7 +131,7 @@
 <meta property="og:site_name" content="Masonnpe&#39;s Blog">
 <meta property="og:description" content="精度问题：2.0-1.1打印结果0.89999 因为二进制无法准确描述1/10   &amp;lt;9位用int  ； &amp;lt;18可以用long   ；&amp;gt;18必须使用bigdecimal。BigDecimal：add() 加； subtract()  减； multiply()  乘； divide()  除；构造是传String，否则还有精度问题  finally带return会覆盖返回值，否">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-11-05T14:12:16.705Z">
+<meta property="og:updated_time" content="2018-11-27T15:09:06.862Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="知识点">
 <meta name="twitter:description" content="精度问题：2.0-1.1打印结果0.89999 因为二进制无法准确描述1/10   &amp;lt;9位用int  ； &amp;lt;18可以用long   ；&amp;gt;18必须使用bigdecimal。BigDecimal：add() 加； subtract()  减； multiply()  乘； divide()  除；构造是传String，否则还有精度问题  finally带return会覆盖返回值，否">
@@ -461,9 +461,11 @@
 <li><p>获得当前时间下一天</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Calendar c=Calendar.getInstance();</span><br><span class="line">c.add(Calendar.DAY_OF_MONTH,3);</span><br><span class="line">System.out.println(c.getTime());</span><br></pre></td></tr></table></figure>
 </li>
-<li><p>类初始化顺序：父类static → 子类static → 父类实例变量 → 父类构造方法 → 子类实例变量 → 子类构造方法</p>
+<li><p>类初始化顺序：父类静态变量、静态语句块 → 子类静态变量、静态语句块 → 父类实例变量、普通语句块 → 父类构造方法 → 子类实例变量、普通语句块 → 子类构造方法</p>
 </li>
 <li><p>SpringCloud调试时经常出现服务非正常关闭导致端口被占用的情况，使用cmd使用<code>taskkill /f /t /im java.exe</code>杀进程</p>
+</li>
+<li><p>如果父类没有实现序列化，而子类实现列序列化。那么父类中的成员没办法做序列化操作</p>
 </li>
 </ol>
 <a id="more"></a>
@@ -579,7 +581,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">77</span>
+                  <span class="site-state-item-count">83</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -590,7 +592,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-count">20</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -601,7 +603,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">47</span>
+                  <span class="site-state-item-count">54</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -702,6 +704,18 @@
                 
                   <li class="links-of-blogroll-item">
                     <a href="http://www.cnblogs.com/xrq730" title="五月的仓颉" target="_blank">五月的仓颉</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.cnblogs.com/skywang12345/" title="如果天空不死" target="_blank">如果天空不死</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.weiweiblog.cn/" title="尾尾部落" target="_blank">尾尾部落</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://blog.720ui.com/" title="梁桂钊的博客" target="_blank">梁桂钊的博客</a>
                   </li>
                 
               </ul>

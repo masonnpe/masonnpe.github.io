@@ -133,7 +133,8 @@
 <meta property="og:description" content="判断是否可回收引用计数算法 给对象添加一个引用计数器，当对象增加一个引用时计数器加 1，引用失效时计数器减 1。引用计数为 0 的对象可被回收。两个对象出现循环引用的情况下，此时引用计数器永远不为 0，导致无法对它们进行回收，JVM不使用 可达性算法 通过 GC Roots 作为起始点进行搜索，能够到达到的对象都是存活的，不可达的对象可被回收。 在 Java 中 GC Roots 一般包含以下内容">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://pgmrhouhm.bkt.clouddn.com/%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86%E5%99%A8.PNG">
-<meta property="og:updated_time" content="2018-11-03T11:47:20.837Z">
+<meta property="og:image" content="http://ws3.sinaimg.cn/large/007iUdjSgy1fy6kkaniirj310k0jyac2.jpg">
+<meta property="og:updated_time" content="2018-12-14T12:57:39.230Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="垃圾回收">
 <meta name="twitter:description" content="判断是否可回收引用计数算法 给对象添加一个引用计数器，当对象增加一个引用时计数器加 1，引用失效时计数器减 1。引用计数为 0 的对象可被回收。两个对象出现循环引用的情况下，此时引用计数器永远不为 0，导致无法对它们进行回收，JVM不使用 可达性算法 通过 GC Roots 作为起始点进行搜索，能够到达到的对象都是存活的，不可达的对象可被回收。 在 Java 中 GC Roots 一般包含以下内容">
@@ -481,7 +482,7 @@
 <h3 id="Parallel-Old"><a href="#Parallel-Old" class="headerlink" title="Parallel Old"></a>Parallel Old</h3><p>标记-整理算法</p>
 <p>Parallel Scavenge收集器的老年代版本，使用多线程和标记整理法，在注重吞吐量以及 CPU 资源敏感的场合，都可以优先考虑 Parallel Scavenge 加 Parallel Old 收集器，可以用在注重吞吐量和CPU资源敏感的场合,UsePallelOldGC打开</p>
 <h3 id="CMS"><a href="#CMS" class="headerlink" title="CMS"></a>CMS</h3><p>标记-清除算法<br>减少回收停顿时间<br>碎片 -XX:CMSInitiatingOccupancyFraction  被使用多少后触发垃圾收集，提高cms触发百分比<br>Concurrent Mode Failure 启用Serial Old    </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">-XX:+UseCMSCompactAtFullCollection</span><br><span class="line">-XX:CMSFullGCsBeforeCompaction 执行多少次不压缩FullGC后 来一次带压缩的 0 表示每次都压</span><br><span class="line">-XX:+UseConcMarkSweep</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">-XX:+UseCMSCompactAtFullCollection  fullgc时开启内存碎片合并整理</span><br><span class="line">-XX:CMSFullGCsBeforeCompaction 执行多少次不压缩FullGC后 来一次带压缩的 0 表示每次都压</span><br><span class="line">-XX:+UseConcMarkSweep</span><br></pre></td></tr></table></figure>
 <p>Concurrent Mark Sweep，基于标记清除法。目标是解决Serial GC 的停顿问题，以达到最短回收时间，有高并发、高响应的特点</p>
 <ol>
 <li>初始标记仅仅只是标记一下 GC Roots 能直接关联到的对象，速度很快，需要停顿</li>
@@ -615,6 +616,7 @@
 <li>通过Minor GC后进入老年代的平均大小大于老年代的可用内存</li>
 <li>由Eden区、From Space区向To Space区复制时，对象大小大于To Space可用内存，则把该对象转存到老年代，且老年代的可用内存小于该对象大小</li>
 </ul>
+<p><img src="http://ws3.sinaimg.cn/large/007iUdjSgy1fy6kkaniirj310k0jyac2.jpg" alt="image"></p>
 <p>如何查看当前的垃圾回收器<br>​    -XX:+PrintFlagsFinal<br>​    -XX:+PrintCommandLineFlags<br>​    server client<br>​    MBean</p>
 <p>GC日志<br>​    1.输出日志<br>​    -XX:+PrintGCTimeStamps<br>​    -XX:+PrintGCDetails<br>​    -Xloggc:/home/administrator/james/gc.log<br>​    -XX:+PrintHeapAtGC<br>​    2.日志文件控制<br>​    -XX:-UseGCLogFileRotation<br>​    -XX:GCLogFileSize=8K<br>​    3.怎么看</p>
 <p>JDK自带的 监控工具<br><a href="https://docs.oracle.com/javase/8/docs/technotes/tools/windows/toc.html" target="_blank" rel="noopener">https://docs.oracle.com/javase/8/docs/technotes/tools/windows/toc.html</a><br>​    jmap -heap pid 堆使用情况<br>​    jstat  -gcutil pid 1000<br>​    jstack  线程dump<br>​    jvisualvm<br>​    jconsole</p>
@@ -756,7 +758,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">77</span>
+                  <span class="site-state-item-count">83</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -767,7 +769,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-count">20</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -778,7 +780,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">47</span>
+                  <span class="site-state-item-count">54</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -879,6 +881,18 @@
                 
                   <li class="links-of-blogroll-item">
                     <a href="http://www.cnblogs.com/xrq730" title="五月的仓颉" target="_blank">五月的仓颉</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.cnblogs.com/skywang12345/" title="如果天空不死" target="_blank">如果天空不死</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.weiweiblog.cn/" title="尾尾部落" target="_blank">尾尾部落</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://blog.720ui.com/" title="梁桂钊的博客" target="_blank">梁桂钊的博客</a>
                   </li>
                 
               </ul>
