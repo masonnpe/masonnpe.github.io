@@ -117,23 +117,23 @@
 
 
 
-  <link rel="alternate" href="/atom.xml" title="Masonnpe's Blog" type="application/atom+xml" />
+  <link rel="alternate" href="/atom.xml" title="mason's note" type="application/atom+xml" />
 
 
 
 
 
 
-<meta name="description" content="沉迷学习日渐消瘦">
+<meta name="description" content="热心市民">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Masonnpe&#39;s Blog">
+<meta property="og:title" content="mason&#39;s note">
 <meta property="og:url" content="https://masonnpe.github.io/page/9/index.html">
-<meta property="og:site_name" content="Masonnpe&#39;s Blog">
-<meta property="og:description" content="沉迷学习日渐消瘦">
+<meta property="og:site_name" content="mason&#39;s note">
+<meta property="og:description" content="热心市民">
 <meta property="og:locale" content="zh-Hans">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Masonnpe&#39;s Blog">
-<meta name="twitter:description" content="沉迷学习日渐消瘦">
+<meta name="twitter:title" content="mason&#39;s note">
+<meta name="twitter:description" content="热心市民">
 
 
 
@@ -169,7 +169,7 @@
 
 
 
-  <title>Masonnpe's Blog</title>
+  <title>mason's note</title>
   
 
 
@@ -202,12 +202,12 @@
     <div class="custom-logo-site-title">
       <a href="/"  class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
-        <span class="site-title">Masonnpe's Blog</span>
+        <span class="site-title">mason's note</span>
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
       
-        <p class="site-subtitle">愿所有的坚持终不被辜负</p>
+        <p class="site-subtitle">沉迷学习日渐消瘦</p>
       
   </div>
 
@@ -343,16 +343,16 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://masonnpe.github.io/2018/10/22/数据库/数据库引擎/">
+    <link itemprop="mainEntityOfPage" href="https://masonnpe.github.io/2019/05/14/MyBatis/MyBatis缓存/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Masonnpe">
+      <meta itemprop="name" content="mason">
       <meta itemprop="description" content="">
       <meta itemprop="image" content="/images/avatar.jpg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Masonnpe's Blog">
+      <meta itemprop="name" content="mason's note">
     </span>
 
     
@@ -362,7 +362,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/10/22/数据库/数据库引擎/" itemprop="url">数据库引擎</a></h1>
+                <a class="post-title-link" href="/2019/05/14/MyBatis/MyBatis缓存/" itemprop="url">MyBatis缓存</a></h1>
         
 
         <div class="post-meta">
@@ -374,8 +374,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-22T23:42:35+08:00">
-                2018-10-22
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-14T09:10:23+08:00">
+                2019-05-14
               </time>
             
 
@@ -397,8 +397,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/数据库/" itemprop="url" rel="index">
-                    <span itemprop="name">数据库</span>
+                  <a href="/categories/Mybatis/" itemprop="url" rel="index">
+                    <span itemprop="name">Mybatis</span>
                   </a>
                 </span>
 
@@ -435,50 +435,20 @@
 
       
         
-          <table>
-<thead>
-<tr>
-<th></th>
-<th>Innodb</th>
-<th>Myisam</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>存储文件</td>
-<td>.frm表定义文件 ibd数据文件</td>
-<td>.frm表定义文件 .myd数据文件 .myi索引文件</td>
-</tr>
-<tr>
-<td>锁</td>
-<td>表锁、行锁</td>
-<td>表锁</td>
-</tr>
-<tr>
-<td>事务</td>
-<td>ACID</td>
-<td>不支持</td>
-</tr>
-<tr>
-<td>CURD</td>
-<td>读、写</td>
-<td>读多</td>
-</tr>
-<tr>
-<td>count</td>
-<td>扫表</td>
-<td>专门存储的地方</td>
-</tr>
-<tr>
-<td>索引结构</td>
-<td>B+Tree</td>
-<td>B+Tree</td>
-</tr>
-</tbody>
-</table>
+          <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>MyBatis是常见的Java数据库访问层框架。在日常工作中，开发人员多数情况下是使用MyBatis的默认缓存配置，但是MyBatis缓存机制有一些不足之处，在使用中容易引起脏数据，形成一些潜在的隐患。个人在业务开发中也处理过一些由于MyBatis缓存引发的开发问题，带着个人的兴趣，希望从应用及源码的角度为读者梳理MyBatis缓存机制。<br>本次分析中涉及到的代码和数据库表均放在GitHub上，地址： <a href="https://github.com/kailuncen/mybatis-cache-demo" target="_blank" rel="noopener">mybatis-cache-demo</a> 。</p>
+<h3 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h3><p>本文按照以下顺序展开。</p>
+<ul>
+<li>一级缓存介绍及相关配置。</li>
+<li>一级缓存工作流程及源码分析。</li>
+<li>一级缓存总结。</li>
+<li>二级缓存介绍及相关配置。</li>
+<li>二级缓存源码分析。</li>
+<li>二级缓存总结。</li>
+<li>全文总结。</li>
+</ul>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/10/22/数据库/数据库引擎/#more" rel="contents">
+            <a class="btn" href="/2019/05/14/MyBatis/MyBatis缓存/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -529,16 +499,16 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://masonnpe.github.io/2018/10/22/分布式/BASE理论/">
+    <link itemprop="mainEntityOfPage" href="https://masonnpe.github.io/2019/05/14/Basic/linux命令及常用软件安装/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Masonnpe">
+      <meta itemprop="name" content="mason">
       <meta itemprop="description" content="">
       <meta itemprop="image" content="/images/avatar.jpg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Masonnpe's Blog">
+      <meta itemprop="name" content="mason's note">
     </span>
 
     
@@ -548,7 +518,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/10/22/分布式/BASE理论/" itemprop="url">BASE理论</a></h1>
+                <a class="post-title-link" href="/2019/05/14/Basic/linux命令及常用软件安装/" itemprop="url">centos常用软件安装</a></h1>
         
 
         <div class="post-meta">
@@ -560,8 +530,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-22T23:19:41+08:00">
-                2018-10-22
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-14T09:10:23+08:00">
+                2019-05-14
               </time>
             
 
@@ -583,8 +553,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/分布式/" itemprop="url" rel="index">
-                    <span itemprop="name">分布式</span>
+                  <a href="/categories/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
                   </a>
                 </span>
 
@@ -621,13 +591,13 @@
 
       
         
-          <p>BASE理论是对CAP理论中一致性和可用性权衡的结果，如果无法做到强一致性，那就要采取合适的方法使系统达到最终一致性。传统的数据库系统要求强一致性(ACID)，BASE理论强调通过牺牲强一致性来达到可用性。在实际业务场景中，要结合业务对一致性的要求，将ACID和BASE结合起来使用。</p>
-<h2 id="基本可用-BasicallyAvailable"><a href="#基本可用-BasicallyAvailable" class="headerlink" title="基本可用(BasicallyAvailable)"></a>基本可用(BasicallyAvailable)</h2><p>分布式系统在出现故障的时候，保证核心功能可用，允许损失部分可用性。</p>
-<h2 id="软状态-SoftState"><a href="#软状态-SoftState" class="headerlink" title="软状态(SoftState)"></a>软状态(SoftState)</h2><p>允许系统中的数据存在中间状态，即系统不同节点的数据副本之间进行同步的过程存在时间延迟</p>
-<h2 id="最终一致性-EventuallyConsistent"><a href="#最终一致性-EventuallyConsistent" class="headerlink" title="最终一致性(EventuallyConsistent)"></a>最终一致性(EventuallyConsistent)</h2><p>系统中所有的数据副本，在经过一段时间的同步后，最终能达到一致的状态。</p>
+          <h4 id="配置IP"><a href="#配置IP" class="headerlink" title="配置IP"></a>配置IP</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vi /etc/sysconfig/network-scripts/ifcfg-ens33</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">BOOTPROTO=&quot;static&quot;</span><br><span class="line">IPADDR=&quot;192.168.10.110&quot;</span><br><span class="line">NETMASK=&quot;255.255.255.0&quot;</span><br><span class="line">GATEWAY=&quot;192.168.10.1&quot;</span><br><span class="line">DNS1=&quot;8.8.8.8&quot;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl restart network</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">vi /etc/sysconfig/network</span><br><span class="line">NETWORKING=yes</span><br><span class="line">HOSTNAME=hadoop1</span><br><span class="line">vi /etc/hosts</span><br><span class="line">192.168.10.110 hadoop1</span><br><span class="line">192.168.10.111 hadoop2</span><br><span class="line">192.168.10.112 hadoop3</span><br><span class="line">192.168.10.113 hadoop4</span><br><span class="line">192.168.10.114 hadoop5</span><br><span class="line">192.168.10.115 hadoop6</span><br></pre></td></tr></table></figure>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/10/22/分布式/BASE理论/#more" rel="contents">
+            <a class="btn" href="/2019/05/14/Basic/linux命令及常用软件安装/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -678,16 +648,16 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://masonnpe.github.io/2018/10/22/分布式/CAP理论/">
+    <link itemprop="mainEntityOfPage" href="https://masonnpe.github.io/2019/05/14/JVM/类加载机制/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Masonnpe">
+      <meta itemprop="name" content="mason">
       <meta itemprop="description" content="">
       <meta itemprop="image" content="/images/avatar.jpg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Masonnpe's Blog">
+      <meta itemprop="name" content="mason's note">
     </span>
 
     
@@ -697,7 +667,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/10/22/分布式/CAP理论/" itemprop="url">CAP理论</a></h1>
+                <a class="post-title-link" href="/2019/05/14/JVM/类加载机制/" itemprop="url">类加载机制</a></h1>
         
 
         <div class="post-meta">
@@ -709,8 +679,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-22T23:19:10+08:00">
-                2018-10-22
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-14T09:10:23+08:00">
+                2019-05-14
               </time>
             
 
@@ -732,8 +702,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/分布式/" itemprop="url" rel="index">
-                    <span itemprop="name">分布式</span>
+                  <a href="/categories/JVM/" itemprop="url" rel="index">
+                    <span itemprop="name">JVM</span>
                   </a>
                 </span>
 
@@ -770,13 +740,1257 @@
 
       
         
-          <p>分布式系统不可能同时满足一致性(Consistency)、可用性(Availability)、分区容忍性(Partition Tolerance)，最多只能同时满足其中两项，这就是CAP理论。在分布式系统中分区容忍性必不可少，所以CAP理论实际上是要在可用性和一致性之间做取舍。</p>
-<h2 id="一致性"><a href="#一致性" class="headerlink" title="一致性"></a>一致性</h2><p>多个数据副本能保持一致，系统在执行数据更新操作之后能够从一致性状态转移到另一个一致性状态。如果系统的一个数据更新成功之后，所有用户都能够读取到最新的值，系统就被认为具有强一致性。</p>
-<h2 id="可用性"><a href="#可用性" class="headerlink" title="可用性"></a>可用性</h2><p>分布式系统在面对各种异常时都可以提供正常服务，对于用户的每一个操作、请求总是能够在有限的时间内返回结果。</p>
-<h2 id="分区容忍性"><a href="#分区容忍性" class="headerlink" title="分区容忍性"></a>分区容忍性</h2><p>分布式系统在遇到任何网络分区故障的时候，仍然能对外提供一致性和可用性的服务，除非是整个网络环境都发生了故障。网络分区指分布式系统中的节点被划分为多个区域，每个区域内部可以通信，但是区域之间无法通信。</p>
+          <p>类的加载机制就是将class文件加载到内存，对数据进行校验，转换，解析，初始化，变成可以使用的java类型</p>
+<p><strong>加载</strong>：根据全限定名获取二进制流，静态存储结构转化为运行时数据结构，生成class对象作各种数据的访问入口</p>
+<p><strong>验证</strong>：文件格式验证，元数据验证，字节码验证，符号引用验证 。确保 Class 文件的字节流中包含的信息符合当前虚拟机的要求，并且不会危害虚拟机自身的安全</p>
+<p><strong>准备</strong>：分配内存，设置初始值</p>
+<p><strong>解析</strong>：符号引号替换为直接引用，其中解析过程在某些情况下可以在初始化阶段之后再开始，这是为了支持 Java 的动态绑定</p>
+<p><strong>初始化</strong>：通过程序制定的主观计划去初始化类变量和其它资源</p>
+<blockquote>
+<ul>
+<li><p>必须对类进行初始化的情况</p>
+<ul>
+<li>遇到 new、getstatic、putstatic、invokestatic 这四条字节码指令时，如果类没有进行过初始化，则必须先触发其初始化。最常见的生成这 4 条指令的场景是：使用 new 关键字实例化对象的时候；读取或设置一个类的静态字段（被 final 修饰、已在编译期把结果放入常量池的静态字段除外）的时候；以及调用一个类的静态方法的时候。</li>
+<li>使用 java.lang.reflect 包的方法对类进行反射调用的时候，如果类没有进行初始化，则需要先触发其初始化。</li>
+<li>当初始化一个类的时候，如果发现其父类还没有进行过初始化，则需要先触发其父类的初始化。</li>
+<li>当虚拟机启动时，用户需要指定一个要执行的主类（包含 main() 方法的那个类），虚拟机会先初始化这个主类；</li>
+<li>当使用 JDK 1.7 的动态语言支持时，如果一个 java.lang.invoke.MethodHandle 实例最后的解析结果为 REF_getStatic, REF_putStatic, REF_invokeStatic 的方法句柄，并且这个方法句柄所对应的类没有进行过初始化，则需要先触发其初始化；</li>
+</ul>
+<p>被动引用不会初始化</p>
+<ul>
+<li>通过子类引用父类的静态变量，不会导致子类初始化              父类会初始化</li>
+<li>通过数组定义来引用类，不会触发此类的初始化。该过程对数组类进行初始化，数组类是一个由虚拟机自动生成的、直接继承自 Object 的子类，其中包含了数组的属性和方法</li>
+<li>常量在编译阶段会存入调用类的常量池中，本质上并没有直接引用到定义常量的类，因此不会触发定义常量的类的初始化    static final 不会初始化   static会初始化</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<p>任何一个类 ，都需要有加载它的类加载器和这个类本身确立在jvm中的唯一性，来源于同一个class，但加载它们的类加载器不同，那么这两个类必定不相等</p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/10/22/分布式/CAP理论/#more" rel="contents">
+            <a class="btn" href="/2019/05/14/JVM/类加载机制/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://masonnpe.github.io/2019/05/14/JVM/垃圾回收/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="mason">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="mason's note">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/05/14/JVM/垃圾回收/" itemprop="url">垃圾回收</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-14T09:10:23+08:00">
+                2019-05-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/JVM/" itemprop="url" rel="index">
+                    <span itemprop="name">JVM</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>判定对象是否可被回收都与引用有关，在Java语言中，除了基本数据类型外，其他的都是指向各类对象的对象引用；Java中根据其生命周期的长短，将引用分为4类。</p>
+<p><strong>1．强引用</strong></p>
+<p>Object obj = new Object(); 如果一个对象具有强引用，当内存空间不足，Java虚拟机宁愿抛出OutOfMemoryError错误，使程序异常终止，也不会靠随意回收具有强引用的对象来解决内存不足问题。</p>
+<p><strong>2．软引用（SoftReference）</strong></p>
+<p>如果一个对象只具有软引用，如果内存空间足够，垃圾回收器就不会回收它，如果内存空间不足了，就会回收这些对象的内存。只要垃圾回收器没有回收它，该对象就可以被程序使用。软引用可用来实现内存敏感的高速缓存。</p>
+<p>软引用可以和一个引用队列（ReferenceQueue）联合使用，如果软引用所引用的对象被垃圾回收，JAVA虚拟机就会把这个软引用加入到与之关联的引用队列中。</p>
+<p><strong>3．弱引用（WeakReference）</strong></p>
+<p>如果一个对象只具有弱引用，那就类似于<strong>可有可物的生活用品</strong>。弱引用与软引用的区别在于：只具有弱引用的对象拥有更短暂的生命周期。在垃圾回收器线程扫描它 所管辖的内存区域的过程中，一旦发现了只具有弱引用的对象，不管当前内存空间足够与否，都会回收它的内存。不过，由于垃圾回收器是一个优先级很低的线程， 因此不一定会很快发现那些只具有弱引用的对象。 </p>
+<p>弱引用可以和一个引用队列（ReferenceQueue）联合使用，如果弱引用所引用的对象被垃圾回收，Java虚拟机就会把这个弱引用加入到与之关联的引用队列中。</p>
+<p>Tomcat 中的 ConcurrentCache 使用了 WeakHashMap 来实现缓存功能</p>
+<p><strong>4．虚引用（PhantomReference）</strong></p>
+<p>“虚引用”顾名思义，就是形同虚设，与其他几种引用都不同，虚引用并不会决定对象的生命周期。如果一个对象仅持有虚引用，那么它就和没有任何引用一样，在任何时候都可能被垃圾回收。</p>
+<p><strong>虚引用主要用来跟踪对象被垃圾回收的活动</strong>。</p>
+<p><strong>虚引用与软引用和弱引用的一个区别在于：</strong> 虚引用必须和引用队列（ReferenceQueue）联合使用。当垃 圾回收器准备回收一个对象时，如果发现它还有虚引用，就会在回收对象的内存之前，把这个虚引用加入到与之关联的引用队列中。程序可以通过判断引用队列中是 否已经加入了虚引用，来了解被引用的对象是否将要被垃圾回收。程序如果发现某个虚引用已经被加入到引用队列，那么就可以在所引用的对象的内存被回收之前采取必要的行动。 </p>
+<p>特别注意，在程序设计中一般很少使用弱引用与虚引用，使用软引用的情况较多，这是因为<strong>软引用可以加速JVM对垃圾内存的回收速度，可以维护系统的运行安全，防止内存溢出（OutOfMemory）等问题的产生</strong>。</p>
+<h2 id="判断是否可回收"><a href="#判断是否可回收" class="headerlink" title="判断是否可回收"></a>判断是否可回收</h2><p><strong>引用计数算法</strong></p>
+<p>给对象添加一个引用计数器，当对象增加一个引用时计数器加 1，引用失效时计数器减 1。引用计数为 0 的对象可被回收。两个对象出现循环引用的情况下，此时引用计数器永远不为 0，导致无法对它们进行回收，JVM不使用</p>
+<p><strong>可达性算法</strong></p>
+<p>通过 GC Roots 作为起始点进行搜索，能够到达到的对象都是存活的，不可达的对象可被回收。</p>
+<p>在 Java 中 GC Roots 一般包含以下内容：</p>
+<ul>
+<li>虚拟机栈中局部变量表中引用的对象</li>
+<li>本级方法栈(Native方法)引用的对象</li>
+<li>方法区中类静态变量引用的对象</li>
+<li>方法区中的常量引用的对象</li>
+</ul>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/05/14/JVM/垃圾回收/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://masonnpe.github.io/2019/05/14/JVM/JVM组成/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="mason">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="mason's note">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/05/14/JVM/JVM组成/" itemprop="url">JVM组成</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-14T09:10:23+08:00">
+                2019-05-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/JVM/" itemprop="url" rel="index">
+                    <span itemprop="name">JVM</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>方法区和堆内存是线程<strong>共享</strong>的。程序计数器、虚拟机栈、本地方法栈是线程<strong>私有</strong>的</p>
+<p>方法区</p>
+<p>存放已经被JVM加载的类的信息，如常量，静态变量、即时编译器编译后的代码等。</p>
+<p>从 JDK 1.8 开始，移除永久代，并把方法区移至元空间，它位于本地内存中，而不是虚拟机内存中，1.8 metaspace 放类加载信息</p>
+<p>堆内存</p>
+<p>所有对象的创建都在这里进行分配，采取分代管理，分为新生代和老年代，执行不同的垃圾回收策略，所有<strong>实例域，静态域和数组元素</strong>都是放在堆内存中。常量池在堆中</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/05/14/JVM/JVM组成/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://masonnpe.github.io/2019/05/14/JVM/JVM性能监控和故障处理工具/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="mason">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="mason's note">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/05/14/JVM/JVM性能监控和故障处理工具/" itemprop="url">JVM性能监控和故障处理工具</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-14T09:10:23+08:00">
+                2019-05-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/JVM/" itemprop="url" rel="index">
+                    <span itemprop="name">JVM</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <ul>
+<li>jps查看虚拟机进程状态  -l  主类的全名  -v  数据jvm参数</li>
+<li>jstat看虚拟机状态  jstat -gc 6424  jstat -gcutil 6424</li>
+<li>jinfo 看jvm的参数  jinfo -flag CMSInitiatingOccupancyFraction 5192</li>
+<li>jmap -dump:format=b,file=D:\DUMP.bin 5192  生成堆转储快照  jmap -heap 5192  堆详情信息</li>
+<li>jhat D:\DUMP.bin  分析dump</li>
+<li>jstack 5192 打印堆栈信息</li>
+<li>jconsole、visualVM可视化工具</li>
+</ul>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/05/14/JVM/JVM性能监控和故障处理工具/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://masonnpe.github.io/2019/05/14/JVM/JVM参数/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="mason">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="mason's note">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/05/14/JVM/JVM参数/" itemprop="url">JVM参数</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-14T09:10:23+08:00">
+                2019-05-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/JVM/" itemprop="url" rel="index">
+                    <span itemprop="name">JVM</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p><a href="https://www.oracle.com/technetwork/java/javase/tech/vmoptions-jsp-140102.html" target="_blank" rel="noopener">Java HotSpot VM Options文档</a>官网的这份文档有点老了不知道新的在哪儿，可以做参考</p>
+<h2 id="内存和GC"><a href="#内存和GC" class="headerlink" title="内存和GC"></a>内存和GC</h2><p>-XX:MaxDirectMemorySize    堆外内存的最大值</p>
+<p>-XX:MetaspaceSize=128m  Metaspace初始大小   第一次扩张会造成JVM停顿，spring aop后类比较多</p>
+<p>-XX:MaxMetaspaceSize=512m    Metaspace最大大小   设一个更大的Max值以求保险，防止将内存用光</p>
+<p>-XX:+UseConcMarkSweepGC -XX:CMSInitiatingOccupancyFraction=75 -XX:+UseCMSInitiatingOccupancyOnly   内存达到75%主动CMS GC</p>
+<p>-XX:+ExplicitGCInvokesConcurrent       让full gc时使用CMS算法，不是全程停顿</p>
+<h2 id="性能"><a href="#性能" class="headerlink" title="性能"></a>性能</h2><p> -XX:AutoBoxCacheMax=20000     加大Integer Cache   自动装箱时缓冲中有的直接从缓存拿</p>
+<h2 id="运维"><a href="#运维" class="headerlink" title="运维"></a>运维</h2><p>-Xloggc:/dev/shm/gc-myapp.log -XX:+PrintGCDateStamps -XX:+PrintGCDetails     打印gc日志</p>
+<p>-XX:+PrintCommandLineFlags    将每次启动的参数输出到stdout</p>
+<p>-XX:-OmitStackTraceInFastThrow     输出完整栈的日志</p>
+<p>-XX:ErrorFile =${LOGDIR}/hs_err_%p.log    JVM crash时，hotspot 会生成一个error文件，提供JVM状态信息的细节。如前所述，将其输出到固定目录，避免到时会到处找这文件。文件名中的%p会被自动替换为应用的PID</p>
+<p>-XX:+HeapDumpOnOutOfMemoryError   在OOM时，输出一个dump.core文件，记录当时的堆内存快照     对内存快照目录设置<code>-XX:HeapDumpPath=${LOGDIR}/</code></p>
+<p>-XX:+PrintGCApplicationStoppedTime      打印清晰的完整的GC停顿时间外，还可以打印其他的JVM停顿时间，比如取消偏向锁，class 被agent redefine，code deoptimization等等</p>
+<p>-XX:+PrintPromotionFailure       多大的新生代对象晋升到老生代失败从而引发Full GC的</p>
+<p>-XX:+PrintSafepointStatistics -XX:PrintSafepointStatisticsCount=1 -XX:+UnlockDiagnosticVMOptions -XX:-DisplayVMOutput -XX:+LogVMOutput -XX:LogFile=/dev/shm/vm-myapp.log        开启安全点日志</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/05/14/JVM/JVM参数/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://masonnpe.github.io/2019/05/14/JVM/GC日志/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="mason">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="mason's note">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/05/14/JVM/GC日志/" itemprop="url">GC日志</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-14T09:10:23+08:00">
+                2019-05-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/JVM/" itemprop="url" rel="index">
+                    <span itemprop="name">JVM</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>垃圾收集器长时间停顿，表现在 Web 页面上可能是页面响应码 500 之类的服务器错误问题，如果是个支付过程可能会导致支付失败，将造成公司的直接经济损失。</p>
+<h3 id="MetaSpace内存溢出"><a href="#MetaSpace内存溢出" class="headerlink" title="MetaSpace内存溢出"></a>MetaSpace内存溢出</h3><p><code>JDK8</code> 使用 <code>MetaSpace</code> 来保存类加载之后的类信息，字符串常量池也被移动到 Java 堆</p>
+<p>JDK 8 中将类信息移到到了本地堆内存(Native Heap)中，将原有的永久代移动到了本地堆中成为 <code>MetaSpace</code> ,如果不指定该区域的大小，JVM 将会动态的调整。</p>
+<p>可以使用 <code>-XX:MaxMetaspaceSize=10M</code> 来限制最大元数据。这样当不停的创建类时将会占满该区域并出现 <code>OOM</code></p>
+<p>动态代理对象太多也会 oom动态代理生成的对象在Jvm中指向的不是同一个地址，它只是与源对象有相同的hashcode值而已</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/05/14/JVM/GC日志/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://masonnpe.github.io/2019/05/09/分布式/hystrix/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="mason">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="mason's note">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/05/09/分布式/hystrix/" itemprop="url">未命名</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-09T17:14:31+08:00">
+                2019-05-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>一个大型服务不可避免的需要依赖其他服务，并且有可能需要通过网络请求依赖第三方客户端。这样就有可能因为单个依赖服务延迟而导致整个服务器上的资源被阻塞。更糟糕的是，倘若两个服务相互依赖，有一个服务对另一个服务响应延时就有可能造成雪崩效应，导致两个服务一起崩溃。</p>
+<p>现如今微服务架构十分流行，其解决依赖隔离方案hystrix也被大家所认知。但目前还有很多服务还是停留在Spring mvc框架，无法直接使用Spring Cloud集成的hystrix方案。本文先简单介绍hystrix的基本知识，然后介绍hystrix在Spring mvc的使用，最后简单介绍下如何实现项目的hystrix信息监控。</p>
+<h1 id="一、简介"><a href="#一、简介" class="headerlink" title="一、简介"></a>一、简介</h1><h2 id="1、为什么要使用Hystrix"><a href="#1、为什么要使用Hystrix" class="headerlink" title="1、为什么要使用Hystrix"></a>1、为什么要使用Hystrix</h2><p>在复杂的分布式结构中，每个应用都可能会依赖很多其他的服务，并且这些服务都不可避免地有失效的可能。倘若没有对依赖失败进行隔离，那整个服务可能就会有被拖垮的风险。</p>
+<p>例如，一个应用依赖了 30 个服务，并且每个服务能保证 99.99% 的可用率，下面是一些计算结果：</p>
+<blockquote>
+<p>可用率：99.99%^30=99.7%<br>1亿次请求*0.3%=300,000次失效<br>换算成时间大约每个月2个小时服务不稳定。</p>
+</blockquote>
+<p>然而，现实更加残酷，如果你没有针对整个系统做快速恢复，即使所有依赖只有 0.01% 的不可用率，累积起来每个月给系统带来的不可用时间也有数小时之多。</p>
+<p><a href="http://tech.lede.com/2017/06/15/rd/server/hystrix/hystrix-1.png" target="_blank" rel="noopener">http://tech.lede.com/2017/06/15/rd/server/hystrix/hystrix-1.png</a>)</p>
+<p>当一个依赖服务有延迟，它将会阻塞整个用户请求：</p>
+<p><a href="http://tech.lede.com/2017/06/15/rd/server/hystrix/hystrix-2.png" target="_blank" rel="noopener"><img src="http://tech.lede.com/2017/06/15/rd/server/hystrix/hystrix-2.png" alt="img"></a></p>
+<p>在高QPS的环境下，一个依赖服务的延迟会导致整个服务器上资源都被阻塞。</p>
+<p>应用中每一个网络请求或者间接通过客户端库发出的网络请求都是潜在的导致应用失效的原因。更严重的是，这些应用可能被其他服务依赖，由于每个服务都有诸如请求队列，线程池，或者其他系统资源等，一旦某个服务失效或者延迟增高，会导致更严重的级联失效。</p>
+<p><a href="http://tech.lede.com/2017/06/15/rd/server/hystrix/hystrix-3.png" target="_blank" rel="noopener"><img src="http://tech.lede.com/2017/06/15/rd/server/hystrix/hystrix-3.png" alt="img"></a></p>
+<p>hystrix被设计用来：</p>
+<ul>
+<li>在通过第三方客户端访问（通常是通过网络）依赖服务出现高延迟或者失败时，为系统提供保护和控制</li>
+<li>在分布式系统中防止级联失败</li>
+<li>可以进行快速失败（不需要等待）和快速恢复（当依赖服务失效后又恢复正常，其对应的线程池会被清理干净，即剩下的都是未使用的线程，相对于整个 Tomcat 容器的线程池被占满需要耗费更长时间以恢复可用来说，此时系统可以快速恢复）</li>
+<li>提供失败回退（Fallback）和优雅的服务降级机制</li>
+<li>提供近实时的监控、报警和运维控制手段</li>
+</ul>
+<h2 id="2、Hystrix如何解决依赖隔离"><a href="#2、Hystrix如何解决依赖隔离" class="headerlink" title="2、Hystrix如何解决依赖隔离"></a>2、Hystrix如何解决依赖隔离</h2><ul>
+<li>将所有请求外部系统（或者叫依赖服务）的逻辑封装到 HystrixCommand 或者 HystrixObservableCommand 对象中，这些逻辑将会在独立的线程中被执行（利用了设计模式中的 Command模式）</li>
+<li>对那些耗时超过设置的阈值的请求，Hystrix 采取自动超时的策略。该策略默认对所有 Command 都有效，当然，你也可以通过设置 Command 的配置以自定义超时时间，以使你的依赖服务在引入 Hystrix 之后能达到 99.5% 的性能</li>
+<li>为每一个依赖服务维护一个线程池（或者信号量），当线程池占满，该依赖服务将会立即拒绝服务而不是排队等待</li>
+<li>划分出成功、失败（抛出异常）、超时或者线程池占满四种请求依赖服务时可能出现的状态</li>
+<li>引入『熔断器』机制，在依赖服务失效比例超过阈值时，手动或者自动地切断服务一段时间</li>
+<li>当请求依赖服务时出现拒绝服务、超时或者短路（多个依赖服务顺序请求，前面的依赖服务请求失败，则后面的请求不会发出）时，执行该依赖服务的失败回退逻辑</li>
+<li>近实时地提供监控和配置变更</li>
+</ul>
+<p>当使用 Hystrix 包装了你的所有依赖服务的请求后，拓扑图如下<br><a href="http://tech.lede.com/2017/06/15/rd/server/hystrix/hystrix-4.png" target="_blank" rel="noopener"><img src="http://tech.lede.com/2017/06/15/rd/server/hystrix/hystrix-4.png" alt="img"></a></p>
+<h2 id="3、hystrix如何执行"><a href="#3、hystrix如何执行" class="headerlink" title="3、hystrix如何执行"></a>3、hystrix如何执行</h2><p>hystrix执行分为三种模式，分别为同步执行、异步执行、Reactive模式执行。</p>
+<ol>
+<li>同步执行：若原方法返回参数非Future对象且非Observable对象则会构建该模式。使用command.execute()，阻塞，当依赖服务响应（或者抛出异常/超时）时，返回结果；</li>
+<li>异步执行：若原方法返回参数为Future对象时构建该模式。使用command.queue()，返回Future对象，通过该对象异步得到返回结果；</li>
+<li>Reactive模式执行：若原方法返回参数为Observable对象时构建该模式。该模式又分observe()命令和toObservable()命令。observe()命令会立即发出请求，在依赖服务响应（或者抛出异常/超时）时，通过注册的 Subscriber得到返回结果。toObservable()命令只有在订阅该对象时，才会发出请求，然后在依赖服务响应（或者抛出异常/超时）时，通过注册的Subscriber得到返回结果。</li>
+</ol>
+<p>在内部实现中，execute()是同步调用，内部会调用queue().get()方法。queue()内部会调用toObservable().toBlocking().toFuture()。也就是说，HystrixCommand 内部均通过一个Observable的实现来执行请求，即使这些命令本来是用来执行同步返回回应这样的简单逻辑。</p>
+<ol>
+<li>构建HystrixCommand或者HystrixObservableCommand对象；</li>
+<li>执行命令（execute()、queue()、observe()、toObservable()）；</li>
+<li>如果请求结果缓存这个特性被启用，并且缓存命中，则缓存的回应会立即通过一个Observable对象的形式返回；</li>
+<li>检查熔断器状态，确定请求线路是否是开路，如果请求线路是开路，Hystrix将不会执行这个命令，而是直接使用『失败回退逻辑』（即不会执行run()，直接执行getFallback()）；</li>
+<li>如果和当前需要执行的命令相关联的线程池和请求队列（或者信号量，如果不使用线程池）满了，Hystrix 将不会执行这个命令，而是直接使用『失败回退逻辑』（即不会执行run()，直接执行getFallback()）；</li>
+<li>执行HystrixCommand.run()或HystrixObservableCommand.construct()，如果这两个方法执行超时或者执行失败，则执行getFallback()；如果正常结束，Hystrix 在添加一些日志和监控数据采集之后，直接返回回应；</li>
+<li>Hystrix 会将请求成功，失败，被拒绝或超时信息报告给熔断器，熔断器维护一些用于统计数据用的计数器。</li>
+</ol>
+<p>这些计数器产生的统计数据使得熔断器在特定的时刻，能短路某个依赖服务的后续请求，直到恢复期结束，若恢复期结束根据统计数据熔断器判定线路仍然未恢复健康，熔断器会再次关闭线路。</p>
+<h2 id="4、hystrix基本配置"><a href="#4、hystrix基本配置" class="headerlink" title="4、hystrix基本配置"></a>4、hystrix基本配置</h2><p>hystrix基本配置可以通过四种方式进行设置。</p>
+<ol>
+<li>hystrix本身代码默认。这种是在以下三种都没有自定义的情况下使用，默认设置在hystrix-core下的HystrixCommandProperties和HystrixThreadPoolProperties</li>
+<li>自定义默认配置。可以使用配置文件进行全局默认配置。例如：hystrix.command.default.execution.isolation.thread.timeoutInMilliseconds</li>
+<li>通过代码构造实例设置。</li>
+<li>动态实例配置。根据实例的key值（commandKey或者threadPollKey）通过配置文件给特定实例进行配置。例如，一个实例的commandKey为commandTest，则为hystrix.command.commandTest.execution.isolation.thread.timeoutInMilliseconds</li>
+</ol>
+<p>本文只介绍hystrix常用的command和ThreadPool配置，其余配置可以查看<a href="https://github.com/Netflix/Hystrix/wiki/Configuration" target="_blank" rel="noopener">官网</a></p>
+<p>command配置</p>
+<ol>
+<li>execution.isolation.strategy：执行隔离策略. Thread是默认推荐的选择。THREAD为每次在一个线程中执行，并发请求数限制于线程池的线程数。SEMAPHORE为在调用线程中执行，并发请求数限制于semaphore信号量的值。</li>
+<li>execution.isolation.thread.timeoutInMilliseconds：超时时间，默认1000ms。</li>
+<li>execution.timeout.enabled：是否开启超时，默认true。</li>
+<li>execution.isolation.thread.interruptOnTimeout：当超时的时候是否中断(interrupt) HystrixCommand.run()执行，默认：true。</li>
+<li>fallback.enabled：是否开启fallback，默认：true。</li>
+<li>circuitBreaker.enabled：是否开启熔断，默认true。</li>
+<li>circuitBreaker.requestVolumeThreshold：设置一个滑动窗口内触发熔断的最少请求量，默认20。例如，如果这个值是20，一个滑动窗口内只有19个请求时，即使19个请求都失败了也不会触发熔断。</li>
+<li>circuitBreaker.sleepWindowInMilliseconds：设置触发熔断后，拒绝请求后多长时间开始尝试再次执行。默认5000ms。</li>
+<li>circuitBreaker.errorThresholdPercentage：设置触发熔断的错误比例。默认50，即50%。</li>
+<li>metrics.rollingStats.timeInMilliseconds：设置滑动窗口的统计时间。熔断器使用这个时间。默认10s</li>
+<li>metrics.rollingStats.numBuckets：设置滑动统计的桶数量。默认10。metrics.rollingStats.timeInMilliseconds必须能被这个值整除。</li>
+</ol>
+<p>threadPool配置</p>
+<ol>
+<li>coreSize：设置线程池的core size,这是最大的并发执行数量。默认10。</li>
+<li>maximumSize：设置线程池数量极大值，这是可以支持的最大并发量，一般情况下和coreSize是相等的。默认10。该值只有在allowMaximumSizeToDivergeFromCoreSize被设置时才能有效。</li>
+<li>maxQueueSize：最大队列长度。设置BlockingQueue的最大长度。默认-1。 如果设置成-1，就会使用SynchronizeQueue。 如果其他正整数就会使用LinkedBlockingQueue。</li>
+<li>queueSizeRejectionThreshold：设置拒绝请求的临界值。只有maxQueueSize为-1时才有效。设置设个值的原因是maxQueueSize值运行时不能改变，我们可以通过修改这个变量动态修改允许排队的长度。默认5。（注意：hystrix为每一个依赖服务维护一个线程池或者信号量，当线程池占满+queueSizeRejectionThreshold占满，该依赖服务将会立即拒绝服务而不是排队等待）</li>
+<li>keepAliveTimeMinutes：设置keep-live时间。默认1分钟。当coreSize==maximumSize时线程池是固定的。只有allowMaximumSizeToDivergeFromCoreSize值设置为true，coreSize和maximumSize才能分成两个部分。当coreSize &lt; maximumSize，该值控制一个线程多久没使用才被释放。</li>
+<li>allowMaximumSizeToDivergeFromCoreSize：该值确认maximumSize是否起作用。默认false。</li>
+<li>metrics.rollingStats.timeInMilliseconds：和command配置含义一样。</li>
+<li>metrics.rollingStats.numBuckets：和command配置含义一样。</li>
+</ol>
+<p>倘若使用配置文件进行配置，两种配置可以根据key的字符串进行区分。command都是hystrix.command.commandKey(or default).属性名，threadpool都是hystrix.threadpool.threadpoolKey(groupKey or default).属性名。</p>
+<h1 id="二、hystrix在spring-mvc的使用"><a href="#二、hystrix在spring-mvc的使用" class="headerlink" title="二、hystrix在spring mvc的使用"></a>二、hystrix在spring mvc的使用</h1><p>hystrix在Spring cloud的使用非常简单，网上也有很多文档，在此就不多讲了。</p>
+<p>为使熔断控制和现有代码解耦，hystrix<a href="https://github.com/Netflix/Hystrix/tree/master/hystrix-contrib/hystrix-javanica" target="_blank" rel="noopener">官方</a>采用了Aspect方式。现在介绍hystrix在spring mvc的使用。</p>
+<h2 id="1、添加依赖"><a href="#1、添加依赖" class="headerlink" title="1、添加依赖"></a>1、添加依赖</h2><p>使用maven引入hystrix依赖：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;com.netflix.hystrix&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;hystrix-javanica&lt;/artifactId&gt;</span><br><span class="line">    &lt;version&gt;1.5.12&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="2、添加配置"><a href="#2、添加配置" class="headerlink" title="2、添加配置"></a>2、添加配置</h2><p>新建hystrix.properties文件（名字随意定，里面将定义项目所有hystrix配置信息）</p>
+<p>新建一个类HystrixConfig</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">public class HystrixConfig</span><br><span class="line">&#123;</span><br><span class="line">    public void init()</span><br><span class="line">    &#123;</span><br><span class="line">        Properties prop = new Properties();</span><br><span class="line">        InputStream in = null;</span><br><span class="line">        try</span><br><span class="line">        &#123;</span><br><span class="line">            in = HystrixConfig.class.getClassLoader().getResourceAsStream(&quot;hystrix.properties&quot;);</span><br><span class="line">            prop.load(in);</span><br><span class="line">            in.close();</span><br><span class="line">            System.setProperties(prop);</span><br><span class="line">        &#125;</span><br><span class="line">        catch (Exception e)</span><br><span class="line">        &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在spring的配置文件添加内容：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 添加了就不用加了 --&gt;</span><br><span class="line">&lt;aop:aspectj-autoproxy proxy-target-class=&quot;true&quot; /&gt;</span><br><span class="line">&lt;bean name=&quot;hystrixCommandAspect&quot; class=&quot;com.netflix.hystrix.contrib.javanica.aop.aspectj.HystrixCommandAspect&quot;/&gt;</span><br><span class="line">&lt;bean id=&quot;hystrixConfig&quot;  class=&quot;包名.HystrixConfig&quot; init-method=&quot;init&quot;/&gt;</span><br></pre></td></tr></table></figure>
+<p>新建hystrixConfig bean主要是因为使用spring自带的context:property-placeholder配置加载器，hystrix无法读取。目前我只想到了通过System.setProperties的方式，若有其他方式欢迎指导。</p>
+<h3 id="3、hystrixCommand使用"><a href="#3、hystrixCommand使用" class="headerlink" title="3、hystrixCommand使用"></a>3、hystrixCommand使用</h3><p>举个简单的例子(写成接口方式是方便测试，普通的方法效果是一样的)：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">@ResponseBody</span><br><span class="line">@RequestMapping(&quot;/test.html&quot;)</span><br><span class="line">@HystrixCommand</span><br><span class="line">public String test(int s)</span><br><span class="line">&#123;</span><br><span class="line">    logger.info(&quot;test.html start,s:&#123;&#125;&quot;, s);</span><br><span class="line">    try</span><br><span class="line">    &#123;</span><br><span class="line">        Thread.sleep(s * 1000);</span><br><span class="line">    &#125;</span><br><span class="line">    catch (Exception e)</span><br><span class="line">    &#123;</span><br><span class="line">        logger.error(&quot;test.html error.&quot;, e);</span><br><span class="line">    &#125;</span><br><span class="line">    return &quot;OK&quot;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>根据例子，我们可以看到和其他方法相比就添加了个@HystrixCommand注解，方法执行后会被HystrixCommandAspect拦截，拦截后会根据方法的基本属性（所在类、方法名、返回类型等）和HystrixCommand属性生成HystrixInvokable，最后执行。例子中，因为HystrixCommand属性为空，所以其groupKey默认为类名，commandKey为方法名。</p>
+<p>通过HystrixCommand源码来看下可以设置的属性：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">@Target(&#123;ElementType.METHOD&#125;)</span><br><span class="line">@Retention(RetentionPolicy.RUNTIME)</span><br><span class="line">@Inherited</span><br><span class="line">@Documented</span><br><span class="line">public @interface HystrixCommand &#123;</span><br><span class="line"></span><br><span class="line">    String groupKey() default &quot;&quot;;</span><br><span class="line"></span><br><span class="line">    String commandKey() default &quot;&quot;;</span><br><span class="line"></span><br><span class="line">    String threadPoolKey() default &quot;&quot;;</span><br><span class="line"></span><br><span class="line">    String fallbackMethod() default &quot;&quot;;</span><br><span class="line"></span><br><span class="line">    HystrixProperty[] commandProperties() default &#123;&#125;;</span><br><span class="line"></span><br><span class="line">    HystrixProperty[] threadPoolProperties() default &#123;&#125;;</span><br><span class="line"></span><br><span class="line">    Class&lt;? extends Throwable&gt;[] ignoreExceptions() default &#123;&#125;;</span><br><span class="line"></span><br><span class="line">    ObservableExecutionMode observableExecutionMode() default ObservableExecutionMode.EAGER;</span><br><span class="line"></span><br><span class="line">    HystrixException[] raiseHystrixExceptions() default &#123;&#125;;</span><br><span class="line"></span><br><span class="line">    String defaultFallback() default &quot;&quot;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>其中比较重要的是groupKey、commandKey、fallbackMethod（Fallback时调用的方法，一定要在同一个类中，且传参和返参要一致）。threadPoolKey一般可以不定义，线程池名会默认定义为groupKey。</p>
+<p>再来看下HystrixCommandAspect是如何实现拦截的：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">@Pointcut(&quot;@annotation(com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand)&quot;)</span><br><span class="line">public void hystrixCommandAnnotationPointcut() &#123;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">@Pointcut(&quot;@annotation(com.netflix.hystrix.contrib.javanica.annotation.HystrixCollapser)&quot;)</span><br><span class="line">public void hystrixCollapserAnnotationPointcut() &#123;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">@Around(&quot;hystrixCommandAnnotationPointcut() || hystrixCollapserAnnotationPointcut()&quot;)</span><br><span class="line">public Object methodsAnnotatedWithHystrixCommand(final ProceedingJoinPoint joinPoint) throws Throwable &#123;</span><br><span class="line">    Method method = getMethodFromTarget(joinPoint);//见步骤1</span><br><span class="line">    Validate.notNull(method, &quot;failed to get method from joinPoint: %s&quot;, joinPoint);</span><br><span class="line">    if (method.isAnnotationPresent(HystrixCommand.class) &amp;&amp; method.isAnnotationPresent(HystrixCollapser.class)) &#123;</span><br><span class="line">        throw new IllegalStateException(&quot;method cannot be annotated with HystrixCommand and HystrixCollapser &quot; +</span><br><span class="line">                &quot;annotations at the same time&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">    MetaHolderFactory metaHolderFactory = META_HOLDER_FACTORY_MAP.get(HystrixPointcutType.of(method));//见步骤2</span><br><span class="line">    MetaHolder metaHolder = metaHolderFactory.create(joinPoint);//见步骤3</span><br><span class="line">    HystrixInvokable invokable = HystrixCommandFactory.getInstance().create(metaHolder);//见步骤4</span><br><span class="line">    ExecutionType executionType = metaHolder.isCollapserAnnotationPresent() ?</span><br><span class="line">            metaHolder.getCollapserExecutionType() : metaHolder.getExecutionType();</span><br><span class="line"></span><br><span class="line">    Object result;</span><br><span class="line">    try &#123;</span><br><span class="line">        if (!metaHolder.isObservable()) &#123;</span><br><span class="line">            result = CommandExecutor.execute(invokable, executionType, metaHolder);</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            result = executeObservable(invokable, executionType, metaHolder);//见步骤5</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; catch (HystrixBadRequestException e) &#123;</span><br><span class="line">        throw e.getCause() != null ? e.getCause() : e;</span><br><span class="line">    &#125; catch (HystrixRuntimeException e) &#123;</span><br><span class="line">        throw hystrixRuntimeExceptionToThrowable(metaHolder, e);</span><br><span class="line">    &#125;</span><br><span class="line">    return result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>步骤1：获取切入点方法；</li>
+<li>步骤2：根据方法的注解HystrixCommand或者HystrixCollapser生成相应的CommandMetaHolderFactory或者CollapserMetaHolderFactory类。</li>
+<li>步骤3：将原方法的属性set进metaHolder中；</li>
+<li>步骤4：根据metaHolder生成相应的HystrixCommand，包含加载hystrix配置信息。commandProperties加载的优先级为前缀hystrix.command.commandKey &gt; hystrix.command.default &gt; defaultValue(原代码默认)；threadPool配置加载的优先级为 前缀hystrix.threadpool.groupKey.&gt; hystrix.threadpool.default.&gt; defaultValue(原代码默认).</li>
+<li>步骤5：执行命令。</li>
+</ul>
+<p>倘若需要给该方法指定groupKey和commandKey定义其fallback方法，则可通过添加注解属性来实现。如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">@ResponseBody</span><br><span class="line">@RequestMapping(&quot;/test.html&quot;)</span><br><span class="line">@HystrixCommand(groupKey = &quot;groupTest&quot;, commandKey = &quot;commandTest&quot;, fallbackMethod = &quot;back&quot;)</span><br><span class="line">public String test(int s)</span><br><span class="line">&#123;</span><br><span class="line">    try</span><br><span class="line">    &#123;</span><br><span class="line">        Thread.sleep(s * 1000);</span><br><span class="line">    &#125;</span><br><span class="line">    catch (Exception e)</span><br><span class="line">    &#123;</span><br><span class="line">    &#125;</span><br><span class="line">    logger.info(&quot;test.html start&quot;);</span><br><span class="line">    return &quot;OK&quot;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">private String back(int s)</span><br><span class="line">&#123;</span><br><span class="line">    return &quot;back&quot;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>groupKey=”groupTest”是将该hystrix操作的组名定义为groupTest，该属性在读取threadPoolProperties时需要用到。读取的策略是先读取已groupTest为键值的配置缓存；若没有则读取已hystrix.threadpool.groupTest.为前缀的配置；若没有则读取hystrix.threadpool.为前缀的配置，最后才读取代码默认的值。</li>
+<li>commandKey=”commandTest”是将hystrix操作的命令名定义为commandTest，该属性在读取commandProperties时需要用到。读取的策略与上面的一致，只是前缀由hystrix.threadpool变为hystrix.command。</li>
+<li>fallbackMethod=”back”是给该hystrix操作定义一个回退方法，值为回退方法的方法名，并且要与回退方法在同一个类下、相同的参入参数和返回参数。fallbackMethod可级联。</li>
+</ul>
+<p>如果要给该方法指定一些hystrix属性，可通过在hystrix.properties中添加一些配置来实现。如给上述方法添加一些hystrix属性，示例如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">#定义commandKey为commandTest的过期时间为3s</span><br><span class="line">hystrix.command.commandTest.execution.isolation.thread.timeoutInMilliseconds=3000</span><br><span class="line">#定义所有的默认过期时间为5s，不再是默认是1s。优先级小于上面配置</span><br><span class="line">hystrix.command.default.execution.isolation.thread.timeoutInMilliseconds=5000</span><br><span class="line">#定义threadPoolKey为groupTest的线程池大小为15</span><br><span class="line">hystrix.threadpool.groupTest.coreSize=15</span><br><span class="line">#定义所有的线程池大小为为5，不再是默认是10。优先级小于上面配置</span><br><span class="line">hystrix.threadpool.default.coreSize=5</span><br></pre></td></tr></table></figure>
+<p>其余的配置方式与例子中的相似，就不一一列举了。</p>
+<p>至此，spring mvc就可以为每一个依赖随心添加依赖隔离了。</p>
+<h1 id="四、参考链接"><a href="#四、参考链接" class="headerlink" title="四、参考链接"></a>四、参考链接</h1><p><a href="https://github.com/Netflix/Hystrix/tree/master/hystrix-contrib/hystrix-javanica" target="_blank" rel="noopener">https://github.com/Netflix/Hystrix/tree/master/hystrix-contrib/hystrix-javanica</a></p>
+<p><a href="https://github.com/Netflix/Hystrix/wiki" target="_blank" rel="noopener">https://github.com/Netflix/Hystrix/wiki</a></p>
+<p><a href="https://github.com/Netflix/Hystrix/wiki/Dashboard" target="_blank" rel="noopener">https://github.com/Netflix/Hystrix/wiki/Dashboard</a></p>
+<p><a href="https://github.com/Netflix/Turbine/wiki" target="_blank" rel="noopener">https://github.com/Netflix/Turbine/wiki</a></p>
+<p><a href="https://github.com/Netflix/Turbine/wiki/Configuration-(1.x" target="_blank" rel="noopener">https://github.com/Netflix/Turbine/wiki/Configuration-(1.x)</a>)</p>
+<p><a href="http://youdang.github.io/categories/%E7%BF%BB%E8%AF%91/" target="_blank" rel="noopener">http://youdang.github.io/categories/%E7%BF%BB%E8%AF%91/</a></p>
+<p><a href="http://www.cnblogs.com/java-zhao/p/5521233.html" target="_blank" rel="noopener">http://www.cnblogs.com/java-zhao/p/5521233.html</a></p>
+<p>1、构建一个HystrixCommand或者HystrixObservableCommand</p>
+<p>一个HystrixCommand或一个HystrixObservableCommand对象，代表了对某个依赖服务发起的一次请求或者调用<br>HystrixCommand主要用于仅仅会返回一个结果的调用<br>HystrixObservableCommand主要用于可能会返回多条结果的调用</p>
+<p>2、调用command的执行方法</p>
+<p>执行Command就可以发起一次对依赖服务的调用</p>
+<p>要执行Command，需要在4个方法中选择其中的一个：execute()，queue()，observe()，toObservable()</p>
+<p>其中execute()和queue()仅仅对HystrixCommand适用</p>
+<p>execute()：调用后直接block住，属于同步调用，直到依赖服务返回单条结果，或者抛出异常<br>queue()：返回一个Future，属于异步调用，后面可以通过Future获取单条结果<br>observe()：订阅一个Observable对象，Observable代表的是依赖服务返回的结果，获取到一个那个代表结果的Observable对象的拷贝对象<br>toObservable()：返回一个Observable对象，如果我们订阅这个对象，就会执行command并且获取返回结果</p>
+<p>execute()实际上会调用queue().get().queue()，接着会调用toObservable().toBlocking().toFuture()</p>
+<p>也就是说，无论是哪种执行command的方式，最终都是依赖toObservable()去执行的</p>
+<p>3、检查是否开启缓存</p>
+<p>如果这个command开启了请求缓存，request cache，而且这个调用的结果在缓存中存在，那么直接从缓存中返回结果</p>
+<p>4、检查是否开启了短路器</p>
+<p>检查这个command对应的依赖服务是否开启了短路器</p>
+<p>如果断路器被打开了，那么hystrix就不会执行这个command，而是直接去执行fallback降级机制</p>
+<p>5、检查线程池/队列/semaphore是否已经满了</p>
+<p>如果command对应的线程池/队列/semaphore已经满了，那么也不会执行command，而是直接去调用fallback降级机制</p>
+<p>6、执行command</p>
+<p>调用HystrixObservableCommand.construct()或HystrixCommand.run()来实际执行这个command</p>
+<p>HystrixCommand.run()是返回一个单条结果，或者抛出一个异常<br>HystrixObservableCommand.construct()是返回一个Observable对象，可以获取多条结果</p>
+<p>如果HystrixCommand.run()或HystrixObservableCommand.construct()的执行，超过了timeout时长的话，那么command所在的线程就会抛出一个TimeoutException</p>
+<p>如果timeout了，也会去执行fallback降级机制，而且就不会管run()或construct()返回的值了</p>
+<p>这里要注意的一点是，我们是不可能终止掉一个调用严重延迟的依赖服务的线程的，只能说给你抛出来一个TimeoutException，但是还是可能会因为严重延迟的调用线程占满整个线程池的</p>
+<p>即使这个时候新来的流量都被限流了。。。</p>
+<p>如果没有timeout的话，那么就会拿到一些调用依赖服务获取到的结果，然后hystrix会做一些logging记录和metric统计</p>
+<p>7、短路健康检查</p>
+<p>Hystrix会将每一个依赖服务的调用成功，失败，拒绝，超时，等事件，都会发送给circuit breaker断路器</p>
+<p>短路器就会对调用成功/失败/拒绝/超时等事件的次数进行统计</p>
+<p>短路器会根据这些统计次数来决定，是否要进行短路，如果打开了短路器，那么在一段时间内就会直接短路，然后如果在之后第一次检查发现调用成功了，就关闭断路器</p>
+<p>8、调用fallback降级机制</p>
+<p>在以下几种情况中，hystrix会调用fallback降级机制：run()或construct()抛出一个异常，短路器打开，线程池/队列/semaphore满了，command执行超时了</p>
+<p>一般在降级机制中，都建议给出一些默认的返回值，比如静态的一些代码逻辑，或者从内存中的缓存中提取一些数据，尽量在这里不要再进行网络请求了</p>
+<p>即使在降级中，一定要进行网络调用，也应该将那个调用放在一个HystrixCommand中，进行隔离</p>
+<p>在HystrixCommand中，上线getFallback()方法，可以提供降级机制</p>
+<p>在HystirxObservableCommand中，实现一个resumeWithFallback()方法，返回一个Observable对象，可以提供降级结果</p>
+<p>如果fallback返回了结果，那么hystrix就会返回这个结果</p>
+<p>对于HystrixCommand，会返回一个Observable对象，其中会发返回对应的结果<br>对于HystrixObservableCommand，会返回一个原始的Observable对象</p>
+<p>如果没有实现fallback，或者是fallback抛出了异常，Hystrix会返回一个Observable，但是不会返回任何数据</p>
+<p>不同的command执行方式，其fallback为空或者异常时的返回结果不同</p>
+<p>对于execute()，直接抛出异常<br>对于queue()，返回一个Future，调用get()时抛出异常<br>对于observe()，返回一个Observable对象，但是调用subscribe()方法订阅它时，理解抛出调用者的onError方法<br>对于toObservable()，返回一个Observable对象，但是调用subscribe()方法订阅它时，理解抛出调用者的onError方法</p>
+<p>9、不同的执行方式</p>
+<p>execute()，获取一个Future.get()，然后拿到单个结果<br>queue()，返回一个Future<br>observer()，立即订阅Observable，然后启动8大执行步骤，返回一个拷贝的Observable，订阅时理解回调给你结果<br>toObservable()，返回一个原始的Observable，必须手动订阅才会去执行8大步骤</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://masonnpe.github.io/2019/05/05/大数据/es/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="mason">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="mason's note">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/05/05/大数据/es/" itemprop="url">elasticsearch入门</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-05T17:07:24+08:00">
+                2019-05-05
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/elasticsearch/" itemprop="url" rel="index">
+                    <span itemprop="name">elasticsearch</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>Elasticsearch是一个分布式的文档系统，可以实现近实时的搜索，可以用来做全文检索，数据分析，日志检索等。基于lucene，lucene是最先进、功能最强大的搜索库，但是提供的api复杂，直接基于lucene开发比较麻烦。es提供了简单易用的restful api接口</p>
+<blockquote>
+<p>es分布式 横向扩展机制好 可以近实时搜索  数据量的增加没有明显的变化 内存占用高 仅支持json文件格式 全文检索、数据分析以及分布式技术结合在一起 分片机制高可用</p>
+<p>solr 支持的数据格式多 对已存在的数查询快  建立索引时搜索效率下降 数据量越大效率越低 不适合实时搜索的应用  听说github现在用es来做代码的检索代替solr</p>
+</blockquote>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/05/05/大数据/es/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -855,10 +2069,10 @@
             
               <img class="site-author-image" itemprop="image"
                 src="/images/avatar.jpg"
-                alt="Masonnpe" />
+                alt="mason" />
             
-              <p class="site-author-name" itemprop="name">Masonnpe</p>
-              <p class="site-description motion-element" itemprop="description">沉迷学习日渐消瘦</p>
+              <p class="site-author-name" itemprop="name">mason</p>
+              <p class="site-description motion-element" itemprop="description">热心市民</p>
           </div>
 
           <nav class="site-state motion-element">
@@ -868,7 +2082,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">83</span>
+                  <span class="site-state-item-count">90</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -879,7 +2093,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">20</span>
+                  <span class="site-state-item-count">16</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -890,7 +2104,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">54</span>
+                  <span class="site-state-item-count">35</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -1028,11 +2242,11 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
-  <span class="author" itemprop="copyrightHolder">Masonnpe</span>
+  <span class="author" itemprop="copyrightHolder">mason</span>
 
   
 </div>

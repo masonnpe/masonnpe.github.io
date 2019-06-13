@@ -1,0 +1,1695 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic|Lobster Two:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-docker.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-docker.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-docker.png?v=5.1.4">
+
+
+
+
+
+
+  <meta name="keywords" content="JVM,GC," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="mason's note" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="Java HotSpot VM Options文档官网的这份文档有点老了不知道新的在哪儿，可以做参考 内存和GC-XX:MaxDirectMemorySize    堆外内存的最大值 -XX:MetaspaceSize=128m  Metaspace初始大小   第一次扩张会造成JVM停顿，spring aop后类比较多 -XX:MaxMetaspaceSize=512m    Metaspace">
+<meta name="keywords" content="JVM,GC">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JVM参数">
+<meta property="og:url" content="https://masonnpe.github.io/2019/05/14/JVM/JVM参数/index.html">
+<meta property="og:site_name" content="mason&#39;s note">
+<meta property="og:description" content="Java HotSpot VM Options文档官网的这份文档有点老了不知道新的在哪儿，可以做参考 内存和GC-XX:MaxDirectMemorySize    堆外内存的最大值 -XX:MetaspaceSize=128m  Metaspace初始大小   第一次扩张会造成JVM停顿，spring aop后类比较多 -XX:MaxMetaspaceSize=512m    Metaspace">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-05-14T01:10:23.141Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JVM参数">
+<meta name="twitter:description" content="Java HotSpot VM Options文档官网的这份文档有点老了不知道新的在哪儿，可以做参考 内存和GC-XX:MaxDirectMemorySize    堆外内存的最大值 -XX:MetaspaceSize=128m  Metaspace初始大小   第一次扩张会造成JVM停顿，spring aop后类比较多 -XX:MaxMetaspaceSize=512m    Metaspace">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"hide","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":true,"transition":{"post_block":"fadeIn","post_header":"bounceLeftIn","post_body":"slideLeftIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://masonnpe.github.io/2019/05/14/JVM/JVM参数/"/>
+
+
+
+
+
+  <title>JVM参数 | mason's note</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband">
+		<a href="https://github.com/masonnpe" class="github-corner" aria-label="View source on Github"><svg width="55" height="55" viewBox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+	</div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">mason's note</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">沉迷学习日渐消瘦</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://masonnpe.github.io/2019/05/14/JVM/JVM参数/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="mason">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="mason's note">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">JVM参数</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-14T09:10:23+08:00">
+                2019-05-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/JVM/" itemprop="url" rel="index">
+                    <span itemprop="name">JVM</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><a href="https://www.oracle.com/technetwork/java/javase/tech/vmoptions-jsp-140102.html" target="_blank" rel="noopener">Java HotSpot VM Options文档</a>官网的这份文档有点老了不知道新的在哪儿，可以做参考</p>
+<h2 id="内存和GC"><a href="#内存和GC" class="headerlink" title="内存和GC"></a>内存和GC</h2><p>-XX:MaxDirectMemorySize    堆外内存的最大值</p>
+<p>-XX:MetaspaceSize=128m  Metaspace初始大小   第一次扩张会造成JVM停顿，spring aop后类比较多</p>
+<p>-XX:MaxMetaspaceSize=512m    Metaspace最大大小   设一个更大的Max值以求保险，防止将内存用光</p>
+<p>-XX:+UseConcMarkSweepGC -XX:CMSInitiatingOccupancyFraction=75 -XX:+UseCMSInitiatingOccupancyOnly   内存达到75%主动CMS GC</p>
+<p>-XX:+ExplicitGCInvokesConcurrent       让full gc时使用CMS算法，不是全程停顿</p>
+<h2 id="性能"><a href="#性能" class="headerlink" title="性能"></a>性能</h2><p> -XX:AutoBoxCacheMax=20000     加大Integer Cache   自动装箱时缓冲中有的直接从缓存拿</p>
+<h2 id="运维"><a href="#运维" class="headerlink" title="运维"></a>运维</h2><p>-Xloggc:/dev/shm/gc-myapp.log -XX:+PrintGCDateStamps -XX:+PrintGCDetails     打印gc日志</p>
+<p>-XX:+PrintCommandLineFlags    将每次启动的参数输出到stdout</p>
+<p>-XX:-OmitStackTraceInFastThrow     输出完整栈的日志</p>
+<p>-XX:ErrorFile =${LOGDIR}/hs_err_%p.log    JVM crash时，hotspot 会生成一个error文件，提供JVM状态信息的细节。如前所述，将其输出到固定目录，避免到时会到处找这文件。文件名中的%p会被自动替换为应用的PID</p>
+<p>-XX:+HeapDumpOnOutOfMemoryError   在OOM时，输出一个dump.core文件，记录当时的堆内存快照     对内存快照目录设置<code>-XX:HeapDumpPath=${LOGDIR}/</code></p>
+<p>-XX:+PrintGCApplicationStoppedTime      打印清晰的完整的GC停顿时间外，还可以打印其他的JVM停顿时间，比如取消偏向锁，class 被agent redefine，code deoptimization等等</p>
+<p>-XX:+PrintPromotionFailure       多大的新生代对象晋升到老生代失败从而引发Full GC的</p>
+<p>-XX:+PrintSafepointStatistics -XX:PrintSafepointStatisticsCount=1 -XX:+UnlockDiagnosticVMOptions -XX:-DisplayVMOutput -XX:+LogVMOutput -XX:LogFile=/dev/shm/vm-myapp.log        开启安全点日志</p>
+<a id="more"></a>
+<table>
+<thead>
+<tr>
+<th>Option and Default Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-Xms</td>
+<td>初始堆大小</td>
+</tr>
+<tr>
+<td>-Xmx</td>
+<td>最大堆大小</td>
+</tr>
+<tr>
+<td>-Xss</td>
+<td>线程占用栈空间大小，默认1m（以前是256k），可以适当调小，节约空间开启更多的线程</td>
+</tr>
+<tr>
+<td>-Xmn</td>
+<td>新生代的大小  JDK默认新生代占堆大小的1/3，调大可以让对象尽量在新生代被回收掉，不进入老年代</td>
+</tr>
+</tbody>
+</table>
+<h4 id="Behavioral-Options"><a href="#Behavioral-Options" class="headerlink" title="Behavioral Options"></a>Behavioral Options</h4><table>
+<thead>
+<tr>
+<th>Option and Default Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-XX:-AllowUserSignalHandlers</td>
+<td>Do not complain if the application installs signal handlers. (Relevant to Solaris and Linux only.)</td>
+</tr>
+<tr>
+<td>-XX:AltStackSize=16384</td>
+<td>Alternate signal stack size (in Kbytes). (Relevant to Solaris only, removed from 5.0.)</td>
+</tr>
+<tr>
+<td>-XX:-DisableExplicitGC</td>
+<td>By default calls to System.gc() are enabled (-XX:-DisableExplicitGC). Use -XX:+DisableExplicitGC to disable calls to System.gc(). Note that the JVM still performs garbage collection when necessary.</td>
+</tr>
+<tr>
+<td>-XX:+FailOverToOldVerifier</td>
+<td>Fail over to old verifier when the new type checker fails. (Introduced in 6.)</td>
+</tr>
+<tr>
+<td>-XX:+HandlePromotionFailure</td>
+<td>The youngest generation collection does not require a guarantee of full promotion of all live objects. (Introduced in 1.4.2 update 11) [5.0 and earlier: false.]</td>
+</tr>
+<tr>
+<td>-XX:+MaxFDLimit</td>
+<td>Bump the number of file descriptors to max. (Relevant  to Solaris only.)</td>
+</tr>
+<tr>
+<td>-XX:PreBlockSpin=10</td>
+<td>Spin count variable for use with -XX:+UseSpinning. Controls the maximum spin iterations allowed before entering operating system thread synchronization code. (Introduced in 1.4.2.)</td>
+</tr>
+<tr>
+<td>-XX:-RelaxAccessControlCheck</td>
+<td>Relax the access control checks in the verifier. (Introduced in 6.)</td>
+</tr>
+<tr>
+<td>-XX:+ScavengeBeforeFullGC</td>
+<td>Do young generation GC prior to a full GC. (Introduced in 1.4.1.)</td>
+</tr>
+<tr>
+<td>-XX:+UseAltSigs</td>
+<td>Use alternate signals instead of SIGUSR1 and SIGUSR2 for VM internal signals. (Introduced in 1.3.1 update 9, 1.4.1. Relevant to Solaris only.)</td>
+</tr>
+<tr>
+<td>-XX:+UseBoundThreads</td>
+<td>Bind user level threads to kernel threads. (Relevant to Solaris only.)</td>
+</tr>
+<tr>
+<td>-XX:-UseConcMarkSweepGC</td>
+<td>Use concurrent mark-sweep collection for the old generation. (Introduced in 1.4.1)</td>
+</tr>
+<tr>
+<td>-XX:+UseGCOverheadLimit</td>
+<td>Use a policy that limits the proportion of the VM’s time that is spent in GC before an OutOfMemory error is thrown. (Introduced in 6.)</td>
+</tr>
+<tr>
+<td>-XX:+UseLWPSynchronization</td>
+<td>Use LWP-based instead of thread based synchronization. (Introduced in 1.4.0. Relevant to Solaris only.)</td>
+</tr>
+<tr>
+<td>-XX:-UseParallelGC</td>
+<td>Use parallel garbage collection for scavenges. (Introduced in 1.4.1)</td>
+</tr>
+<tr>
+<td>-XX:-UseParallelOldGC</td>
+<td>Use parallel garbage collection for the full collections. Enabling this option automatically sets -XX:+UseParallelGC. (Introduced in 5.0 update 6.)</td>
+</tr>
+<tr>
+<td>-XX:-UseSerialGC</td>
+<td>Use serial garbage collection. (Introduced in 5.0.)</td>
+</tr>
+<tr>
+<td>-XX:-UseSpinning</td>
+<td>Enable naive spinning on Java monitor before entering operating system thread synchronizaton code. (Relevant to 1.4.2 and 5.0 only.) [1.4.2, multi-processor Windows platforms: true]</td>
+</tr>
+<tr>
+<td>-XX:+UseTLAB</td>
+<td>Use thread-local object allocation (Introduced in 1.4.0, known as UseTLE prior to that.) [1.4.2 and earlier, x86 or with -client: false]</td>
+</tr>
+<tr>
+<td>-XX:+UseSplitVerifier</td>
+<td>Use the new type checker with StackMapTable attributes. (Introduced in 5.0.)[5.0: false]</td>
+</tr>
+<tr>
+<td>-XX:+UseThreadPriorities</td>
+<td>Use native thread priorities.</td>
+</tr>
+<tr>
+<td>-XX:+UseVMInterruptibleIO</td>
+<td>Thread interrupt before or with EINTR for I/O operations results in OS_INTRPT. (Introduced in 6. Relevant to Solaris only.)</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h4 id="Garbage-First-G1-Garbage-Collection-Options"><a href="#Garbage-First-G1-Garbage-Collection-Options" class="headerlink" title="Garbage First (G1) Garbage Collection Options"></a>Garbage First (G1) Garbage Collection Options</h4><table>
+<thead>
+<tr>
+<th>Option and Default Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-XX:+UseG1GC</td>
+<td>Use the Garbage First (G1) Collector</td>
+</tr>
+<tr>
+<td>-XX:MaxGCPauseMillis=n</td>
+<td>Sets a target for the maximum GC pause time. This is a soft goal, and the JVM will make its best effort to achieve it.</td>
+</tr>
+<tr>
+<td>-XX:InitiatingHeapOccupancyPercent=n</td>
+<td>Percentage of the (entire) heap occupancy to start a concurrent GC cycle. It is used by GCs that trigger a concurrent GC cycle based on the occupancy of the entire heap, not just one of the generations (e.g., G1). A value of 0 denotes ‘do constant GC cycles’. The default value is 45.</td>
+</tr>
+<tr>
+<td>-XX:NewRatio=n</td>
+<td>老年代/新生代. 默认2.</td>
+</tr>
+<tr>
+<td>-XX:SurvivorRatio=n</td>
+<td>eden/survivor值. 默认8.</td>
+</tr>
+<tr>
+<td>-XX:MaxTenuringThreshold=n</td>
+<td>对象在Survivor区最多熬过多少次Young GC后晋升到年老代，调大让对象在新生代多存活几次，默认15</td>
+</tr>
+<tr>
+<td>-XX:ParallelGCThreads=n</td>
+<td>Sets the number of threads used during parallel phases of the garbage collectors. The default value varies with the platform on which the JVM is running.</td>
+</tr>
+<tr>
+<td>-XX:ConcGCThreads=n</td>
+<td>Number of threads concurrent garbage collectors will use. The default value varies with the platform on which the JVM is running.</td>
+</tr>
+<tr>
+<td>-XX:G1ReservePercent=n</td>
+<td>Sets the amount of heap that is reserved as a false ceiling to reduce the possibility of promotion failure. The default value is 10.</td>
+</tr>
+<tr>
+<td>-XX:G1HeapRegionSize=n</td>
+<td>With G1 the Java heap is subdivided into uniformly sized regions. This sets the size of the individual sub-divisions. The default value of this parameter is determined ergonomically based upon heap size. The minimum value is 1Mb and the maximum value is 32Mb.</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h4 id="Performance-Options"><a href="#Performance-Options" class="headerlink" title="Performance Options"></a>Performance Options</h4><table>
+<thead>
+<tr>
+<th>Option and Default Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-XX:+AggressiveOpts</td>
+<td>Turn on point performance compiler optimizations that are expected to be default in upcoming releases. (Introduced in 5.0 update 6.)</td>
+</tr>
+<tr>
+<td>-XX:CompileThreshold=10000</td>
+<td>Number of method invocations/branches before compiling [-client: 1,500]</td>
+</tr>
+<tr>
+<td>-XX:LargePageSizeInBytes=4m</td>
+<td>Sets the large page size used for the Java heap. (Introduced in 1.4.0 update 1.) [amd64: 2m.]</td>
+</tr>
+<tr>
+<td>-XX:MaxHeapFreeRatio=70</td>
+<td>GC后，如果发现空闲堆内存大于70%时，则收缩堆内存的最大值</td>
+</tr>
+<tr>
+<td>-XX:MaxNewSize=size</td>
+<td>Maximum size of new generation (in bytes). Since 1.4, MaxNewSize is computed as a function of NewRatio. [1.3.1 Sparc: 32m; 1.3.1 x86: 2.5m.]</td>
+</tr>
+<tr>
+<td>-XX:MinHeapFreeRatio=40</td>
+<td>GC后，如果发现空闲堆内存小于40%时，则放大堆内存的最大值，但不超过固定最大值</td>
+</tr>
+<tr>
+<td>-XX:NewRatio=2</td>
+<td>Ratio of old/new generation sizes. [Sparc -client: 8; x86 -server: 8; x86 -client: 12.]-client: 4 (1.3) 8 (1.3.1+), x86: 12]</td>
+</tr>
+<tr>
+<td>-XX:NewSize=2m</td>
+<td>Default size of new generation (in bytes) [5.0 and newer: 64 bit VMs are scaled 30% larger; x86: 1m; x86, 5.0 and older: 640k]</td>
+</tr>
+<tr>
+<td>-XX:ReservedCodeCacheSize=32m</td>
+<td>Reserved code cache size (in bytes) - maximum code cache size. [Solaris 64-bit, amd64, and -server x86: 2048m; in 1.5.0_06 and earlier, Solaris 64-bit and amd64: 1024m.]</td>
+</tr>
+<tr>
+<td>-XX:SurvivorRatio=8</td>
+<td>Ratio of eden/survivor space size [Solaris amd64: 6; Sparc in 1.3.1: 25; other Solaris platforms in 5.0 and earlier: 32]</td>
+</tr>
+<tr>
+<td>-XX:TargetSurvivorRatio=50</td>
+<td>Desired percentage of survivor space used after scavenge.</td>
+</tr>
+<tr>
+<td>-XX:ThreadStackSize=512</td>
+<td>Thread Stack Size (in Kbytes). (0 means use default stack size) [Sparc: 512; Solaris x86: 320 (was 256 prior in 5.0 and earlier); Sparc 64 bit: 1024; Linux amd64: 1024 (was 0 in 5.0 and earlier); all others 0.]</td>
+</tr>
+<tr>
+<td>-XX:-UseBiasedLocking</td>
+<td>取消偏向锁，大量多线程并发，锁会从偏向所升级，取消反而有性能提升</td>
+</tr>
+<tr>
+<td>-XX:+UseFastAccessorMethods</td>
+<td>Use optimized versions of Get<primitive>Field.</primitive></td>
+</tr>
+<tr>
+<td>-XX:-UseISM</td>
+<td>Use Intimate Shared Memory. [Not accepted for non-Solaris platforms.] For details, see <a href="https://www.oracle.com/technetwork/java/ism-139376.html" target="_blank" rel="noopener">Intimate Shared Memory</a>.</td>
+</tr>
+<tr>
+<td>-XX:+UseLargePages</td>
+<td>Use large page memory. (Introduced in 5.0 update 5.) For details, see <a href="https://www.oracle.com/technetwork/java/javase/tech/largememory-jsp-137182.html" target="_blank" rel="noopener">Java Support for Large Memory Pages</a>.</td>
+</tr>
+<tr>
+<td>-XX:+UseMPSS</td>
+<td>Use Multiple Page Size Support w/4mb pages for the heap. Do not use with ISM as this replaces the need for ISM. (Introduced in 1.4.0 update 1, Relevant to Solaris 9 and newer.) [1.4.1 and earlier: false]</td>
+</tr>
+<tr>
+<td>-XX:+UseStringCache</td>
+<td>Enables caching of commonly allocated strings.</td>
+</tr>
+<tr>
+<td>-XX:AllocatePrefetchLines=1</td>
+<td>Number of cache lines to load after the last object allocation using prefetch instructions generated in JIT compiled code. Default values are 1 if the last allocated object was an instance and 3 if it was an array.</td>
+</tr>
+<tr>
+<td>-XX:AllocatePrefetchStyle=1</td>
+<td>Generated code style for prefetch instructions. 0 - no prefetch instructions are generate<em>d</em>, 1 - execute prefetch instructions after each allocation, 2 - use TLAB allocation watermark pointer to gate when prefetch instructions are executed.</td>
+</tr>
+<tr>
+<td>-XX:+UseCompressedStrings</td>
+<td>Use a byte[] for Strings which can be represented as pure ASCII. (Introduced in Java 6 Update 21 Performance Release)</td>
+</tr>
+<tr>
+<td>-XX:+OptimizeStringConcat</td>
+<td>Optimize String concatenation operations where possible. (Introduced in Java 6 Update 20)</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h4 id="Debugging-Options"><a href="#Debugging-Options" class="headerlink" title="Debugging Options"></a>Debugging Options</h4><table>
+<thead>
+<tr>
+<th>Option and Default Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-XX:-CITime</td>
+<td>Prints time spent in JIT Compiler. (Introduced in 1.4.0.)</td>
+</tr>
+<tr>
+<td>-XX:ErrorFile=./hs_err_pid<pid>.log</pid></td>
+<td>If an error occurs, save the error data to this file. (Introduced in 6.)</td>
+</tr>
+<tr>
+<td>-XX:-ExtendedDTraceProbes</td>
+<td>Enable performance-impacting <a href="http://docs.oracle.com/javase/6/docs/technotes/guides/vm/dtrace.html" target="_blank" rel="noopener">dtrace</a> probes. (Introduced in 6. Relevant to Solaris only.)</td>
+</tr>
+<tr>
+<td>-XX:HeapDumpPath=./java_pid<pid>.hprof</pid></td>
+<td>设置内存快照目录</td>
+</tr>
+<tr>
+<td>-XX:+HeapDumpOnOutOfMemoryError</td>
+<td>在OOM时，输出一个dump.core文件，记录当时堆内存快照</td>
+</tr>
+<tr>
+<td>-XX:OnError=”<cmd args="">;<cmd args="">“</cmd></cmd></td>
+<td>Run user-defined commands on fatal error. (Introduced in 1.4.2 update 9.)</td>
+</tr>
+<tr>
+<td>-XX:OnOutOfMemoryError=”<cmd args="">;  <cmd args="">“</cmd></cmd></td>
+<td>Run user-defined commands when an OutOfMemoryError is first thrown. (Introduced in 1.4.2 update 12, 6)</td>
+</tr>
+<tr>
+<td>-XX:-PrintClassHistogram</td>
+<td>Print a histogram of class instances on Ctrl-Break. <em>Manageable</em>. (Introduced in 1.4.2.) The <a href="http://docs.oracle.com/javase/6/docs/technotes/tools/share/jmap.html" target="_blank" rel="noopener">jmap -histo</a>command provides equivalent functionality.</td>
+</tr>
+<tr>
+<td>-XX:-PrintConcurrentLocks</td>
+<td>Print java.util.concurrent locks in Ctrl-Break thread dump. <em>Manageable</em>. (Introduced in 6.) The <a href="http://docs.oracle.com/javase/6/docs/technotes/tools/share/jstack.html" target="_blank" rel="noopener">jstack -l</a>command provides equivalent functionality.</td>
+</tr>
+<tr>
+<td>-XX:-PrintCommandLineFlags</td>
+<td>Print flags that appeared on the command line. (Introduced in 5.0.)</td>
+</tr>
+<tr>
+<td>-XX:-PrintCompilation</td>
+<td>Print message when a method is compiled.</td>
+</tr>
+<tr>
+<td>-XX:-PrintGC</td>
+<td>Print messages at garbage collection. <em>Manageable</em>.</td>
+</tr>
+<tr>
+<td>-XX:-PrintGCDetails</td>
+<td>Print more details at garbage collection. <em>Manageable</em>. (Introduced in 1.4.0.)</td>
+</tr>
+<tr>
+<td>-XX:-PrintGCTimeStamps</td>
+<td>Print timestamps at garbage collection. <em>Manageable</em>(Introduced in 1.4.0.)</td>
+</tr>
+<tr>
+<td>-XX:-PrintTenuringDistribution</td>
+<td>查看survivor区对象大部分多少次进老年代</td>
+</tr>
+<tr>
+<td>-XX:-PrintAdaptiveSizePolicy</td>
+<td>Enables printing of information about adaptive generation sizing.</td>
+</tr>
+<tr>
+<td>-XX:-TraceClassLoading</td>
+<td>Trace loading of classes.</td>
+</tr>
+<tr>
+<td>-XX:-TraceClassLoadingPreorder</td>
+<td>Trace all classes loaded in order referenced (not loaded). (Introduced in 1.4.2.)</td>
+</tr>
+<tr>
+<td>-XX:-TraceClassResolution</td>
+<td>Trace constant pool resolutions. (Introduced in 1.4.2.)</td>
+</tr>
+<tr>
+<td>-XX:-TraceClassUnloading</td>
+<td>Trace unloading of classes.</td>
+</tr>
+<tr>
+<td>-XX:-TraceLoaderConstraints</td>
+<td>Trace recording of loader constraints. (Introduced in 6.)</td>
+</tr>
+<tr>
+<td>-XX:+PerfDataSaveToFile</td>
+<td>Saves jvmstat binary data on exit.</td>
+</tr>
+<tr>
+<td>-XX:ParallelGCThreads=n</td>
+<td>Sets the number of garbage collection threads in the young and old parallel garbage collectors. The default value varies with the platform on which the JVM is running.</td>
+</tr>
+<tr>
+<td>-XX:+UseCompressedOops</td>
+<td>Enables the use of compressed pointers (object references represented as 32 bit offsets instead of 64-bit pointers) for optimized 64-bit performance with Java heap sizes less than 32gb.</td>
+</tr>
+<tr>
+<td>-XX:+AlwaysPreTouch</td>
+<td>为了避免多次内存分配的开销，让HotSpot VM在commit内存时跑个循环来强制保证申请的内存真的commit了</td>
+</tr>
+<tr>
+<td>-XX:AllocatePrefetchDistance=n</td>
+<td>Sets the prefetch distance for object allocation. Memory about to be written with the value of new objects is prefetched into cache at this distance (in bytes) beyond the address of the last allocated object. Each Java thread has its own allocation point. The default value varies with the platform on which the JVM is running.</td>
+</tr>
+<tr>
+<td>-XX:InlineSmallCode=n</td>
+<td>Inline a previously compiled method only if its generated native code size is less than this. The default value varies with the platform on which the JVM is running.</td>
+</tr>
+<tr>
+<td>-XX:MaxInlineSize=35</td>
+<td>Maximum bytecode size of a method to be inlined.</td>
+</tr>
+<tr>
+<td>-XX:FreqInlineSize=n</td>
+<td>Maximum bytecode size of a frequently executed method to be inlined. The default value varies with the platform on which the JVM is running.</td>
+</tr>
+<tr>
+<td>-XX:LoopUnrollLimit=n</td>
+<td>Unroll loop bodies with server compiler intermediate representation node count less than this value. The limit used by the server compiler is a function of this value, not the actual value. The default value varies with the platform on which the JVM is running.</td>
+</tr>
+<tr>
+<td>-XX:InitialTenuringThreshold=7</td>
+<td>Sets the initial tenuring threshold for use in adaptive GC sizing in the parallel young collector. The tenuring threshold is the number of times an object survives a young collection before being promoted to the old, or tenured, generation.</td>
+</tr>
+<tr>
+<td>-XX:MaxTenuringThreshold=n</td>
+<td>Sets the maximum tenuring threshold for use in adaptive GC sizing. The current largest value is 15. The default value is 15 for the parallel collector and is 4 for CMS.</td>
+</tr>
+<tr>
+<td>-Xloggc:<filename></filename></td>
+<td>Log GC verbose output to specified file. The verbose output is controlled by the normal verbose GC flags.</td>
+</tr>
+<tr>
+<td>-XX:-UseGCLogFileRotation</td>
+<td>Enabled GC log rotation, requires -Xloggc.</td>
+</tr>
+<tr>
+<td>-XX:NumberOfGClogFiles=1</td>
+<td>Set the number of files to use when rotating logs, must be &gt;= 1. The rotated log files will use the following naming scheme, <filename>.0, <filename>.1, …, <filename>.n-1.</filename></filename></filename></td>
+</tr>
+<tr>
+<td>-XX:GCLogFileSize=8K</td>
+<td>The size of the log file at which point the log will be rotated, must be &gt;= 8K.</td>
+</tr>
+</tbody>
+</table>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/JVM/" rel="tag"><i class="fa fa-tag"></i> JVM</a>
+          
+            <a href="/tags/GC/" rel="tag"><i class="fa fa-tag"></i> GC</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/05/14/JVM/GC日志/" rel="next" title="GC日志">
+                <i class="fa fa-chevron-left"></i> GC日志
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/05/14/JVM/JVM性能监控和故障处理工具/" rel="prev" title="JVM性能监控和故障处理工具">
+                JVM性能监控和故障处理工具 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8zOTAzNS8xNTU2Mg=="></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="mason" />
+            
+              <p class="site-author-name" itemprop="name">mason</p>
+              <p class="site-description motion-element" itemprop="description">热心市民</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">90</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">35</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/masonnpe" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:masonnpe@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://cmsblogs.com/" title="cmsblogs" target="_blank">cmsblogs</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://hellojava.info/" title="hellojava" target="_blank">hellojava</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.importnew.com/" title="ImportNew" target="_blank">ImportNew</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.ideabuffer.cn/" title="ideabuffer" target="_blank">ideabuffer</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://crossoverjie.top/" title="crossoverjie" target="_blank">crossoverjie</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.hollischuang.com/" title="hollischuang" target="_blank">hollischuang</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://blog.csdn.net/u013256816" title="朱小厮" target="_blank">朱小厮</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://afoo.me/" title="扶墙老师" target="_blank">扶墙老师</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://tech.meituan.com/" title="美团点评" target="_blank">美团点评</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://blog.didispace.com/" title="程序猿DD" target="_blank">程序猿DD</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.iocoder.cn/" title="芋道源码" target="_blank">芋道源码</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://jm.taobao.org/" title="阿里中间件" target="_blank">阿里中间件</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://ifeve.com/" title="并发编程网" target="_blank">并发编程网</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.cnblogs.com/xrq730" title="五月的仓颉" target="_blank">五月的仓颉</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.cnblogs.com/skywang12345/" title="如果天空不死" target="_blank">如果天空不死</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.weiweiblog.cn/" title="尾尾部落" target="_blank">尾尾部落</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://blog.720ui.com/" title="梁桂钊的博客" target="_blank">梁桂钊的博客</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#内存和GC"><span class="nav-number">1.</span> <span class="nav-text">内存和GC</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#性能"><span class="nav-number">2.</span> <span class="nav-text">性能</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#运维"><span class="nav-number">3.</span> <span class="nav-text">运维</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Behavioral-Options"><span class="nav-number">3.0.1.</span> <span class="nav-text">Behavioral Options</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Garbage-First-G1-Garbage-Collection-Options"><span class="nav-number">3.0.2.</span> <span class="nav-text">Garbage First (G1) Garbage Collection Options</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Performance-Options"><span class="nav-number">3.0.3.</span> <span class="nav-text">Performance Options</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Debugging-Options"><span class="nav-number">3.0.4.</span> <span class="nav-text">Debugging Options</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">mason</span>
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

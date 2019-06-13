@@ -117,23 +117,23 @@
 
 
 
-  <link rel="alternate" href="/atom.xml" title="Masonnpe's Blog" type="application/atom+xml" />
+  <link rel="alternate" href="/atom.xml" title="mason's note" type="application/atom+xml" />
 
 
 
 
 
 
-<meta name="description" content="沉迷学习日渐消瘦">
+<meta name="description" content="热心市民">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Masonnpe&#39;s Blog">
+<meta property="og:title" content="mason&#39;s note">
 <meta property="og:url" content="https://masonnpe.github.io/page/5/index.html">
-<meta property="og:site_name" content="Masonnpe&#39;s Blog">
-<meta property="og:description" content="沉迷学习日渐消瘦">
+<meta property="og:site_name" content="mason&#39;s note">
+<meta property="og:description" content="热心市民">
 <meta property="og:locale" content="zh-Hans">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Masonnpe&#39;s Blog">
-<meta name="twitter:description" content="沉迷学习日渐消瘦">
+<meta name="twitter:title" content="mason&#39;s note">
+<meta name="twitter:description" content="热心市民">
 
 
 
@@ -169,7 +169,7 @@
 
 
 
-  <title>Masonnpe's Blog</title>
+  <title>mason's note</title>
   
 
 
@@ -202,12 +202,12 @@
     <div class="custom-logo-site-title">
       <a href="/"  class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
-        <span class="site-title">Masonnpe's Blog</span>
+        <span class="site-title">mason's note</span>
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
       
-        <p class="site-subtitle">愿所有的坚持终不被辜负</p>
+        <p class="site-subtitle">沉迷学习日渐消瘦</p>
       
   </div>
 
@@ -343,16 +343,16 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://masonnpe.github.io/2018/11/03/Scala/Scala函数/">
+    <link itemprop="mainEntityOfPage" href="https://masonnpe.github.io/2019/05/14/数据库/MySQL主从复制/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Masonnpe">
+      <meta itemprop="name" content="mason">
       <meta itemprop="description" content="">
       <meta itemprop="image" content="/images/avatar.jpg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Masonnpe's Blog">
+      <meta itemprop="name" content="mason's note">
     </span>
 
     
@@ -362,7 +362,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/11/03/Scala/Scala函数/" itemprop="url">Scala函数</a></h1>
+                <a class="post-title-link" href="/2019/05/14/数据库/MySQL主从复制/" itemprop="url">MySQL主从复制</a></h1>
         
 
         <div class="post-meta">
@@ -374,8 +374,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-03T23:49:39+08:00">
-                2018-11-03
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-14T09:10:23+08:00">
+                2019-05-14
               </time>
             
 
@@ -397,8 +397,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Scala/" itemprop="url" rel="index">
-                    <span itemprop="name">Scala</span>
+                  <a href="/categories/数据库/" itemprop="url" rel="index">
+                    <span itemprop="name">数据库</span>
                   </a>
                 </span>
 
@@ -435,12 +435,10 @@
 
       
         
-          <h2 id="变长参数"><a href="#变长参数" class="headerlink" title="变长参数"></a>变长参数</h2><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">object</span> <span class="title">Demo</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">main</span></span>(args: <span class="type">Array</span>[<span class="type">String</span>]): <span class="type">Unit</span> = &#123;</span><br><span class="line">    <span class="keyword">val</span> s=sum(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>)</span><br><span class="line">    println(s)</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">sum</span></span>(nums: <span class="type">Int</span>*): <span class="type">Int</span> =&#123;</span><br><span class="line">    <span class="keyword">var</span> result=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (num&lt;- nums)&#123;</span><br><span class="line">      result+=num</span><br><span class="line">    &#125;</span><br><span class="line">    result</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>也可以使用<code>val s=sum(1 to 5: _*)</code>使用序列调用变长参数</p>
-<h2 id="异常"><a href="#异常" class="headerlink" title="异常"></a>异常</h2><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">object</span> <span class="title">Demo</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">main</span></span>(args: <span class="type">Array</span>[<span class="type">String</span>]): <span class="type">Unit</span> = &#123;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">      <span class="keyword">throw</span> <span class="keyword">new</span> <span class="type">IllegalArgumentException</span>(<span class="string">"exception"</span>)</span><br><span class="line">    &#125;<span class="keyword">catch</span> &#123;</span><br><span class="line">      <span class="keyword">case</span> _:<span class="type">IllegalArgumentException</span>=&gt;println(<span class="string">"catch"</span>)</span><br><span class="line">    &#125;<span class="keyword">finally</span> &#123;</span><br><span class="line">      println(<span class="string">"finally"</span>)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+          <h2 id="MySQL主从复制原理"><a href="#MySQL主从复制原理" class="headerlink" title="MySQL主从复制原理"></a>MySQL主从复制原理</h2><p><img src="http://ws4.sinaimg.cn/large/007iUdjSgy1fy6jgnueisj30pz0k6774.jpg" alt="image"></p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/11/03/Scala/Scala函数/#more" rel="contents">
+            <a class="btn" href="/2019/05/14/数据库/MySQL主从复制/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -491,16 +489,16 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://masonnpe.github.io/2018/11/03/RabbitMQ/RabbitMQ安装/">
+    <link itemprop="mainEntityOfPage" href="https://masonnpe.github.io/2019/05/14/数据库/MySQL/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Masonnpe">
+      <meta itemprop="name" content="mason">
       <meta itemprop="description" content="">
       <meta itemprop="image" content="/images/avatar.jpg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Masonnpe's Blog">
+      <meta itemprop="name" content="mason's note">
     </span>
 
     
@@ -510,7 +508,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/11/03/RabbitMQ/RabbitMQ安装/" itemprop="url">RabbitMQ安装</a></h1>
+                <a class="post-title-link" href="/2019/05/14/数据库/MySQL/" itemprop="url">未命名</a></h1>
         
 
         <div class="post-meta">
@@ -522,8 +520,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-03T20:03:51+08:00">
-                2018-11-03
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-14T09:10:23+08:00">
+                2019-05-14
               </time>
             
 
@@ -532,28 +530,6 @@
             
           </span>
 
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/RabbitMQ/" itemprop="url" rel="index">
-                    <span itemprop="name">RabbitMQ</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
           
 
           
@@ -583,615 +559,190 @@
 
       
         
-          <h2 id="Docker安装RabbitMQ"><a href="#Docker安装RabbitMQ" class="headerlink" title="Docker安装RabbitMQ"></a>Docker安装RabbitMQ</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">docker search rabbitmq:management</span><br><span class="line">docker pull rabbitmq:management</span><br><span class="line">docker run -d --name rabbitmq --publish 5671:5671  --publish 5672:5672 --publish 4369:4369 --publish 25672:25672 --publish 15671:15671 --publish 15672:15672 rabbitmq:management</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">http://192.168.10.51:15672/</span><br><span class="line">guest guest</span><br></pre></td></tr></table></figure>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/11/03/RabbitMQ/RabbitMQ安装/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://masonnpe.github.io/2018/11/03/Java/Collections.sort()解读/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Masonnpe">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Masonnpe's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/11/03/Java/Collections.sort()解读/" itemprop="url">Collections.sort()解读</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-03T19:41:48+08:00">
-                2018-11-03
-              </time>
-            
-
-            
-
-            
-          </span>
-
           
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java/" itemprop="url" rel="index">
-                    <span itemprop="name">Java</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>Collections.sort方法底层就是调用的Array.sort</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> &lt;T&gt; <span class="function"><span class="keyword">void</span> <span class="title">sort</span><span class="params">(T[] a, <span class="keyword">int</span> lo, <span class="keyword">int</span> hi, Comparator&lt;? <span class="keyword">super</span> T&gt; c,</span></span></span><br><span class="line"><span class="function"><span class="params">                         T[] work, <span class="keyword">int</span> workBase, <span class="keyword">int</span> workLen)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">assert</span> c != <span class="keyword">null</span> &amp;&amp; a != <span class="keyword">null</span> &amp;&amp; lo &gt;= <span class="number">0</span> &amp;&amp; lo &lt;= hi &amp;&amp; hi &lt;= a.length;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">int</span> nRemaining  = hi - lo;</span><br><span class="line">        <span class="keyword">if</span> (nRemaining &lt; <span class="number">2</span>)</span><br><span class="line">            <span class="keyword">return</span>;  <span class="comment">// array的大小为0或者1就不用排了</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">// 当数组大小小于MIN_MERGE(32)的时候，就用一个"mini-TimSort"的方法排序</span></span><br><span class="line">        <span class="keyword">if</span> (nRemaining &lt; MIN_MERGE) &#123;</span><br><span class="line">            <span class="comment">// 将最长的递减序列，找出来，然后倒过来</span></span><br><span class="line">            <span class="keyword">int</span> initRunLen = countRunAndMakeAscending(a, lo, hi, c);</span><br><span class="line">            <span class="comment">// 长度小于32的时候，是使用binarySort的</span></span><br><span class="line">            binarySort(a, lo, hi, lo + initRunLen, c);</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 先扫描一次array，找到已经排好的序列，然后再用刚才的mini-TimSort，然后合并</span></span><br><span class="line">        TimSort&lt;T&gt; ts = <span class="keyword">new</span> TimSort&lt;&gt;(a, c, work, workBase, workLen);</span><br><span class="line">        <span class="keyword">int</span> minRun = minRunLength(nRemaining);</span><br><span class="line">        <span class="keyword">do</span> &#123;</span><br><span class="line">            <span class="comment">// Identify next run</span></span><br><span class="line">            <span class="keyword">int</span> runLen = countRunAndMakeAscending(a, lo, hi, c);</span><br><span class="line"></span><br><span class="line">            <span class="comment">// If run is short, extend to min(minRun, nRemaining)</span></span><br><span class="line">            <span class="keyword">if</span> (runLen &lt; minRun) &#123;</span><br><span class="line">                <span class="keyword">int</span> force = nRemaining &lt;= minRun ? nRemaining : minRun;</span><br><span class="line">                binarySort(a, lo, lo + force, lo + runLen, c);</span><br><span class="line">                runLen = force;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="comment">// Push run onto pending-run stack, and maybe merge</span></span><br><span class="line">            ts.pushRun(lo, runLen);</span><br><span class="line">            ts.mergeCollapse();</span><br><span class="line"></span><br><span class="line">            <span class="comment">// Advance to find next run</span></span><br><span class="line">            lo += runLen;</span><br><span class="line">            nRemaining -= runLen;</span><br><span class="line">        &#125; <span class="keyword">while</span> (nRemaining != <span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// Merge all remaining runs to complete sort</span></span><br><span class="line">        <span class="keyword">assert</span> lo == hi;</span><br><span class="line">        ts.mergeForceCollapse();</span><br><span class="line">        <span class="keyword">assert</span> ts.stackSize == <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/11/03/Java/Collections.sort()解读/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://masonnpe.github.io/2018/11/03/Spring/ApplicationContext/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Masonnpe">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Masonnpe's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/11/03/Spring/ApplicationContext/" itemprop="url">ApplicationContext</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-03T19:02:33+08:00">
-                2018-11-03
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Spring/" itemprop="url" rel="index">
-                    <span itemprop="name">Spring</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>applicationcontext和beanfactory都是加载bean的</p>
-<p>applicationcontext包含beanfactory的所有功能，是对beanfactory的扩展。   添加了@Qualifier  @Autowired等功能</p>
-<p>beanfactory适合内存小的</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/11/03/Spring/ApplicationContext/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://masonnpe.github.io/2018/11/03/LeetCode/001两数之和 /">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Masonnpe">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Masonnpe's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/11/03/LeetCode/001两数之和 /" itemprop="url">001两数之和</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-03T19:01:57+08:00">
-                2018-11-03
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/LeetCode/" itemprop="url" rel="index">
-                    <span itemprop="name">LeetCode</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">int</span>[] twoSum(<span class="keyword">int</span>[] nums, <span class="keyword">int</span> target) &#123;</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; nums.length; i++) &#123;</span><br><span class="line">			<span class="keyword">for</span> (<span class="keyword">int</span> j = i+<span class="number">1</span>; j &lt; nums.length; j++) &#123;</span><br><span class="line">				<span class="keyword">if</span>(nums[j]==target-nums[i]) &#123;</span><br><span class="line">					<span class="keyword">return</span> <span class="keyword">new</span> <span class="keyword">int</span>[] &#123;i,j&#125;;</span><br><span class="line">				&#125;		</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException(<span class="string">"No two sum solution"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		Solution solution=<span class="keyword">new</span> Solution();</span><br><span class="line">		<span class="keyword">int</span>[] nums= &#123;<span class="number">2</span>, <span class="number">7</span>, <span class="number">11</span>, <span class="number">15</span>&#125;;</span><br><span class="line">		<span class="keyword">int</span> target=<span class="number">9</span>;</span><br><span class="line">		<span class="keyword">int</span>[] data= solution.twoSum(nums, target);</span><br><span class="line">		System.out.println(Arrays.toString(data));</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/11/03/LeetCode/001两数之和 /#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://masonnpe.github.io/2018/11/03/Java/Queue/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Masonnpe">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Masonnpe's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/11/03/Java/Queue/" itemprop="url">Queue</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-03T19:01:15+08:00">
-                2018-11-03
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java/" itemprop="url" rel="index">
-                    <span itemprop="name">Java</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>Queue是一个FIFO的数据结构，Queue接口与List、Set一样都继承了Collection接口</p>
-<p>Deque双向队列，队列两端的元素既能入队也能出队，LinkedList实现了Deque接口</p>
-<h2 id="非阻塞队列"><a href="#非阻塞队列" class="headerlink" title="非阻塞队列"></a>非阻塞队列</h2><ul>
-<li>PriorityQueue实质上维护了一个有序列表。加入到 Queue 中的元素根据它们的天然排序（通过其 java.util.Comparable 实现）或者根据传递给构造函数的 java.util.Comparator 实现来定位  </li>
-<li>ConcurrentLinkedQueue是基于链接节点的、<strong>线程安全</strong>的<strong>无界</strong>队列。并发访问不需要同步，需要遍历队列。  因为它在队列的尾部添加元素并从头部删除它们，所以只要不需要知道队列的大小，ConcurrentLinkedQueue 对公共集合的共享访问就可以工作得很好。收集关于队列大小的信息会很慢，需要遍历队列。采用CAS机制（compareAndSwapObject原子操作）。不支持阻塞去取元素</li>
+            <p>优化</p>
+<ul>
+<li><a href="https://www.cnblogs.com/sivkun/p/7518540.html" target="_blank" rel="noopener">《mysql数据库死锁的产生原因及解决办法》</a></li>
 </ul>
-<h2 id="阻塞队列"><a href="#阻塞队列" class="headerlink" title="阻塞队列"></a>阻塞队列</h2><ul>
-<li><p>LinkedBlockingQueue ：一个由链接节点支持的可选有界队列。LinkedBlockingQueue的容量是没有上限的（说的不准确，在不指定时容量为Integer.MAX_VALUE，不要然的话在put时怎么会受阻呢），但是也可以选择指定其最大容量，它是基于链表的队列，此队列按 FIFO（先进先出）排序元素。支持阻塞的take()方法 。使用 ReentrantLock 锁,添加元素为原子操作的队列</p>
+<h3 id="索引"><a href="#索引" class="headerlink" title="索引"></a>索引</h3><h4 id="聚集索引-非聚集索引"><a href="#聚集索引-非聚集索引" class="headerlink" title="聚集索引, 非聚集索引"></a>聚集索引, 非聚集索引</h4><ul>
+<li><a href="https://www.cnblogs.com/zlcxbb/p/5757245.html" target="_blank" rel="noopener">《MyISAM和InnoDB的索引实现》</a></li>
+</ul>
+<h4 id="复合索引"><a href="#复合索引" class="headerlink" title="复合索引"></a>复合索引</h4><ul>
+<li><a href="https://www.cnblogs.com/summer0space/p/7247778.html" target="_blank" rel="noopener">《复合索引的优点和注意事项》</a></li>
+</ul>
+<p><a href="https://www.jianshu.com/p/1775b4ff123a" target="_blank" rel="noopener">干货：mysql索引的数据结构</a></p>
+<p><a href="https://blog.csdn.net/Jack__Frost/article/details/72571540" target="_blank" rel="noopener">MySQL优化系列（三）–索引的使用、原理和设计优化</a></p>
+<p><a href="https://juejin.im/post/5b55b842f265da0f9e589e79#comment" target="_blank" rel="noopener">数据库两大神器【索引和锁】</a></p>
+<ul>
+<li>详细内容可以参考：   <a href="https://blog.csdn.net/qq_34337272/article/details/80394121" target="_blank" rel="noopener">可能是最漂亮的Spring事务管理详解</a></li>
+</ul>
+<h3 id="数据存储"><a href="#数据存储" class="headerlink" title="数据存储"></a>数据存储</h3><ul>
+<li><a href="http://blog.720ui.com/2017/mysql_core_03_how_use_index/" target="_blank" rel="noopener">说说 SQL 优化之道</a></li>
+<li>MySQL 遇到的死锁问题<ul>
+<li><a href="https://www.cnblogs.com/zejin2008/p/5262751.html" target="_blank" rel="noopener">https://www.cnblogs.com/zejin2008/p/5262751.html</a></li>
+</ul>
 </li>
-<li><p>ArrayBlockingQueue ：一个由<strong>数组</strong>支持的<strong>有界</strong>队列。ArrayBlockingQueue在构造时需要指定容量， 并可以选择是否需要公平性，如果公平参数被设置true，等待时间最长的线程会优先得到处理（其实就是通过将ReentrantLock设置为true来 达到这种公平性的：即等待时间最长的线程会先操作）。通常，公平性会使你在性能上付出代价，只有在的确非常需要的时候再使用它。它是基于数组的阻塞循环队 列，此队列按 FIFO（先进先出）原则对元素进行排序。</p>
+<li><a href="http://blog.720ui.com/2017/mysql_core_02_innodb_myisam/" target="_blank" rel="noopener">存储引擎的 InnoDB 与 MyISAM</a></li>
+<li>数据库索引的原理<ul>
+<li><a href="https://blog.csdn.net/suifeng3051/article/details/52669644" target="_blank" rel="noopener">https://blog.csdn.net/suifeng3051/article/details/52669644</a></li>
+</ul>
 </li>
-<li><p>PriorityBlockingQueue ：一个由<strong>优先级堆</strong>支持的<strong>无界</strong>优先级队列，而不是先进先出队列。元素按优先级顺序被移除，该队列也没有上限（看了一下源码，PriorityBlockingQueue是对 PriorityQueue的再次包装，是基于堆数据结构的，而PriorityQueue是没有容量限制的，与ArrayList一样，所以在优先阻塞 队列上put时是不会受阻的。虽然此队列逻辑上是无界的，但是由于资源被耗尽，所以试图执行添加操作可能会导致 OutOfMemoryError），但是如果队列为空，那么取元素的操作take就会阻塞，所以它的检索操作take是受阻的。另外，往入该队列中的元 素要具有比较能力。</p>
-</li>
-<li><p>DelayQueue ：一个由<strong>优先级堆</strong>支持的、基于时间的调度队列。DelayQueue（基于PriorityQueue来实现的）是一个存放Delayed 元素的无界阻塞队列，只有在延迟期满时才能从中提取元素。该队列的头部是延迟期满后保存时间最长的 Delayed 元素。如果延迟都还没有期满，则队列没有头部，并且poll将返回null。当一个元素的 getDelay(TimeUnit.NANOSECONDS) 方法返回一个小于或等于零的值时，则出现期满，poll就以移除这个元素了。此队列不允许使用 null 元素。</p>
-</li>
-<li><p>SynchronousQueue （并发同步阻塞队列）一个利用 BlockingQueue 接口的简单聚集（rendezvous）机制。</p>
+<li>limit 20000 加载很慢怎么解决<ul>
+<li><a href="http://ourmysql.com/archives/1451" target="_blank" rel="noopener">http://ourmysql.com/archives/1451</a></li>
+</ul>
 </li>
 </ul>
+<p>   limit 200000,10   相当于要200010行 舍弃 200000行（第一个参数为起始行，从0开始数；第二个参数为返回的总行数）</p>
+<p>–返回第3-5行  第一个参数为起始行，从0开始数；第二个参数为返回的总行数<br>SELECT * FROM mytable LIMIT 2, 3;</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://masonnpe.github.io/2019/05/14/大数据/推荐/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="mason">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="mason's note">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/05/14/大数据/推荐/" itemprop="url">推荐</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-14T09:10:23+08:00">
+                2019-05-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/大数据/" itemprop="url" rel="index">
+                    <span itemprop="name">大数据</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p> 数据收集：   etl    提取  转换  加载</p>
+<p>数据存储  ： sql  nosql</p>
+<p>资源管理                                            </p>
+<p>批处理  交互式分析  流处理</p>
+<p>数据挖掘 ： 数据仓库 olap 商务智能</p>
+<p>数据可视化</p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/11/03/Java/Queue/#more" rel="contents">
+            <a class="btn" href="/2019/05/14/大数据/推荐/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1242,16 +793,16 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://masonnpe.github.io/2018/11/03/Java/数组/">
+    <link itemprop="mainEntityOfPage" href="https://masonnpe.github.io/2019/05/14/大数据/storm/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Masonnpe">
+      <meta itemprop="name" content="mason">
       <meta itemprop="description" content="">
       <meta itemprop="image" content="/images/avatar.jpg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Masonnpe's Blog">
+      <meta itemprop="name" content="mason's note">
     </span>
 
     
@@ -1261,7 +812,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/11/03/Java/数组/" itemprop="url">数组</a></h1>
+                <a class="post-title-link" href="/2019/05/14/大数据/storm/" itemprop="url">未命名</a></h1>
         
 
         <div class="post-meta">
@@ -1273,8 +824,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-03T19:00:31+08:00">
-                2018-11-03
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-14T09:10:23+08:00">
+                2019-05-14
               </time>
             
 
@@ -1283,28 +834,6 @@
             
           </span>
 
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java/" itemprop="url" rel="index">
-                    <span itemprop="name">Java</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
           
 
           
@@ -1334,60 +863,17 @@
 
       
         
-          <h2 id="数组初始化"><a href="#数组初始化" class="headerlink" title="数组初始化"></a>数组初始化</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span>[] arr1= <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">5</span>];</span><br><span class="line"><span class="keyword">int</span>[] arr2= &#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>&#125;;</span><br><span class="line"><span class="keyword">int</span>[] arr3= <span class="keyword">new</span> <span class="keyword">int</span>[] &#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>&#125;;</span><br></pre></td></tr></table></figure>
-<h2 id="Arrays"><a href="#Arrays" class="headerlink" title="Arrays"></a>Arrays</h2><table>
-<thead>
-<tr>
-<th>method</th>
-<th>description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Arrays.fill(arr, val);</td>
-<td>替换数组的值</td>
-</tr>
-<tr>
-<td>Arrays.fill(arr, fromIndex, toIndex, val);</td>
-<td>替换数组下标<strong>[fromIndex,toIndex)</strong>的值</td>
-</tr>
-<tr>
-<td>Arrays.copyOf(arr, newLength);</td>
-<td>拷贝数组，先数组长度为newLength</td>
-</tr>
-<tr>
-<td>Arrays.copyOfRange(arr, from, to);</td>
-<td>拷贝数组下标<strong>[from,to)</strong>的值</td>
-</tr>
-<tr>
-<td>Arrays.toString(arr);</td>
-<td>打印数组</td>
-</tr>
-<tr>
-<td>Arrays.binarySearch(arr, val);</td>
-<td>二分查找，返回下标</td>
-</tr>
-<tr>
-<td>System.arraycopy(src, srcPos, dest, destPos, length);</td>
-<td>src原数组，srcPos起始index，dest目标数组，despos起始位置，length拷贝长度，属于浅拷贝</td>
-</tr>
-<tr>
-<td>Arrays.sort(arr);</td>
-<td>排序</td>
-</tr>
-<tr>
-<td>Arrays.equals(arr1, arr2);</td>
-<td>比较两个数据是否相等</td>
-</tr>
-</tbody>
-</table>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/11/03/Java/数组/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
+          
+            <p>架构</p>
+<p>并行度：Worker-&gt;Executor-&gt;Task，没错，是Task</p>
+<p>流分组：Task与Task之间的数据流向关系</p>
+<p>Shuffle Grouping：随机发射，负载均衡<br>Fields Grouping：根据某一个，或者某些个，fields，进行分组，那一个或者多个fields如果值完全相同的话，那么这些tuple，就会发送给下游bolt的其中固定的一个task</p>
+<p>你发射的每条数据是一个tuple，每个tuple中有多个field作为字段</p>
+<p>比如tuple，3个字段，name，age，salary</p>
+<p>{“name”: “tom”, “age”: 25, “salary”: 10000} -&gt; tuple -&gt; 3个field，name，age，salary</p>
+<p>All Grouping<br>Global Grouping<br>None Grouping<br>Direct Grouping<br>Local or Shuffle Grouping</p>
+
+          
         
       
     </div>
@@ -1434,16 +920,16 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://masonnpe.github.io/2018/11/03/Java/简单的JDBC/">
+    <link itemprop="mainEntityOfPage" href="https://masonnpe.github.io/2019/05/14/大数据/ambari/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Masonnpe">
+      <meta itemprop="name" content="mason">
       <meta itemprop="description" content="">
       <meta itemprop="image" content="/images/avatar.jpg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Masonnpe's Blog">
+      <meta itemprop="name" content="mason's note">
     </span>
 
     
@@ -1453,7 +939,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/11/03/Java/简单的JDBC/" itemprop="url">简单的JDBC</a></h1>
+                <a class="post-title-link" href="/2019/05/14/大数据/ambari/" itemprop="url">未命名</a></h1>
         
 
         <div class="post-meta">
@@ -1465,8 +951,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-03T18:59:57+08:00">
-                2018-11-03
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-14T09:10:23+08:00">
+                2019-05-14
               </time>
             
 
@@ -1475,28 +961,6 @@
             
           </span>
 
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java/" itemprop="url" rel="index">
-                    <span itemprop="name">Java</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
           
 
           
@@ -1526,14 +990,17 @@
 
       
         
-          <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">public class Conn &#123;</span><br><span class="line"></span><br><span class="line">	static Connection connection;</span><br><span class="line">	static Statement stat;</span><br><span class="line">	static ResultSet rs;</span><br><span class="line"></span><br><span class="line">	public Connection getConnection() &#123;</span><br><span class="line">		try &#123;</span><br><span class="line">			Class.forName(&quot;com.mysql.jdbc.Driver&quot;);</span><br><span class="line">		&#125; catch (ClassNotFoundException e) &#123;</span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		&#125;</span><br><span class="line">		Connection conn=null;</span><br><span class="line">		try &#123;</span><br><span class="line">			conn=DriverManager.getConnection(&quot;jdbc:mysql://localhost:3306/mall&quot;, &quot;root&quot;, &quot;Gepoint&quot;);</span><br><span class="line">		&#125; catch (SQLException e) &#123;</span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		&#125;</span><br><span class="line">		return conn;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	public static void main(String[] args) &#123;</span><br><span class="line">		Conn c=new Conn();</span><br><span class="line">		connection=c.getConnection();</span><br><span class="line">		try &#123;</span><br><span class="line">			stat=connection.createStatement();</span><br><span class="line">			rs=stat.executeQuery(&quot;select * from spbrands limit 10&quot;);</span><br><span class="line">			while(rs.next()) &#123;</span><br><span class="line">				String brand=rs.getString(&quot;Brand&quot;);</span><br><span class="line">				System.out.println(&quot;品牌:&quot;+brand);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125; catch (SQLException e) &#123;</span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/11/03/Java/简单的JDBC/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
+          
+            <p><a href="https://blog.51cto.com/tryingstuff/2066561" target="_blank" rel="noopener">https://blog.51cto.com/tryingstuff/2066561</a></p>
+<p>yum install -y wget<br>wget -O /etc/yum.repos.d/CentOS-Base.repo <a href="http://mirrors.aliyun.com/repo/Centos-7.repo" target="_blank" rel="noopener">http://mirrors.aliyun.com/repo/Centos-7.repo</a><br>yum makecache</p>
+<p>配置免密登陆<br>各节点<br>scp /root/.ssh/id_rsa.pub node2:/root/.ssh/authorized_keys<br>scp /root/.ssh/id_rsa.pub node3:/root/.ssh/authorized_keys</p>
+<p>节点1 yum install httpd -y<br>安装包放到  /var/www/html<br>tar xf 解压所有</p>
+<p>repo 文件放到/etc/yum.repo.d/</p>
+<p>systemctl start httpd<br>yum clean all<br> yum makecache fast</p>
+<p>yum update openssl<br>/etc/python/cert-verification.cfg  disable<br>/etc/ambari-agent/conf/ambari-agent.ini   force_https_protocol=PROTOCOL_TLSv1_2</p>
+<p>sudo rpm -Uvh <a href="http://dev.mysql.com/get/mysql-community-release-el7-5.noarch.rpm" target="_blank" rel="noopener">http://dev.mysql.com/get/mysql-community-release-el7-5.noarch.rpm</a></p>
+
+          
         
       
     </div>
@@ -1580,16 +1047,16 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://masonnpe.github.io/2018/11/03/Java/LinkedHashMap实现一个LRU本地缓存/">
+    <link itemprop="mainEntityOfPage" href="https://masonnpe.github.io/2019/05/14/分布式/限流算法/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Masonnpe">
+      <meta itemprop="name" content="mason">
       <meta itemprop="description" content="">
       <meta itemprop="image" content="/images/avatar.jpg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Masonnpe's Blog">
+      <meta itemprop="name" content="mason's note">
     </span>
 
     
@@ -1599,7 +1066,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/11/03/Java/LinkedHashMap实现一个LRU本地缓存/" itemprop="url">LinkedHashMap实现一个LRU本地缓存</a></h1>
+                <a class="post-title-link" href="/2019/05/14/分布式/限流算法/" itemprop="url">未命名</a></h1>
         
 
         <div class="post-meta">
@@ -1611,8 +1078,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-03T18:58:54+08:00">
-                2018-11-03
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-14T09:10:23+08:00">
+                2019-05-14
               </time>
             
 
@@ -1621,28 +1088,6 @@
             
           </span>
 
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java/" itemprop="url" rel="index">
-                    <span itemprop="name">Java</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
           
 
           
@@ -1672,15 +1117,15 @@
 
       
         
-          <p>基于访问的最近最少使用算法</p>
-<p>构造函数accessOrder=true时,当get（Object key）时，将最新访问的元素放到双向链表的第一位</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/11/03/Java/LinkedHashMap实现一个LRU本地缓存/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
+          
+            <p>##令牌桶算法</p>
+<p>按照恒定的速率向桶中放入令牌，每当请求经过时则消耗一个或多个令牌。当桶中的令牌为 0 时，请求则会被阻塞</p>
+<p>固定容量的令牌桶，按照一定速率添加令牌，处理请求前需要拿到令牌，拿不到令牌则丢弃请求，或进入丢队列，可以通过控制添加令牌的速率，来控制整体速度。Guava 中的 RateLimiter 是令牌桶的实现。</p>
+<p>单体应用可以使用Guava的RateLimiter实现令牌桶<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">RateLimiter limiter=RateLimiter.create(<span class="number">2</span>);<span class="comment">// 每秒向桶中放入两个令牌</span></span><br><span class="line">limiter.acquire(<span class="number">1</span>);<span class="comment">// 请求一次消耗一个令牌</span></span><br></pre></td></tr></table></figure></p>
+<p>分布式应用可以借助redis实现限流</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.masonnpe.util.limiting.util;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> redis.clients.jedis.Jedis;</span><br><span class="line"><span class="keyword">import</span> redis.clients.jedis.JedisPool;</span><br><span class="line"><span class="keyword">import</span> redis.clients.jedis.JedisPoolConfig;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.Collections;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RedisRateLimiter</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> JedisPool jedisPool;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> &#123;</span><br><span class="line">        JedisPoolConfig config = <span class="keyword">new</span> JedisPoolConfig();</span><br><span class="line">        config.setMaxTotal(<span class="number">100</span>);</span><br><span class="line">        jedisPool=<span class="keyword">new</span> JedisPool(config,<span class="string">"192.168.170.252"</span>,<span class="number">6379</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">boolean</span> <span class="title">isNeedLimit</span><span class="params">()</span></span>&#123;</span><br><span class="line">        Jedis jedis=jedisPool.getResource();</span><br><span class="line">        String limitScript=<span class="string">"local key = KEYS[1]\n"</span> +</span><br><span class="line">                <span class="string">"local limit = tonumber(ARGV[1])\n"</span> +</span><br><span class="line">                <span class="string">"local curentLimit = tonumber(redis.call('get', key) or \"0\")\n"</span> +</span><br><span class="line">                <span class="string">"if curentLimit + 1 &gt; limit then\n"</span> +</span><br><span class="line">                <span class="string">"return 0;\n"</span> +</span><br><span class="line">                <span class="string">"else\n"</span> +</span><br><span class="line">                <span class="string">"redis.call(\"INCRBY\", key, 1)\n"</span> +</span><br><span class="line">                <span class="string">"redis.call(\"EXPIRE\", key, 2) \n"</span> +</span><br><span class="line">                <span class="string">"return curentLimit + 1\n"</span> +</span><br><span class="line">                <span class="string">"end"</span>;</span><br><span class="line">        String key = <span class="string">"redis-limit"</span>+String.valueOf(System.currentTimeMillis() / <span class="number">1000</span>);</span><br><span class="line">        Object result=jedis.eval(limitScript, Collections.singletonList(key),Collections.singletonList(String.valueOf(<span class="number">1</span>)));</span><br><span class="line">        jedis.close();</span><br><span class="line">        <span class="keyword">if</span> ((<span class="keyword">long</span>)result!=<span class="number">0</span>)&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">        &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+          
         
       
     </div>
@@ -1727,16 +1172,16 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://masonnpe.github.io/2018/11/03/Java/String与StrinBuilder与StringBuffer/">
+    <link itemprop="mainEntityOfPage" href="https://masonnpe.github.io/2019/05/14/分布式/消息队列/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Masonnpe">
+      <meta itemprop="name" content="mason">
       <meta itemprop="description" content="">
       <meta itemprop="image" content="/images/avatar.jpg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Masonnpe's Blog">
+      <meta itemprop="name" content="mason's note">
     </span>
 
     
@@ -1746,7 +1191,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/11/03/Java/String与StrinBuilder与StringBuffer/" itemprop="url">String与StrinBuilder与StringBuffer</a></h1>
+                <a class="post-title-link" href="/2019/05/14/分布式/消息队列/" itemprop="url">未命名</a></h1>
         
 
         <div class="post-meta">
@@ -1758,8 +1203,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-03T18:58:13+08:00">
-                2018-11-03
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-14T09:10:23+08:00">
+                2019-05-14
               </time>
             
 
@@ -1768,28 +1213,6 @@
             
           </span>
 
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java/" itemprop="url" rel="index">
-                    <span itemprop="name">Java</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
           
 
           
@@ -1819,17 +1242,698 @@
 
       
         
-          <h2 id="String"><a href="#String" class="headerlink" title="String"></a>String</h2><h3 id="String的创建机理"><a href="#String的创建机理" class="headerlink" title="String的创建机理"></a>String的创建机理</h3><p>由于String在Java世界中使用过于频繁，Java为了避免在一个系统中产生大量的String对象，引入了字符串常量池。其运行机制是：</p>
+          
+            <p><a href="https://www.cnblogs.com/hlhdidi/p/6535677.html" target="_blank" rel="noopener">https://www.cnblogs.com/hlhdidi/p/6535677.html</a></p>
+<p><a href="https://blog.csdn.net/ztx114/article/details/78410727" target="_blank" rel="noopener">https://blog.csdn.net/ztx114/article/details/78410727</a></p>
+<p><a href="https://www.cnblogs.com/charlesblc/p/6045238.html" target="_blank" rel="noopener">《消息队列-推/拉模式》</a></p>
+<h3 id="Kafka"><a href="#Kafka" class="headerlink" title="Kafka"></a>Kafka</h3><p>高吞吐量、采用拉模式。适合高IO场景。分布式发布-订阅消息系统，Kafka主要特点是基于Pull的模式来处理消息消费，追求高吞吐量，一开始的目的就是用于日志收集和传输</p>
+<p>zero-copy机制。优点是消费端可以按处理能力进行拉去，缺点是会增加消息延迟。</p>
+<p>p2p:          producer发给queue的消息只能被一个consumer接受</p>
+<p>pub/sub:  producer发给topic的消息可以被多个subscriber接受</p>
+<p><img src="https://wx3.sinaimg.cn/large/007iUdjSgy1g02jmn09e7j312c0kz438.jpg" alt="image"></p>
+<h3 id="RabbitMQ"><a href="#RabbitMQ" class="headerlink" title="RabbitMQ"></a>RabbitMQ</h3><p>支持事务，推拉模式都是支持、消费者默认是推模式，适合需要可靠性消息传输的场景。对数据一致性、稳定性和可靠性要求很高的场景，对性能和吞吐量的要求还在其次。Push方式：优点是可以尽可能快地将消息发送给消费者，缺点是如果消费者处理能力跟不上，消费者的缓冲区可能会溢出。</p>
+<ul>
+<li><a href="https://blog.csdn.net/whoamiyang/article/details/54954780" target="_blank" rel="noopener">《RabbitMQ的应用场景以及基本原理介绍》</a></li>
+<li><a href="https://www.jianshu.com/p/79ca08116d57" target="_blank" rel="noopener">《消息队列之 RabbitMQ》</a> </li>
+<li><a href="https://blog.csdn.net/u013256816/article/details/55515234" target="_blank" rel="noopener">《RabbitMQ之消息确认机制（事务+Confirm）》</a></li>
+</ul>
+<h3 id="RocketMQ"><a href="#RocketMQ" class="headerlink" title="RocketMQ"></a>RocketMQ</h3><p>Java实现，推拉模式都是支持，吞吐量逊于Kafka。可以保证消息顺序。</p>
+<ul>
+<li><a href="https://www.jianshu.com/p/824066d70da8" target="_blank" rel="noopener">《RocketMQ 实战之快速入门》</a></li>
+</ul>
+<h3 id="消息的顺序问题"><a href="#消息的顺序问题" class="headerlink" title="消息的顺序问题"></a>消息的顺序问题</h3><p>从业务层面保证</p>
+<p>RocketMQ通过轮询所有队列的方式来确定消息被发送到哪一个队列（负载均衡策略）。比如下面的示例中，订单号相同的消息会被先后发送到同一个队列中：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">// RocketMQ通过MessageQueueSelector中实现的算法来确定消息发送到哪一个队列上</span><br><span class="line">// RocketMQ默认提供了两种MessageQueueSelector实现：随机/Hash</span><br><span class="line">// 当然你可以根据业务实现自己的MessageQueueSelector来决定消息按照何种策略发送到消息队列中</span><br><span class="line">SendResult sendResult = producer.send(msg, new MessageQueueSelector() &#123;</span><br><span class="line">    @Override</span><br><span class="line">    public MessageQueue select(List&lt;MessageQueue&gt; mqs, Message msg, Object arg) &#123;</span><br><span class="line">        Integer id = (Integer) arg;</span><br><span class="line">        int index = id % mqs.size();</span><br><span class="line">        return mqs.get(index);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;, orderId);</span><br></pre></td></tr></table></figure>
+<p>在获取到路由信息以后，会根据<code>MessageQueueSelector</code>实现的算法来选择一个队列，同一个OrderId获取到的肯定是同一个队列。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">private SendResult send()  &#123;</span><br><span class="line">    // 获取topic路由信息</span><br><span class="line">    TopicPublishInfo topicPublishInfo = this.tryToFindTopicPublishInfo(msg.getTopic());</span><br><span class="line">    if (topicPublishInfo != null &amp;&amp; topicPublishInfo.ok()) &#123;</span><br><span class="line">        MessageQueue mq = null;</span><br><span class="line">        // 根据我们的算法，选择一个发送队列</span><br><span class="line">        // 这里的arg = orderId</span><br><span class="line">        mq = selector.select(topicPublishInfo.getMessageQueueList(), msg, arg);</span><br><span class="line">        if (mq != null) &#123;</span><br><span class="line">            return this.sendKernelImpl(msg, mq, communicationMode, sendCallback, timeout);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="消息的重复问题"><a href="#消息的重复问题" class="headerlink" title="消息的重复问题"></a>消息的重复问题</h3><ol>
+<li>消费端处理消息的业务逻辑保持幂等性</li>
+<li>保证每条消息都有唯一编号且保证消息处理成功与去重表的日志同时出现</li>
+</ol>
+<p>尽量使用批量方式消费方式，可以很大程度上提高消费吞吐量。</p>
+<h2 id="消息模型"><a href="#消息模型" class="headerlink" title="消息模型"></a>消息模型</h2><h3 id="点对点"><a href="#点对点" class="headerlink" title="点对点"></a>点对点</h3><p>消息生产者向消息队列中发送了一个消息之后，只能被一个消费者消费一次。</p>
+<h3 id="发布-订阅"><a href="#发布-订阅" class="headerlink" title="发布/订阅"></a>发布/订阅</h3><p>消息生产者向频道发送一个消息之后，多个消费者可以从该频道订阅到这条消息并消费。</p>
 <blockquote>
-<p>创建一个字符串时，首先检查池中是否有值相同的字符串对象，如果有则不需要创建直接从池中刚查找到的对象引用；如果没有则新建字符串对象，返回对象引用，并且将新创建的对象放入池中。但是，通过new方法创建的String对象是不检查字符串池的，而是直接在堆区或栈区创建一个新的对象，也不会把对象放入池中。上述原则只适用于通过直接量给String对象引用赋值的情况。</p>
+<p>发布与订阅模式和观察者模式有以下不同：</p>
+<ul>
+<li>观察者模式中，观察者和主题都知道对方的存在；而在发布与订阅模式中，发布者与订阅者不知道对方的存在，它们之间通过频道进行通信。</li>
+<li>观察者模式是同步的，当事件触发时，主题会调用观察者的方法，然后等待方法返回；而发布与订阅模式是异步的，发布者向频道发送一个消息之后，就不需要关心订阅者何时去订阅这个消息，可以立即返回。</li>
+</ul>
 </blockquote>
-<p>举例：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">String str1 = <span class="string">"123"</span>; <span class="comment">//通过直接量赋值方式，放入字符串常量池</span></span><br><span class="line">String str2 = <span class="keyword">new</span> String(“<span class="number">123</span>”);<span class="comment">//通过new方式赋值方式，不放入字符串常量池</span></span><br></pre></td></tr></table></figure>
-<p>注意：String提供了intern()方法。调用该方法时，如果常量池中包括了一个等于此String对象的字符串（由equals方法确定），则返回池中的字符串。否则，将此String对象添加到池中，并且返回此池中对象的引用。</p>
-<p>Intern()是一种显式地排重机制，但是它也有一定的副作用，因为需要开发者写代码时明确调用，一是不方便，每一个都显式调用是非常麻烦的；另外就是我们很难保证效率，应用开发阶段很难清楚地预计字符串的重复情况，有人认为这是一种污染代码的实践。幸好在Oracle JDK 8u20之后，推出了一个新的特性，也就是G1 GC下的字符串排重。它是通过将相同数据的字符串指向同一份数据来做到的，是JVM底层的改变，并不需<br>要Java类库做什么修改。注意这个功能目前是默认关闭的，你需要使用下面参数开启，并且记得指定使用G1 GC：<br>-XX:+UseStringDeduplication</p>
+<h2 id="使用场景"><a href="#使用场景" class="headerlink" title="使用场景"></a>使用场景</h2><h3 id="异步处理"><a href="#异步处理" class="headerlink" title="异步处理"></a>异步处理</h3><p>发送者将消息发送给消息队列之后，不需要同步等待消息接收者处理完毕，而是立即返回进行其它操作。消息接收者从消息队列中订阅消息之后异步处理。</p>
+<p>例如在注册流程中通常需要发送验证邮件来确保注册用户身份的合法性，可以使用消息队列使发送验证邮件的操作异步处理，用户在填写完注册信息之后就可以完成注册，而将发送验证邮件这一消息发送到消息队列中。</p>
+<p>只有在业务流程允许异步处理的情况下才能这么做，例如上面的注册流程中，如果要求用户对验证邮件进行点击之后才能完成注册的话，就不能再使用消息队列。</p>
+<h3 id="流量削锋"><a href="#流量削锋" class="headerlink" title="流量削锋"></a>流量削锋</h3><p>在高并发的场景下，如果短时间有大量的请求到达会压垮服务器。</p>
+<p>可以将请求发送到消息队列中，服务器按照其处理能力从消息队列中订阅消息进行处理。</p>
+<h3 id="应用解耦"><a href="#应用解耦" class="headerlink" title="应用解耦"></a>应用解耦</h3><p>如果模块之间不直接进行调用，模块之间耦合度就会很低，那么修改一个模块或者新增一个模块对其它模块的影响会很小，从而实现可扩展性。</p>
+<p>通过使用消息队列，一个模块只需要向消息队列中发送消息，其它模块可以选择性地从消息队列中订阅消息从而完成调用。</p>
+<h2 id="可靠性"><a href="#可靠性" class="headerlink" title="可靠性"></a>可靠性</h2><h3 id="发送端的可靠性"><a href="#发送端的可靠性" class="headerlink" title="发送端的可靠性"></a>发送端的可靠性</h3><p>发送端完成操作后一定能将消息成功发送到消息队列中。</p>
+<p>实现方法：</p>
+<ul>
+<li>在本地数据库建一张消息表，将消息数据与业务数据保存在同一数据库实例里，这样就可以利用本地数据库的事务机制。事务提交成功后，将消息表中的消息转移到消息队列中，若转移消息成功则删除消息表中的数据，否则继续重传。</li>
+</ul>
+<h3 id="接收端的可靠性"><a href="#接收端的可靠性" class="headerlink" title="接收端的可靠性"></a>接收端的可靠性</h3><p>接收端能够从消息队列成功消费一次消息。</p>
+<p>实现方法：</p>
+<ul>
+<li>保证接收端处理消息的业务逻辑具有幂等性：只要具有幂等性，那么消费多少次消息，最后处理的结果都是一样的。</li>
+<li>保证消息具有唯一编号，并使用一张日志表来记录已经消费的消息编号。</li>
+</ul>
+<h2 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h2><p>​    系统可用性降低，mq挂了   、</p>
+<p>​    复杂性提高，重复消费，消失丢失，消息顺序性</p>
+<p>​    一致性  有的写入成功了  有地写入失败了</p>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ul>
+<li><a href="http://developers-club.com/posts/270339/" target="_blank" rel="noopener">Observer vs Pub-Sub</a></li>
+<li><a href="https://blog.csdn.net/lizhitao/article/details/47723105" target="_blank" rel="noopener">消息队列中点对点与发布订阅区别</a></li>
+</ul>
+<p>sudo yum-config-manager –add-repo <a href="http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo" target="_blank" rel="noopener">http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo</a></p>
+<p><strong>wget -O /etc/yum.repos.d/CentOS-Base.repo <a href="http://mirrors.aliyun.com/repo/Centos-7.repo" target="_blank" rel="noopener">http://mirrors.aliyun.com/repo/Centos-7.repo</a></strong></p>
+<p><strong>yum install epel-release</strong></p>
+<p><strong>yum install container-selinux</strong></p>
+<h3 id="使用消息队列的场景"><a href="#使用消息队列的场景" class="headerlink" title="使用消息队列的场景"></a>使用消息队列的场景</h3><p>​    应用解耦  pub/sub解耦  </p>
+<p>​        用户下单后，订单系统需要通知库存系统。传统的做法是，订单系统调用库存系统的接口，如果库存挂了，订单也下不了</p>
+<p>​        使用队列后  用户下单后，订单系统完成持久化处理，将消息写入消息队列，返回用户订单下单成功  库存系统 订阅下单的消息，采用拉/推的方式，获取下单信息，库存系统根据下单信息，进行库存操作  假如：在下单时库存系统不能正常使用。也不影响正常下单，因为下单后，订单系统写入消息队列就不再关心其他的后续操作了。实现订单系统与库存系统的应用解耦</p>
+<p>​    消息异步  降低请求响应时间 </p>
+<p>​        用户注册后，需要发注册邮件和注册短信 </p>
+<p>​    流量削峰  应对突然的高并发  mq每秒消费的固定大小</p>
+<p>​            秒杀活动，一般会因为流量过大，导致流量暴增，应用挂掉。为解决这个问题，一般需要在应用前端加入消息队列  用户的请求，服务器            接收后，首先写入消息队列。假如消息队列长度超过最大数量，则直接抛弃用户请求或跳转到错误页面</p>
+<p>​    日志</p>
+<p>​    </p>
+<p>面试官：kafka、activemq、rabbitmq、rocketmq都有什么区别？</p>
+<p>RocketMQ 的topic到几百几千吞吐量也不会受太大影响</p>
+<p>RocketMQ Kafka吞吐量高</p>
+<p>RabbitMQ延迟低</p>
+<p>如何保证消息的可靠性传输啊？要是消息丢失了怎么办啊？</p>
+<p>rabbitmq</p>
+<p>生产者-》mq-》消费者</p>
+<ul>
+<li>生产者写消息的时候，还么到mq在网络传输时丢了，或者到了mq，但mq出错没保存下来<ul>
+<li>报错了 回滚重发  事务机制是同步的，会降低吞吐量</li>
+<li>channel设置成confirm模式 ，在生产者那里设置开启confirm模式之后，你每次写的消息都会分配一个唯一的id，然后如果写入了rabbitmq中，rabbitmq会给你回传一个ack消息，告诉你说这个消息ok了。如果rabbitmq没能处理这个消息，会回调你一个nack接口，告诉你这个消息接收失败，你可以重试。而且你可以结合这个机制自己在内存里维护每个消息id的状态，如果超过一定时间还没接收到这个消息的回调，那么你可以重发。 是异步的</li>
+</ul>
+</li>
+<li>mq接受到消息后存到内存，还没消费，自己就挂了，导致内存里的数据丢失<ul>
+<li>消息持久化到磁盘 持久化queue的元数据， deliveryMode为2</li>
+</ul>
+</li>
+<li>消费者接受消息，还没来得机处理就挂了，mq以为消费者处理完了<ul>
+<li>autoAck消费后自动通知mq已消费  ，但还没处理完就挂了，需要关闭autoAck,自己处理完后再发送</li>
+</ul>
+</li>
+</ul>
+<p>kafka</p>
+<ul>
+<li>消费段弄丢数据 offset 等同autoAck</li>
+<li>kafka自己把数据搞丢了  broker宕机，选举时，其他的follower还有些数据没有同步 follower是副本保证在leader所在broker发生故障，进行leader切换时，数据不会丢失<ol>
+<li>给这个topic设置replication.factor参数：这个值必须大于1，要求每个partition必须有至少2个副本</li>
+<li>在kafka服务端设置min.insync.replicas参数：这个值必须大于1，这个是要求一个leader至少感知到有至少一个follower还跟自己保持联系，没掉队，这样才能确保leader挂了还有一个follower吧</li>
+<li>在producer端设置acks=all：这个是要求每条数据，必须是写入所有replica之后，才能认为是写成功了</li>
+<li>在producer端设置retries=MAX（很大很大很大的一个值，无限次重试的意思）：这个是要求一旦写入失败，就无限重试，卡在这里了</li>
+</ol>
+</li>
+<li>生产者  设置了ack=all，一定不会丢，要求是，你的leader接收到消息，所有的follower都同步到了消息之后，才认为本次写成功了。如果没满足这个条件，生产者会自动不断的重试，重试无限次。</li>
+</ul>
+<h3 id="如何保证消息的顺序性？"><a href="#如何保证消息的顺序性？" class="headerlink" title="如何保证消息的顺序性？"></a>如何保证消息的顺序性？</h3><pre><code>rabbitmq:消息串行消费 拆分多个queue，一个queue对应一个consumer，然后这个consumer内部用内存队列做排队，然后分发给底层不同的worker来处理
+
+kafka:一个topic，一个partition，一个consumer，内部单线程消费，写N个内存queue，然后N个线程分别消费一个内存queue即可
+</code></pre><p>​    消费者multi thread处理提高吞吐量时又会顺序错乱  所以不能这么搞 换成内存队列</p>
+<h3 id="如何解决消息队列的延时以及过期失效问题？"><a href="#如何解决消息队列的延时以及过期失效问题？" class="headerlink" title="如何解决消息队列的延时以及过期失效问题？"></a>如何解决消息队列的延时以及过期失效问题？</h3><p>​    手动写程序把那1000个订单给查出来，手动发到mq里去再补一次</p>
+<h3 id="消息队列满了以后该怎么处理？"><a href="#消息队列满了以后该怎么处理？" class="headerlink" title="消息队列满了以后该怎么处理？"></a>消息队列满了以后该怎么处理？</h3><p>​    快速消费掉所有的消息  然后补偿</p>
+<h3 id="有几百万消息持续积压几小时，说说怎么解决？"><a href="#有几百万消息持续积压几小时，说说怎么解决？" class="headerlink" title="有几百万消息持续积压几小时，说说怎么解决？"></a>有几百万消息持续积压几小时，说说怎么解决？</h3><pre><code>恢复消费者  新建topic  patition是原来的10倍去消费  原有的消费者，然后落库
+</code></pre><p>面试官：如何保证消息不被重复消费啊？如何保证消费的时候是幂等的啊？</p>
+<h3 id="设计一个消息队列"><a href="#设计一个消息队列" class="headerlink" title="设计一个消息队列"></a>设计一个消息队列</h3><p>（1）首先这个mq得支持可伸缩性吧，就是需要的时候快速扩容，就可以增加吞吐量和容量，那怎么搞？设计个分布式的系统呗，参照一下kafka的设计理念，broker -&gt; topic -&gt; partition，每个partition放一个机器，就存一部分数据。如果现在资源不够了，简单啊，给topic增加partition，然后做数据迁移，增加机器，不就可以存放更多数据，提供更高的吞吐量了？</p>
+<p>（2）其次你得考虑一下这个mq的数据要不要落地磁盘吧？那肯定要了，落磁盘，才能保证别进程挂了数据就丢了。那落磁盘的时候怎么落啊？顺序写，这样就没有磁盘随机读写的寻址开销，磁盘顺序读写的性能是很高的，这就是kafka的思路。</p>
+<p>（3）其次你考虑一下你的mq的可用性啊？这个事儿，具体参考我们之前可用性那个环节讲解的kafka的高可用保障机制。多副本 -&gt; leader &amp; follower -&gt; broker挂了重新选举leader即可对外服务。</p>
+<p>（4）能不能支持数据0丢失啊？可以的，参考我们之前说的那个kafka数据零丢失方案</p>
+<p>消息队列，kafka，复制的底层原理，leader选举的算法，增加partition以后的rebalance算法，扣很多很多的细节，如何优化kafka写入的吞吐量</p>
+<h3 id="消息队列"><a href="#消息队列" class="headerlink" title="消息队列"></a>消息队列</h3><ul>
+<li>消息的重发补偿解决思路<ul>
+<li><a href="https://blog.csdn.net/wangtaomtk/article/details/51531278" target="_blank" rel="noopener">https://blog.csdn.net/wangtaomtk/article/details/51531278</a></li>
+</ul>
+</li>
+<li>消息的幂等性解决思路（已解答，待补充）<ul>
+<li><a href="https://www.jianshu.com/p/8b77d4583bab?utm_campaign" target="_blank" rel="noopener">https://www.jianshu.com/p/8b77d4583bab?utm_campaign</a></li>
+</ul>
+</li>
+<li>消息的堆积解决思路<ul>
+<li><a href="https://docs.oracle.com/cd/E19148-01/820-0843/6nci9sed1/index.html" target="_blank" rel="noopener">https://docs.oracle.com/cd/E19148-01/820-0843/6nci9sed1/index.html</a></li>
+</ul>
+</li>
+</ul>
+<p>异步调用</p>
+<ul>
+<li><strong>解耦 ：</strong> 一个业务的非核心流程需要依赖其他系统，但结果并不重要，有通知即可。</li>
+<li><strong>最终一致性 ：</strong> 指的是两个系统的状态保持一致，可以有一定的延迟，只要最终达到一致性即可。经常用在解决分布式事务上。</li>
+<li><strong>广播 ：</strong> 消息队列最基本的功能。生产者只负责生产消息，订阅者接收消息。</li>
+<li><strong>错峰和流控</strong></li>
+</ul>
+<p>具体可以参考： </p>
+<p><a href="https://blog.csdn.net/qq_34337272/article/details/80029918" target="_blank" rel="noopener">《消息队列深入解析》</a></p>
+<ul>
+<li><p><strong>RabbitMQ:</strong> RabbitMQ 是一个由 Erlang 语言开发的 AMQP 的开源实现。RabbitMQ 最初起源于金融系统，用于在分布式系统中存储转发消息，在易用性、扩展性、高可用性等方面表现不俗</p>
+<blockquote>
+<p>AMQP ：Advanced Message Queue，高级消息队列协议。它是应用层协议的一个开放标准，为面向消息的中间件设计，基于此协议的客户端与消息中间件可传递消息，并不受产品、开发语言等条件的限制。</p>
+</blockquote>
+<p> 具体可以参考：</p>
+<p> <a href="https://www.jianshu.com/p/79ca08116d57" target="_blank" rel="noopener">《消息队列之 RabbitMQ》</a></p>
+</li>
+<li><p><strong>RocketMQ：</strong></p>
+<p>具体可以参考：</p>
+<p><a href="https://www.jianshu.com/p/824066d70da8" target="_blank" rel="noopener">《RocketMQ 实战之快速入门》</a></p>
+<p><a href="http://jm.taobao.org/2017/01/12/rocketmq-quick-start-in-10-minutes/" target="_blank" rel="noopener">《十分钟入门RocketMQ》</a> （阿里中间件团队博客）</p>
+</li>
+<li><p><strong>Kafka</strong>：Kafka是一个分布式的、可分区的、可复制的、基于发布/订阅的消息系统,Kafka主要用于大数据领域,当然在分布式系统中也有应用。目前市面上流行的消息队列RocketMQ就是阿里借鉴Kafka的原理、用Java开发而得。</p>
+<p>具体可以参考：</p>
+<p><a href="http://book.51cto.com/art/201801/565244.htm" target="_blank" rel="noopener">《Kafka应用场景》</a></p>
+<p><a href="https://mp.weixin.qq.com/s?__biz=MzU4NDQ4MzU5OA==&amp;mid=2247484106&amp;idx=1&amp;sn=aa1999895d009d91eb3692a3e6429d18&amp;chksm=fd9854abcaefddbd1101ca5dc2c7c783d7171320d6300d9b2d8e68b7ef8abd2b02ea03e03600#rd" target="_blank" rel="noopener">《初谈Kafka》</a></p>
+</li>
+</ul>
+<p>,</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://masonnpe.github.io/2019/05/14/分布式/幂等性设计/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="mason">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="mason's note">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/05/14/分布式/幂等性设计/" itemprop="url">未命名</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-14T09:10:23+08:00">
+                2019-05-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>幂等性是指一次和多次请求某一个资源应该具有同样的副作用。幂等性是系统的接口对外一种承诺(而不是实现), 承诺只要调用接口成功, 外部多次调用对系统的影响是一致的。幂等性是分布式系统设计中的一个重要概念，对超时处理、系统恢复等具有重要意义。</p>
+<h3 id="保证幂等的手段"><a href="#保证幂等的手段" class="headerlink" title="保证幂等的手段"></a>保证幂等的手段</h3><p><strong>1.MVCC方案</strong><br>多版本并发控制，该策略主要使用update with condition（更新带条件来防止）来保证多次外部请求调用对系统的影响是一致的。在系统设计的过程中，合理的使用<strong>乐观锁</strong> ，在更新的过程中利用version来防止，其他操作对对象的并发更新，导致更新丢失。为了避免失败，通常需要一定的重试机制。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">SELECT state,version FROM tb_user WHERE id=1</span><br><span class="line">update tb_user set state=&apos;2&apos;,version=version+1 where version=1</span><br></pre></td></tr></table></figure>
+<p><strong>2.去重表</strong><br>　　在插入数据的时候，插入去重表，利用数据库的<strong>唯一索引</strong>特性，保证唯一的逻辑。</p>
+<p><strong>3.悲观锁</strong></p>
+<p>　　select for update，整个执行过程中锁定该订单对应的记录。注意：这种在DB读大于写的情况下尽量少用。</p>
+<p><strong>4. select + insert</strong><br>　　并发不高的后台系统，或者一些任务JOB，为了支持幂等，支持重复执行，简单的处理方法是，先查询下一些关键数据，判断是否已经执行过，在进行业务处理，就可以了。注意：核心高并发流程不要用这种方法。</p>
+<p><strong>5.状态机幂等</strong><br>　　在设计单据相关的业务，或者是任务相关的业务，肯定会涉及到状态机，就是业务单据上面有个状态，状态在不同的情况下会发生变更，一般情况下存在有限状态机，这时候，如果状态机已经处于下一个状态，这时候来了一个上一个状态的变更，理论上是不能够变更的，这样的话，保证了有限状态机的幂等。</p>
+<p><strong>6. token机制，防止页面重复提交</strong></p>
+<p>　　业务要求：页面的数据只能被点击提交一次<br>　　发生原因：由于重复点击或者网络重发，或者nginx重发等情况会导致数据被重复提交<br>解决办法：</p>
+<ul>
+<li>集群环境：采用token加redis（redis单线程的，处理需要排队）</li>
+<li>单JVM环境：采用token加redis或token加jvm内存</li>
+</ul>
+<p>处理流程：</p>
+<ul>
+<li>数据提交前要向服务的申请token，token放到redis或jvm内存，token有效时间</li>
+<li>提交后后台校验token，同时删除token，生成新的token返回</li>
+</ul>
+<p>　　token特点:要申请，一次有效性，可以限流 </p>
+<p><strong>7. 对外提供接口的api如何保证幂等</strong> </p>
+<p>　　如银联提供的付款接口：需要接入商户提交付款请求时附带：source来源，seq<strong>序列号</strong>。source+seq在数据库里面做唯一索引，防止多次付款，(并发时，只能处理一个请求)</p>
+<p>　　总结： 幂等性应该是合格程序员的一个基因，在设计系统时，是首要考虑的问题，尤其是在像支付宝，银行，互联网金融公司等涉及的都是钱的系统，既要高效，数据也要准确，所以不能出现多扣款，多打款等问题，这样会很难处理，用户体验也不好 。</p>
+<p><strong>8. 业务逻辑幂等</strong></p>
+<p>比如接到支付成功的消息订单状态变成支付完成，如果当前状态是支付完成，则再收到一个支付成功的消息则说明消息重复了，直接作为消息成功处理。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://masonnpe.github.io/2019/05/14/分布式/分布式事务/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="mason">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="mason's note">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/05/14/分布式/分布式事务/" itemprop="url">未命名</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-14T09:10:23+08:00">
+                2019-05-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h4 id="两阶段提交、多阶段提交"><a href="#两阶段提交、多阶段提交" class="headerlink" title="两阶段提交、多阶段提交"></a>两阶段提交、多阶段提交</h4><ul>
+<li><p><a href="http://blog.jobbole.com/95632/" target="_blank" rel="noopener">《关于分布式事务、两阶段提交协议、三阶提交协议》</a></p>
+<p>分布式一致方</p>
+</li>
+<li><p><a href="http://www.infoq.com/cn/articles/solution-of-distributed-system-transaction-consistency" target="_blank" rel="noopener">《分布式系统事务一致性解决方案》</a></p>
+</li>
+<li><a href="https://weibo.com/ttarticle/p/show?id=2309403965965003062676" target="_blank" rel="noopener">《保证分布式系统数据一致性的6种方案》</a></li>
+<li></li>
+</ul>
+<p>分布式事务</p>
+<p>本质上来说，分布式事务就是为了保证不同数据库的数据一致性。</p>
+<p>（1）分布式事务了解吗？你们如何解决分布式事务问题的？TCC如果出现网络连不通怎么办？XA的一致性如何保证？</p>
+<p>（1）两阶段提交方案/XA方案</p>
+<p>所以这个就是所谓的XA事务，两阶段提交，有一个事务管理器的概念，负责协调多个数据库（资源管理器）的事务，事务管理器先问问各个数据库你准备好了吗？如果每个数据库都回复ok，那么就正式提交事务，在各个数据库上执行操作；如果任何一个数据库回答不ok，那么就回滚事务。</p>
+<p>这种分布式事务方案，比较适合单块应用里，跨多个库的分布式事务，而且因为严重依赖于数据库层面来搞定复杂的事务，效率很低，绝对不适合高并发的场景。如果要玩儿，那么基于spring + JTA就可以搞定，自己随便搜个demo看看就知道了。</p>
+<p>这个方案，我们很少用，一般来说某个系统内部如果出现跨多个库的这么一个操作，是不合规的。我可以给大家介绍一下， 现在微服务，一个大的系统分成几百个服务，几十个服务。一般来说，我们的规定和规范，是要求说每个服务只能操作自己对应的一个数据库。</p>
+<p>如果你要操作别的服务对应的库，不允许直连别的服务的库，违反微服务架构的规范，你随便交叉胡乱访问，几百个服务的话，全体乱套，这样的一套服务是没法管理的，没法治理的，经常数据被别人改错，自己的库被别人写挂。</p>
+<p>如果你要操作别人的服务的库，你必须是通过调用别的服务的接口来实现，绝对不允许你交叉访问别人的数据库！</p>
+<p>（2）TCC方案 Try、Confirm、Cancel</p>
+<p>这个其实是用到了补偿的概念，分为了三个阶段：  </p>
+<p>给大家举个例子吧，比如说跨银行转账的时候，要涉及到两个银行的分布式事务，如果用TCC方案来实现，思路是这样的：</p>
+<p>1）Try阶段：先把两个银行账户中的资金给它冻结住就不让操作了</p>
+<p>2）Confirm阶段：执行实际的转账操作，A银行账户的资金扣减，B银行账户的资金增加</p>
+<p>3）Cancel阶段：如果任何一个银行的操作执行失败，那么就需要回滚进行补偿，就是比如A银行账户如果已经扣减了，但是B银行账户资金增加失败了，那么就得把A银行账户资金给加回去</p>
+<p>这个事务回滚实际上是严重依赖于你自己写代码来回滚和补偿了，会造成补偿代码巨大，非常之恶心,很难维护。 </p>
+<p>比较适合的场景：一致性要求很高，比如常见的就是资金类的场景，那你可以用TCC方案了，自己编写大量的业务逻辑，自己判断一个事务中的各个环节是否ok，不ok就执行补偿/回滚代码，严格保证资金的正确性</p>
+<p>（3）本地消息表</p>
+<p>1月份做的统一网关支付平台，CMBB2B的前置机模式要求要和前置机放在一起，为了方便处理方便将银行的后台通知放在了客户端接受，再发给网关，网关更新支付状态成功后，再告诉客户端结果，再让客户端更新，更新成功再返回成功接受的报文，告诉银行不需要再发送通知了。整个过程是同步的，响应过慢可能会造成线程阻塞卡死，想了想好像跟分布式事务有点关系</p>
+<p><img src="https://wx3.sinaimg.cn/large/007iUdjSgy1fytf06bl49j30up0e1gn4.jpg" alt="image"></p>
+<p>1）A系统在自己本地一个事务里操作同时，插入一条数据到消息表</p>
+<p>2）接着A系统将这个消息发送到MQ中去</p>
+<p>3）B系统接收到消息之后，在一个事务里，往自己本地消息表里插入一条数据，同时执行其他的业务操作，如果这个消息已经被处理过了，那么此时这个事务会回滚，这样保证不会重复处理消息</p>
+<p>4）B系统执行成功之后，就会更新自己本地消息表的状态以及A系统消息表的状态</p>
+<p>5）如果B系统处理失败了，那么就不会更新消息表状态，那么此时A系统会定时扫描自己的消息表，如果有没处理的消息，会再次发送到MQ中去，让B再次处理</p>
+<p>6）这个方案保证了最终一致性，哪怕B事务失败了，但是A会不断重发消息，直到B那边成功为止</p>
+<p>一般确实很少用，这个方案说实话最大的问题就在于严重依赖于数据库的消息表来管理事务，高并发场景不适合，不好扩展</p>
+<p>（4）可靠消息最终一致性方案</p>
+<p><img src="https://ws4.sinaimg.cn/large/007iUdjSgy1fytf0x7mnij30sn0dqdhu.jpg" alt="image"></p>
+<p>这个的意思，就是干脆不要用本地的消息表了，直接基于MQ来实现事务。比如阿里的RocketMQ就支持消息事务。</p>
+<p>大概的意思就是：</p>
+<p>1）A系统先发送一个prepared消息到mq，如果这个prepared消息发送失败那么就直接取消操作别执行了</p>
+<p>2）如果这个消息发送成功过了，那么接着执行本地事务，如果成功就告诉mq发送确认消息，如果失败就告诉mq回滚消息</p>
+<p>3）如果发送了确认消息，那么此时B系统会接收到确认消息，然后执行本地的事务</p>
+<p>4）mq会自动定时轮询所有prepared消息回调你的接口，问你，这个消息是不是本地事务处理失败了，所有没发送确认消息？那是继续重试还是回滚？一般来说这里你就可以查下数据库看之前本地事务是否执行，如果回滚了，那么这里也回滚吧。这个就是避免可能本地事务执行成功了，别确认消息发送失败了。</p>
+<p>5）这个方案里，要是系统B的事务失败了咋办？重试咯，自动不断重试直到成功，如果实在是不行，要么就是针对重要的资金类业务进行回滚，比如B系统本地回滚后，想办法通知系统A也回滚；或者是发送报警由人工来手工回滚和补偿</p>
+<p>这个还是比较合适的，目前国内互联网公司大都是这么玩儿的，要不你举用RocketMQ支持的，要不你就自己基于类似ActiveMQ？RabbitMQ？自己封装一套类似的逻辑出来，总之思路就是这样子的</p>
+<p>（5）最大努力通知方案</p>
+<p>允许少数的分布式事务失败，用于对分布式事务不严格的情况，比如记录日志</p>
+<p>这个方案的大致意思就是：</p>
+<p>1）系统A本地事务执行完之后，发送个消息到MQ</p>
+<p>2）这里会有个专门消费MQ的最大努力通知服务，这个服务会消费MQ然后写入数据库中记录下来，或者是放入个内存队列也可以，接着调用系统B的接口</p>
+<p>3）要是系统B执行成功就ok了；要是系统B执行失败了，那么最大努力通知服务就定时尝试重新调用系统B，反复N次，最后还是不行就放弃</p>
+<p>（6）你们公司是如何处理分布式事务的？</p>
+<p>一个严格资金要求绝对不能错的场景，你可以说你是用的TCC方案；如果是一般的分布式事务场景，订单插入之后要调用库存服务更新库存，库存数据没有资金那么的敏感，可以用可靠消息最终一致性方案</p>
+<p>要用分布式事务的时候，一定是有成本，代码会很复杂，开发很长时间，性能和吞吐量下跌，系统更加复杂更加脆弱反而更加容易出bug；好处，如果做好了，TCC、可靠消息最终一致性方案，一定可以100%保证你那快数据不会出错。</p>
+<p>资金、交易、订单，会用分布式事务方案来保证</p>
+<h4 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h4><p>数据库事务ACID</p>
+<p>mysql的事务处理过程</p>
+<ol>
+<li>记录redo和undo.log文件，确保日志在磁盘上的持久化</li>
+<li>更新数据记录</li>
+<li>提交事务，redo写入commit记录</li>
+</ol>
+<p>分库分表变成几个库了</p>
+<p>#### </p>
+<h4 id="2PC"><a href="#2PC" class="headerlink" title="2PC"></a>2PC</h4><p>2-phase-commit</p>
+<p>2PC顾名思义分为两个阶段，其实施思路可概括为：</p>
+<p>（1）投票阶段（voting phase）：</p>
+<p>​    1. 协调者向所有的参与者发送事务执行请求，并等待参与者反馈事务执行结果。</p>
+<ol>
+<li>事务参与者收到请求之后，执行事务，但不提交，并记录事务日志。</li>
+<li>参与者将自己事务执行情况反馈给协调者，同时阻塞等待协调者的后续指令。    </li>
+</ol>
+<p>（2）提交阶段（commit phase）：收到参与者的通知后，协调者再向参与者发出通知，根据反馈情况决定各参与者是否要提交还是回滚；</p>
+<ol>
+<li><p>所有的参与者回复能够正常执行事务</p>
+<p>​    </p>
+<ol>
+<li>协调者向各个参与者发送commit通知，请求提交事务。</li>
+<li>参与者收到事务提交通知之后，执行commit操作，然后释放占有的资源。</li>
+<li>参与者向协调者返回事务commit结果信息。</li>
+</ol>
+</li>
+<li><p>一个或多个参与者回复事务执行失败</p>
+<p>​    </p>
+<ol>
+<li>协调者向各个参与者发送事务rollback通知，请求回滚事务。</li>
+<li>参与者收到事务回滚通知之后，执行rollback操作，然后释放占有的资源。</li>
+<li>参与者向协调者返回事务rollback结果信息。</li>
+</ol>
+</li>
+<li><p>协调者等待超时。    </p>
+<p>​    </p>
+</li>
+</ol>
+<p>tm向所/有的ap发送事务内容，询问是否可以执行事务的提交操作，并等待各个ap的响应</p>
+<p>都为yes 发送commit请求执行事务   commit操作很快，失败概率比较小，增大了事务的成功概率</p>
+<p>问题：</p>
+<ul>
+<li>单点问题<br>协调者在整个两阶段提交过程中扮演着举足轻重的作用，一旦协调者所在服务器宕机，那么就会影响整个数据库集群的正常运行，比如在第二阶段中，如果协调者因为故障不能正常发送事务提交或回滚通知，那么参与者们将一直处于阻塞状态，整个数据库集群将无法提供服务。</li>
+<li>同步阻塞<br>两阶段提交执行过程中，所有的参与者都需要听从协调者的统一调度，期间处于阻塞状态而不能从事其他操作，这样<strong>效率及其低下</strong>。</li>
+<li>数据不一致性<br>两阶段提交协议虽然为分布式数据强一致性所设计，但仍然存在数据不一致性的可能，比如在第二阶段中，假设协调者发出了 事务commit的通知，但是因为网络问题该通知仅被一部分参与者所收到并执行了commit操作，其余的参与者则因为没有收到通知一直处于阻塞状态，这 时候就产 生了数据的不一致性</li>
+</ul>
+<p>3pc</p>
+<p>canCommit</p>
+<ol>
+<li>协调者向各个参与者发送事务询问通知，询问是否可以执行事务操作，并等待回复</li>
+<li>各个参与者依据自身状况回复一个预估值，如果预估自己能够正常执行事务就返回确定信息，并进入预备状态，否则返回否定信息</li>
+</ol>
+<p>preCommit</p>
+<p>doCommit</p>
+<p>jotm</p>
+<p>atomikos</p>
+<p><a href="https://blog.csdn.net/sofia1217/article/details/53968177" target="_blank" rel="noopener">https://blog.csdn.net/sofia1217/article/details/53968177</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://masonnpe.github.io/2019/05/14/分布式/CAP理论/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="mason">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="mason's note">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/05/14/分布式/CAP理论/" itemprop="url">CAP理论</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-14T09:10:23+08:00">
+                2019-05-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/分布式/" itemprop="url" rel="index">
+                    <span itemprop="name">分布式</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>一致性(Consistency)</p>
+<p>多个数据副本能保持一致，系统在执行数据更新操作之后能够从一致性状态转移到另一个一致性状态。如果系统的一个数据更新成功之后，所有用户都能够读取到最新的值，系统就被认为具有强一致性。</p>
+<p>可用性(Availability)</p>
+<p>分布式系统在面对各种异常时都可以提供正常服务，对于用户的每一个操作、请求总是能够在有限的时间内返回结果。</p>
+<p>分区容忍性(Partition Tolerance)</p>
+<p>分布式系统在遇到任何网络分区故障的时候，仍然能对外提供一致性和可用性的服务，除非是整个网络环境都发生了故障。网络分区指分布式系统中的节点被划分为多个区域，每个区域内部可以通信，但是区域之间无法通信。</p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/11/03/Java/String与StrinBuilder与StringBuffer/#more" rel="contents">
+            <a class="btn" href="/2019/05/14/分布式/CAP理论/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1908,10 +2012,10 @@
             
               <img class="site-author-image" itemprop="image"
                 src="/images/avatar.jpg"
-                alt="Masonnpe" />
+                alt="mason" />
             
-              <p class="site-author-name" itemprop="name">Masonnpe</p>
-              <p class="site-description motion-element" itemprop="description">沉迷学习日渐消瘦</p>
+              <p class="site-author-name" itemprop="name">mason</p>
+              <p class="site-description motion-element" itemprop="description">热心市民</p>
           </div>
 
           <nav class="site-state motion-element">
@@ -1921,7 +2025,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">83</span>
+                  <span class="site-state-item-count">90</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1932,7 +2036,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">20</span>
+                  <span class="site-state-item-count">16</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -1943,7 +2047,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">54</span>
+                  <span class="site-state-item-count">35</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -2081,11 +2185,11 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
-  <span class="author" itemprop="copyrightHolder">Masonnpe</span>
+  <span class="author" itemprop="copyrightHolder">mason</span>
 
   
 </div>
