@@ -1,0 +1,1503 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic|Lobster Two:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-docker.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-docker.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-docker.png?v=5.1.4">
+
+
+
+
+
+
+  <meta name="keywords" content="Hystrix," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="mason's note" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="简介Hystrix 是一种高可用保障的一个框架。在分布式系统中，每个服务都有很多依赖服务，为了不让依赖服务的故障导致本地服务的资源耗尽而崩溃，可以使用Hystrix对服务间的调用进行控制，加入一些调用延迟或者依赖故障的容错机制。Hystrix通过将依赖服务进行资源隔离，防止故障蔓延导致整个系统崩溃，同时Hystrix还提供故障时的fallback降级机制，提升分布式系统的可用性和稳定性。 设计原则">
+<meta name="keywords" content="Hystrix">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hystrix解析">
+<meta property="og:url" content="https://masonnpe.github.io/2019/05/14/分布式/Hystrix解析/index.html">
+<meta property="og:site_name" content="mason&#39;s note">
+<meta property="og:description" content="简介Hystrix 是一种高可用保障的一个框架。在分布式系统中，每个服务都有很多依赖服务，为了不让依赖服务的故障导致本地服务的资源耗尽而崩溃，可以使用Hystrix对服务间的调用进行控制，加入一些调用延迟或者依赖故障的容错机制。Hystrix通过将依赖服务进行资源隔离，防止故障蔓延导致整个系统崩溃，同时Hystrix还提供故障时的fallback降级机制，提升分布式系统的可用性和稳定性。 设计原则">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://youdang.github.io/2016/02/05/translate-hystrix-wiki-how-it-works/flow-chart.png">
+<meta property="og:image" content="https://segmentfault.com/img/bVziap">
+<meta property="og:image" content="http://www.iocoder.cn/images/Hystrix/2018_11_08/01.png">
+<meta property="og:image" content="https://youdang.github.io/2016/02/05/translate-hystrix-wiki-how-it-works/collapser-flow.png">
+<meta property="og:image" content="https://youdang.github.io/2016/02/05/translate-hystrix-wiki-how-it-works/request-caching.png">
+<meta property="og:updated_time" content="2019-06-13T08:07:39.744Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Hystrix解析">
+<meta name="twitter:description" content="简介Hystrix 是一种高可用保障的一个框架。在分布式系统中，每个服务都有很多依赖服务，为了不让依赖服务的故障导致本地服务的资源耗尽而崩溃，可以使用Hystrix对服务间的调用进行控制，加入一些调用延迟或者依赖故障的容错机制。Hystrix通过将依赖服务进行资源隔离，防止故障蔓延导致整个系统崩溃，同时Hystrix还提供故障时的fallback降级机制，提升分布式系统的可用性和稳定性。 设计原则">
+<meta name="twitter:image" content="https://youdang.github.io/2016/02/05/translate-hystrix-wiki-how-it-works/flow-chart.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"hide","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":true,"transition":{"post_block":"fadeIn","post_header":"bounceLeftIn","post_body":"slideLeftIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://masonnpe.github.io/2019/05/14/分布式/Hystrix解析/"/>
+
+
+
+
+
+  <title>Hystrix解析 | mason's note</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband">
+		<a href="https://github.com/masonnpe" class="github-corner" aria-label="View source on Github"><svg width="55" height="55" viewBox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+	</div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">mason's note</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">沉迷学习日渐消瘦</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://masonnpe.github.io/2019/05/14/分布式/Hystrix解析/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="mason">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="mason's note">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Hystrix解析</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-14T09:10:23+08:00">
+                2019-05-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/分布式/" itemprop="url" rel="index">
+                    <span itemprop="name">分布式</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>Hystrix 是一种高可用保障的一个框架。在分布式系统中，每个服务都有很多依赖服务，为了不让依赖服务的故障导致本地服务的资源耗尽而崩溃，可以使用Hystrix对服务间的调用进行控制，加入一些调用延迟或者依赖故障的容错机制。Hystrix通过将依赖服务进行资源隔离，防止故障蔓延导致整个系统崩溃，同时Hystrix还提供故障时的fallback降级机制，提升分布式系统的可用性和稳定性。</p>
+<h2 id="设计原则"><a href="#设计原则" class="headerlink" title="设计原则"></a>设计原则</h2><ul>
+<li>对依赖服务调用时出现的调用延迟和调用失败进行控制和容错保护，对于超出我们设定阈值的服务调用，直接进行超时，不允许其耗费过长时间阻塞住。</li>
+<li>阻止故障蔓延，阻止任何一个依赖服务耗尽所有的资源，比如tomcat中的所有线程资源，使用资源隔离技术，比如bulkhead（舱壁隔离技术），swimlane（泳道技术），circuit breaker（短路技术），来限制任何一个依赖服务的故障的影响。通过HystrixCommand或者HystrixObservableCommand来封装对外部依赖的访问请求，这个访问请求一般会运行在独立的线程中，资源隔离。为每一个依赖服务维护一个独立的线程池，或者是semaphore，当线程池已满时，直接拒绝对这个服务的调用</li>
+<li>提供快速失败和快速恢复的支持</li>
+<li>当一个服务调用出现失败，被拒绝，超时，短路等异常情况时，fallback优雅降级的支持，避免请求排队和积压，采用限流和fail fast来控制故障。如果对一个依赖服务的调用失败次数超过了一定的阈值，自动进行熔断，在一定时间内对该服务的调用直接降级，一段时间后再自动尝试恢复。</li>
+<li>支持近实时的监控、报警以及运维操作，来提高故障发现的速度，通过近实时的属性和配置热修改功能，来提高故障处理和恢复的速度。对依赖服务的调用的成功次数，失败次数，拒绝次数，超时次数，进行统计</li>
+</ul>
+<h2 id="流程图"><a href="#流程图" class="headerlink" title="流程图"></a>流程图</h2><p>使用 Hystrix 来包装请求依赖服务时的流程：</p>
+<p><img src="https://youdang.github.io/2016/02/05/translate-hystrix-wiki-how-it-works/flow-chart.png" alt="流程图"></p>
+<p>下图为Hystrix服务调用的内部逻辑:<br><img src="https://segmentfault.com/img/bVziap" alt="图片描述"></p>
+<ol>
+<li>构建Hystrix的Command对象, 调用执行方法.</li>
+<li>Hystrix检查当前服务的熔断器开关是否开启, 若开启, 则执行降级服务getFallback方法.</li>
+<li>若熔断器开关关闭, 则Hystrix检查当前服务的线程池是否能接收新的请求, 若超过线程池已满, 则执行降级服务getFallback方法.</li>
+<li>若线程池接受请求, 则Hystrix开始执行服务调用具体逻辑run方法.</li>
+<li>若服务执行失败, 则执行降级服务getFallback方法, 并将执行结果上报Metrics更新服务健康状况.</li>
+<li>若服务执行超时, 则执行降级服务getFallback方法, 并将执行结果上报Metrics更新服务健康状况.</li>
+<li>若服务执行成功, 返回正常结果.</li>
+<li>若服务降级方法getFallback执行成功, 则返回降级结果.</li>
+<li>若服务降级方法getFallback执行失败, 则抛出异常.</li>
+</ol>
+<h2 id="执行命令"><a href="#执行命令" class="headerlink" title="执行命令"></a>执行命令</h2><p>Hystrix 进行资源隔离，其实是提供了一个抽象叫做command。Hystrix 命令提供四种方式（<code>HystrixCommand</code> 支持所有四种方式，而 <code>HystrixObservableCommand</code>仅支持后两种方式）来执行包装的请求：</p>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>调用</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>execute</td>
+<td>同步</td>
+<td>阻塞，当依赖服务响应（或者抛出异常/超时）时，返回结果。实际调用queue().get()，同步返回 run() 的执行结果</td>
+</tr>
+<tr>
+<td>queue</td>
+<td>异步</td>
+<td>返回 Future 对象，通过该对象异步得到返回结果。实际调用toObservable().toBlocking().toFuture()将 Observable 转换成BlockingObservable ，toFuture()返回可获得run()抽象方法执行结果的 Future</td>
+</tr>
+<tr>
+<td>observe</td>
+<td>异步</td>
+<td>返回 Observable 对象，立即发出请求，在依赖服务响应（或者抛出异常/超时）时，通过注册的 Subscriber 得到返回结果。调用 toObservable() 方法的基础上，向 Observable 注册 ReplaySubject 发起订阅 。ReplaySubject 会发射所有来自原始 Observable 的数据给观察者，无论它们是何时订阅的</td>
+</tr>
+<tr>
+<td>toObservable</td>
+<td>未调用</td>
+<td>返回 Observable 对象，但只有在订阅该对象时，才会发出请求，然后在依赖服务响应（或者抛出异常/超时）时，通过注册的 Subscriber 得到返回结果</td>
+</tr>
+</tbody>
+</table>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">HystrixCommand</span>&lt;<span class="title">R</span>&gt; <span class="keyword">extends</span> <span class="title">AbstractCommand</span>&lt;<span class="title">R</span>&gt; <span class="keyword">implements</span> <span class="title">HystrixExecutable</span>&lt;<span class="title">R</span>&gt;, <span class="title">HystrixInvokableInfo</span>&lt;<span class="title">R</span>&gt;, <span class="title">HystrixObservable</span>&lt;<span class="title">R</span>&gt; </span>&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> R <span class="title">execute</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> queue().get();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            <span class="keyword">throw</span> Exceptions.sneakyThrow(decomposeException(e));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> Future&lt;R&gt; <span class="title">queue</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">final</span> Future&lt;R&gt; delegate = toObservable().toBlocking().toFuture();</span><br><span class="line">    	</span><br><span class="line">        <span class="keyword">final</span> Future&lt;R&gt; f = <span class="keyword">new</span> Future&lt;R&gt;() &#123;       </span><br><span class="line"></span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> R <span class="title">get</span><span class="params">()</span> <span class="keyword">throws</span> InterruptedException, ExecutionException </span>&#123;</span><br><span class="line">                <span class="keyword">return</span> delegate.get();</span><br><span class="line">            &#125;</span><br><span class="line">        	</span><br><span class="line">        &#125;;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">AbstractCommand</span>&lt;<span class="title">R</span>&gt; <span class="keyword">implements</span> <span class="title">HystrixInvokableInfo</span>&lt;<span class="title">R</span>&gt;, <span class="title">HystrixObservable</span>&lt;<span class="title">R</span>&gt; </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> Observable&lt;R&gt; <span class="title">observe</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="comment">// us a ReplaySubject to buffer the eagerly subscribed-to Observable</span></span><br><span class="line">        ReplaySubject&lt;R&gt; subject = ReplaySubject.create();</span><br><span class="line">        <span class="comment">// eagerly kick off subscription</span></span><br><span class="line">        <span class="keyword">final</span> Subscription sourceSubscription = toObservable().subscribe(subject);</span><br><span class="line">        <span class="comment">// return the subject that can be subscribed to later while the execution has already started</span></span><br><span class="line">        <span class="keyword">return</span> subject.doOnUnsubscribe(<span class="keyword">new</span> Action0() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">call</span><span class="params">()</span> </span>&#123;</span><br><span class="line">                sourceSubscription.unsubscribe();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> Observable&lt;R&gt; <span class="title">toObservable</span><span class="params">()</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> Observable.defer(<span class="keyword">new</span> Func0&lt;Observable&lt;R&gt;&gt;() &#123;</span><br><span class="line">            </span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="执行结果缓存"><a href="#执行结果缓存" class="headerlink" title="执行结果缓存"></a>执行结果缓存</h2><p>如果请求结果缓存这个特性被启用，并且缓存命中，则缓存的回应会立即通过一个 <code>Observable</code> 对象的形式返回。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> Observable&lt;R&gt; <span class="title">toObservable</span><span class="params">()</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> Observable.defer(<span class="keyword">new</span> Func0&lt;Observable&lt;R&gt;&gt;() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> Observable&lt;R&gt; <span class="title">call</span><span class="params">()</span> </span>&#123;</span><br><span class="line">                 <span class="comment">/* 只能执行一次 */</span></span><br><span class="line">                <span class="keyword">if</span> (!commandState.compareAndSet(CommandState.NOT_STARTED, CommandState.OBSERVABLE_CHAIN_CREATED)) &#123;</span><br><span class="line">                    IllegalStateException ex = <span class="keyword">new</span> IllegalStateException(<span class="string">"This instance can only be executed once. Please instantiate a new instance."</span>);</span><br><span class="line">                    <span class="comment">//TODO make a new error type for this</span></span><br><span class="line">                    <span class="keyword">throw</span> <span class="keyword">new</span> HystrixRuntimeException(FailureType.BAD_REQUEST_EXCEPTION, _cmd.getClass(), getLogMessagePrefix() + <span class="string">" command executed multiple times - this is not permitted."</span>, ex, <span class="keyword">null</span>);</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                commandStartTimestamp = System.currentTimeMillis();</span><br><span class="line"></span><br><span class="line">                <span class="keyword">if</span> (properties.requestLogEnabled().get()) &#123;</span><br><span class="line">                    <span class="comment">// log this command execution regardless of what happened</span></span><br><span class="line">                    <span class="keyword">if</span> (currentRequestLog != <span class="keyword">null</span>) &#123;</span><br><span class="line">                        currentRequestLog.addExecutedCommand(_cmd);</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                <span class="keyword">final</span> <span class="keyword">boolean</span> requestCacheEnabled = isRequestCachingEnabled();<span class="comment">// 缓存开关</span></span><br><span class="line">                <span class="keyword">final</span> String cacheKey = getCacheKey();</span><br><span class="line"></span><br><span class="line">                <span class="comment">/* 优先从缓存中取如果请求结果缓存这个特性被启用，并且缓存命中，则缓存的回应会立即通过一个 Observable 对象的形式返回 */</span></span><br><span class="line">                <span class="keyword">if</span> (requestCacheEnabled) &#123;</span><br><span class="line">                    HystrixCommandResponseFromCache&lt;R&gt; fromCache = (HystrixCommandResponseFromCache&lt;R&gt;) requestCache.get(cacheKey);</span><br><span class="line">                    <span class="keyword">if</span> (fromCache != <span class="keyword">null</span>) &#123;</span><br><span class="line">                        isResponseFromCache = <span class="keyword">true</span>;</span><br><span class="line">                        <span class="keyword">return</span> handleRequestCacheHitAndEmitValues(fromCache, _cmd);</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">				<span class="comment">// 获取执行命令的 Observable </span></span><br><span class="line">                Observable&lt;R&gt; hystrixObservable =</span><br><span class="line">                        Observable.defer(applyHystrixSemantics)</span><br><span class="line">                                .map(wrapWithAllOnNextHooks);</span><br><span class="line"></span><br><span class="line">                Observable&lt;R&gt; afterCache;</span><br><span class="line"></span><br><span class="line">                <span class="comment">// 当缓存特性开启，并且缓存未命中时，创建【订阅了执行命令的 Observable】的 HystrixCommandResponseFromCache</span></span><br><span class="line">                <span class="keyword">if</span> (requestCacheEnabled &amp;&amp; cacheKey != <span class="keyword">null</span>) &#123;</span><br><span class="line">                    <span class="comment">// 创建 HystrixCommandResponseFromCache ，并添加到 requestCache 。哟，HystrixRequestCache#putIfAbsent(...) 方法，多个线程添加时，只有一个线程添加成功</span></span><br><span class="line">                    HystrixCachedObservable&lt;R&gt; toCache = HystrixCachedObservable.from(hystrixObservable, _cmd);</span><br><span class="line">                    HystrixCommandResponseFromCache&lt;R&gt; fromCache = (HystrixCommandResponseFromCache&lt;R&gt;) requestCache.putIfAbsent(cacheKey, toCache);</span><br><span class="line">                    <span class="keyword">if</span> (fromCache != <span class="keyword">null</span>) &#123;</span><br><span class="line">                        <span class="comment">// 调用 HystrixCommandResponseFromCache#unsubscribe() 方法，取消 HystrixCommandResponseFromCache 的订阅。这一步很关键，因为我们不希望缓存不存在时，多个线程去执行命令，最好有且只有一个线程执行命令。</span></span><br><span class="line">                        toCache.unsubscribe();</span><br><span class="line">                        isResponseFromCache = <span class="keyword">true</span>;<span class="comment">// 标记从缓存中结果</span></span><br><span class="line">                        <span class="keyword">return</span> handleRequestCacheHitAndEmitValues(fromCache, _cmd);</span><br><span class="line">                    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                        <span class="comment">// 添加成功，调用 HystrixCommandResponseFromCachetoObservable() 方法，获得缓存 Observable</span></span><br><span class="line">                        afterCache = toCache.toObservable();</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    afterCache = hystrixObservable; <span class="comment">// 当缓存特性未开启，使用执行命令 Observable </span></span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                <span class="keyword">return</span> afterCache</span><br><span class="line">                        .doOnTerminate(terminateCommandCleanup)     <span class="comment">// perform cleanup once (either on normal terminal state (this line), or unsubscribe (next line))</span></span><br><span class="line">                        .doOnUnsubscribe(unsubscribeCommandCleanup) <span class="comment">// perform cleanup once</span></span><br><span class="line">                        .doOnCompleted(fireOnCompletedHook);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<h2 id="断路器HystrixCircuitBreaker"><a href="#断路器HystrixCircuitBreaker" class="headerlink" title="断路器HystrixCircuitBreaker"></a>断路器HystrixCircuitBreaker</h2><p>Hystrix会将每一个依赖服务的调用成功，失败，拒绝，超时，等事件，都会发送给circuit breaker断路器，断路器就会对调用成功/失败/拒绝/超时等事件的次数进行统计，断路器会根据这些统计次数来决定，是否要进行短路，如果打开了短路器，那么在一段时间内就会直接短路，然后如果在之后第一次检查发现调用成功了，就关闭断路器。</p>
+<p>HystrixCircuitBreaker 有三种状态 ：</p>
+<ul>
+<li><code>CLOSED</code> ：关闭</li>
+<li><code>OPEN</code> ：打开</li>
+<li><code>HALF_OPEN</code> ：半开</li>
+</ul>
+<p>其中，断路器处于 <code>OPEN</code> 状态时，链路处于<strong>非健康</strong>状态，命令执行时，直接调用<strong>回退</strong>逻辑，跳过<strong>正常</strong>逻辑。</p>
+<h3 id="工作原理"><a href="#工作原理" class="headerlink" title="工作原理"></a>工作原理</h3><ol>
+<li>如果经过短路器的流量超过了一定的阈值比如在10s内，经过短路器的流量必须达到20个如果在10s内，经过短路器的流量才10个那就不会去判断要不要短路</li>
+<li>如果断路器统计到的异常调用的占比超过了一定的阈值就会开启短路</li>
+<li>然后断路器从close状态转换到open状态</li>
+<li>断路器打开的时候，所有经过该断路器的请求全部被短路，不调用后端服务，直接走fallback降级</li>
+<li>经过了一段时间之后，会half-open，让一条请求经过短路器，看能不能正常调用。如果调用成功了，那么就自动恢复，转到close状态</li>
+</ol>
+<h3 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h3><ul>
+<li>circuitBreaker.enabled  断路器是否允许工作，包括跟踪依赖服务调用的健康状况，以及对异常情况过多时是否允许触发短路，默认是true</li>
+<li>circuitBreaker.requestVolumeThreshold  设置一个，最少要有多少个请求时，才触发开启短路</li>
+<li>circuitBreaker.errorThresholdPercentage 设置异常请求量的百分比，当异常请求达到这个百分比时，就触发打开短路器，默认是50</li>
+<li>circuitBreaker.sleepWindowInMilliseconds 设置在短路之后，需要在多长时间内直接reject请求，然后在这段时间之后，进入half-open状态，尝试允许请求通过以及自动恢复，默认值是5000毫秒</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">HystrixCircuitBreaker</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Every &#123;<span class="doctag">@link</span> HystrixCommand&#125; requests asks this if it is allowed to proceed or not.  It is idempotent and does</span></span><br><span class="line"><span class="comment">     * not modify any internal state, and takes into account the half-open logic which allows some requests through</span></span><br><span class="line"><span class="comment">     * after the circuit has been opened</span></span><br><span class="line"><span class="comment">     * </span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> boolean whether a request should be permitted</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">boolean</span> <span class="title">allowRequest</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Whether the circuit is currently open (tripped).</span></span><br><span class="line"><span class="comment">     * </span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> boolean state of circuit breaker</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">boolean</span> <span class="title">isOpen</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Invoked on successful executions from &#123;<span class="doctag">@link</span> HystrixCommand&#125; as part of feedback mechanism when in a half-open state.</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">markSuccess</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Invoked on unsuccessful executions from &#123;<span class="doctag">@link</span> HystrixCommand&#125; as part of feedback mechanism when in a half-open state.</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">markNonSuccess</span><span class="params">()</span></span>;</span><br><span class="line"> </span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Invoked at start of command execution to attempt an execution.  This is non-idempotent - it may modify internal</span></span><br><span class="line"><span class="comment">     * state.</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">boolean</span> <span class="title">attemptExecution</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<hr>
+<p><img src="http://www.iocoder.cn/images/Hystrix/2018_11_08/01.png" alt="img"></p>
+<p>在 AbstractCommand 创建时，初始化 HystrixCircuitBreaker ，根据circuitBreakerEnabled判断是否开启，具体由HystrixCircuitBreaker.Factory创建</p>
+<p>subscribeToStream()向 Hystrix Metrics 对请求量统计 Observable 的发起订阅</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> Subscription <span class="title">subscribeToStream</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">/*</span></span><br><span class="line"><span class="comment">     * This stream will recalculate the OPEN/CLOSED status on every onNext from the health stream</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">return</span> metrics.getHealthCountsStream()</span><br><span class="line">            .observe()</span><br><span class="line">            .subscribe(<span class="keyword">new</span> Subscriber&lt;HealthCounts&gt;() &#123;<span class="comment">// 向 Hystrix Metrics 对请求量统计 Observable 的发起订阅</span></span><br><span class="line">                <span class="meta">@Override</span></span><br><span class="line">                <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onCompleted</span><span class="params">()</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                <span class="meta">@Override</span></span><br><span class="line">                <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onError</span><span class="params">(Throwable e)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                <span class="meta">@Override</span></span><br><span class="line">                <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onNext</span><span class="params">(HealthCounts hc)</span> </span>&#123;</span><br><span class="line">                    <span class="comment">// 先判断请求数量</span></span><br><span class="line">                    <span class="keyword">if</span> (hc.getTotalRequests() &lt; properties.circuitBreakerRequestVolumeThreshold().get()) &#123;</span><br><span class="line">                        <span class="comment">// we are not past the minimum volume threshold for the stat window,</span></span><br><span class="line">                        <span class="comment">// so no change to circuit status.</span></span><br><span class="line">                        <span class="comment">// if it was CLOSED, it stays CLOSED</span></span><br><span class="line">                        <span class="comment">// if it was half-open, we need to wait for a successful command execution</span></span><br><span class="line">                        <span class="comment">// if it was open, we need to wait for sleep window to elapse</span></span><br><span class="line">                    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                        <span class="comment">// 错误请求比例</span></span><br><span class="line">                        <span class="keyword">if</span> (hc.getErrorPercentage() &lt; properties.circuitBreakerErrorThresholdPercentage().get()) &#123;</span><br><span class="line">                            <span class="comment">//we are not past the minimum error threshold for the stat window,</span></span><br><span class="line">                            <span class="comment">// so no change to circuit status.</span></span><br><span class="line">                            <span class="comment">// if it was CLOSED, it stays CLOSED</span></span><br><span class="line">                            <span class="comment">// if it was half-open, we need to wait for a successful command execution</span></span><br><span class="line">                            <span class="comment">// if it was open, we need to wait for sleep window to elapse</span></span><br><span class="line">                        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                            <span class="comment">// our failure rate is too high, we need to set the state to OPEN</span></span><br><span class="line">                            <span class="comment">// 断路器打开并设置打开时间</span></span><br><span class="line">                            <span class="keyword">if</span> (status.compareAndSet(Status.CLOSED, Status.OPEN)) &#123;</span><br><span class="line">                                circuitOpened.set(System.currentTimeMillis());</span><br><span class="line">                            &#125;</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>attemptExecution  判断能否回正常状态</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">private Observable&lt;R&gt; applyHystrixSemantics(final AbstractCommand&lt;R&gt; _cmd) &#123;</span><br><span class="line">    // mark that we&apos;re starting execution on the ExecutionHook</span><br><span class="line">    // if this hook throws an exception, then a fast-fail occurs with no fallback.  No state is left inconsistent</span><br><span class="line">    executionHook.onStart(_cmd);</span><br><span class="line"></span><br><span class="line">    /* determine if we&apos;re allowed to execute */</span><br><span class="line">    if (circuitBreaker.attemptExecution()) &#123;</span><br><span class="line">        // 正常</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">    	// fallback</span><br><span class="line">        return handleShortCircuitViaFallback();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="线程池-请求队列-信号量占满时会发生什么"><a href="#线程池-请求队列-信号量占满时会发生什么" class="headerlink" title="线程池/请求队列/信号量占满时会发生什么"></a>线程池/请求队列/信号量占满时会发生什么</h2><p>如果和当前需要执行的命令相关联的线程池和请求队列（或者信号量，如果不使用线程池），Hystrix 将不会执行这个命令，而是直接使用失败回退逻辑</p>
+<h2 id="执行请求"><a href="#执行请求" class="headerlink" title="执行请求"></a>执行请求</h2><p>Hystrix 将根据你使用类的不同，内部使用不同的方式来请求依赖服务：</p>
+<ul>
+<li><code>HystrixCommand.run()</code> —— 返回回应或者抛出异常</li>
+<li><code>HystrixObservableCommand.construct()</code> —— 返回 Observable 对象，并在回应到达时通知 observers，或者回调 <code>onError</code> 方法通知出现异常</li>
+</ul>
+<p>若 <code>run()</code> 或者 <code>construct()</code> 方法耗时超过了给命令设置的超时阈值，执行请求的线程将抛出 <code>TimeoutException</code>（若命令本身并不在其调用线程内执行，则单独的定时器线程会抛出该异常）。在这种情况下，Hystrix 将会执行失败回退逻辑，并且会忽略最终（若执行命令的线程没有被中断）返回的回应。</p>
+<p>若命令本身并不抛出异常，并正常返回回应，Hystrix 在添加一些日志和监控数据采集之后，直接返回回应。Hystrix 在使用 <code>run()</code> 方法时，Hystrix 内部还是会生成一个 <code>Observable</code> 对象，并返回单个请求，产生一个 <code>onCompleted</code> 通知；而在 Hystrix 使用 <code>construct()</code> 时，会直接返回由 <code>construct()</code> 产生的 <code>Observable</code> 对象</p>
+<h2 id="请求超时timeout"><a href="#请求超时timeout" class="headerlink" title="请求超时timeout"></a>请求超时timeout</h2><p>如果HystrixCommand.run()或HystrixObservableCommand.construct()的执行，超过了timeout时长的话，那么command所在的线程就会抛出一个TimeoutException，如果timeout了，也会去执行fallback降级机制，而且就不会管run()或construct()返回的值了。这里要注意的一点是，我们是不可能终止掉一个调用严重延迟的依赖服务的线程的，只能说给你抛出来一个TimeoutException，但是还是可能会因为严重延迟的调用线程占满整个线程池的。如果没有timeout的话，那么就会拿到一些调用依赖服务获取到的结果，然后hystrix会做一些logging记录和metric统计</p>
+<h2 id="失败回退Fallback"><a href="#失败回退Fallback" class="headerlink" title="失败回退Fallback"></a>失败回退Fallback</h2><p>当命令执行失败时，Hystrix 将会执行失败回退逻辑，失败原因可能是：</p>
+<ol>
+<li><code>construct()</code> 或 <code>run()</code> 方法抛出异常</li>
+<li>当断路器open，导致命令被短路时</li>
+<li>当命令对应的线程池或信号量被占满</li>
+<li>超时</li>
+</ol>
+<p>失败回退逻辑包含了通用的回应信息，这些回应从内存缓存中或者其他固定逻辑中得到，而不应有任何的网络依赖。两种最经典的降级机制：纯内存数据，默认值。如果一定要在失败回退逻辑中包含网络请求，必须将这些网络请求包装在另一个 <code>HystrixCommand</code> 或 <code>HystrixObservableCommand</code> 中。</p>
+<p>当使用 <code>HystrixCommand</code> 时，通过实现 <code>HystrixCommand.getFallback()</code> 返回失败回退时的回应。</p>
+<p>当使用 <code>HystrixObservableCommand</code> 时，通过实现 <code>HystrixObservableCommand.resumeWithFallback()</code> 返回 Observable 对象来通知 observers 失败回退时的回应。</p>
+<p>若失败回退方法返回回应，Hystrix 会将这个回应返回给命令的调用者。若 Hystrix 内部调用 <code>HystrixCommand.getFallback()</code> 时，会产生一个 Observable 对象，并包装用户实现的 <code>getFallback()</code> 方法返回的回应；若 Hystrix 内部调用 <code>HystrixObservableCommand.resumeWithFallback()</code> 时，会将用户实现的 <code>resumeWithFallback()</code> 返回的 Observable 对象直接返回。</p>
+<p>若你没有实现失败回退方法，或者失败回退方法抛出异常，Hystrix 内部还是会生成一个 Observable 对象，但它不会产生任何回应，并通过 <code>onError</code> 通知立即中止请求。Hystrix 默认会通过 <code>onError</code>通知调用者发生了何种异常。你需要尽量避免失败回退方法执行失败，保持该方法尽可能的简单不易出错。</p>
+<p>若失败回退方法执行失败，或者用户未提供失败回退方法，Hystrix 会根据调用执行命令的方法的不同而产生不同的行为：</p>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>fallback为空或者异常时</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>execute</td>
+<td>直接抛出异常</td>
+</tr>
+<tr>
+<td>queue</td>
+<td>返回一个Future，调用get()时抛出异常</td>
+</tr>
+<tr>
+<td>observe</td>
+<td>返回一个Observable对象，但是调用subscribe()方法订阅它时，理解抛出调用者的onError方法</td>
+</tr>
+<tr>
+<td>toObservable</td>
+<td>返回一个Observable对象，但是调用subscribe()方法订阅它时，理解抛出调用者的onError方法</td>
+</tr>
+</tbody>
+</table>
+<p>hystrix调用各种接口，或者访问外部依赖，mysql，redis，zookeeper，kafka，等等，如果出现了任何异常的情况</p>
+<p>比如说报错了，访问mysql报错，redis报错，zookeeper报错，kafka报错，error</p>
+<p>对每个外部依赖，无论是服务接口，中间件，资源隔离，对外部依赖只能用一定量的资源去访问，线程池/信号量，如果资源池已满，reject</p>
+<p>访问外部依赖的时候，访问时间过长，可能就会导致超时，报一个TimeoutException异常，timeout</p>
+<p>上述三种情况，都是我们说的异常情况，对外部依赖的东西访问的时候出现了异常，发送异常事件到短路器中去进行统计</p>
+<p>如果短路器发现异常事件的占比达到了一定的比例，直接开启短路，circuit breaker</p>
+<p>上述四种情况，都会去调用fallback降级机制</p>
+<p>fallback，降级机制，你之前都是必须去调用外部的依赖接口，或者从mysql中去查询数据的，但是为了避免说可能外部依赖会有故障</p>
+<p>比如，你可以再内存中维护一个ehcache，作为一个纯内存的基于LRU自动清理的缓存，数据也可以放入缓存内</p>
+<p>如果说外部依赖有异常，fallback这里，直接尝试从ehcache中获取数据</p>
+<p>比如说，本来你是从mysql，redis，或者其他任何地方去获取数据的，获取调用其他服务的接口的，结果人家故障了，人家挂了，fallback，可以返回一个默认值</p>
+<h2 id="依赖隔离"><a href="#依赖隔离" class="headerlink" title="依赖隔离"></a>依赖隔离</h2><p>Hystrix 通过使用bulkhead舱壁模式，将系统所有依赖服务隔离起来，并限制访问这些依赖服务的并发度。</p>
+<h3 id="线程池"><a href="#线程池" class="headerlink" title="线程池"></a>线程池</h3><p>适合绝大多数的场景，对依赖服务的网络请求的调用和访问，timeout这种问题</p>
+<p>通过将对依赖服务的访问执行放到单独的线程，将其与调用线程（例如 Tomcat 线程池中的线程）隔离开来，调用线程能空出来去做其他的工作而不至于被依赖服务的访问阻塞过长时间。Hystrix 使用独立的，每个依赖服务对应一个线程池的方式，来隔离这些依赖服务，这样，某个依赖服务的高延迟只会拖慢这个依赖服务对应的线程池。</p>
+<p>Netflix 在设计 Hystrix 时，使用线程池来实现隔离，原因如下：</p>
+<ul>
+<li>多数系统同时运行了（有时甚至多达数百个）不同的后端服务，这些服务由不同开发组开发。</li>
+<li>每个服务都提供了自己的客户端库</li>
+<li>客户端库经常会发生变动</li>
+<li>客户端库随时可能会增加新的网络请求的逻辑</li>
+<li>客户端库可能会包含诸如自动重试，数据解析，内存中缓存等逻辑</li>
+<li>客户端库一般都对调用者来说是个黑盒，包括实现细节，网络访问，默认配置，等等</li>
+<li>即使客户端库本身未发生变化，依赖服务本身可能有会发生逻辑上的变化，也可能会影响其性能，从而导致客户端配置不再可靠</li>
+<li>中间依赖服务可能包含一些其依赖服务提供的客户端库，而这些库可能不受控且配置不合理</li>
+<li>大多数网络请求都是同步调用的</li>
+<li>客户端代码可能也会有失效或者高延迟，而不仅仅是在网络访问时</li>
+</ul>
+<h4 id="线程池的优势"><a href="#线程池的优势" class="headerlink" title="线程池的优势"></a>线程池的优势</h4><p>将依赖服务请求通过使用不同的线程池隔离，其优势如下：</p>
+<ul>
+<li>系统完全与依赖服务请求隔离开来，即使依赖服务对应线程池耗尽，也不会影响系统其它请求</li>
+<li>降低了系统接入新的依赖服务的风险，若新的依赖服务存在问题，也不会影响系统其它请求</li>
+<li>当依赖服务失效后又恢复正常，其对应的线程池会被清理干净，相对于整个 Tomcat 容器的线程池被占满需要耗费更长时间以恢复可用来说，此时系统可以快速恢复</li>
+<li>若依赖服务的配置有问题，线程池能迅速反映出来（通过失败次数的增加，高延迟，超时，拒绝访问等等），同时，你可以在不影响系统现有功能的情况下，处理这些问题（通常通过热配置等方式）</li>
+<li>若依赖服务的实现发生变更，性能有了很大的变化（这种情况时常发生），需要进行配置调整（例如增加/减小超时阈值，调整重试策略等）时，也可以从线程池的监控信息上迅速反映出来（失败次数增加，高延迟，超时，拒绝访问等等），同时，你可以在不影响其他依赖服务，系统请求和用户的情况下，处理这些问题</li>
+<li>线程池处理能起到隔离的作用以外，还能通过这种内置的并发特性，在客户端库同步网络IO上，建立一个异步的 Facade（类似 Netflix API 建立在 Hystrix 命令上的 Reactive、全异步化的那一套 Java API）</li>
+</ul>
+<p>简而言之，通过线程池提供的依赖服务隔离，可以使得我们能在不停止服务的情况下，更加优雅地应对客户端库和子系统性能上的变化。</p>
+<p>注：尽管线程池能提供隔离性，但你仍然需要对你的依赖服务客户端代码增加超时逻辑，并且/或者处理线程中断异常，以使这些代码不会无故地阻塞或者拖慢 Hystrix 线程池。</p>
+<h4 id="线程池的缺点"><a href="#线程池的缺点" class="headerlink" title="线程池的缺点"></a>线程池的缺点</h4><ul>
+<li>线程池机制最大的缺点就是增加了cpu的开销 除了tomcat本身的调用线程之外，还有Hystrix自己管理的线程池</li>
+<li>每个command的执行都依托一个独立的线程，会进行排队，调度，还有上下文切换</li>
+<li>用Hystrix带来额外的延迟</li>
+</ul>
+<h3 id="信号量"><a href="#信号量" class="headerlink" title="信号量"></a>信号量</h3><p>基于纯内存的一些业务逻辑服务，而不涉及到任何网络访问请求，对于这种访问系统内部的代码（不涉及任何的网络请求），只要做信号量的普通限流就可以了，避免内部复杂的低效率的代码，导致大量的线程被卡住。sempahore技术可以用来限流和削峰，但是不能用来对调研延迟的服务进行timeout和隔离</p>
+<p>除了线程池，队列之外，你可以使用信号量（或者叫计数器）来限制单个依赖服务的并发度。Hystrix 可以利用信号量，而不是线程池，来控制系统负载，但信号量不允许我们设置超时和异步化，如果你对客户端库有足够的信任（延迟不会过高），并且你只需要控制系统负载，那么你可以使用信号量。</p>
+<p><code>HystrixCommand</code> 和 <code>HystrixObservableCommand</code> 在两个地方支持使用信号量：</p>
+<ul>
+<li>失败回退逻辑：当 Hystrix 需要执行失败回退逻辑时，其在调用线程（Tomcat 线程）中使用信号量</li>
+<li>执行命令时：如果设置了 Hystrix 命令的 <code>execution.isolation.strategy</code> 属性为 <code>SEMAPHORE</code>，则 Hystrix 会使用信号量而不是线程池来控制调用线程调用依赖服务的并发度</li>
+</ul>
+<p>你可以通过动态配置（即热部署）来决定信号量的大小，以控制并发线程的数量，信号量大小的估计和使用线程池进行并发度估计一样（仅访问内存数据的请求，一般能达到耗时在 1ms 以内，且能达到 5000rps，这样的请求对应的信号量可以设置为 1 或者 2。默认值为 10）。</p>
+<p>注意：如果依赖服务使用信号量来进行隔离，当依赖服务出现高延迟，其调用线程也会被阻塞，直到依赖服务的网络请求超时。</p>
+<p>信号量在达到上限时，会拒绝后续请求的访问，同时，设置信号量的线程也无法异步化（即像线程池那样，实现『提交-做其他工作-得到结果』模式）</p>
+<h2 id="请求合并Collapser"><a href="#请求合并Collapser" class="headerlink" title="请求合并Collapser"></a>请求合并Collapser</h2><p>你可以在 <code>HystrixCommand</code> 之前放置一个『请求合并器』（<code>HystrixCollapser</code> 为请求合并器的抽象父类），该合并器可以将多个发往同一个后端依赖服务的请求合并成一个。</p>
+<h3 id="为什么要使用请求合并？"><a href="#为什么要使用请求合并？" class="headerlink" title="为什么要使用请求合并？"></a>为什么要使用请求合并？</h3><p>在并发执行 <code>HystrixCommand</code> 时，利用请求合并能减少线程和网络连接数量。通过使用 <code>HystrixCollapser</code>，Hystrix 能自动完成请求的合并，开发者不需要对现有代码做批量化的开发。</p>
+<h5 id="全局上下文（适用于所有-Tomcat-线程）"><a href="#全局上下文（适用于所有-Tomcat-线程）" class="headerlink" title="全局上下文（适用于所有 Tomcat 线程）"></a>全局上下文（适用于所有 Tomcat 线程）</h5><p>理想情况下，合并过程应该发生在系统全局层面，这样用户发起的，由 Tomcat 线程执行的所有请求都能被执行合并操作。</p>
+<p>例如，有这样一个需求，用户需要获取电影评级，而这些数据需要系统请求依赖服务来获取，对依赖服务的请求使用 <code>HystrixCommand</code> 进行包装，并增加了请求合并的配置，这样，当同一个 JVM 中其他线程需要执行同样的请求时，Hystrix 会将这个请求同其他同样的请求合并，只产生一个网络请求。</p>
+<p>注意：合并器会传递一个 <code>HystrixRequestContext</code> 对象到合并的网络请求中，因此，下游系统需要支持批量化，以使请求合并发挥其高效的特点。</p>
+<h5 id="用户请求上下文（适用于单个-Tomcat-线程）"><a href="#用户请求上下文（适用于单个-Tomcat-线程）" class="headerlink" title="用户请求上下文（适用于单个 Tomcat 线程）"></a>用户请求上下文（适用于单个 Tomcat 线程）</h5><p>如果给 <code>HystrixCommand</code> 只配置成针对单个用户进行请求合并，则 Hystrix 只会在单个 Tomcat 线程（即请求）中进行请求合并。</p>
+<p>例如，如果用户想加载 300 个视频对象的书签，请求合并后，Hystrix 会将原本需要发起的 300 个网络请求合并到一个。</p>
+<h5 id="对象模型和代码复杂度"><a href="#对象模型和代码复杂度" class="headerlink" title="对象模型和代码复杂度"></a>对象模型和代码复杂度</h5><p>很多时候，当你创建一个对象模型，适用于对象的消费者逻辑，结果发现这个模型会导致生产者无法充分利用其拥有的资源。</p>
+<p>例如，这里有一个包含 300 个视频对象的列表，需要遍历这个列表，并对每一个对象调用 <code>getSomeAttribute()</code> 方法，这是一个显而易见的对象模型，但如果简单处理的话，可能会导致 300 次的网络请求（假设 <code>getSomeAttribute()</code> 方法内需要发出网络请求），每一个网络请求可能都会花上几毫秒（显然，这种方式非常容易拖慢系统）。</p>
+<p>当然，你也可以要求用户在调用 <code>getSomeAttribute()</code> 之前，先判断一下哪些视频对象真正需要请求其属性。</p>
+<p>或者，你可以将对象模型进行拆分，从一个地方获取视频列表，然后从另一个地方获取视频的属性。</p>
+<p>但这些实现会导致 API 非常丑陋，且实现的对象模型无法完全满足用户使用模式。 并且在企业级开发时，很容易因为开发者的疏忽导致错误或者不够高效，因为不同的开发者可能有不同的请求方式，这样一个地方的优化不足以保证在所有地方都会有优化。</p>
+<p>通过将合并逻辑下沉到 Hystrix 层，不管你如何设计对象模型，或者以何种方式去调用依赖服务，又或者开发者是否意识到这些逻辑需要不需要进行优化，这些都不需要考虑，因为 Hystrix 能统一处理。</p>
+<p><code>getSomeAttribute()</code> 方法能放在它最适合的位置，并且能以最适合的方式被调用，Hystrix 的请求合并器会自动将请求合并到合并时间窗口内。</p>
+<h5 id="请求合并带来的额外开销"><a href="#请求合并带来的额外开销" class="headerlink" title="请求合并带来的额外开销"></a>请求合并带来的额外开销</h5><p>请求合并会导致依赖服务的请求延迟增高（该延迟为等待请求的延迟），延迟的最大值为合并时间窗口大小。</p>
+<p>若某个请求耗时的中位数是 5ms，合并时间窗口为 10ms，那么在最坏情况下（注：合并时间窗口开启时发起请求），请求需要消耗 15ms 才能完成。通常情况下，请求不太可能恰好在合并时间窗口开启时发起，因此，请求合并带来的额外开销应该是合并时间窗口的一般，在此例中是 5ms。</p>
+<p>请求合并带来的额外开销是否值得，取决于将要执行的命令，高延迟的命令相比较而言不会有太大的影响。同时，缓存 Key 的选择也决定了在一个合并时间窗口内能『并发』执行的命令数量：如果一个合并时间窗口内只有 1~2 个请求，将请求合并显然不是明智的选择。事实上，如果单线程循环调用同一个依赖服务的情况下，如果将请求合并，会导致这个循环成为系统性能的瓶颈，因为每一个请求都需要等待 10ms 的合并时间周期。</p>
+<p>然而，如果一个命令具有高并发度，并且能批量处理多个，甚至上百个的话，请求合并带来的性能开销会因为吞吐量的极大提升而基本可以忽略，因为 Hystrix 会减少这些请求所需的线程和网络连接数量。</p>
+<h5 id="请求合并器的执行流程"><a href="#请求合并器的执行流程" class="headerlink" title="请求合并器的执行流程"></a>请求合并器的执行流程</h5><p><a href="https://youdang.github.io/2016/02/05/translate-hystrix-wiki-how-it-works/collapser-flow.png" target="_blank" rel="noopener"><img src="https://youdang.github.io/2016/02/05/translate-hystrix-wiki-how-it-works/collapser-flow.png" alt="请求合并器的执行流程"></a></p>
+<ul>
+<li>第一步，提交单个命令请求到请求队列( RequestQueue )</li>
+<li>第二步，定时任务( TimerTask ) 固定周期从请求队列获取多个命令执行，合并执行。</li>
+</ul>
+<h2 id="请求缓存"><a href="#请求缓存" class="headerlink" title="请求缓存"></a>请求缓存</h2><p>在 <code>HystrixCommand</code> 和 <code>HystrixObservableCommand</code> 的实现中，可以定义一个缓存的 Key，这个 Key 用于在同一个请求上下文（全局或者用户级）中标识缓存的请求结果，当然，该缓存是线程安全的。</p>
+<p>下例展示了在一个完整 HTTP 请求周期内，两个线程执行命令的流程：</p>
+<p><a href="https://youdang.github.io/2016/02/05/translate-hystrix-wiki-how-it-works/request-caching.png" target="_blank" rel="noopener"><img src="https://youdang.github.io/2016/02/05/translate-hystrix-wiki-how-it-works/request-caching.png" alt="请求缓存例子"></a></p>
+<p>请求缓存有如下好处：</p>
+<ul>
+<li><p>不同请求路径上针对同一个依赖服务进行的重复请求（有同一个缓存 Key），不会真实请求多次</p>
+<p>这个特性在企业级系统中非常有用，在这些系统中，开发者往往开发的只是系统功能的一部分。（注：这样，开发者彼此隔离，不太可能使用同样的方法或者策略去请求同一个依赖服务提供的资源）</p>
+<p>例如，请求一个用户的 <code>Account</code> 的逻辑如下所示，这个逻辑往往在系统不同地方被用到：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Account account = new UserGetAccount(accountId).execute();</span><br><span class="line"></span><br><span class="line">//or</span><br><span class="line"></span><br><span class="line">Observable&lt;Account&gt; accountObservable = new UserGetAccount(accountId).observe();</span><br></pre></td></tr></table></figure>
+<p>Hystrix 的 <code>RequestCache</code> 只会在内部执行 <code>run()</code> 方法一次，上面两个线程在执行 <code>HystrixCommand</code> 命令时，会得到相同的结果，即使这两个命令是两个不同的实例。</p>
+</li>
+<li><p>数据获取具有一致性</p>
+<p>因为缓存的存在，除了第一次请求需要真正访问依赖服务以外，后续请求全部从缓存中获取，可以保证在同一个用户请求内，不会出现依赖服务返回不同的回应的情况。</p>
+</li>
+<li><p>避免不必要的线程执行</p>
+<p>在 <code>construct()</code> 或 <code>run()</code> 方法执行之前，会先从请求缓存中获取数据，因此，Hystrix 能利用这个特性避免不必要的线程执行，减小系统开销。</p>
+<p>若 Hystrix 没有实现请求缓存，那么 <code>HystrixCommand</code> 和 <code>HystrixObservableCommand</code> 的实现者需要自己在 <code>construct()</code> 或 <code>run()</code> 方法中实现缓存，这种方式无法避免不必要的线程执行开销。</p>
+</li>
+</ul>
+<p>在 toObservable() 方法里，如果请求结果缓存这个特性被启用，并且缓存命中，则缓存的回应会立即通过一个 Observable 对象的形式返回；如果缓存未命中，则返回的 ReplySubject 对象缓存执行结果（ReplySubject 能够重放执行结果，从而实现缓存的功效）。</p>
+<p><strong>HystrixCachedObservable</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line">public class HystrixCachedObservable&lt;R&gt; &#123;</span><br><span class="line">    protected final Subscription originalSubscription;</span><br><span class="line">    protected final Observable&lt;R&gt; cachedObservable;</span><br><span class="line">    private volatile int outstandingSubscriptions = 0;</span><br><span class="line"></span><br><span class="line">    protected HystrixCachedObservable(final Observable&lt;R&gt; originalObservable) &#123;</span><br><span class="line">        ReplaySubject&lt;R&gt; replaySubject = ReplaySubject.create();</span><br><span class="line">        this.originalSubscription = originalObservable</span><br><span class="line">                .subscribe(replaySubject);</span><br><span class="line"></span><br><span class="line">        this.cachedObservable = replaySubject</span><br><span class="line">                .doOnUnsubscribe(new Action0() &#123;</span><br><span class="line">                    @Override</span><br><span class="line">                    public void call() &#123;</span><br><span class="line">                        outstandingSubscriptions--;</span><br><span class="line">                        if (outstandingSubscriptions == 0) &#123;</span><br><span class="line">                            originalSubscription.unsubscribe();</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;)</span><br><span class="line">                .doOnSubscribe(new Action0() &#123;</span><br><span class="line">                    @Override</span><br><span class="line">                    public void call() &#123;</span><br><span class="line">                        outstandingSubscriptions++;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public static &lt;R&gt; HystrixCachedObservable&lt;R&gt; from(Observable&lt;R&gt; o, AbstractCommand&lt;R&gt; originalCommand) &#123;</span><br><span class="line">        return new HystrixCommandResponseFromCache&lt;R&gt;(o, originalCommand);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public static &lt;R&gt; HystrixCachedObservable&lt;R&gt; from(Observable&lt;R&gt; o) &#123;</span><br><span class="line">        return new HystrixCachedObservable&lt;R&gt;(o);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public Observable&lt;R&gt; toObservable() &#123;</span><br><span class="line">        return cachedObservable;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void unsubscribe() &#123;</span><br><span class="line">        originalSubscription.unsubscribe();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>HystrixCachedObservable 不是一个 Observable 的子类，而是对传入的 Observable <strong>封装</strong> ：使用 ReplaySubject 向传入的 Observable 发起订阅，通过 ReplaySubject 能够<strong>重放</strong>执行结果，从而实现缓存的功效。传入的 <code>originalObservable</code>为 <code>hystrixObservable</code> 执行命令 Observable 。在 Hystrix 里，提供了两种执行命令的隔离方式 ：线程池 和信号量。</p>
+<ul>
+<li>当使用 <code>THREAD</code> 隔离时，<code>#subscribe(replaySubject)</code> 调用完成时，<strong>实际命令并未开始执行</strong>，或者说，这是一个<strong>异步</strong>的执行命令的过程。那么，<strong>会不会影响返回执行结果呢</strong>？答案当然是不会，BlockingObservable 在得到执行完成才会<strong>结束阻塞</strong>，此时已经有执行结果。</li>
+<li>当使用 <code>SEMAPHORE</code> 隔离时，<code>#subscribe(replaySubject)</code> 调用完成时，<strong>实际命令已经执行完成</strong>，所以即使 <code>AbstractCommand#toObservavle(...)</code> 调用 <code>HystrixCommandResponseFromCache#unsubscribe()</code> 方法，也会浪费，<strong>重复</strong>执行命令。而对于 <code>THREAD</code> 隔离的情况，通过取消订阅的方式，只会执行<strong>一次</strong>命令。当然，如果“恶搞” <code>THREAD</code> 隔离的情况，增加 <code>sleep</code> 的调用如下，就能达到<strong>重复</strong>执行命令的效果。</li>
+</ul>
+<p><strong>HystrixCommandResponseFromCache</strong> </p>
+<p><code>com.netflix.hystrix.HystrixCommandResponseFromCache</code> ，是 HystrixCachedObservable 的子类。在父类的基础上，增加了对 <code>AbstractCommand.executionResult</code> 的关注。</p>
+<p><code>HystrixCachedObservable#from(Observable, AbstractCommand)</code> 方法，创建 HystrixCommandResponseFromCache 对象</p>
+<p><code>HystrixCommandResponseFromCache#toObservableWithStateCopiedInto(...)</code> 方法</p>
+<ul>
+<li>通过completionLogicRun属性，保证#doOnError()#doOnCompleted()#doOnUnsubscribe()方法有且只有一个方法执行具体逻辑。<ul>
+<li><code>#doOnError()</code> ，<code>#doOnCompleted()</code> 执行时，调用 <code>#commandCompleted()</code> 方法，从缓存命令( <code>HystrixCommandResponseFromCache.originalCommand</code> ) 复制 <code>executionResult</code> 属性给当前命令( <code>commandToCopyStateInto</code> ) 。</li>
+<li><code>#doOnUnsubscribe()</code> 执行时，调用 <code>#commandUnsubscribed()</code> 方法，使用当前命令( <code>commandToCopyStateInto</code>)<strong>自己</strong>的 <code>executionResult</code> ，不进行复制。</li>
+</ul>
+</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Hystrix/" rel="tag"><i class="fa fa-tag"></i> Hystrix</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/05/14/分布式/CAP理论/" rel="next" title="CAP理论">
+                <i class="fa fa-chevron-left"></i> CAP理论
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/05/14/分布式/Redis/" rel="prev" title="Redis">
+                Redis <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8zOTAzNS8xNTU2Mg=="></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="mason" />
+            
+              <p class="site-author-name" itemprop="name">mason</p>
+              <p class="site-description motion-element" itemprop="description">热心市民</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">93</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">38</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/masonnpe" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:masonnpe@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://cmsblogs.com/" title="cmsblogs" target="_blank">cmsblogs</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://hellojava.info/" title="hellojava" target="_blank">hellojava</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.importnew.com/" title="ImportNew" target="_blank">ImportNew</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.ideabuffer.cn/" title="ideabuffer" target="_blank">ideabuffer</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://crossoverjie.top/" title="crossoverjie" target="_blank">crossoverjie</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.hollischuang.com/" title="hollischuang" target="_blank">hollischuang</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://blog.csdn.net/u013256816" title="朱小厮" target="_blank">朱小厮</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://afoo.me/" title="扶墙老师" target="_blank">扶墙老师</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://tech.meituan.com/" title="美团点评" target="_blank">美团点评</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://blog.didispace.com/" title="程序猿DD" target="_blank">程序猿DD</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.iocoder.cn/" title="芋道源码" target="_blank">芋道源码</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://jm.taobao.org/" title="阿里中间件" target="_blank">阿里中间件</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://ifeve.com/" title="并发编程网" target="_blank">并发编程网</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.cnblogs.com/xrq730" title="五月的仓颉" target="_blank">五月的仓颉</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.cnblogs.com/skywang12345/" title="如果天空不死" target="_blank">如果天空不死</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.weiweiblog.cn/" title="尾尾部落" target="_blank">尾尾部落</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://blog.720ui.com/" title="梁桂钊的博客" target="_blank">梁桂钊的博客</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#简介"><span class="nav-number">1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#设计原则"><span class="nav-number">2.</span> <span class="nav-text">设计原则</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#流程图"><span class="nav-number">3.</span> <span class="nav-text">流程图</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#执行命令"><span class="nav-number">4.</span> <span class="nav-text">执行命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#执行结果缓存"><span class="nav-number">5.</span> <span class="nav-text">执行结果缓存</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#断路器HystrixCircuitBreaker"><span class="nav-number">6.</span> <span class="nav-text">断路器HystrixCircuitBreaker</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#工作原理"><span class="nav-number">6.1.</span> <span class="nav-text">工作原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置"><span class="nav-number">6.2.</span> <span class="nav-text">配置</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#线程池-请求队列-信号量占满时会发生什么"><span class="nav-number">7.</span> <span class="nav-text">线程池/请求队列/信号量占满时会发生什么</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#执行请求"><span class="nav-number">8.</span> <span class="nav-text">执行请求</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#请求超时timeout"><span class="nav-number">9.</span> <span class="nav-text">请求超时timeout</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#失败回退Fallback"><span class="nav-number">10.</span> <span class="nav-text">失败回退Fallback</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#依赖隔离"><span class="nav-number">11.</span> <span class="nav-text">依赖隔离</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#线程池"><span class="nav-number">11.1.</span> <span class="nav-text">线程池</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#线程池的优势"><span class="nav-number">11.1.1.</span> <span class="nav-text">线程池的优势</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#线程池的缺点"><span class="nav-number">11.1.2.</span> <span class="nav-text">线程池的缺点</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#信号量"><span class="nav-number">11.2.</span> <span class="nav-text">信号量</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#请求合并Collapser"><span class="nav-number">12.</span> <span class="nav-text">请求合并Collapser</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#为什么要使用请求合并？"><span class="nav-number">12.1.</span> <span class="nav-text">为什么要使用请求合并？</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#全局上下文（适用于所有-Tomcat-线程）"><span class="nav-number">12.1.0.1.</span> <span class="nav-text">全局上下文（适用于所有 Tomcat 线程）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#用户请求上下文（适用于单个-Tomcat-线程）"><span class="nav-number">12.1.0.2.</span> <span class="nav-text">用户请求上下文（适用于单个 Tomcat 线程）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#对象模型和代码复杂度"><span class="nav-number">12.1.0.3.</span> <span class="nav-text">对象模型和代码复杂度</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#请求合并带来的额外开销"><span class="nav-number">12.1.0.4.</span> <span class="nav-text">请求合并带来的额外开销</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#请求合并器的执行流程"><span class="nav-number">12.1.0.5.</span> <span class="nav-text">请求合并器的执行流程</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#请求缓存"><span class="nav-number">13.</span> <span class="nav-text">请求缓存</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">mason</span>
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

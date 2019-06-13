@@ -343,6 +343,606 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://masonnpe.github.io/2019/05/14/Spring/frame(1)/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="mason">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="mason's note">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/05/14/Spring/frame(1)/" itemprop="url">未命名</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-14T09:10:23+08:00">
+                2019-05-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>Mybatis缓存</p>
+<ul>
+<li><p>一级缓存是SqlSession级别的缓存，缓存的数据只在SqlSession内有效,在操作数据库的时候需要先创建SqlSession会话对象，在对象中有一个HashMap用于存储缓存数据，此HashMap是当前会话对象私有的</p>
+</li>
+<li><p>二级缓存是mapper级别的缓存，同一个namespace公用这一个缓存，所以对SqlSession是共享的；使用 LRU 机制清理缓存，通过 cacheEnabled 参数开启。  1.当一个sqlseesion执行了一次select后，在关闭此session的时候，会将查询结果缓存到二级缓存</p>
+<p>　　　　　　2.当另一个sqlsession执行select时，首先会在他自己的一级缓存中找，如果没找到，就回去二级缓存中找，找到了就返回，就不用去数据库了，从而减少了数据库压力提高了性能　</p>
+</li>
+</ul>
+<h2 id="Sqlsessionfactorybean"><a href="#Sqlsessionfactorybean" class="headerlink" title="Sqlsessionfactorybean"></a>Sqlsessionfactorybean</h2><p>实现了FactoryBean和InitializingBean接口</p>
+<p>FactoryBean 一旦某个bean实现次接口，那么通过getbean方法获取bean时，其实时获取此类的getObject()返回的实例</p>
+<p>InitializingBean 会在初始化时调用其afterPropertiesSet方法来进行bean的逻辑初始化</p>
+<h2 id="MapperFactoryBean"><a href="#MapperFactoryBean" class="headerlink" title="MapperFactoryBean"></a>MapperFactoryBean</h2><p>MapperFactoryBean初始化 ，在DaoSupport类中实现  checkDaoConfig  对Dao配置的验证 initDao  对dao的初始工作，initdao时模板方法</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://masonnpe.github.io/2019/05/14/Spring/Spring事务管理机制/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="mason">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="mason's note">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/05/14/Spring/Spring事务管理机制/" itemprop="url">未命名</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-14T09:10:23+08:00">
+                2019-05-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p><a href="https://juejin.im/post/5b00c52ef265da0b95276091" target="_blank" rel="noopener">可能是最漂亮的Spring事务管理详解</a></p>
+<p><a href="https://juejin.im/post/5b010f27518825426539ba38" target="_blank" rel="noopener">Spring编程式和声明式事务实例讲解</a></p>
+<ul>
+<li>Spring 事务实现方式<ul>
+<li><a href="https://blog.csdn.net/liaohaojian/article/details/70139151" target="_blank" rel="noopener">https://blog.csdn.net/liaohaojian/article/details/70139151</a></li>
+</ul>
+</li>
+</ul>
+<h2 id="事务管理机制"><a href="#事务管理机制" class="headerlink" title="事务管理机制"></a>事务管理机制</h2><p>Spring并不直接管理事务，而是提供了多种事务管理器，他们将事务管理的职责委托给Hibernate或者JTA等持久化机制所提供的相关平台框架的事务来实现。Spring事务管理器的接口是org.springframework.transaction.PlatformTransactionManager，通过这个接口，Spring为各个平台如JDBC、Hibernate等都提供了对应的事务管理器，但是具体的实现就是各个平台自己的事情了 </p>
+<p>PlatformTransactionManager接口</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">PlatformTransactionManager</span> </span>&#123;</span><br><span class="line">    <span class="function">TransactionStatus <span class="title">getTransaction</span><span class="params">(@Nullable TransactionDefinition definition)</span> <span class="keyword">throws</span> TransactionException</span>;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">commit</span><span class="params">(TransactionStatus status)</span> <span class="keyword">throws</span> TransactionException</span>;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">rollback</span><span class="params">(TransactionStatus status)</span> <span class="keyword">throws</span> TransactionException</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>jdbc事务</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"transactionManager"</span> <span class="attr">class</span>=<span class="string">"org.springframework.jdbc.datasource.DataSourceTransactionManager"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"dataSource"</span> <span class="attr">ref</span>=<span class="string">"dataSource"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>JPA</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"transactionManager"</span> <span class="attr">class</span>=<span class="string">"org.springframework.orm.jpa.JpaTransactionManager"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"sessionFactory"</span> <span class="attr">ref</span>=<span class="string">"sessionFactory"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>jta</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"transactionManager"</span> <span class="attr">class</span>=<span class="string">"org.springframework.transaction.jta.JtaTransactionManager"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"transactionManagerName"</span> <span class="attr">value</span>=<span class="string">"java:/TransactionManager"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>基本事务属性的定义TransactionDefinition</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">TransactionDefinition</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">getPropagationBehavior</span><span class="params">()</span></span>; <span class="comment">// 返回事务的传播行为</span></span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">getIsolationLevel</span><span class="params">()</span></span>; <span class="comment">// 返回事务的隔离级别，事务管理器根据它来控制另外一个事务可以看到本事务内的哪些数据</span></span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">getTimeout</span><span class="params">()</span></span>;  <span class="comment">// 返回事务必须在多少秒内完成</span></span><br><span class="line">    <span class="function"><span class="keyword">boolean</span> <span class="title">isReadOnly</span><span class="params">()</span></span>; <span class="comment">// 事务是否只读，事务管理器能够根据这个返回值进行优化，确保事务是只读的</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="传播行为"><a href="#传播行为" class="headerlink" title="传播行为"></a>传播行为</h3><p>事务的第一个方面是传播行为（propagation behavior）。当事务方法被另一个事务方法调用时，必须指定事务应该如何传播。例如：方法可能继续在现有事务中运行，也可能开启一个新事务，并在自己的事务中运行。Spring定义了七种传播行为：</p>
+<table>
+<thead>
+<tr>
+<th>传播行为</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PROPAGATION_REQUIRED</td>
+<td>表示当前方法必须运行在事务中。如果当前事务存在，方法将会在该事务中运行。否则，会启动一个新的事务</td>
+</tr>
+<tr>
+<td>PROPAGATION_SUPPORTS</td>
+<td>表示当前方法不需要事务上下文，但是如果存在当前事务的话，那么该方法会在这个事务中运行</td>
+</tr>
+<tr>
+<td>PROPAGATION_MANDATORY</td>
+<td>表示该方法必须在事务中运行，如果当前事务不存在，则会抛出一个异常</td>
+</tr>
+<tr>
+<td>PROPAGATION_REQUIRED_NEW</td>
+<td>表示当前方法必须运行在它自己的事务中。一个新的事务将被启动。如果存在当前事务，在该方法执行期间，当前事务会被挂起。如果使用JTATransactionManager的话，则需要访问TransactionManager</td>
+</tr>
+<tr>
+<td>PROPAGATION_NOT_SUPPORTED</td>
+<td>表示该方法不应该运行在事务中。如果存在当前事务，在该方法运行期间，当前事务将被挂起。如果使用JTATransactionManager的话，则需要访问TransactionManager</td>
+</tr>
+<tr>
+<td>PROPAGATION_NEVER</td>
+<td>表示当前方法不应该运行在事务上下文中。如果当前正有一个事务在运行，则会抛出异常</td>
+</tr>
+<tr>
+<td>PROPAGATION_NESTED</td>
+<td>表示如果当前已经存在一个事务，那么该方法将会在嵌套事务中运行。嵌套的事务可以独立于当前事务进行单独地提交或回滚。如果当前事务不存在，那么其行为与PROPAGATION_REQUIRED一样。注意各厂商对这种传播行为的支持是有所差异的。可以参考资源管理器的文档来确认它们是否支持嵌套事务</td>
+</tr>
+</tbody>
+</table>
+<p><strong>支持当前事务的情况：</strong></p>
+<ul>
+<li>TransactionDefinition.PROPAGATION_REQUIRED： 如果当前存在事务，则加入该事务；如果当前没有事务，则创建一个新的事务。</li>
+<li>TransactionDefinition.PROPAGATION_SUPPORTS： 如果当前存在事务，则加入该事务；如果当前没有事务，则以非事务的方式继续运行。</li>
+<li>TransactionDefinition.PROPAGATION_MANDATORY： 如果当前存在事务，则加入该事务；如果当前没有事务，则抛出异常。（mandatory：强制性）</li>
+</ul>
+<p><strong>不支持当前事务的情况：</strong></p>
+<ul>
+<li>TransactionDefinition.PROPAGATION_REQUIRES_NEW： 创建一个新的事务，如果当前存在事务，则把当前事务挂起。</li>
+<li>TransactionDefinition.PROPAGATION_NOT_SUPPORTED： 以非事务方式运行，如果当前存在事务，则把当前事务挂起。</li>
+<li>TransactionDefinition.PROPAGATION_NEVER： 以非事务方式运行，如果当前存在事务，则抛出异常。</li>
+</ul>
+<p><strong>其他情况：</strong></p>
+<ul>
+<li>TransactionDefinition.PROPAGATION_NESTED： 如果当前存在事务，则创建一个事务作为当前事务的嵌套事务来运行；如果当前没有事务，则该取值等价于TransactionDefinition.PROPAGATION_REQUIRED。</li>
+</ul>
+<p>（1）PROPAGATION_REQUIRED 如果存在一个事务，则支持当前事务。如果没有事务则开启一个新的事务。</p>
+<p>首选的事务传播行为</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">//事务属性 PROPAGATION_REQUIRED</span><br><span class="line">methodA&#123;</span><br><span class="line">    ……</span><br><span class="line">    methodB();</span><br><span class="line">    ……</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">//事务属性 PROPAGATION_REQUIRED</span><br><span class="line">methodB&#123;</span><br><span class="line">   ……</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>使用spring声明式事务，spring使用AOP来支持声明式事务，会根据事务属性，自动在方法调用之前决定是否开启一个事务，并在方法执行之后决定事务提交或回滚事务。</p>
+<p>调用MethodA时环境中没有事务，所以开启一个新的事务.当在MethodA中调用MethodB时，环境中已经有了一个事务，所以methodB就加入当前事务</p>
+<p>（2）PROPAGATION_SUPPORTS 如果存在一个事务，支持当前事务。如果没有事务，则非事务的执行。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">//事务属性 PROPAGATION_REQUIRED</span><br><span class="line">methodA()&#123;</span><br><span class="line">  methodB();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//事务属性 PROPAGATION_SUPPORTS</span><br><span class="line">methodB()&#123;</span><br><span class="line">  ……</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>单纯的调用methodB时，methodB方法是非事务的执行的。当调用methdA时,methodB则加入了methodA的事务中,事务地执行，</p>
+<p>（3）PROPAGATION_MANDATORY 如果已经存在一个事务，支持当前事务。如果没有一个活动的事务，则抛出异常。                           强制              必须的嵌在一个事务里执行，否则会抛异常</p>
+<blockquote>
+<p> org.springframework.transaction.IllegalTransactionStateException: No existing transaction found for transaction marked with propagation ‘mandatory’</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">//事务属性 PROPAGATION_REQUIRED</span><br><span class="line">methodA()&#123;</span><br><span class="line">    methodB();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//事务属性 PROPAGATION_MANDATORY</span><br><span class="line">    methodB()&#123;</span><br><span class="line">    ……</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>（4）PROPAGATION_REQUIRES_NEW 总是开启一个新的事务。如果一个事务已经存在，则将这个存在的事务挂起。                      A,B相互独立</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">//事务属性 PROPAGATION_REQUIRED</span><br><span class="line">methodA()&#123;</span><br><span class="line">    doSomeThingA();</span><br><span class="line">    methodB();</span><br><span class="line">    doSomeThingB();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//事务属性 PROPAGATION_REQUIRES_NEW</span><br><span class="line">methodB()&#123;</span><br><span class="line">    ……</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>调用A方法相当于</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">main()&#123;</span><br><span class="line">    TransactionManager tm = null;</span><br><span class="line">    try&#123;</span><br><span class="line">        //获得一个JTA事务管理器</span><br><span class="line">        tm = getTransactionManager();</span><br><span class="line">        tm.begin();//开启一个新的事务</span><br><span class="line">        Transaction ts1 = tm.getTransaction();</span><br><span class="line">        doSomeThing();</span><br><span class="line">        tm.suspend();//挂起当前事务</span><br><span class="line">        try&#123;</span><br><span class="line">            tm.begin();//重新开启第二个事务</span><br><span class="line">            Transaction ts2 = tm.getTransaction();</span><br><span class="line">            methodB();</span><br><span class="line">            ts2.commit();//提交第二个事务</span><br><span class="line">        &#125; Catch(RunTimeException ex) &#123;</span><br><span class="line">            ts2.rollback();//回滚第二个事务</span><br><span class="line">        &#125; finally &#123;</span><br><span class="line">            //释放资源</span><br><span class="line">        &#125;</span><br><span class="line">        //methodB执行完后，恢复第一个事务</span><br><span class="line">        tm.resume(ts1);</span><br><span class="line">        doSomeThingB();</span><br><span class="line">        ts1.commit();//提交第一个事务</span><br><span class="line">    &#125; catch(RunTimeException ex) &#123;</span><br><span class="line">        ts1.rollback();//回滚第一个事务</span><br><span class="line">    &#125; finally &#123;</span><br><span class="line">        //释放资源</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>在同一个Service类中，spring并不重新创建新事务，如果是两不同的Service，就会创建新事务了</strong></p>
+<p>spring boot 会自动装配一个 <code>DataSourceTransactionManager</code> 事务管理器</p>
+<p>使用PROPAGATION_REQUIRES_NEW,需要使用 JtaTransactionManager作为事务管理器。</p>
+<p>（5）PROPAGATION_NOT_SUPPORTED 总是非事务地执行，并挂起任何存在的事务。使用PROPAGATION_NOT_SUPPORTED,也需要使用JtaTransactionManager作为事务管理器。（代码示例同上，可同理推出）</p>
+<p>（6）PROPAGATION_NEVER 总是非事务地执行，如果存在一个活动事务，则抛出异常。</p>
+<p>（7）PROPAGATION_NESTED如果一个活动的事务存在，则运行在一个嵌套的事务中. 如果没有活动事务, 则按PROPAGATION_REQUIRED 属性执行。使用PROPAGATION_NESTED，还需要把PlatformTransactionManager的nestedTransactionAllowed属性设为true;而 nestedTransactionAllowed属性值默认为false。</p>
+<p>B事务依赖于A事务。A事务失败时，会回滚B事务所做的动作。而B事务操作失败并不会引起A事务的回滚。</p>
+<p>如果单独调用methodB方法，则按REQUIRED属性执行。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">//事务属性 PROPAGATION_REQUIRED</span><br><span class="line">methodA()&#123;</span><br><span class="line">    doSomeThingA();</span><br><span class="line">    methodB();</span><br><span class="line">    doSomeThingB();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//事务属性 PROPAGATION_NESTED</span><br><span class="line">methodB()&#123;</span><br><span class="line">    ……</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>效果</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">main()&#123;</span><br><span class="line">    Connection con = <span class="keyword">null</span>;</span><br><span class="line">    Savepoint savepoint = <span class="keyword">null</span>;</span><br><span class="line">    <span class="keyword">try</span>&#123;</span><br><span class="line">        con = getConnection();</span><br><span class="line">        con.setAutoCommit(<span class="keyword">false</span>);</span><br><span class="line">        doSomeThingA();</span><br><span class="line">        savepoint = con2.setSavepoint();</span><br><span class="line">        <span class="keyword">try</span>&#123;</span><br><span class="line">            methodB();</span><br><span class="line">        &#125; <span class="keyword">catch</span>(RuntimeException ex) &#123;</span><br><span class="line">            con.rollback(savepoint);</span><br><span class="line">        &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">            <span class="comment">//释放资源</span></span><br><span class="line">        &#125;</span><br><span class="line">        doSomeThingB();</span><br><span class="line">        con.commit();</span><br><span class="line">    &#125; <span class="keyword">catch</span>(RuntimeException ex) &#123;</span><br><span class="line">        con.rollback();</span><br><span class="line">    &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">        <span class="comment">//释放资源</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>当methodB方法调用之前，调用setSavepoint方法，保存当前的状态到savepoint。如果methodB方法调用失败，则恢复到之前保存的状态。这时的事务并没有进行提交，如果后续的代码(doSomeThingB()方法)调用失败，则回滚包括methodB方法的所有操作。</p>
+<h3 id="隔离级别"><a href="#隔离级别" class="headerlink" title="隔离级别"></a>隔离级别</h3><p>事务的第二个维度就是隔离级别（isolation level）。隔离级别定义了一个事务可能受其他并发事务影响的程度。<br>并发事务引起的问题<br>在典型的应用程序中，多个事务并发运行，经常会操作相同的数据来完成各自的任务。并发虽然是必须的，但可能会导致以下的问题。</p>
+<blockquote>
+<ul>
+<li>脏读（Dirty reads）——一个事务读取了另一个事务改写但尚未提交的数据时。如果改写在稍后被回滚了，那么第一个事务获取的数据就是无效的。</li>
+<li>不可重复读（Nonrepeatable read）——不可重复读发生在一个事务执行相同的查询两次或两次以上，但是每次都得到不同的数据时。这通常是因为另一个并发事务在两次查询期间进行了修改。</li>
+<li>幻读（Phantom read）——幻读与不可重复读类似。它发生在一个事务（T1）读取了几行数据，接着另一个并发事务（T2）新增或者删除了一些数据时。在随后的查询中，第一个事务（T1）就会发现多了或少了一些记录。</li>
+</ul>
+</blockquote>
+<p><strong>不可重复读与幻读的区别</strong></p>
+<p>对于前者, 只需要锁住满足条件的记录。<br>对于后者, 要锁住满足条件及其相近的记录。</p>
+<table>
+<thead>
+<tr>
+<th>隔离级别</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ISOLATION_DEFAULT</td>
+<td>使用后端数据库默认的隔离级别Mysql 默认采用的 REPEATABLE_READ隔离级别 Oracle 默认采用的 READ_COMMITTED隔离级别.</td>
+</tr>
+<tr>
+<td>ISOLATION_READ_UNCOMMITTED</td>
+<td>最低的隔离级别，允许读取尚未提交的数据变更，可能会导致脏读、幻读或不可重复读</td>
+</tr>
+<tr>
+<td>ISOLATION_READ_COMMITTED</td>
+<td>允许读取并发事务已经提交的数据，可以阻止脏读，但是幻读或不可重复读仍有可能发生</td>
+</tr>
+<tr>
+<td>ISOLATION_REPEATABLE_READ</td>
+<td>对同一字段的多次读取结果都是一致的，除非数据是被本身事务自己所修改，可以阻止脏读和不可重复读，但幻读仍有可能发生</td>
+</tr>
+<tr>
+<td>ISOLATION_SERIALIZABLE</td>
+<td>最高的隔离级别，完全服从ACID的隔离级别，确保阻止脏读、不可重复读以及幻读，也是最慢的事务隔离级别，因为它通常是通过完全锁定事务相关的数据库表来实现的</td>
+</tr>
+</tbody>
+</table>
+<h3 id="只读"><a href="#只读" class="headerlink" title="只读"></a>只读</h3><p>事务的第三个特性是它是否为只读事务。如果事务只对后端的数据库进行该操作，数据库可以利用事务的只读特性来进行一些特定的优化。通过将事务设置为只读，你就可以给数据库一个机会，让它应用它认为合适的优化措施。</p>
+<h3 id="事务超时"><a href="#事务超时" class="headerlink" title="事务超时"></a>事务超时</h3><p>为了使应用程序很好地运行，事务不能运行太长的时间。因为事务可能涉及对后端数据库的锁定，所以长时间的事务会不必要的占用数据库资源。事务超时就是事务的一个定时器，在特定时间内事务如果没有执行完毕，那么就会自动回滚，而不是一直等待其结束。</p>
+<h3 id="回滚规则"><a href="#回滚规则" class="headerlink" title="回滚规则"></a>回滚规则</h3><p>事务五边形的最后一个方面是一组规则，这些规则定义了哪些异常会导致事务回滚而哪些不会。默认情况下，事务只有遇到运行期异常时才会回滚，而在遇到检查型异常时不会回滚（这一行为与EJB的回滚行为是一致的）<br>但是你可以声明事务在遇到特定的检查型异常时像遇到运行期异常那样回滚。同样，你还可以声明事务遇到特定的异常不回滚，即使这些异常是运行期异常。</p>
+<h3 id="事务状态"><a href="#事务状态" class="headerlink" title="事务状态"></a>事务状态</h3><p>上面讲到的调用PlatformTransactionManager接口的getTransaction()的方法得到的是TransactionStatus接口的一个实现，这个接口的内容如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">public interface TransactionStatus&#123;</span><br><span class="line">    boolean isNewTransaction(); // 是否是新的事物</span><br><span class="line">    boolean hasSavepoint(); // 是否有恢复点</span><br><span class="line">    void setRollbackOnly();  // 设置为只回滚</span><br><span class="line">    boolean isRollbackOnly(); // 是否为只回滚</span><br><span class="line">    boolean isCompleted; // 是否已完成</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>可以发现这个接口描述的是一些处理事务提供简单的控制事务执行和查询事务状态的方法，在回滚或提交的时候需要应用对应的事务状态。</p>
+<p>Spring事务机制主要包括声明式事务和编程式事务，编程式事务允许用户在代码中精确定义事务的边界，而声明式事务（基于AOP）有助于用户将操作与事务规则进行解耦。 </p>
+<p>简单地说，编程式事务侵入到了业务代码里面，但是提供了更加详细的事务管理；而声明式事务由于基于AOP，所以既能起到事务管理的作用，又可以不影响业务代码的具体实现。实际开发中使用声明式事务比较多</p>
+<h3 id="编程式事务"><a href="#编程式事务" class="headerlink" title="编程式事务"></a>编程式事务</h3><p>Spring提供两种方式的编程式事务管理，分别是：使用TransactionTemplate和直接使用PlatformTransactionManager。</p>
+<h3 id="声明式事务"><a href="#声明式事务" class="headerlink" title="声明式事务"></a>声明式事务</h3><h4 id="配置方式"><a href="#配置方式" class="headerlink" title="配置方式"></a>配置方式</h4><p>根据代理机制的不同，总结了五种Spring事务的配置方式，配置文件如下：</p>
+<p>（1）每个Bean都有一个代理</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span><br><span class="line">&lt;beans xmlns=&quot;http://www.springframework.org/schema/beans&quot;</span><br><span class="line">    xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span><br><span class="line">    xmlns:context=&quot;http://www.springframework.org/schema/context&quot;</span><br><span class="line">    xmlns:aop=&quot;http://www.springframework.org/schema/aop&quot;</span><br><span class="line">    xsi:schemaLocation=&quot;http://www.springframework.org/schema/beans</span><br><span class="line">           http://www.springframework.org/schema/beans/spring-beans-2.5.xsd</span><br><span class="line">           http://www.springframework.org/schema/context</span><br><span class="line">           http://www.springframework.org/schema/context/spring-context-2.5.xsd</span><br><span class="line">           http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd&quot;&gt;</span><br><span class="line"></span><br><span class="line">    &lt;bean id=&quot;sessionFactory&quot; </span><br><span class="line">            class=&quot;org.springframework.orm.hibernate3.LocalSessionFactoryBean&quot;&gt; </span><br><span class="line">        &lt;property name=&quot;configLocation&quot; value=&quot;classpath:hibernate.cfg.xml&quot; /&gt; </span><br><span class="line">        &lt;property name=&quot;configurationClass&quot; value=&quot;org.hibernate.cfg.AnnotationConfiguration&quot; /&gt;</span><br><span class="line">    &lt;/bean&gt; </span><br><span class="line"></span><br><span class="line">    &lt;!-- 定义事务管理器（声明式的事务） --&gt; </span><br><span class="line">    &lt;bean id=&quot;transactionManager&quot;</span><br><span class="line">        class=&quot;org.springframework.orm.hibernate3.HibernateTransactionManager&quot;&gt;</span><br><span class="line">        &lt;property name=&quot;sessionFactory&quot; ref=&quot;sessionFactory&quot; /&gt;</span><br><span class="line">    &lt;/bean&gt;</span><br><span class="line"></span><br><span class="line">    &lt;!-- 配置DAO --&gt;</span><br><span class="line">    &lt;bean id=&quot;userDaoTarget&quot; class=&quot;com.bluesky.spring.dao.UserDaoImpl&quot;&gt;</span><br><span class="line">        &lt;property name=&quot;sessionFactory&quot; ref=&quot;sessionFactory&quot; /&gt;</span><br><span class="line">    &lt;/bean&gt;</span><br><span class="line"></span><br><span class="line">    &lt;bean id=&quot;userDao&quot; </span><br><span class="line">        class=&quot;org.springframework.transaction.interceptor.TransactionProxyFactoryBean&quot;&gt; </span><br><span class="line">           &lt;!-- 配置事务管理器 --&gt; </span><br><span class="line">           &lt;property name=&quot;transactionManager&quot; ref=&quot;transactionManager&quot; /&gt;    </span><br><span class="line">        &lt;property name=&quot;target&quot; ref=&quot;userDaoTarget&quot; /&gt; </span><br><span class="line">         &lt;property name=&quot;proxyInterfaces&quot; value=&quot;com.bluesky.spring.dao.GeneratorDao&quot; /&gt;</span><br><span class="line">        &lt;!-- 配置事务属性 --&gt; </span><br><span class="line">        &lt;property name=&quot;transactionAttributes&quot;&gt; </span><br><span class="line">            &lt;props&gt; </span><br><span class="line">                &lt;prop key=&quot;*&quot;&gt;PROPAGATION_REQUIRED&lt;/prop&gt;</span><br><span class="line">            &lt;/props&gt; </span><br><span class="line">        &lt;/property&gt; </span><br><span class="line">    &lt;/bean&gt; </span><br><span class="line">&lt;/beans&gt;</span><br></pre></td></tr></table></figure>
+<p>（2）所有Bean共享一个代理基类</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span><br><span class="line">&lt;beans xmlns=&quot;http://www.springframework.org/schema/beans&quot;</span><br><span class="line">    xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span><br><span class="line">    xmlns:context=&quot;http://www.springframework.org/schema/context&quot;</span><br><span class="line">    xmlns:aop=&quot;http://www.springframework.org/schema/aop&quot;</span><br><span class="line">    xsi:schemaLocation=&quot;http://www.springframework.org/schema/beans</span><br><span class="line">           http://www.springframework.org/schema/beans/spring-beans-2.5.xsd</span><br><span class="line">           http://www.springframework.org/schema/context</span><br><span class="line">           http://www.springframework.org/schema/context/spring-context-2.5.xsd</span><br><span class="line">           http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd&quot;&gt;</span><br><span class="line"></span><br><span class="line">    &lt;bean id=&quot;sessionFactory&quot; </span><br><span class="line">            class=&quot;org.springframework.orm.hibernate3.LocalSessionFactoryBean&quot;&gt; </span><br><span class="line">        &lt;property name=&quot;configLocation&quot; value=&quot;classpath:hibernate.cfg.xml&quot; /&gt; </span><br><span class="line">        &lt;property name=&quot;configurationClass&quot; value=&quot;org.hibernate.cfg.AnnotationConfiguration&quot; /&gt;</span><br><span class="line">    &lt;/bean&gt; </span><br><span class="line"></span><br><span class="line">    &lt;!-- 定义事务管理器（声明式的事务） --&gt; </span><br><span class="line">    &lt;bean id=&quot;transactionManager&quot;</span><br><span class="line">        class=&quot;org.springframework.orm.hibernate3.HibernateTransactionManager&quot;&gt;</span><br><span class="line">        &lt;property name=&quot;sessionFactory&quot; ref=&quot;sessionFactory&quot; /&gt;</span><br><span class="line">    &lt;/bean&gt;</span><br><span class="line"></span><br><span class="line">    &lt;bean id=&quot;transactionBase&quot; </span><br><span class="line">            class=&quot;org.springframework.transaction.interceptor.TransactionProxyFactoryBean&quot; </span><br><span class="line">            lazy-init=&quot;true&quot; abstract=&quot;true&quot;&gt; </span><br><span class="line">        &lt;!-- 配置事务管理器 --&gt; </span><br><span class="line">        &lt;property name=&quot;transactionManager&quot; ref=&quot;transactionManager&quot; /&gt; </span><br><span class="line">        &lt;!-- 配置事务属性 --&gt; </span><br><span class="line">        &lt;property name=&quot;transactionAttributes&quot;&gt; </span><br><span class="line">            &lt;props&gt; </span><br><span class="line">                &lt;prop key=&quot;*&quot;&gt;PROPAGATION_REQUIRED&lt;/prop&gt; </span><br><span class="line">            &lt;/props&gt; </span><br><span class="line">        &lt;/property&gt; </span><br><span class="line">    &lt;/bean&gt;   </span><br><span class="line"></span><br><span class="line">    &lt;!-- 配置DAO --&gt;</span><br><span class="line">    &lt;bean id=&quot;userDaoTarget&quot; class=&quot;com.bluesky.spring.dao.UserDaoImpl&quot;&gt;</span><br><span class="line">        &lt;property name=&quot;sessionFactory&quot; ref=&quot;sessionFactory&quot; /&gt;</span><br><span class="line">    &lt;/bean&gt;</span><br><span class="line"></span><br><span class="line">    &lt;bean id=&quot;userDao&quot; parent=&quot;transactionBase&quot; &gt; </span><br><span class="line">        &lt;property name=&quot;target&quot; ref=&quot;userDaoTarget&quot; /&gt;  </span><br><span class="line">    &lt;/bean&gt;</span><br><span class="line">&lt;/beans&gt;</span><br></pre></td></tr></table></figure>
+<p>（3）使用拦截器</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span><br><span class="line">&lt;beans xmlns=&quot;http://www.springframework.org/schema/beans&quot;</span><br><span class="line">    xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span><br><span class="line">    xmlns:context=&quot;http://www.springframework.org/schema/context&quot;</span><br><span class="line">    xmlns:aop=&quot;http://www.springframework.org/schema/aop&quot;</span><br><span class="line">    xsi:schemaLocation=&quot;http://www.springframework.org/schema/beans</span><br><span class="line">           http://www.springframework.org/schema/beans/spring-beans-2.5.xsd</span><br><span class="line">           http://www.springframework.org/schema/context</span><br><span class="line">           http://www.springframework.org/schema/context/spring-context-2.5.xsd</span><br><span class="line">           http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd&quot;&gt;</span><br><span class="line"></span><br><span class="line">    &lt;bean id=&quot;sessionFactory&quot; </span><br><span class="line">            class=&quot;org.springframework.orm.hibernate3.LocalSessionFactoryBean&quot;&gt; </span><br><span class="line">        &lt;property name=&quot;configLocation&quot; value=&quot;classpath:hibernate.cfg.xml&quot; /&gt; </span><br><span class="line">        &lt;property name=&quot;configurationClass&quot; value=&quot;org.hibernate.cfg.AnnotationConfiguration&quot; /&gt;</span><br><span class="line">    &lt;/bean&gt; </span><br><span class="line"></span><br><span class="line">    &lt;!-- 定义事务管理器（声明式的事务） --&gt; </span><br><span class="line">    &lt;bean id=&quot;transactionManager&quot;</span><br><span class="line">        class=&quot;org.springframework.orm.hibernate3.HibernateTransactionManager&quot;&gt;</span><br><span class="line">        &lt;property name=&quot;sessionFactory&quot; ref=&quot;sessionFactory&quot; /&gt;</span><br><span class="line">    &lt;/bean&gt; </span><br><span class="line"></span><br><span class="line">    &lt;bean id=&quot;transactionInterceptor&quot; </span><br><span class="line">        class=&quot;org.springframework.transaction.interceptor.TransactionInterceptor&quot;&gt; </span><br><span class="line">        &lt;property name=&quot;transactionManager&quot; ref=&quot;transactionManager&quot; /&gt; </span><br><span class="line">        &lt;!-- 配置事务属性 --&gt; </span><br><span class="line">        &lt;property name=&quot;transactionAttributes&quot;&gt; </span><br><span class="line">            &lt;props&gt; </span><br><span class="line">                &lt;prop key=&quot;*&quot;&gt;PROPAGATION_REQUIRED&lt;/prop&gt; </span><br><span class="line">            &lt;/props&gt; </span><br><span class="line">        &lt;/property&gt; </span><br><span class="line">    &lt;/bean&gt;</span><br><span class="line"></span><br><span class="line">    &lt;bean class=&quot;org.springframework.aop.framework.autoproxy.BeanNameAutoProxyCreator&quot;&gt; </span><br><span class="line">        &lt;property name=&quot;beanNames&quot;&gt; </span><br><span class="line">            &lt;list&gt; </span><br><span class="line">                &lt;value&gt;*Dao&lt;/value&gt;</span><br><span class="line">            &lt;/list&gt; </span><br><span class="line">        &lt;/property&gt; </span><br><span class="line">        &lt;property name=&quot;interceptorNames&quot;&gt; </span><br><span class="line">            &lt;list&gt; </span><br><span class="line">                &lt;value&gt;transactionInterceptor&lt;/value&gt; </span><br><span class="line">            &lt;/list&gt; </span><br><span class="line">        &lt;/property&gt; </span><br><span class="line">    &lt;/bean&gt; </span><br><span class="line"></span><br><span class="line">    &lt;!-- 配置DAO --&gt;</span><br><span class="line">    &lt;bean id=&quot;userDao&quot; class=&quot;com.bluesky.spring.dao.UserDaoImpl&quot;&gt;</span><br><span class="line">        &lt;property name=&quot;sessionFactory&quot; ref=&quot;sessionFactory&quot; /&gt;</span><br><span class="line">    &lt;/bean&gt;</span><br><span class="line">&lt;/beans&gt;</span><br></pre></td></tr></table></figure>
+<p>（4）使用tx标签配置的拦截器</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span><br><span class="line">&lt;beans xmlns=&quot;http://www.springframework.org/schema/beans&quot;</span><br><span class="line">    xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span><br><span class="line">    xmlns:context=&quot;http://www.springframework.org/schema/context&quot;</span><br><span class="line">    xmlns:aop=&quot;http://www.springframework.org/schema/aop&quot;</span><br><span class="line">    xmlns:tx=&quot;http://www.springframework.org/schema/tx&quot;</span><br><span class="line">    xsi:schemaLocation=&quot;http://www.springframework.org/schema/beans</span><br><span class="line">           http://www.springframework.org/schema/beans/spring-beans-2.5.xsd</span><br><span class="line">           http://www.springframework.org/schema/context</span><br><span class="line">           http://www.springframework.org/schema/context/spring-context-2.5.xsd</span><br><span class="line">           http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd</span><br><span class="line">           http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd&quot;&gt;</span><br><span class="line"></span><br><span class="line">    &lt;context:annotation-config /&gt;</span><br><span class="line">    &lt;context:component-scan base-package=&quot;com.bluesky&quot; /&gt;</span><br><span class="line"></span><br><span class="line">    &lt;bean id=&quot;sessionFactory&quot; </span><br><span class="line">            class=&quot;org.springframework.orm.hibernate3.LocalSessionFactoryBean&quot;&gt; </span><br><span class="line">        &lt;property name=&quot;configLocation&quot; value=&quot;classpath:hibernate.cfg.xml&quot; /&gt; </span><br><span class="line">        &lt;property name=&quot;configurationClass&quot; value=&quot;org.hibernate.cfg.AnnotationConfiguration&quot; /&gt;</span><br><span class="line">    &lt;/bean&gt; </span><br><span class="line"></span><br><span class="line">    &lt;!-- 定义事务管理器（声明式的事务） --&gt; </span><br><span class="line">    &lt;bean id=&quot;transactionManager&quot;</span><br><span class="line">        class=&quot;org.springframework.orm.hibernate3.HibernateTransactionManager&quot;&gt;</span><br><span class="line">        &lt;property name=&quot;sessionFactory&quot; ref=&quot;sessionFactory&quot; /&gt;</span><br><span class="line">    &lt;/bean&gt;</span><br><span class="line"></span><br><span class="line">    &lt;tx:advice id=&quot;txAdvice&quot; transaction-manager=&quot;transactionManager&quot;&gt;</span><br><span class="line">        &lt;tx:attributes&gt;</span><br><span class="line">            &lt;tx:method name=&quot;*&quot; propagation=&quot;REQUIRED&quot; /&gt;</span><br><span class="line">        &lt;/tx:attributes&gt;</span><br><span class="line">    &lt;/tx:advice&gt;</span><br><span class="line"></span><br><span class="line">    &lt;aop:config&gt;</span><br><span class="line">        &lt;aop:pointcut id=&quot;interceptorPointCuts&quot;</span><br><span class="line">            expression=&quot;execution(* com.bluesky.spring.dao.*.*(..))&quot; /&gt;</span><br><span class="line">        &lt;aop:advisor advice-ref=&quot;txAdvice&quot;</span><br><span class="line">            pointcut-ref=&quot;interceptorPointCuts&quot; /&gt;       </span><br><span class="line">    &lt;/aop:config&gt;     </span><br><span class="line">&lt;/beans&gt;</span><br></pre></td></tr></table></figure>
+<p>（5）全注解</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span><br><span class="line">&lt;beans xmlns=&quot;http://www.springframework.org/schema/beans&quot;</span><br><span class="line">    xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span><br><span class="line">    xmlns:context=&quot;http://www.springframework.org/schema/context&quot;</span><br><span class="line">    xmlns:aop=&quot;http://www.springframework.org/schema/aop&quot;</span><br><span class="line">    xmlns:tx=&quot;http://www.springframework.org/schema/tx&quot;</span><br><span class="line">    xsi:schemaLocation=&quot;http://www.springframework.org/schema/beans</span><br><span class="line">           http://www.springframework.org/schema/beans/spring-beans-2.5.xsd</span><br><span class="line">           http://www.springframework.org/schema/context</span><br><span class="line">           http://www.springframework.org/schema/context/spring-context-2.5.xsd</span><br><span class="line">           http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd</span><br><span class="line">           http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd&quot;&gt;</span><br><span class="line"></span><br><span class="line">    &lt;context:annotation-config /&gt;</span><br><span class="line">    &lt;context:component-scan base-package=&quot;com.bluesky&quot; /&gt;</span><br><span class="line"></span><br><span class="line">    &lt;tx:annotation-driven transaction-manager=&quot;transactionManager&quot;/&gt;</span><br><span class="line"></span><br><span class="line">    &lt;bean id=&quot;sessionFactory&quot; </span><br><span class="line">            class=&quot;org.springframework.orm.hibernate3.LocalSessionFactoryBean&quot;&gt; </span><br><span class="line">        &lt;property name=&quot;configLocation&quot; value=&quot;classpath:hibernate.cfg.xml&quot; /&gt; </span><br><span class="line">        &lt;property name=&quot;configurationClass&quot; value=&quot;org.hibernate.cfg.AnnotationConfiguration&quot; /&gt;</span><br><span class="line">    &lt;/bean&gt; </span><br><span class="line"></span><br><span class="line">    &lt;!-- 定义事务管理器（声明式的事务） --&gt; </span><br><span class="line">    &lt;bean id=&quot;transactionManager&quot;</span><br><span class="line">        class=&quot;org.springframework.orm.hibernate3.HibernateTransactionManager&quot;&gt;</span><br><span class="line">        &lt;property name=&quot;sessionFactory&quot; ref=&quot;sessionFactory&quot; /&gt;</span><br><span class="line">    &lt;/bean&gt;</span><br><span class="line"></span><br><span class="line">&lt;/beans&gt;</span><br></pre></td></tr></table></figure>
+<p>此时在DAO上需加上@Transactional注解，如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">package com.bluesky.spring.dao;</span><br><span class="line"></span><br><span class="line">import java.util.List;</span><br><span class="line"></span><br><span class="line">import org.hibernate.SessionFactory;</span><br><span class="line">import org.springframework.beans.factory.annotation.Autowired;</span><br><span class="line">import org.springframework.orm.hibernate3.support.HibernateDaoSupport;</span><br><span class="line">import org.springframework.stereotype.Component;</span><br><span class="line"></span><br><span class="line">import com.bluesky.spring.domain.User;</span><br><span class="line"></span><br><span class="line">@Transactional</span><br><span class="line">@Component(&quot;userDao&quot;)</span><br><span class="line">public class UserDaoImpl extends HibernateDaoSupport implements UserDao &#123;</span><br><span class="line"></span><br><span class="line">    public List&lt;User&gt; listUsers() &#123;</span><br><span class="line">        return this.getSession().createQuery(&quot;from User&quot;).list();</span><br><span class="line">    &#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://masonnpe.github.io/2019/05/14/Spring/Spring中的设计模式/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="mason">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="mason's note">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/05/14/Spring/Spring中的设计模式/" itemprop="url">Spring中的设计模式</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-14T09:10:23+08:00">
+                2019-05-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Spring/" itemprop="url" rel="index">
+                    <span itemprop="name">Spring</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p><strong>1. 简单工厂</strong></p>
+<p>又叫做静态工厂方法（StaticFactory Method）模式，但不属于23种GOF设计模式之一。</p>
+<p>简单工厂模式的实质是由一个工厂类根据传入的参数，动态决定应该创建哪一个产品类。</p>
+<p><em>Spring中的BeanFactory就是简单工厂模式的体现，根据传入一个唯一的标识来获得Bean对象，但是否是在传入参数后创建还是传入参数前创建这个要根据具体情况来定。</em></p>
+<p><strong>2. 工厂方法（Factory Method）</strong></p>
+<p>定义一个用于创建对象的接口，让子类决定实例化哪一个类。Factory Method使一个类的实例化延迟到其子类。</p>
+<p><em>Spring中的FactoryBean就是典型的工厂方法模式</em>。如下图：</p>
+<p><img src="https://images0.cnblogs.com/blog2015/521294/201505/172221089043885.png" alt="img"></p>
+<p><strong>3. 单例（Singleton）</strong></p>
+<p>保证一个类仅有一个实例，并提供一个访问它的全局访问点。</p>
+<p>Spring中的单例模式完成了后半句话，即提供了全局的访问点BeanFactory。但没有从构造器级别去控制单例，这是因为Spring管理的是是任意的Java对象。</p>
+<p><strong>4. 适配器（Adapter）</strong></p>
+<p>将一个类的接口转换成客户希望的另外一个接口。Adapter模式使得原本由于接口不兼容而不能一起工作的那些类可以一起工作。</p>
+<p>Spring中在对于AOP的处理中有Adapter模式的例子，见如下图：<img src="https://images0.cnblogs.com/blog2015/521294/201505/172222151238548.png" alt="img"></p>
+<p>由于Advisor链需要的是MethodInterceptor（拦截器）对象，所以每一个Advisor中的Advice都要适配成对应的MethodInterceptor对象。</p>
+<p><strong>5.包装器（Decorator）</strong></p>
+<p>动态地给一个对象添加一些额外的职责。就增加功能来说，Decorator模式相比生成子类更为灵活。</p>
+<p><img src="https://images0.cnblogs.com/blog2015/521294/201505/172223026393497.png" alt="img"></p>
+<p>Spring中用到的包装器模式在类名上有两种表现：一种是类名中含有Wrapper，另一种是类名中含有Decorator。基本上都是动态地给一个对象添加一些额外的职责。</p>
+<p><strong>6. 代理（Proxy）</strong></p>
+<p>为其他对象提供一种代理以控制对这个对象的访问。</p>
+<p>从结构上来看和Decorator模式类似，但Proxy是控制，更像是一种对功能的限制，而Decorator是增加职责。</p>
+<p><img src="https://images0.cnblogs.com/blog2015/521294/201505/172223379049538.png" alt="img"></p>
+<p>Spring的Proxy模式在aop中有体现，比如JdkDynamicAopProxy和Cglib2AopProxy。</p>
+<p><strong>7.观察者（Observer）</strong></p>
+<p>定义对象间的一种一对多的依赖关系，当一个对象的状态发生改变时，所有依赖于它的对象都得到通知并被自动更新。</p>
+<p><img src="https://images0.cnblogs.com/blog2015/521294/201505/172224113421820.png" alt="img"></p>
+<p>Spring中Observer模式常用的地方是listener的实现。如ApplicationListener。</p>
+<p><strong>8. 策略（Strategy）</strong></p>
+<p>定义一系列的算法，把它们一个个封装起来，并且使它们可相互替换。本模式使得算法可独立于使用它的客户而变化。</p>
+<p>Spring中在实例化对象的时候用到Strategy模式，见如下图：</p>
+<p><img src="https://images0.cnblogs.com/blog2015/521294/201505/172224299513506.png" alt="img"></p>
+<p>在SimpleInstantiationStrategy中有如下代码说明了策略模式的使用情况：</p>
+<p><img src="https://images0.cnblogs.com/blog2015/521294/201505/172224414206242.png" alt="img"></p>
+<p><strong>9.模板方法（Template Method）</strong></p>
+<p>定义一个操作中的算法的骨架，而将一些步骤延迟到子类中。Template Method使得子类可以不改变一个算法的结构即可重定义该算法的某些特定步骤。</p>
+<p>Template Method模式一般是需要继承的。这里想要探讨另一种对Template Method的理解。Spring中的JdbcTemplate，在用这个类时并不想去继承这个类，因为这个类的方法太多，但是我们还是想用到JdbcTemplate已有的稳定的、公用的数据库连接，那么我们怎么办呢？我们可以把变化的东西抽出来作为一个参数传入JdbcTemplate的方法中。但是变化的东西是一段代码，而且这段代码会用到JdbcTemplate中的变量。怎么办？那我们就用回调对象吧。在这个回调对象中定义一个操纵JdbcTemplate中变量的方法，我们去实现这个方法，就把变化的东西集中到这里了。然后我们再传入这个回调对象到JdbcTemplate，从而完成了调用。这可能是Template Method不需要继承的另一种实现方式吧。</p>
+<p>以下是一个具体的例子：</p>
+<p>JdbcTemplate中的execute方法：</p>
+<p><img src="https://images0.cnblogs.com/blog2015/521294/201505/172224551864583.png" alt="img"></p>
+<p>JdbcTemplate执行execute方法：</p>
+<p><img src="https://images0.cnblogs.com/blog2015/521294/201505/172225336542968.png" alt="img"></p>
+<p>知识只有共享才能传播，才能推崇出新的知识，才能学到更多，这里写的每一篇文字/博客，基本都是从网上查询了一下资料然后记录下来，也有些是原滋原味搬了过来，也有时加了一些自己的想法</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://masonnpe.github.io/2019/05/14/Spring/SpringMVC工作原理/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1603,150 +2203,6 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://masonnpe.github.io/2019/05/14/Spring/BeanFactory和ApplicationContext/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="mason">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="mason's note">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/05/14/Spring/BeanFactory和ApplicationContext/" itemprop="url">未命名</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-14T09:10:23+08:00">
-                2019-05-14
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="BeanFactory"><a href="#BeanFactory" class="headerlink" title="BeanFactory"></a>BeanFactory</h2><p>BeanFactory提供了最简单的容器的功能，只提供了实例化对象和拿对象的功能，但通常在Spring应用程序中仅使用BeanFactory是不够的。</p>
-<p>BeanFactory在启动的时候不会去实例化Bean，只有从容器中拿Bean的时候才会去实例化</p>
-<ul>
-<li>应用启动的时候占用资源很少；对资源要求较高的应用，比较有优势</li>
-</ul>
-<h2 id="ApplicationContext"><a href="#ApplicationContext" class="headerlink" title="ApplicationContext"></a>ApplicationContext</h2><p>ApplicationContext（应用上下文）继承众多接口（包括BeanFactory接口），它是Spring的一各更高级的容器，提供了更多的有用的功能</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">ApplicationContext</span> <span class="keyword">extends</span> <span class="title">EnvironmentCapable</span>, <span class="title">ListableBeanFactory</span>, <span class="title">HierarchicalBeanFactory</span>, <span class="title">MessageSource</span>, <span class="title">ApplicationEventPublisher</span>, <span class="title">ResourcePatternResolver</span></span></span><br></pre></td></tr></table></figure>
-<p><strong>HierarchicalBeanFactory</strong></p>
-<p>BeanFactory的子接口HierarchicalBeanFactory是一个具有层级关系的Bean 工厂，拥有属性parentBeanFactory。当获取 Bean对象时，如果当前BeanFactory中不存在对应的bean，则会访问其直接 parentBeanFactory 以尝试获取bean 对象。此外，还可以在当前的 BeanFactory 中 override 父级BeanFactory的同名bean。</p>
-<p><strong>ListableBeanFactory</strong></p>
-<p>ListableBeanFactory 继承了BeanFactory，实现了枚举方法可以列举出当前BeanFactory中所有的bean对象而不必根据name一个一个的获取。 如果 ListableBeanFactory 对象还是一个HierarchicalBeanFactory则getBeanDefinitionNames()方法只会返回当前BeanFactory中的Bean对象而不会去父级BeanFactory中查询。</p>
-<ul>
-<li>首先，它是个BeanFactory，可以管理、装配bean，可以有父级BeanFactory实现Bean的层级管理（具体到这里来说它可以有父级的ApplicationContext，因为ApplicationContext本身就是一个BeanFactory。这在web项目中很有用，可以使每个Servlet具有其独立的context, 所有Servlet共享一个父级的context），它还是Listable的，可以枚举出所管理的bean对象。载入多个（有继承关系）上下文 ，使得每一个上下文专注于一个特定的层次，比如应用的web层  </li>
-<li>EnvironmentCapable：这是一个Environment Holder，只有一个方法Environment getEnvironment() 用来获取Environment对象，提供当前Application运行的所需环境，Environment继承了PropertyResolver（配置文件解析器的最顶级接口，解析配置文件获取属性值等作用）。</li>
-<li>MessageSource：用于支撑国际化等功能</li>
-<li>ApplicationEventPublisher：可以发布事件给注册的Listener，实现监听机制。</li>
-<li>ResourcePatternResolver：其中ResourceLoader用于从一个源（如InputStream等）加载资源文件，ResourcePatternResolver 是ResourceLoader的子类，根据 path-pattern 加载资源文件。</li>
-</ul>
-<p>ApplicationContext在启动的时候就把所有的Bean全部实例化了。但是它可以为Bean配置lazy-init=true来让Bean延迟实例化</p>
-<ul>
-<li>所有的Bean在启动的时候都加载，系统运行的速度快； </li>
-<li>在启动的时候所有的Bean都加载了，我们就能在系统启动的时候，尽早的发现系统中的配置问题 </li>
-<li>建议web应用，在启动的时候就把所有的Bean都加载了，把费时的操作放到系统启动中完成</li>
-</ul>
-<p>ApplicationContext优于BeanFactory，但是它的内存消耗比bean工厂大，如果程序对于内存的使用对于非常挑剔(如applet或移动环境)，可以使用BeanFactory，否则一般情况下应使用ApplicationContext。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://masonnpe.github.io/2019/05/14/Spring/ApplicationContext/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1849,6 +2305,150 @@
             </a>
           </div>
           <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://masonnpe.github.io/2019/05/14/Spring/BeanFactory和ApplicationContext/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="mason">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="mason's note">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/05/14/Spring/BeanFactory和ApplicationContext/" itemprop="url">未命名</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-14T09:10:23+08:00">
+                2019-05-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="BeanFactory"><a href="#BeanFactory" class="headerlink" title="BeanFactory"></a>BeanFactory</h2><p>BeanFactory提供了最简单的容器的功能，只提供了实例化对象和拿对象的功能，但通常在Spring应用程序中仅使用BeanFactory是不够的。</p>
+<p>BeanFactory在启动的时候不会去实例化Bean，只有从容器中拿Bean的时候才会去实例化</p>
+<ul>
+<li>应用启动的时候占用资源很少；对资源要求较高的应用，比较有优势</li>
+</ul>
+<h2 id="ApplicationContext"><a href="#ApplicationContext" class="headerlink" title="ApplicationContext"></a>ApplicationContext</h2><p>ApplicationContext（应用上下文）继承众多接口（包括BeanFactory接口），它是Spring的一各更高级的容器，提供了更多的有用的功能</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">ApplicationContext</span> <span class="keyword">extends</span> <span class="title">EnvironmentCapable</span>, <span class="title">ListableBeanFactory</span>, <span class="title">HierarchicalBeanFactory</span>, <span class="title">MessageSource</span>, <span class="title">ApplicationEventPublisher</span>, <span class="title">ResourcePatternResolver</span></span></span><br></pre></td></tr></table></figure>
+<p><strong>HierarchicalBeanFactory</strong></p>
+<p>BeanFactory的子接口HierarchicalBeanFactory是一个具有层级关系的Bean 工厂，拥有属性parentBeanFactory。当获取 Bean对象时，如果当前BeanFactory中不存在对应的bean，则会访问其直接 parentBeanFactory 以尝试获取bean 对象。此外，还可以在当前的 BeanFactory 中 override 父级BeanFactory的同名bean。</p>
+<p><strong>ListableBeanFactory</strong></p>
+<p>ListableBeanFactory 继承了BeanFactory，实现了枚举方法可以列举出当前BeanFactory中所有的bean对象而不必根据name一个一个的获取。 如果 ListableBeanFactory 对象还是一个HierarchicalBeanFactory则getBeanDefinitionNames()方法只会返回当前BeanFactory中的Bean对象而不会去父级BeanFactory中查询。</p>
+<ul>
+<li>首先，它是个BeanFactory，可以管理、装配bean，可以有父级BeanFactory实现Bean的层级管理（具体到这里来说它可以有父级的ApplicationContext，因为ApplicationContext本身就是一个BeanFactory。这在web项目中很有用，可以使每个Servlet具有其独立的context, 所有Servlet共享一个父级的context），它还是Listable的，可以枚举出所管理的bean对象。载入多个（有继承关系）上下文 ，使得每一个上下文专注于一个特定的层次，比如应用的web层  </li>
+<li>EnvironmentCapable：这是一个Environment Holder，只有一个方法Environment getEnvironment() 用来获取Environment对象，提供当前Application运行的所需环境，Environment继承了PropertyResolver（配置文件解析器的最顶级接口，解析配置文件获取属性值等作用）。</li>
+<li>MessageSource：用于支撑国际化等功能</li>
+<li>ApplicationEventPublisher：可以发布事件给注册的Listener，实现监听机制。</li>
+<li>ResourcePatternResolver：其中ResourceLoader用于从一个源（如InputStream等）加载资源文件，ResourcePatternResolver 是ResourceLoader的子类，根据 path-pattern 加载资源文件。</li>
+</ul>
+<p>ApplicationContext在启动的时候就把所有的Bean全部实例化了。但是它可以为Bean配置lazy-init=true来让Bean延迟实例化</p>
+<ul>
+<li>所有的Bean在启动的时候都加载，系统运行的速度快； </li>
+<li>在启动的时候所有的Bean都加载了，我们就能在系统启动的时候，尽早的发现系统中的配置问题 </li>
+<li>建议web应用，在启动的时候就把所有的Bean都加载了，把费时的操作放到系统启动中完成</li>
+</ul>
+<p>ApplicationContext优于BeanFactory，但是它的内存消耗比bean工厂大，如果程序对于内存的使用对于非常挑剔(如applet或移动环境)，可以使用BeanFactory，否则一般情况下应使用ApplicationContext。</p>
+
+          
         
       
     </div>
@@ -2078,547 +2678,11 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://masonnpe.github.io/2019/05/14/Netty/Netty入门/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="mason">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="mason's note">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/05/14/Netty/Netty入门/" itemprop="url">Netty入门</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-14T09:10:23+08:00">
-                2019-05-14
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Netty/" itemprop="url" rel="index">
-                    <span itemprop="name">Netty</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="Netty"><a href="#Netty" class="headerlink" title="Netty"></a>Netty</h2><p><a href="https://blog.csdn.net/excellentyuxiao/article/details/53390408" target="_blank" rel="noopener">《Netty原理剖析》</a></p>
-<ul>
-<li>Reactor 模式介绍。</li>
-<li>Netty 是 Reactor 模式的一种实现。</li>
-</ul>
-<ul>
-<li>为什么选择 Netty</li>
-<li>说说业务中，Netty 的使用场景</li>
-<li>原生的 NIO 在 JDK 1.7 版本存在 epoll bug</li>
-<li>什么是TCP 粘包/拆包</li>
-<li>TCP粘包/拆包的解决办法</li>
-<li>Netty 线程模型</li>
-<li>说说 Netty 的零拷贝</li>
-<li>Netty 内部执行流程</li>
-<li>Netty 重连实现</li>
-</ul>
-<p>深入一些的话，就会问NIO的原理、NIO属于哪种IO模型、NIO的三大组成等等，这有些难，当时我也是研究了很久才搞懂NIO。提一句，<strong>NIO并不是严格意义上的非阻塞IO而应该属于多路复用IO</strong>，面试回答的时候要注意这个细节，讲到NIO会阻塞在Selector的select方法上会增加面试官对你的好感。</p>
-<p>如果用过Netty，可能会问一些Netty的东西，毕竟这个框架基本属于当前最好的NIO框架了（Mina其实也不错，不过总体来说还是比不上Netty的），大多数互联网公司也都在用Netty。</p>
-<table>
-<thead>
-<tr>
-<th>nio</th>
-<th>netty</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>监听端口</td>
-<td>NioEventLoop</td>
-</tr>
-<tr>
-<td>新连接socket</td>
-<td>Channel</td>
-</tr>
-<tr>
-<td>接收数据io byte</td>
-<td>ByteBuf</td>
-</tr>
-<tr>
-<td>业务逻辑</td>
-<td>ChannelHandler</td>
-</tr>
-</tbody>
-</table>
-<p>nioeventloop run()相当于while(true)</p>
-<p>单独从性能角度，Netty在基础的NIO等类库之上进行了很多改进，例如：<br>更加优雅的Reactor模式实现、灵活的线程模型、利用EventLoop等创新性的机制，可以非常高效地管理成百上千的Channel。<br>充分利用了Java的Zero-Copy机制，并且从多种角度，“斤斤计较”般的降低内存分配和回收的开销。例如，使用池化的Direct Bufer等技术，在提高IO性能的同时，减少了对象<br>的创建和销毁；利用反射等技术直接操纵SelectionKey，使用数组而不是Java容器等。<br>使用更多本地代码。例如，直接利用JNI调用Open SSL等方式，获得比Java内建SSL引擎更好的性能。<br>在通信协议、序列化等其他角度的优化。<br>总的来说，Netty并没有Java核心类库那些强烈的通用性、跨平台等各种负担，针对性能等特定目标以及Linux等特定环境，采取了一些极致的优化手段。<br>考点分析<br>这是一个比较开放的问题，我给出的回答是个概要性的举例说明。面试官很可能利用这种开放问题作为引子，针对你回答的一个或者多个点，深入探讨你在不同层次上的理解程度。<br>在面试准备中，兼顾整体性的同时，不要忘记选定个别重点进行深入理解掌握，最好是进行源码层面的深入阅读和实验。如果你希望了解更多从性能角度Netty在编码层面的手段，<br>可以参考Norman在Devoxx上的分享，其中的很多技巧对于实现极致性能的API有一定借鉴意义，但在一般的业务开发中要谨慎采用。<br>虽然提到Netty，人们会自然地想到高性能，但是Netty本身的优势不仅仅只有这一个方面，<br>下面我会侧重两个方面：<br>对Netty进行整体介绍，帮你了解其基本组成。<br>从一个简单的例子开始，对比在第11讲中基于IO、NIO等标准API的实例，分析它的技术要点，给你提供一个进一步深入学习的思路。<br>知识扩展<br>首先，我们从整体了解一下Netty。按照官方定义，它是一个异步的、基于事件Client/Server的网络框架，目标是提供一种简单、快速构建网络应用的方式，同时保证高吞吐量、低<br>延时、高可靠性。<br>从设计思路和目的上，Netty与Java自身的NIO框架相比有哪些不同呢？<br>我们知道Java的标准类库，由于其基础性、通用性的定位，往往过于关注技术模型上的抽象，而不是从一线应用开发者的角度去思考。我曾提到过，引入并发包的一个重要原因就<br>是，应用开发者使用Thread API比较痛苦，需要操心的不仅仅是业务逻辑，而且还要自己负责将其映射到Thread模型上。Java NIO的设计也有类似的特点，开发者需要深入掌握线<br>程、IO、网络等相关概念，学习路径很长，很容易导致代码复杂、晦涩，即使是有经验的工程师，也难以快速地写出高可靠性的实现。<br>Netty的设计强调了 “Separation Of Concerns”，通过精巧设计的事件机制，将业务逻辑和无关技术逻辑进行隔离，并通过各种方便的抽象，一定程度上填补了了基础平台和业务开<br>发之间的鸿沟，更有利于在应用开发中普及业界的最佳实践。<br>另外，Netty &gt; java.nio + java. net！<br>从API能力范围来看，Netty完全是Java NIO框架的一个大大的超集，你可以参考Netty官方的模块划分。<br>第38讲 | 对比Java标准NIO类库，你知道Netty是如何实现更高性能的吗？<br>杨晓峰</p>
-<ul>
-<li>00:18 / 09:27<br>极客时间<br>除了核心的事件机制等，Netty还额外提供了很多功能，例如：<br>从网络协议的角度，Netty除了支持传输层的UDP、TCP、SCTP协议，也支持HTTP(s)、WebSocket等多种应用层协议，它并不是单一协议的API。<br>在应用中，需要将数据从Java对象转换成为各种应用协议的数据格式，或者进行反向的转换，Netty为此提供了一系列扩展的编解码框架，与应用开发场景无缝衔接，并且性能良<br>好。<br>它扩展了Java NIO Bufer，提供了自己的ByteBuf实现，并且深度支持Direct Bufer等技术，甚至hack了Java内部对Direct Bufer的分配和销毁等。同时，Netty也提供了更<br>加完善的Scatter/Gather机制实现。<br>可以看到，Netty的能力范围大大超过了Java核心类库中的NIO等API，可以说它是一个从应用视角出发的产物。<br>当然，对于基础API设计，Netty也有自己独到的见解，未来Java NIO API也可能据此进行一定的改进，如果你有兴趣可以参考JDK-8187540。<br>接下来，我们一起来看一个入门的代码实例，看看Netty应用到底是什么样子。<br>与第11讲类似，同样是以简化的Echo Server为例，下图是Netty官方提供的Server部分，完整用例请点击链接。<br>上面的例子，虽然代码很短，但已经足够体现出Netty的几个核心概念，请注意我用红框标记出的部分：<br>ServerBootstrap，服务器端程序的入口，这是Netty为简化网络程序配置和关闭等生命周期管理，所引入的Bootstrapping机制。我们通常要做的创建Channel、绑定端口、注<br>册Handler等，都可以通过这个统一的入口，以Fluent API等形式完成，相对简化了API使用。与之相对应， Bootstrap则是Client端的通常入口。<br>Channel，作为一个基于NIO的扩展框架，Channel和Selector等概念仍然是Netty的基础组件，但是针对应用开发具体需求，提供了相对易用的抽象。<br>EventLoop，这是Netty处理事件的核心机制。例子中使用了EventLoopGroup。我们在NIO中通常要做的几件事情，如注册感兴趣的事件、调度相应的Handler等，都<br>是EventLoop负责。<br>ChannelFuture，这是Netty实现异步IO的基础之一，保证了同一个Channel操作的调用顺序。Netty扩展了Java标准的Future，提供了针对自己场景的特有Future定义。<br>ChannelHandler，这是应用开发者放置业务逻辑的主要地方，也是我上面提到的“Separation Of Concerns”原则的体现。<br>ChannelPipeline，它是ChannelHandler链条的容器，每个Channel在创建后，自动被分配一个ChannelPipeline。在上面的示例中，我们通过ServerBootstrap注册<br>了ChannelInitializer，并且实现了initChannel方法，而在该方法中则承担了向ChannelPipleline安装其他Handler的任务。<br>你可以参考下面的简化示意图，忽略Inbound/OutBound Handler的细节，理解这几个基本单元之间的操作流程和对应关系。<br>极客时间<br>对比Java标准NIO的代码，Netty提供的相对高层次的封装，减少了对Selector等细节的操纵，而EventLoop、Pipeline等机制则简化了编程模型，开发者不用担心并发等问题，在<br>一定程度上简化了应用代码的开发。最难能可贵的是，这一切并没有以可靠性、可扩展性为代价，反而将其大幅度提高。<br>我在专栏周末福利中已经推荐了Norman Maurer等编写的《Netty实战》（Netty In Action），如果你想系统学习Netty，它会是个很好的入门参考。针对Netty的一些实现原<br>理，很可能成为面试中的考点，例如：<br>Reactor模式和Netty线程模型。<br>Pipelining、EventLoop等部分的设计实现细节。<br>Netty的内存管理机制、引用计数等特别手段。<br>有的时候面试官也喜欢对比Java标准NIO API，例如，你是否知道Java NIO早期版本中的Epoll空转问题，以及Netty的解决方式等。<br>对于这些知识点，公开的深入解读已经有很多了，在学习时希望你不要一开始就被复杂的细节弄晕，可以结合实例，逐步、有针对性的进行学习。我的一个建议是，可以试着画出相<br>应的示意图，非常有助于理解并能清晰阐述自己的看法。<br>今天，从Netty性能的问题开始，我概要地介绍了Netty框架，并且以Echo Server为例，对比了Netty和Java NIO在设计上的不同。但这些都仅仅是冰山的一角，全面掌握还需要<br>下非常多的功夫。</li>
-</ul>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://masonnpe.github.io/2019/05/14/Netty/NIO/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="mason">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="mason's note">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/05/14/Netty/NIO/" itemprop="url">Nio</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-14T09:10:23+08:00">
-                2019-05-14
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Netty/" itemprop="url" rel="index">
-                    <span itemprop="name">Netty</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p><strong>初识NIO：</strong></p>
-<p>​    在 JDK 1. 4 中 新 加入 了 NIO( New Input/ Output) 类, 引入了一种基于通道和缓冲区的 I/O 方式，它可以使用 Native 函数库直接分配堆外内存，然后通过一个存储在 Java 堆的 DirectByteBuffer 对象作为这块内存的引用进行操作，避免了在 Java 堆和 Native 堆中来回复制数据。</p>
-<p>​    NIO 是一种同步非阻塞的 IO 模型。同步是指线程不断轮询 IO 事件是否就绪，非阻塞是指线程在等待 IO 的时候，可以同时做其他任务。同步的核心就是 Selector，Selector 代替了线程本身轮询 IO 事件，避免了阻塞同时减少了不必要的线程消耗；非阻塞的核心就是通道和缓冲区，当 IO 事件就绪时，可以通过写道缓冲区，保证 IO 的成功，而无需线程阻塞式地等待。</p>
-<p><strong>Buffer：</strong></p>
-<p>​    为什么说NIO是基于缓冲区的IO方式呢？因为，当一个链接建立完成后，IO的数据未必会马上到达，为了当数据到达时能够正确完成IO操作，在BIO（阻塞IO）中，等待IO的线程必须被阻塞，以全天候地执行IO操作。为了解决这种IO方式低效的问题，引入了缓冲区的概念，当数据到达时，可以预先被写入缓冲区，再由缓冲区交给线程，因此线程无需阻塞地等待IO。</p>
-<p><strong>通道：</strong></p>
-<p>​    当执行：SocketChannel.write(Buffer)，便将一个 buffer 写到了一个通道中。如果说缓冲区还好理解，通道相对来说就更加抽象。网上博客难免有写不严谨的地方，容易使初学者感到难以理解。</p>
-<p>​    引用 Java NIO 中权威的说法：通道是 I/O 传输发生时通过的入口，而缓冲区是这些数 据传输的来源或目标。对于离开缓冲区的传输，您想传递出去的数据被置于一个缓冲区，被传送到通道。对于传回缓冲区的传输，一个通道将数据放置在您所提供的缓冲区中。</p>
-<p>​    例如 有一个服务器通道 ServerSocketChannel serverChannel，一个客户端通道 SocketChannel clientChannel；服务器缓冲区：serverBuffer，客户端缓冲区：clientBuffer。</p>
-<p>​    当服务器想向客户端发送数据时，需要调用：clientChannel.write(serverBuffer)。当客户端要读时，调用 clientChannel.read(clientBuffer)</p>
-<p>​    当客户端想向服务器发送数据时，需要调用：serverChannel.write(clientBuffer)。当服务器要读时，调用 serverChannel.read(serverBuffer)</p>
-<p>​    这样，通道和缓冲区的关系似乎更好理解了。在实践中，未必会出现这种双向连接的蠢事（然而这确实存在的，后面的内容还会涉及），但是可以理解为在NIO中：如果想将Data发到目标端，则需要将存储该Data的Buffer，写入到目标端的Channel中，然后再从Channel中读取数据到目标端的Buffer中。</p>
-<p><strong>Selector：</strong></p>
-<p>​    通道和缓冲区的机制，使得线程无需阻塞地等待IO事件的就绪，但是总是要有人来监管这些IO事件。这个工作就交给了selector来完成，这就是所谓的同步。</p>
-<p>​    Selector允许单线程处理多个 Channel。如果你的应用打开了多个连接（通道），但每个连接的流量都很低，使用Selector就会很方便。</p>
-<p>​    要使用Selector，得向Selector注册Channel，然后调用它的select()方法。这个方法会一直阻塞到某个注册的通道有事件就绪，这就是所说的轮询。一旦这个方法返回，线程就可以处理这些事件。</p>
-<p>​    Selector中注册的感兴趣事件有：</p>
-<ul>
-<li>OP_ACCEPT</li>
-<li>OP_CONNECT </li>
-<li>OP_READ </li>
-<li>OP_WRITE</li>
-</ul>
-<p><strong>优化：</strong></p>
-<p>​    一种优化方式是：将Selector进一步分解为Reactor，将不同的感兴趣事件分开，每一个Reactor只负责一种感兴趣的事件。这样做的好处是：1、分离阻塞级别，减少了轮询的时间；2、线程无需遍历set以找到自己感兴趣的事件，因为得到的set中仅包含自己感兴趣的事件。</p>
-<p><img src="http://imglf1.ph.126.net/9AtBKwQ8vHsko1RPRb0sew==/6631645009304717344.jpg" alt="img"></p>
-<p><strong>NIO和epoll：</strong></p>
-<p>​    epoll是Linux内核的IO模型。我想一定有人想问，AIO听起来比NIO更加高大上，为什么不使用AIO？AIO其实也有应用，但是有一个问题就是，Linux是不支持AIO的，因此基于AIO的程序运行在Linux上的效率相比NIO反而更低。而Linux是最主要的服务器OS，因此相比AIO，目前NIO的应用更加广泛。</p>
-<p>​    说到这里，可能你已经明白了，epoll一定和NIO有着很深的因缘。没错，如果仔细研究epoll的技术内幕，你会发现它确实和NIO非常相似，都是基于“通道”和缓冲区的，也有selector，只是在epoll中，通道实际上是操作系统的“管道”。和NIO不同的是，NIO中，解放了线程，但是需要由selector阻塞式地轮询IO事件的就绪；而epoll中，IO事件就绪后，会自动发送消息，通知selector：“我已经就绪了。”可以认为，Linux的epoll是一种效率更高的NIO。</p>
-<p><strong>NIO轶事：</strong></p>
-<p>​    一篇有意思的<a href="http://blog.csdn.net/haoel/article/details/2224069" target="_blank" rel="noopener">博客</a>，讲的 Java selector.open() 的时候，会创建一个自己和自己的链接（windows上是tcp，linux上是通道）</p>
-<p>​    这么做的原因：可以从 Apache Mina 中窥探。在 Mina 中，有如下机制：</p>
-<ol>
-<li>Mina框架会创建一个Work对象的线程。</li>
-<li>Work对象的线程的run()方法会从一个队列中拿出一堆Channel，然后使用Selector.select()方法来侦听是否有数据可以读/写。</li>
-<li>最关键的是，在select的时候，如果队列有新的Channel加入，那么，Selector.select()会被唤醒，然后重新select最新的Channel集合。</li>
-<li>要唤醒select方法，只需要调用Selector的wakeup()方法。</li>
-</ol>
-<p>​    而一个阻塞在select上的线程有以下三种方式可以被唤醒：</p>
-<ol>
-<li>有数据可读/写，或出现异常。</li>
-<li>阻塞时间到，即time out。</li>
-<li>收到一个non-block的信号。可由kill或pthread_kill发出。</li>
-</ol>
-<p>​    首先 2 可以排除，而第三种方式，只在linux中存在。因此，Java NIO为什么要创建一个自己和自己的链接：就是如果想要唤醒select，只需要朝着自己的这个loopback连接发点数据过去，于是，就可以唤醒阻塞在select上的线程了。</p>
-<p><a href="https://blog.csdn.net/xidianliuy/article/details/51612676" target="_blank" rel="noopener">《Java NIO编写Socket服务器的一个例子》</a></p>
-<p>1.Java NIO概览<br>首先，熟悉一下NIO的主要组成部分：<br>Bufer，高效的数据容器，除了布尔类型，所有原始数据类型都有相应的Bufer实现。<br>Channel，类似在Linux之类操作系统上看到的文件描述符，是NIO中被用来支持批量式IO操作的一种抽象。<br>File或者Socket，通常被认为是比较高层次的抽象，而Channel则是更加操作系统底层的一种抽象，这也使得NIO得以充分利用现代操作系统底层机制，获得特定场景的性能优<br>化，例如，DMA（Direct Memory Access）等。不同层次的抽象是相互关联的，我们可以通过Socket获取Channel，反之亦然。<br>Selector，是NIO实现多路复用的基础，它提供了一种高效的机制，可以检测到注册在Selector上的多个Channel中，是否有Channel处于就绪状态，进而实现了单线程对<br>多Channel的高效管理。<br>Selector同样是基于底层操作系统机制，不同模式、不同版本都存在区别，例如，在最新的代码库里，相关实现如下：<br>Linux上依赖于epoll（<a href="http://hg.openjdk.java.net/jdk/jdk/fle/d8327f838b88/src/java.base/linux/classes/sun/nio/ch/EPollSelectorImpl.java）。" target="_blank" rel="noopener">http://hg.openjdk.java.net/jdk/jdk/fle/d8327f838b88/src/java.base/linux/classes/sun/nio/ch/EPollSelectorImpl.java）。</a><br>Windows上NIO2（AIO）模式则是依赖于iocp（<a href="http://hg.openjdk.java.net/jdk/jdk/fle/d8327f838b88/src/java.base/windows/classes/sun/nio/ch/Iocp.java）。" target="_blank" rel="noopener">http://hg.openjdk.java.net/jdk/jdk/fle/d8327f838b88/src/java.base/windows/classes/sun/nio/ch/Iocp.java）。</a><br>Chartset，提供Unicode字符串定义，NIO也提供了相应的编解码器等，例如，通过下面的方式进行字符串到ByteBufer的转换：<br>Charset.defaultCharset().encode(“Hello world!”));<br>2.NIO能解决什么问题？<br>下面我通过一个典型场景，来分析为什么需要NIO，为什么需要多路复用。设想，我们需要实现一个服务器应用，只简单要求能够同时服务多个客户端请求即可。<br>使用java.io和java.net中的同步、阻塞式API，可以简单实现。<br>public class DemoServer extends Thread {<br>private ServerSocket serverSocket;<br>public int getPort() {<br>return serverSocket.getLocalPort();<br>}<br>public void run() {<br>try {<br>极客时间<br>serverSocket = new ServerSocket(0);<br>while (true) {<br>Socket socket = serverSocket.accept();<br>RequesHandler requesHandler = new RequesHandler(socket);<br>requesHandler.sart();<br>}<br>} catch (IOException e) {<br>e.printStackTrace();<br>} fnally {<br>if (serverSocket != null) {<br>try {<br>serverSocket.close();<br>} catch (IOException e) {<br>e.printStackTrace();<br>}<br>;<br>}<br>}<br>}<br>public satic void main(String[] args) throws IOException {<br>DemoServer server = new DemoServer();<br>server.sart();<br>try (Socket client = new Socket(InetAddress.getLocalHos(), server.getPort())) {<br>BuferedReader buferedReader = new BuferedReader(new InputStreamReader(client.getInputStream()));<br>buferedReader.lines().forEach(s -&gt; Sysem.out.println(s));<br>}<br>}<br>}<br>// 简化实现，不做读取，直接发送字符串<br>class RequesHandler extends Thread {<br>private Socket socket;<br>RequesHandler(Socket socket) {<br>this.socket = socket;<br>}<br>@Override<br>public void run() {<br>try (PrintWriter out = new PrintWriter(socket.getOutputStream());) {<br>out.println(“Hello world!”);<br>out.fush();<br>} catch (Exception e) {<br>e.printStackTrace();<br>}<br>}<br>}<br>其实现要点是：<br>服务器端启动ServerSocket，端口0表示自动绑定一个空闲端口。<br>调用accept方法，阻塞等待客户端连接。<br>利用Socket模拟了一个简单的客户端，只进行连接、读取、打印。<br>当连接建立后，启动一个单独线程负责回复客户端请求。<br>这样，一个简单的Socket服务器就被实现出来了。<br>思考一下，这个解决方案在扩展性方面，可能存在什么潜在问题呢？<br>大家知道Java语言目前的线程实现是比较重量级的，启动或者销毁一个线程是有明显开销的，每个线程都有单独的线程栈等结构，需要占用非常明显的内存，所以，每一个Client启<br>动一个线程似乎都有些浪费。<br>那么，稍微修正一下这个问题，我们引入线程池机制来避免浪费。<br>serverSocket = new ServerSocket(0);<br>executor = Executors.newFixedThreadPool(8);<br>while (true) {<br>Socket socket = serverSocket.accept();<br>RequesHandler requesHandler = new RequesHandler(socket);<br>executor.execute(requesHandler);<br>}<br>这样做似乎好了很多，通过一个固定大小的线程池，来负责管理工作线程，避免频繁创建、销毁线程的开销，这是我们构建并发服务的典型方式。这种工作方式，可以参考下图来理<br>解。<br>极客时间<br>如果连接数并不是非常多，只有最多几百个连接的普通应用，这种模式往往可以工作的很好。但是，如果连接数量急剧上升，这种实现方式就无法很好地工作了，因为线程上下文切<br>换开销会在高并发时变得很明显，这是同步阻塞方式的低扩展性劣势。<br>NIO引入的多路复用机制，提供了另外一种思路，请参考我下面提供的新的版本。<br>public class NIOServer extends Thread {<br>public void run() {<br>try (Selector selector = Selector.open();<br>ServerSocketChannel serverSocket = ServerSocketChannel.open();) {// 创建Selector和Channel<br>serverSocket.bind(new InetSocketAddress(InetAddress.getLocalHos(), 8888));<br>serverSocket.confgureBlocking(false);<br>// 注册到Selector，并说明关注点<br>serverSocket.regiser(selector, SelectionKey.OP_ACCEPT);<br>while (true) {<br>selector.select();// 阻塞等待就绪的Channel，这是关键点之一<br>Set selectedKeys = selector.selectedKeys();<br>Iterator iter = selectedKeys.iterator();<br>while (iter.hasNext()) {<br>SelectionKey key = iter.next();<br>// 生产系统中一般会额外进行就绪状态检查<br>sayHelloWorld((ServerSocketChannel) key.channel());<br>iter.remove();<br>}<br>}<br>} catch (IOException e) {<br>e.printStackTrace();<br>}<br>}<br>private void sayHelloWorld(ServerSocketChannel server) throws IOException {<br>try (SocketChannel client = server.accept();) { client.write(Charset.defaultCharset().encode(“Hello world!”));<br>}<br>}<br>// 省略了与前面类似的main<br>}<br>这个非常精简的样例掀开了NIO多路复用的面纱，我们可以分析下主要步骤和元素：<br>首先，通过Selector.open()创建一个Selector，作为类似调度员的角色。<br>然后，创建一个ServerSocketChannel，并且向Selector注册，通过指定SelectionKey.OP_ACCEPT，告诉调度员，它关注的是新的连接请求。<br>注意，为什么我们要明确配置非阻塞模式呢？这是因为阻塞模式下，注册操作是不允许的，会抛出IllegalBlockingModeException异常。<br>Selector阻塞在select操作，当有Channel发生接入请求，就会被唤醒。<br>在sayHelloWorld方法中，通过SocketChannel和Bufer进行数据操作，在本例中是发送了一段字符串。<br>可以看到，在前面两个样例中，IO都是同步阻塞模式，所以需要多线程以实现多任务处理。而NIO则是利用了单线程轮询事件的机制，通过高效地定位就绪的Channel，来决定做什<br>么，仅仅select阶段是阻塞的，可以有效避免大量客户端连接时，频繁线程切换带来的问题，应用的扩展能力有了非常大的提高。下面这张图对这种实现思路进行了形象地说明。<br>极客时间<br>在Java 7引入的NIO 2中，又增添了一种额外的异步IO模式，利用事件和回调，处理Accept、Read等操作。 AIO实现看起来是类似这样子：<br>AsynchronousServerSocketChannel serverSock = AsynchronousServerSocketChannel.open().bind(sockAddr);<br>serverSock.accept(serverSock, new CompletionHandler&lt;&gt;() { //为异步操作指定CompletionHandler回调函数<br>@Override<br>public void completed(AsynchronousSocketChannel sockChannel, AsynchronousServerSocketChannel serverSock) {<br>serverSock.accept(serverSock, this);<br>// 另外一个 write（sock，CompletionHandler{}）<br>sayHelloWorld(sockChannel, Charset.defaultCharset().encode<br>(“Hello World!”));<br>}<br>// 省略其他路径处理方法…<br>});<br>鉴于其编程要素（如Future、CompletionHandler等），我们还没有进行准备工作，为避免理解困难，我会在专栏后面相关概念补充后的再进行介绍，尤其<br>是Reactor、Proactor模式等方面将在Netty主题一起分析，这里我先进行概念性的对比：<br>基本抽象很相似，AsynchronousServerSocketChannel对应于上面例子中的ServerSocketChannel；AsynchronousSocketChannel则对应SocketChannel。<br>业务逻辑的关键在于，通过指定CompletionHandler回调接口，在accept/read/write等关键节点，通过事件机制调用，这是非常不同的一种编程思路。<br>今天我初步对Java提供的IO机制进行了介绍，概要地分析了传统同步IO和NIO的主要组成，并根据典型场景，通过不同的IO模式进行了实现与拆解。专栏下一讲，我还将继续分<br>析Java IO的主题。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://masonnpe.github.io/2019/05/14/MyBatis/Mybatis中的设计模式/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="mason">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="mason's note">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/05/14/MyBatis/Mybatis中的设计模式/" itemprop="url">Mybatis中的设计模式</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-14T09:10:23+08:00">
-                2019-05-14
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Mybatis/" itemprop="url" rel="index">
-                    <span itemprop="name">Mybatis</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>一、装饰模式</p>
-<p>最明显的就是cache包下面的实现</p>
-<p>Cahe、LoggingCache、LruCache、TransactionalCahe…等</p>
-<p>以LoggingCache为例，UML图</p>
-<p>​                              </p>
-<p>Cache cache  = new LoggingCache(new PerpetualCache(“cacheid”));<br>一层层包装就使得默认cache实现PerpetualCache具有附加的功能，比如上面的log功能。<br>二、建造者模式</p>
-<p>BaseBuilder、XMLMapperBuilder</p>
-<p>三、工厂方法</p>
-<p>SqlSessionFactory</p>
-<p>四、适配器模式</p>
-<p>Log、LogFactory</p>
-<p>五、模板方法</p>
-<p>BaseExecutor、SimpleExecutor</p>
-<p>六、动态代理</p>
-<p>Plugin 见7图</p>
-<p>7、责任链模式</p>
-<p>Interceptor、InterceptorChain</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/7/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><span class="page-number current">8</span><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/9/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/7/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><span class="page-number current">8</span><a class="page-number" href="/page/9/">9</a><a class="page-number" href="/page/10/">10</a><a class="extend next" rel="next" href="/page/9/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -2668,7 +2732,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">90</span>
+                  <span class="site-state-item-count">93</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2690,7 +2754,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">35</span>
+                  <span class="site-state-item-count">38</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

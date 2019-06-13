@@ -111,7 +111,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="Hystrix," />
 
 
 
@@ -125,8 +125,9 @@
 
 
 <meta name="description" content="一个大型服务不可避免的需要依赖其他服务，并且有可能需要通过网络请求依赖第三方客户端。这样就有可能因为单个依赖服务延迟而导致整个服务器上的资源被阻塞。更糟糕的是，倘若两个服务相互依赖，有一个服务对另一个服务响应延时就有可能造成雪崩效应，导致两个服务一起崩溃。 现如今微服务架构十分流行，其解决依赖隔离方案hystrix也被大家所认知。但目前还有很多服务还是停留在Spring mvc框架，无法直接使用S">
+<meta name="keywords" content="Hystrix">
 <meta property="og:type" content="article">
-<meta property="og:title" content="mason&#39;s note">
+<meta property="og:title" content="Hystrix">
 <meta property="og:url" content="https://masonnpe.github.io/2019/05/09/分布式/hystrix/index.html">
 <meta property="og:site_name" content="mason&#39;s note">
 <meta property="og:description" content="一个大型服务不可避免的需要依赖其他服务，并且有可能需要通过网络请求依赖第三方客户端。这样就有可能因为单个依赖服务延迟而导致整个服务器上的资源被阻塞。更糟糕的是，倘若两个服务相互依赖，有一个服务对另一个服务响应延时就有可能造成雪崩效应，导致两个服务一起崩溃。 现如今微服务架构十分流行，其解决依赖隔离方案hystrix也被大家所认知。但目前还有很多服务还是停留在Spring mvc框架，无法直接使用S">
@@ -134,9 +135,9 @@
 <meta property="og:image" content="http://tech.lede.com/2017/06/15/rd/server/hystrix/hystrix-2.png">
 <meta property="og:image" content="http://tech.lede.com/2017/06/15/rd/server/hystrix/hystrix-3.png">
 <meta property="og:image" content="http://tech.lede.com/2017/06/15/rd/server/hystrix/hystrix-4.png">
-<meta property="og:updated_time" content="2019-05-17T07:29:12.127Z">
+<meta property="og:updated_time" content="2019-06-13T08:06:56.653Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="mason&#39;s note">
+<meta name="twitter:title" content="Hystrix">
 <meta name="twitter:description" content="一个大型服务不可避免的需要依赖其他服务，并且有可能需要通过网络请求依赖第三方客户端。这样就有可能因为单个依赖服务延迟而导致整个服务器上的资源被阻塞。更糟糕的是，倘若两个服务相互依赖，有一个服务对另一个服务响应延时就有可能造成雪崩效应，导致两个服务一起崩溃。 现如今微服务架构十分流行，其解决依赖隔离方案hystrix也被大家所认知。但目前还有很多服务还是停留在Spring mvc框架，无法直接使用S">
 <meta name="twitter:image" content="http://tech.lede.com/2017/06/15/rd/server/hystrix/hystrix-2.png">
 
@@ -174,7 +175,7 @@
 
 
 
-  <title> | mason's note</title>
+  <title>Hystrix | mason's note</title>
   
 
 
@@ -364,7 +365,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline"></h1>
+          <h1 class="post-title" itemprop="name headline">Hystrix</h1>
         
 
         <div class="post-meta">
@@ -386,6 +387,28 @@
             
           </span>
 
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/分布式/" itemprop="url" rel="index">
+                    <span itemprop="name">分布式</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -596,6 +619,12 @@
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/Hystrix/" rel="tag"><i class="fa fa-tag"></i> Hystrix</a>
+          
+        </div>
+      
 
       
       
@@ -703,7 +732,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">90</span>
+                  <span class="site-state-item-count">93</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -725,7 +754,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">35</span>
+                  <span class="site-state-item-count">38</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

@@ -1,0 +1,1511 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic|Lobster Two:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-docker.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-docker.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-docker.png?v=5.1.4">
+
+
+
+
+
+
+  <meta name="keywords" content="锁," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="mason's note" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="排它锁（Exclusive），简写为 X 锁，又称写锁。 共享锁（Shared），简写为 S 锁，又称读锁。 IX/IS 都是表锁，用来表示一个事务想要在表中的某个数据行上加 X 锁或 S 锁。   在存在行级锁和表级锁的情况下，事务 T 想要对表 A 加 X 锁，就需要先检测是否有其它事务对表 A 或者表 A 中的任意一行加了锁，那么就需要对表 A 的每一行都检测一次，这是非常耗时的。 一个事">
+<meta name="keywords" content="锁">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数据库锁">
+<meta property="og:url" content="https://masonnpe.github.io/2019/05/14/数据库/数据库锁/index.html">
+<meta property="og:site_name" content="mason&#39;s note">
+<meta property="og:description" content="排它锁（Exclusive），简写为 X 锁，又称写锁。 共享锁（Shared），简写为 S 锁，又称读锁。 IX/IS 都是表锁，用来表示一个事务想要在表中的某个数据行上加 X 锁或 S 锁。   在存在行级锁和表级锁的情况下，事务 T 想要对表 A 加 X 锁，就需要先检测是否有其它事务对表 A 或者表 A 中的任意一行加了锁，那么就需要对表 A 的每一行都检测一次，这是非常耗时的。 一个事">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/7/23/164c6d7b64b8c6fa?imageView2/0/w/1280/h/960/format/webp/ignore-error/1">
+<meta property="og:updated_time" content="2019-06-13T08:08:59.386Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="数据库锁">
+<meta name="twitter:description" content="排它锁（Exclusive），简写为 X 锁，又称写锁。 共享锁（Shared），简写为 S 锁，又称读锁。 IX/IS 都是表锁，用来表示一个事务想要在表中的某个数据行上加 X 锁或 S 锁。   在存在行级锁和表级锁的情况下，事务 T 想要对表 A 加 X 锁，就需要先检测是否有其它事务对表 A 或者表 A 中的任意一行加了锁，那么就需要对表 A 的每一行都检测一次，这是非常耗时的。 一个事">
+<meta name="twitter:image" content="https://user-gold-cdn.xitu.io/2018/7/23/164c6d7b64b8c6fa?imageView2/0/w/1280/h/960/format/webp/ignore-error/1">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"hide","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":true,"transition":{"post_block":"fadeIn","post_header":"bounceLeftIn","post_body":"slideLeftIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://masonnpe.github.io/2019/05/14/数据库/数据库锁/"/>
+
+
+
+
+
+  <title>数据库锁 | mason's note</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband">
+		<a href="https://github.com/masonnpe" class="github-corner" aria-label="View source on Github"><svg width="55" height="55" viewBox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+	</div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">mason's note</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">沉迷学习日渐消瘦</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://masonnpe.github.io/2019/05/14/数据库/数据库锁/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="mason">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="mason's note">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">数据库锁</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-14T09:10:23+08:00">
+                2019-05-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/数据库/" itemprop="url" rel="index">
+                    <span itemprop="name">数据库</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <ul>
+<li>排它锁（Exclusive），简写为 X 锁，又称写锁。</li>
+<li>共享锁（Shared），简写为 S 锁，又称读锁。</li>
+<li>IX/IS 都是表锁，用来表示一个事务想要在表中的某个数据行上加 X 锁或 S 锁。</li>
+</ul>
+<blockquote>
+<p>在存在行级锁和表级锁的情况下，事务 T 想要对表 A 加 X 锁，就需要先检测是否有其它事务对表 A 或者表 A 中的任意一行加了锁，那么就需要对表 A 的每一行都检测一次，这是非常耗时的。</p>
+<p>一个事务在获得某个数据行对象的 S 锁之前，必须先获得表的 IS 锁或者更强的锁；</p>
+<p>一个事务在获得某个数据行对象的 X 锁之前，必须先获得表的 IX 锁。</p>
+<p>通过引入意向锁，事务 T 想要对表 A 加 X 锁，只需要先检测是否有其它事务对表 A 加了 X/IX/S/IS 锁，如果加了就表示有其它事务正在使用这个表或者表中某一行的锁，因此事务 T 加 X 锁失败。</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>共享锁(S)</th>
+<th>排他锁(X)</th>
+<th>意向共享锁(IS)</th>
+<th>意向排他锁(IX)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>共享锁</strong></td>
+<td>兼容</td>
+<td>冲突</td>
+<td>兼容</td>
+<td>冲突</td>
+</tr>
+<tr>
+<td><strong>排他锁</strong></td>
+<td>冲突</td>
+<td>冲突</td>
+<td>冲突</td>
+<td>冲突</td>
+</tr>
+<tr>
+<td><strong>意向共享锁</strong></td>
+<td>兼容</td>
+<td>冲突</td>
+<td>兼容</td>
+<td>兼容</td>
+</tr>
+<tr>
+<td><strong>意向排他锁</strong></td>
+<td>冲突</td>
+<td>冲突</td>
+<td>兼容</td>
+<td>兼容</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>任意 IS/IX 锁之间都是兼容的，因为它们只是表示想要对表加锁，而不是真正加锁；</li>
+<li>S 锁只与 S 锁和 IS 锁兼容</li>
+</ul>
+<a id="more"></a>
+<h2 id="三级封锁协议"><a href="#三级封锁协议" class="headerlink" title="三级封锁协议"></a>三级封锁协议</h2><p><strong>一级封锁协议</strong>：写-写；事务要修改数据时必须加 X 锁，直到事务结束才释放锁。可以解决丢失修改问题，因为不能同时有两个事务对同一个数据进行修改，那么事务的修改就不会被覆盖。</p>
+<p><strong>二级封锁协议</strong>：写-读；在一级的基础上，要求读取数据 A 时必须加 S 锁，读取完马上释放 S 锁。可以解决读脏数据问题，因为如果一个事务在对数据进行修改，根据一级封锁协议，会加 X 锁，那么就不能再加 S 锁了，也就是不会读入数据。</p>
+<p><strong>三级封锁协议</strong>：读-写；在二级的基础上，要求读取数据 A 时必须加 S 锁，直到事务结束了才能释放 S 锁。可以解决不可重复读的问题，因为读数据时，其它事务不能对数据加 X 锁，从而避免了在读的期间数据发生改变。</p>
+<h2 id="InnoDB-锁"><a href="#InnoDB-锁" class="headerlink" title="InnoDB 锁"></a>InnoDB 锁</h2><h3 id="Record-Locks"><a href="#Record-Locks" class="headerlink" title="Record Locks"></a>Record Locks</h3><p>锁定一个记录上的索引，而不是记录本身。</p>
+<p>如果我们对加了索引的列作为 SQL 中 WHERE 语句的过滤条件，那么 InnoDB 就可以通过索引建立的 B+ 树找到行记录并添加索引，但是如果使用的不是索引列作为过滤条件时，由于 InnoDB 不知道待修改的记录具体存放的位置，也无法对将要修改哪条记录提前做出判断就会锁定整个表。</p>
+<h3 id="Gap-Locks"><a href="#Gap-Locks" class="headerlink" title="Gap Locks"></a>Gap Locks</h3><p>记录锁是在存储引擎中最为常见的锁，除了记录锁之外，InnoDB 中还存在间隙锁（Gap Lock），间隙锁是对索引记录中的一段连续区域的锁；当使用类似下面的 SQL 语句时，就会阻止其他事务向表中插入 id=15 的记录，因为整个范围都被间隙锁锁定了。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> c <span class="keyword">FROM</span> t <span class="keyword">WHERE</span> c <span class="keyword">BETWEEN</span> <span class="number">10</span> <span class="keyword">and</span> <span class="number">20</span> <span class="keyword">FOR</span> <span class="keyword">UPDATE</span>;</span><br></pre></td></tr></table></figure>
+<p>间隙锁是存储引擎对于性能和并发做出的权衡，并且只用于某些事务隔离级别。</p>
+<p>虽然间隙锁中也分为共享锁和互斥锁，不过它们之间并不是互斥的，也就是不同的事务可以同时持有一段相同范围的共享锁和互斥锁，它唯一阻止的就是其他事务向这个范围中添加新的记录。</p>
+<h3 id="Next-Key-Locks"><a href="#Next-Key-Locks" class="headerlink" title="Next-Key Locks"></a>Next-Key Locks</h3><p>Next-Key Locks 是 MySQL 的 InnoDB 存储引擎的一种锁实现。</p>
+<p>可重复读： 同一个事务里确保每次读取的时候，获得的是同样的数据</p>
+<p>MVCC 不能解决幻读的问题，Next-Key Locks 就是为了解决这个问题而存在的。在可重复读（REPEATABLE READ）隔离级别下，使用 MVCC + Next-Key Locks 可以解决幻读问题。</p>
+<p>它是 Record Locks 和 Gap Locks 的结合，不仅锁定一个记录上的索引，也锁定索引之间的间隙。例如一个索引包含以下值：10, 11, 13, and 20，那么就需要锁定以下区间：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">(negative infinity, 10]</span><br><span class="line">(10, 11]</span><br><span class="line">(11, 13]</span><br><span class="line">(13, 20]</span><br><span class="line">(20, positive infinity)</span><br></pre></td></tr></table></figure>
+<p>既然叫 Next-Key 锁，锁定的应该是当前值和后面的范围，但是实际上却不是，Next-Key 锁锁定的是当前值和前面的范围。</p>
+<p>当我们更新一条记录，比如 SELECT*FROM users WHERE age=30FOR UPDATE;，InnoDB 不仅会在范围 (21,30] 上加 Next-Key 锁，还会在这条记录后面的范围 (30,40] 加间隙锁，所以插入 (21,40]范围内的记录都会被锁定。</p>
+<p>  <strong>InnoDB存储引擎的锁的算法有三种：</strong></p>
+<ul>
+<li>Record lock：单个行记录上的锁</li>
+<li>Gap lock：间隙锁，锁定一个范围，不包括记录本身</li>
+<li><p>Next-key lock：record+gap 锁定一个范围，包含记录本身</p>
+<p> <strong>相关知识点：</strong><br>​    1. innodb对于行的查询使用next-key lock<br>​    2. Next-locking keying为了解决Phantom Problem幻读问题<br>​    3. 当查询的索引含有唯一属性时，将next-key lock降级为record key<br>​    4. Gap锁设计的目的是为了阻止多个事务将记录插入到同一范围内，而这会导致幻读问题的产生<br>​    5. 有两种方式显式关闭gap锁：（除了外键约束和唯一性检查外，其余情况仅使用record lock） A. 将事务隔离级别设置为RC B. 将参数innodb_locks_unsafe_for_binlog设置为1</p>
+</li>
+</ul>
+<h2 id="2-2表锁简单介绍"><a href="#2-2表锁简单介绍" class="headerlink" title="2.2表锁简单介绍"></a>2.2表锁简单介绍</h2><p>首先，从锁的粒度，我们可以分成两大类：</p>
+<ul>
+<li>表锁：开销小，加锁快；不会出现死锁；锁定力度大，发生锁冲突概率高，并发度最低</li>
+<li>行锁：开销大，加锁慢；会出现死锁；锁定粒度小，发生锁冲突的概率低，并发度高</li>
+</ul>
+<p>不同的存储引擎支持的锁粒度是不一样的：</p>
+<ul>
+<li>InnoDB行锁和表锁都支持（<strong>InnoDB的行锁是基于索引的</strong>！InnoDB只有通过<strong>索引条件</strong>检索数据<strong>才使用行级锁</strong>，否则，InnoDB将使用<strong>表锁</strong>）</li>
+<li>MyISAM只支持表锁</li>
+</ul>
+<h2 id="2-2行锁细讲"><a href="#2-2行锁细讲" class="headerlink" title="2.2行锁细讲"></a>2.2行锁细讲</h2><p>InnoDB实现了以下<strong>两种</strong>类型的行锁。</p>
+<ul>
+<li>共享锁（S锁）：允许一个事务去读一行，阻止其他事务获得相同数据集的排他锁。 <ul>
+<li>也叫做<strong>读锁</strong>：读锁是<strong>共享</strong>的，多个客户可以<strong>同时读取同一个</strong>资源，但<strong>不允许其他客户修改</strong>。</li>
+</ul>
+</li>
+<li>排他锁（X锁)：允许获得排他锁的事务更新数据，阻止其他事务取得相同数据集的共享读锁和排他写锁。 <ul>
+<li>也叫做<strong>写锁</strong>：写锁是排他的，<strong>写锁会阻塞其他的写锁和读锁</strong>。</li>
+</ul>
+</li>
+</ul>
+<p>另外，<strong>为了允许行锁和表锁共存，实现多粒度锁机制</strong>，InnoDB还有两种内部使用的意向锁（Intention Locks），这两种意向锁都是<strong>表锁</strong>：</p>
+<ul>
+<li>意向共享锁（IS）：事务打算给数据行加行共享锁，事务在给一个数据行加共享锁前必须先取得该表的IS锁。</li>
+<li>意向排他锁（IX）：事务打算给数据行加行排他锁，事务在给一个数据行加排他锁前必须先取得该表的IX锁。</li>
+</ul>
+<h3 id="2-2-1MVCC和事务的隔离级别"><a href="#2-2-1MVCC和事务的隔离级别" class="headerlink" title="2.2.1MVCC和事务的隔离级别"></a>2.2.1MVCC和事务的隔离级别</h3><p>数据库事务有不同的隔离级别，不同的隔离级别对锁的使用是不同的，<strong>锁的应用最终导致不同事务的隔离级别</strong></p>
+<p>MVCC（Multi-Version Concurrency Control，多版本并发控制）是用 <strong>同一份数据临时保留多版本的方式</strong> 的方式，实现并发控制。</p>
+<p>innodb 中 MVCC 用在 Repeatable-Read 隔离级别。</p>
+<p>MVCC 会产生幻读问题（更新时异常。） </p>
+<p>Innodb的实现方式是：</p>
+<ul>
+<li>事务以排他锁的形式修改原始数据</li>
+<li>把修改前的数据存放于undo log，通过回滚指针与主数据关联</li>
+<li>修改成功（commit）啥都不做，失败则恢复undo log中的数据（rollback）</li>
+</ul>
+<p>MVCC(Multi-Version Concurrency Control)多版本并发控制，可以简单地认为：<strong>MVCC就是行级锁的一个变种(升级版)</strong>。</p>
+<ul>
+<li>事务的隔离级别就是<strong>通过锁的机制来实现</strong>，只不过<strong>隐藏了加锁细节</strong></li>
+</ul>
+<p>在<strong>表锁中我们读写是阻塞</strong>的，基于提升并发性能的考虑，<strong>MVCC一般读写是不阻塞的</strong>(所以说MVCC很多情况下避免了加锁的操作)</p>
+<ul>
+<li>MVCC实现的<strong>读写不阻塞</strong>正如其名：<strong>多版本</strong>并发控制—&gt;通过一定机制生成一个数据请求<strong>时间点的一致性数据快照（Snapshot)</strong>，并用这个快照来提供一定级别（<strong>语句级或事务级</strong>）的<strong>一致性读取</strong>。从用户的角度来看，好像是<strong>数据库可以提供同一数据的多个版本</strong>。</li>
+</ul>
+<p>快照有<strong>两个级别</strong>：</p>
+<ul>
+<li>语句级 <ul>
+<li>针对于<code>Read committed</code>隔离级别</li>
+</ul>
+</li>
+<li>事务级别 <ul>
+<li>针对于<code>Repeatable read</code>隔离级别</li>
+</ul>
+</li>
+</ul>
+<p>我们在初学的时候已经知道，事务的隔离级别有<strong>4种</strong>：</p>
+<ul>
+<li>Read uncommitted <ul>
+<li>会出现脏读，不可重复读，幻读</li>
+</ul>
+</li>
+<li>Read committed <ul>
+<li>会出现不可重复读，幻读</li>
+</ul>
+</li>
+<li>Repeatable read <ul>
+<li>会出现幻读(但在Mysql实现的Repeatable read配合gap锁不会出现幻读！)</li>
+</ul>
+</li>
+<li>Serializable <ul>
+<li>串行，避免以上的情况！</li>
+</ul>
+</li>
+</ul>
+<hr>
+<p><code>Read uncommitted</code>会出现的现象—&gt;脏读：<strong>一个事务读取到另外一个事务未提交的数据</strong></p>
+<ul>
+<li>例子：A向B转账，<strong>A执行了转账语句，但A还没有提交事务，B读取数据，发现自己账户钱变多了</strong>！B跟A说，我已经收到钱了。A回滚事务【rollback】，等B再查看账户的钱时，发现钱并没有多。</li>
+<li>出现脏读的本质就是因为<strong>操作(修改)完该数据就立马释放掉锁</strong>，导致读的数据就变成了无用的或者是<strong>错误的数据</strong>。</li>
+</ul>
+<hr>
+<p><code>Read committed</code><strong>避免脏读</strong>的做法其实很简单：</p>
+<ul>
+<li>就是把<strong>释放锁的位置调整到事务提交之后</strong>，此时在事务提交前，其他进程是无法对该行数据进行读取的，包括任何操作</li>
+</ul>
+<p>但<code>Read committed</code>出现的现象—&gt;不可重复读：<strong>一个事务读取到另外一个事务已经提交的数据，也就是说一个事务可以看到其他事务所做的修改</strong></p>
+<ul>
+<li>注：<strong>A查询数据库得到数据，B去修改数据库的数据，导致A多次查询数据库的结果都不一样【危害：A每次查询的结果都是受B的影响的，那么A查询出来的信息就没有意思了】</strong></li>
+</ul>
+<hr>
+<p>上面也说了，<code>Read committed</code>是<strong>语句级别</strong>的快照！<strong>每次读取的都是当前最新的版本</strong>！</p>
+<p><code>Repeatable read</code>避免不可重复读是<strong>事务级别</strong>的快照！每次读取的都是当前事务的版本，即使被修改了，也只会读取当前事务版本的数据。</p>
+<p><strong>通过隐藏版本列来实现 MVCC 控制，一列记录创建时间、一列记录删除时间，存储的是系统版本号 ，每开始一个事务，版本号就会递增，innodb只查找版本比当前事务版本小（或等于）的 行，确保事务读取的行，要么是事务开始前已经存在的，要么是事务自生插入或者修改过的</strong></p>
+<p>至于虚读(幻读)：<strong>是指在一个事务内读取到了别的事务插入的数据，导致前后读取不一致。</strong></p>
+<ul>
+<li>注：<strong>和不可重复读类似，但虚读(幻读)会读到其他事务的插入的数据，导致前后读取不一致</strong></li>
+<li>MySQL的<code>Repeatable read</code>隔离级别加上GAP间隙锁<strong>已经处理了幻读了</strong>。</li>
+</ul>
+<p>参考资料：</p>
+<ul>
+<li><a href="https://link.juejin.im?target=https%3A%2F%2Fwww.jianshu.com%2Fp%2Fcb97f76a92fd" target="_blank" rel="noopener">www.jianshu.com/p/cb97f76a9…</a></li>
+<li><a href="https://link.juejin.im?target=https%3A%2F%2Fwww.zhihu.com%2Fquestion%2F263820564" target="_blank" rel="noopener">www.zhihu.com/question/26…</a></li>
+</ul>
+<p>扩展阅读：</p>
+<ul>
+<li><a href="https://link.juejin.im?target=https%3A%2F%2Fwww.zhihu.com%2Fquestion%2F67739617" target="_blank" rel="noopener">www.zhihu.com/question/67…</a></li>
+</ul>
+<h2 id="2-3乐观锁和悲观锁"><a href="#2-3乐观锁和悲观锁" class="headerlink" title="2.3乐观锁和悲观锁"></a>2.3乐观锁和悲观锁</h2><p>无论是<code>Read committed</code>还是<code>Repeatable read</code>隔离级别，都是为了解决<strong>读写冲突</strong>的问题。</p>
+<p>单纯在<code>Repeatable read</code>隔离级别下我们来考虑一个问题：</p>
+<p><img src="https://user-gold-cdn.xitu.io/2018/7/23/164c6d7b64b8c6fa?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="img"></p>
+<p>此时，用户李四的操作就丢失掉了：</p>
+<ul>
+<li><strong>丢失更新</strong>：一个事务的更新<strong>覆盖了其它事务的更新结果</strong>。</li>
+</ul>
+<p>(ps:暂时没有想到比较好的例子来说明更新丢失的问题，虽然上面的例子也是更新丢失，但<strong>一定程度上是可接受的</strong>..不知道有没有人能想到不可接受的更新丢失例子呢…)</p>
+<p>解决的方法：</p>
+<ul>
+<li>使用Serializable隔离级别，事务是串行执行的！</li>
+<li>乐观锁</li>
+<li>悲观锁</li>
+</ul>
+<blockquote>
+<ol>
+<li>乐观锁是一种思想，具体实现是，表中有一个版本字段，第一次读的时候，获取到这个字段。处理完业务逻辑开始更新的时候，需要再次查看该字段的值是否和第一次的一样。如果一样更新，反之拒绝。之所以叫乐观，因为这个模式没有从数据库加锁，等到更新的时候再判断是否可以更新。</li>
+<li>悲观锁是数据库层面加锁，都会阻塞去等待锁。</li>
+</ol>
+</blockquote>
+<h3 id="2-3-1悲观锁"><a href="#2-3-1悲观锁" class="headerlink" title="2.3.1悲观锁"></a>2.3.1悲观锁</h3><p>所以，按照上面的例子。我们使用悲观锁的话其实很简单(手动加行锁就行了)：</p>
+<ul>
+<li><code>select * from xxxx for update</code></li>
+</ul>
+<p>在select 语句后边加了 <code>for update</code>相当于加了排它锁(写锁)，加了写锁以后，其他的事务就不能对它修改了！需要等待当前事务修改完之后才可以修改.</p>
+<ul>
+<li>也就是说，如果张三使用<code>select ... for update</code>，李四就无法对该条记录修改了~</li>
+</ul>
+<h3 id="2-3-2乐观锁"><a href="#2-3-2乐观锁" class="headerlink" title="2.3.2乐观锁"></a>2.3.2乐观锁</h3><p>乐观锁不是数据库层面上的锁，是需要自己手动去加的锁。一般我们添加一个版本字段来实现：</p>
+<p>参考资料：</p>
+<ul>
+<li><a href="https://link.juejin.im?target=https%3A%2F%2Fzhuanlan.zhihu.com%2Fp%2F31537871" target="_blank" rel="noopener">zhuanlan.zhihu.com/p/31537871</a>—什么是悲观锁和乐观锁</li>
+<li><a href="https://link.juejin.im?target=https%3A%2F%2Fwww.zhihu.com%2Fquestion%2F27876575" target="_blank" rel="noopener">www.zhihu.com/question/27…</a>—乐观锁和 MVCC 的区别？</li>
+</ul>
+<h2 id="2-4间隙锁GAP"><a href="#2-4间隙锁GAP" class="headerlink" title="2.4间隙锁GAP"></a>2.4间隙锁GAP</h2><p>当我们<strong>用范围条件检索数据</strong>而不是相等条件检索数据，并请求共享或排他锁时，InnoDB会给<strong>符合范围条件的已有数据记录的索引项加锁</strong>；对于键值在条件范围内但并不存在的记录，叫做“间隙（GAP)”。InnoDB也会对这个“间隙”加锁，这种锁机制就是所谓的间隙锁。</p>
+<p>值得注意的是：间隙锁只会在<code>Repeatable read</code>隔离级别下使用~</p>
+<p>例子：假如emp表中只有101条记录，其empid的值分别是1,2,…,100,101</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Select * from  emp where empid &gt; 100 for update;</span><br><span class="line"></span><br><span class="line">复制代码</span><br></pre></td></tr></table></figure>
+<p>上面是一个范围查询，InnoDB<strong>不仅</strong>会对符合条件的empid值为101的记录加锁，也会对<strong>empid大于101（这些记录并不存在）的“间隙”加锁</strong>。</p>
+<p>InnoDB使用间隙锁的目的有两个：</p>
+<ul>
+<li><strong>为了防止幻读</strong>(上面也说了，<code>Repeatable read</code>隔离级别下再通过GAP锁即可避免了幻读)</li>
+<li>满足恢复和复制的需要<ul>
+<li>MySQL的恢复机制要求：<strong>在一个事务未提交前，其他并发事务不能插入满足其锁定条件的任何记录，也就是不允许出现幻读</strong></li>
+</ul>
+</li>
+</ul>
+<h2 id="2-5死锁"><a href="#2-5死锁" class="headerlink" title="2.5死锁"></a>2.5死锁</h2><p>并发的问题就少不了死锁，在MySQL中同样会存在死锁的问题。</p>
+<p>但一般来说MySQL通过回滚帮我们解决了不少死锁的问题了，但死锁是无法完全避免的，可以通过以下的经验参考，来尽可能少遇到死锁：</p>
+<ul>
+<li>1）以<strong>固定的顺序</strong>访问表和行。比如对两个job批量更新的情形，简单方法是对id列表先排序，后执行，这样就避免了交叉等待锁的情形；将两个事务的sql顺序调整为一致，也能避免死锁。</li>
+<li>2）<strong>大事务拆小</strong>。大事务更倾向于死锁，如果业务允许，将大事务拆小。</li>
+<li>3）在同一个事务中，尽可能做到<strong>一次锁定</strong>所需要的所有资源，减少死锁概率。</li>
+<li>4）<strong>降低隔离级别</strong>。如果业务允许，将隔离级别调低也是较好的选择，比如将隔离级别从RR调整为RC，可以避免掉很多因为gap锁造成的死锁。</li>
+<li>5）<strong>为表添加合理的索引</strong>。可以看到如果不走索引将会为表的每一行记录添加上锁，死锁的概率大大增大。</li>
+</ul>
+<p>参考资料：</p>
+<ul>
+<li><a href="https://link.juejin.im?target=http%3A%2F%2Fhedengcheng.com%2F%3Fp%3D771%23_Toc374698322" target="_blank" rel="noopener">hedengcheng.com/?p=771#_Toc…</a></li>
+<li><a href="https://link.juejin.im?target=https%3A%2F%2Fwww.cnblogs.com%2FLBSer%2Fp%2F5183300.html" target="_blank" rel="noopener">www.cnblogs.com/LBSer/p/518…</a></li>
+</ul>
+<h2 id="2-6锁总结"><a href="#2-6锁总结" class="headerlink" title="2.6锁总结"></a>2.6锁总结</h2><p>InnoDB<strong>基于行锁</strong>还实现了MVCC多版本并发控制，MVCC在隔离级别下的<code>Read committed</code>和<code>Repeatable read</code>下工作。MVCC能够实现<strong>读写不阻塞</strong>！</p>
+<p>InnoDB实现的<code>Repeatable read</code>隔离级别配合GAP间隙锁已经避免了幻读！</p>
+<ul>
+<li>乐观锁其实是一种思想，正如其名：认为不会锁定的情况下去更新数据，如果发现不对劲，才不更新(回滚)。在数据库中往往添加一个version字段来实现。</li>
+<li>悲观锁用的就是数据库的行锁，认为数据库会发生并发冲突，直接上来就把数据锁住，其他事务不能修改，直至提交了当前事务</li>
+</ul>
+<p>参考资料：</p>
+<ul>
+<li><a href="https://link.juejin.im?target=https%3A%2F%2Fzhuanlan.zhihu.com%2Fp%2F29150809" target="_blank" rel="noopener">zhuanlan.zhihu.com/p/29150809</a>–Mysql锁总结</li>
+<li><a href="https://link.juejin.im?target=https%3A%2F%2Fblog.csdn.net%2Fmysteryhaohao%2Farticle%2Fdetails%2F51669741" target="_blank" rel="noopener">blog.csdn.net/mysteryhaoh…</a>–MySQL学习之——锁(行锁、表锁、页锁、乐观锁、悲观锁等)</li>
+<li><a href="https://link.juejin.im?target=https%3A%2F%2Fsegmentfault.com%2Fa%2F1190000015596126" target="_blank" rel="noopener">segmentfault.com/a/119000001…</a>–MySQL InnoDB引擎锁的总结</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/锁/" rel="tag"><i class="fa fa-tag"></i> 锁</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/05/14/数据库/数据库索引/" rel="next" title="数据库索引">
+                <i class="fa fa-chevron-left"></i> 数据库索引
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/05/14/设计模式/GOF/" rel="prev" title="">
+                 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8zOTAzNS8xNTU2Mg=="></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="mason" />
+            
+              <p class="site-author-name" itemprop="name">mason</p>
+              <p class="site-description motion-element" itemprop="description">热心市民</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">93</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">38</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/masonnpe" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:masonnpe@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://cmsblogs.com/" title="cmsblogs" target="_blank">cmsblogs</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://hellojava.info/" title="hellojava" target="_blank">hellojava</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.importnew.com/" title="ImportNew" target="_blank">ImportNew</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.ideabuffer.cn/" title="ideabuffer" target="_blank">ideabuffer</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://crossoverjie.top/" title="crossoverjie" target="_blank">crossoverjie</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.hollischuang.com/" title="hollischuang" target="_blank">hollischuang</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://blog.csdn.net/u013256816" title="朱小厮" target="_blank">朱小厮</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://afoo.me/" title="扶墙老师" target="_blank">扶墙老师</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://tech.meituan.com/" title="美团点评" target="_blank">美团点评</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://blog.didispace.com/" title="程序猿DD" target="_blank">程序猿DD</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.iocoder.cn/" title="芋道源码" target="_blank">芋道源码</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://jm.taobao.org/" title="阿里中间件" target="_blank">阿里中间件</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://ifeve.com/" title="并发编程网" target="_blank">并发编程网</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.cnblogs.com/xrq730" title="五月的仓颉" target="_blank">五月的仓颉</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.cnblogs.com/skywang12345/" title="如果天空不死" target="_blank">如果天空不死</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.weiweiblog.cn/" title="尾尾部落" target="_blank">尾尾部落</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://blog.720ui.com/" title="梁桂钊的博客" target="_blank">梁桂钊的博客</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#三级封锁协议"><span class="nav-number">1.</span> <span class="nav-text">三级封锁协议</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#InnoDB-锁"><span class="nav-number">2.</span> <span class="nav-text">InnoDB 锁</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Record-Locks"><span class="nav-number">2.1.</span> <span class="nav-text">Record Locks</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Gap-Locks"><span class="nav-number">2.2.</span> <span class="nav-text">Gap Locks</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Next-Key-Locks"><span class="nav-number">2.3.</span> <span class="nav-text">Next-Key Locks</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2表锁简单介绍"><span class="nav-number">3.</span> <span class="nav-text">2.2表锁简单介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2行锁细讲"><span class="nav-number">4.</span> <span class="nav-text">2.2行锁细讲</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-1MVCC和事务的隔离级别"><span class="nav-number">4.1.</span> <span class="nav-text">2.2.1MVCC和事务的隔离级别</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-3乐观锁和悲观锁"><span class="nav-number">5.</span> <span class="nav-text">2.3乐观锁和悲观锁</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-1悲观锁"><span class="nav-number">5.1.</span> <span class="nav-text">2.3.1悲观锁</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-2乐观锁"><span class="nav-number">5.2.</span> <span class="nav-text">2.3.2乐观锁</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-4间隙锁GAP"><span class="nav-number">6.</span> <span class="nav-text">2.4间隙锁GAP</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-5死锁"><span class="nav-number">7.</span> <span class="nav-text">2.5死锁</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-6锁总结"><span class="nav-number">8.</span> <span class="nav-text">2.6锁总结</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">mason</span>
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
